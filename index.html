@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fardin Iqbal - Portfolio</title>
+    <!-- Include Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Include your CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-logo">Fardin Iqbal</div>
+        <div class="nav-links">
+            <a href="#about"><i class="fas fa-user"></i> About</a>
+            <a href="#skills"><i class="fas fa-code"></i> Skills</a>
+            <a href="#experience"><i class="fas fa-briefcase"></i> Experience</a>
+            <a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a>
+            <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" class="hamburger-icon">
+                <line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="2"/>
+                <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2"/>
+                <line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="2"/>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="geometric-background"></div>
+        <div class="hero-content">
+            <h1>Fardin Iqbal</h1>
+            <p>Computer Science Student At Stony Brook University</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary"><i class="fas fa-envelope"></i> Contact Me</a>
+                <a href="assets/Fardin_Iqbal_Resume.pdf" class="btn btn-secondary" download><i class="fas fa-download"></i> Download Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <img src="assets/profile-pic.jpeg" alt="Photo of Fardin Iqbal" class="profile-pic">
+            <p>Hello! I'm Fardin Iqbal, a Computer Science student at Stony Brook University with a deep passion for crafting intuitive web experiences and uncovering insights through data visualization. My journey into tech began with a simple curiosity about how websites work, which quickly evolved into a dedication to building applications that make a real-world impact.</p>
+            <p>With hands-on experience in both frontend and backend development, I enjoy turning complex problems into user-friendly solutions. Whether it's developing a full-stack application or visualizing data patterns, I strive to merge efficiency with elegance in every project.</p>
+            <p>When I'm not coding, you might find me exploring the latest tech trends, contributing to open-source projects, or engaging with the developer community. I'm always eager to learn and collaborate on innovative ideas that push the boundaries of what's possible.</p>
+        </div>
+        <div class="education">
+            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+            <p><strong>Stony Brook University</strong> &mdash; B.S. in Computer Science, Aug. 2022 - May 2026</p>
+            <p><strong>GPA:</strong> 3.13/4.0 | Dean’s List</p>
+            <p><strong>Relevant Coursework:</strong> Data Structures, Systems Fundamentals, Probability & Statistics</p>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skills-category">
+                <h3><i class="fas fa-code"></i> Languages & Frameworks</h3>
+                <ul>
+                    <li>Python (Django)</li>
+                    <li>Ruby (Rails)</li>
+                    <li>HTML/CSS (Tailwind)</li>
+                    <li>JavaScript (React)</li>
+                    <li>C# (Unity)</li>
+                </ul>
+            </div>
+            <div class="skills-category">
+                <h3><i class="fas fa-tools"></i> Tools & Technologies</h3>
+                <ul>
+                    <li>Git, Linux</li>
+                    <li>AWS, Terraform, Heroku</li>
+                    <li>Jira, Agile Methodologies</li>
+                    <li>PostgreSQL, MongoDB</li>
+                    <li>Docker</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <h2>Experience</h2>
+        <div class="experience-grid">
+            <div class="experience-card">
+                <h3><i class="fas fa-building"></i> Design & Construction Technology Intern</h3>
+                <p>Beyer Blinder Belle (BBB) &middot; June 2024 – August 2024</p>
+                <ul>
+                    <li>Automated BIM file management with Python and Tkinter GUI.</li>
+                    <li>Integrated Windows Task Scheduler for automation, including data verification and logging.</li>
+                    <li>Leveraged SQLite and PowerBI for data visualization and tracking.</li>
+                </ul>
+            </div>
+            <div class="experience-card">
+                <h3><i class="fas fa-chart-line"></i> Marketing Intern</h3>
+                <p>The Hardy Group &middot; October 2023 – December 2023</p>
+                <ul>
+                    <li>Migrated and optimized client data management with Airtable and Excel.</li>
+                    <li>Conducted data analysis, improving accuracy and recommending strategic actions.</li>
+                </ul>
+            </div>
+            <div class="experience-card">
+                <h3><i class="fas fa-laptop-code"></i> Web Developer</h3>
+                <p>International Socioeconomic Laboratory & Finxerunt &middot; May 2022 – April 2023</p>
+                <ul>
+                    <li>Led website transition from SquareSpace to self-hosted with HTML, CSS, and JavaScript.</li>
+                    <li>Mentored a team of 10, focusing on responsive design and user experience.</li>
+                    <li>Reduced code by 80% and improved functionality.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>FairShare</h3>
+                <p>A full-stack expense-sharing app built with Ruby on Rails, featuring user authentication and real-time balance calculations.</p>
+                <div class="project-tech">
+                    <span>Ruby on Rails</span>
+                    <span>PostgreSQL</span>
+                    <span>AWS</span>
+                </div>
+                <a href="https://github.com/FardinIqbal/FairShare" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+            <div class="project-card">
+                <h3>VerseCraft</h3>
+                <p>A poetry-sharing platform with real-time interactivity using Hotwire, focused on a minimalist UI inspired by The New Yorker.</p>
+                <div class="project-tech">
+                    <span>Ruby on Rails</span>
+                    <span>SCSS</span>
+                    <span>Hotwire</span>
+                </div>
+                <a href="https://github.com/FardinIqbal/VerseCraft" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+            <div class="project-card">
+                <h3>Spectrum Analyzer</h3>
+                <p>A 3D data visualization tool for analyzing exoplanet flux data from the James Webb Telescope.</p>
+                <div class="project-tech">
+                    <span>Python</span>
+                    <span>Flask</span>
+                    <span>Plotly</span>
+                </div>
+                <a href="https://github.com/FardinIqbal/spectrum-analyzer" target="_blank" class="btn btn-primary"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-container">
+            <a href="mailto:fardin.iqbal@stonybrook.edu" class="contact-link"><i class="fas fa-envelope"></i> fardin.iqbal@stonybrook.edu</a>
+            <a href="https://linkedin.com/in/fardin-iqbal-618460187" target="_blank" class="contact-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/FardinIqbal" target="_blank" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Fardin Iqbal. All rights reserved.</p>
+    </footer>
+
+    <!-- Include your JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
