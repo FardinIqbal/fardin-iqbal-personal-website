@@ -1,0 +1,642 @@
+{
+  "_schema": "Arboretum of the Soul - Living Insight Tree",
+  "_version": "1.0.0",
+  "_lastUpdated": "2026-01-02",
+  "config": {
+    "rings": [
+      { "year": 2020, "density": 0.4, "dominantEmotion": "fear", "events": ["Pandemic start", "Uncertainty"] },
+      { "year": 2021, "density": 0.5, "dominantEmotion": "longing", "events": ["Remote learning", "Isolation"] },
+      { "year": 2022, "density": 0.6, "dominantEmotion": "hope", "events": ["Return to campus", "New connections"] },
+      { "year": 2023, "density": 0.7, "dominantEmotion": "peace", "events": ["BJJ journey begins", "Trading exploration"] },
+      { "year": 2024, "density": 0.8, "dominantEmotion": "acceptance", "events": ["Neo Provider founded", "NYCHA internship"] },
+      { "year": 2025, "density": 0.9, "dominantEmotion": "hope", "events": ["Final semester", "Portfolio evolution"] }
+    ],
+    "branches": [
+      { "branch": "relationships", "baseAngle": 45, "curvature": 0.3, "thickness": 1.2, "color": "#ec4899", "emotionalBias": 0.1 },
+      { "branch": "career", "baseAngle": -30, "curvature": 0.2, "thickness": 1.4, "color": "#f59e0b", "emotionalBias": 0.2 },
+      { "branch": "trauma", "baseAngle": 135, "curvature": -0.4, "thickness": 0.9, "color": "#ef4444", "emotionalBias": -0.5 },
+      { "branch": "joy", "baseAngle": -60, "curvature": 0.5, "thickness": 1.0, "color": "#10b981", "emotionalBias": 0.8 },
+      { "branch": "growth", "baseAngle": 0, "curvature": 0.1, "thickness": 1.3, "color": "#8b5cf6", "emotionalBias": 0.3 },
+      { "branch": "identity", "baseAngle": 90, "curvature": 0.2, "thickness": 1.1, "color": "#6366f1", "emotionalBias": 0.0 },
+      { "branch": "purpose", "baseAngle": -90, "curvature": 0.3, "thickness": 1.2, "color": "#06b6d4", "emotionalBias": 0.4 }
+    ],
+    "sapFlow": {
+      "speed": 0.5,
+      "sentimentColors": {
+        "grief": "#1e3a5f",
+        "anger": "#dc2626",
+        "fear": "#7c3aed",
+        "joy": "#fbbf24",
+        "peace": "#10b981",
+        "longing": "#8b5cf6",
+        "hope": "#3b82f6",
+        "acceptance": "#6ee7b7"
+      }
+    },
+    "vitality": 0.75
+  },
+  "insights": [
+    {
+      "id": "core-avoidance-loop",
+      "title": "The Core Avoidance Loop",
+      "content": "Fear of failure leads to not attempting, which keeps the dream alive. But guilt builds, leading to procrastination, feeling worse, and the fear growing. The cycle repeats. Not trading keeps trading as a potential escape. Actually trading and failing would remove the backup plan. The paralysis is protective.",
+      "branch": "trauma",
+      "secondaryBranches": ["career", "identity"],
+      "emotion": {
+        "buoyancy": -0.7,
+        "intensity": 0.9,
+        "tone": "fear",
+        "undertones": ["longing", "grief"]
+      },
+      "temporal": {
+        "year": 2023,
+        "isFoundational": true
+      },
+      "connections": [
+        { "targetId": "paper-trading-paradox", "type": "led_to", "strength": 0.9 },
+        { "targetId": "worth-productivity", "type": "echoes", "strength": 0.8 },
+        { "targetId": "late-waking", "type": "led_to", "strength": 0.7 }
+      ],
+      "tags": ["avoidance", "fear", "trading", "paralysis", "protective"],
+      "bloom": {
+        "color": "#7c3aed",
+        "size": 1.8,
+        "glow": 0.9,
+        "variant": 1
+      },
+      "microWorld": {
+        "narrative": "A loop that feeds itself. Each revolution tightens the spiral. The fear isn't of failure—it's of discovering the limits of your potential. As long as you don't try, you can believe you're capable of anything.",
+        "soundscape": "void",
+        "visualElements": ["spiral", "clock", "mirror"],
+        "quotes": [
+          { "text": "We suffer more often in imagination than in reality.", "source": "Seneca" }
+        ]
+      },
+      "shadowSelf": {
+        "inversion": "The loop also protects possibility. Untested potential is infinite.",
+        "avoidance": "The fear of being ordinary",
+        "underlyingFear": "That you are not special"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "late-waking",
+      "title": "The Late Waking Pattern",
+      "content": "Waking after 12pm has persisted through an entire semester. It misses the trading window, compounds guilt throughout the day, and creates a cascading failure of planned activities.",
+      "branch": "career",
+      "secondaryBranches": ["growth"],
+      "emotion": {
+        "buoyancy": -0.4,
+        "intensity": 0.6,
+        "tone": "grief",
+        "undertones": ["anger"]
+      },
+      "temporal": {
+        "year": 2024,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "core-avoidance-loop", "type": "caused_by", "strength": 0.7 },
+        { "targetId": "phone-scrolling", "type": "echoes", "strength": 0.6 }
+      ],
+      "tags": ["productivity", "sleep", "trading", "guilt"],
+      "bloom": {
+        "color": "#f59e0b",
+        "size": 1.0,
+        "glow": 0.5,
+        "variant": 2
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "phone-scrolling",
+      "title": "The Phone Scroll Sink",
+      "content": "Approximately 6 hours per day consumed by phone scrolling. It's the primary time sink and escape mechanism. The compulsion increases when facing difficult tasks.",
+      "branch": "growth",
+      "emotion": {
+        "buoyancy": -0.3,
+        "intensity": 0.5,
+        "tone": "longing"
+      },
+      "temporal": {
+        "year": 2024,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "late-waking", "type": "echoes", "strength": 0.6 },
+        { "targetId": "core-avoidance-loop", "type": "caused_by", "strength": 0.5 }
+      ],
+      "tags": ["distraction", "phone", "escape", "time"],
+      "bloom": {
+        "color": "#8b5cf6",
+        "size": 0.9,
+        "glow": 0.4,
+        "variant": 3
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "break-degeneration",
+      "title": "The Break Degeneration Cycle",
+      "content": "2-3 weeks into any break, habits collapse. The pattern is consistent: initial productivity, gradual erosion, complete collapse. Temporary spaces amplify this—home during breaks feels impermanent.",
+      "branch": "growth",
+      "secondaryBranches": ["identity"],
+      "emotion": {
+        "buoyancy": -0.5,
+        "intensity": 0.7,
+        "tone": "grief"
+      },
+      "temporal": {
+        "year": 2023,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "environment-sensitivity", "type": "echoes", "strength": 0.8 },
+        { "targetId": "late-waking", "type": "led_to", "strength": 0.6 }
+      ],
+      "tags": ["habits", "breaks", "environment", "collapse"],
+      "bloom": {
+        "color": "#8b5cf6",
+        "size": 1.1,
+        "glow": 0.6,
+        "variant": 1
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "paper-trading-paradox",
+      "title": "The Paper Trading Paradox",
+      "content": "Paper trading vs real trading reveals avoidance of high-stakes commitment. Trading remains a 'potential escape' as long as you don't actually commit. Succeeding would prove capability; failing would remove the fantasy. Paper trading keeps both possibilities alive.",
+      "branch": "career",
+      "secondaryBranches": ["identity", "purpose"],
+      "emotion": {
+        "buoyancy": -0.2,
+        "intensity": 0.8,
+        "tone": "fear",
+        "undertones": ["hope"]
+      },
+      "temporal": {
+        "year": 2024,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "core-avoidance-loop", "type": "caused_by", "strength": 0.9 },
+        { "targetId": "intellectual-identity", "type": "echoes", "strength": 0.5 }
+      ],
+      "tags": ["trading", "commitment", "fear", "potential"],
+      "bloom": {
+        "color": "#f59e0b",
+        "size": 1.3,
+        "glow": 0.7,
+        "variant": 2
+      },
+      "shadowSelf": {
+        "inversion": "Paper trading is also learning without risk. Patience before commitment.",
+        "underlyingFear": "That the skill won't transfer to real stakes"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "comparison-trigger",
+      "title": "The Comparison Trigger",
+      "content": "When others succeed, depression and comparison follow. Self-worth is tied to relative position—not absolute achievement. The success of peers feels like personal failure.",
+      "branch": "relationships",
+      "secondaryBranches": ["identity", "trauma"],
+      "emotion": {
+        "buoyancy": -0.6,
+        "intensity": 0.8,
+        "tone": "grief",
+        "undertones": ["anger", "longing"]
+      },
+      "temporal": {
+        "year": 2022,
+        "isFoundational": true
+      },
+      "connections": [
+        { "targetId": "intellectual-identity", "type": "echoes", "strength": 0.7 },
+        { "targetId": "not-invited-trigger", "type": "echoes", "strength": 0.6 }
+      ],
+      "tags": ["comparison", "self-worth", "success", "peers"],
+      "bloom": {
+        "color": "#ec4899",
+        "size": 1.2,
+        "glow": 0.7,
+        "variant": 1
+      },
+      "shadowSelf": {
+        "inversion": "Comparison can also motivate. The sting reveals what you truly want.",
+        "underlyingFear": "Being left behind, being forgotten"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "not-invited-trigger",
+      "title": "The Exclusion Wound",
+      "content": "Not being invited to events triggers feeling peripheral—a deep need to feel vital, special, central. The wound is old and runs deep.",
+      "branch": "relationships",
+      "secondaryBranches": ["trauma"],
+      "emotion": {
+        "buoyancy": -0.7,
+        "intensity": 0.7,
+        "tone": "grief",
+        "undertones": ["anger"]
+      },
+      "temporal": {
+        "year": 2018,
+        "isFoundational": true
+      },
+      "connections": [
+        { "targetId": "comparison-trigger", "type": "echoes", "strength": 0.6 },
+        { "targetId": "intellectual-identity", "type": "echoes", "strength": 0.5 }
+      ],
+      "tags": ["exclusion", "belonging", "worth", "social"],
+      "bloom": {
+        "color": "#ef4444",
+        "size": 1.1,
+        "glow": 0.6,
+        "variant": 3
+      },
+      "shadowSelf": {
+        "inversion": "Not every gathering needs you. Solitude has its own gifts.",
+        "underlyingFear": "Being dispensable"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "parent-tech-rage",
+      "title": "The Parent Tech Rage",
+      "content": "Teaching parents technology triggers explosive anger—an unresolved childhood dynamic surfacing. The anger is disproportionate to the situation, pointing to deeper unprocessed material.",
+      "branch": "trauma",
+      "secondaryBranches": ["relationships"],
+      "emotion": {
+        "buoyancy": -0.8,
+        "intensity": 0.9,
+        "tone": "anger",
+        "undertones": ["grief", "fear"]
+      },
+      "temporal": {
+        "year": 2015,
+        "isFoundational": true
+      },
+      "connections": [],
+      "tags": ["parents", "anger", "childhood", "unresolved"],
+      "bloom": {
+        "color": "#ef4444",
+        "size": 1.4,
+        "glow": 0.8,
+        "variant": 1
+      },
+      "microWorld": {
+        "narrative": "The frustration isn't about the technology. It's about feeling unseen, about years of being the family's IT department while other contributions went unnoticed. It's about growing up too fast.",
+        "soundscape": "fire",
+        "visualElements": ["static", "broken screen", "child's hands"]
+      },
+      "shadowSelf": {
+        "inversion": "The anger shows you care. Apathy would be worse.",
+        "avoidance": "The grief underneath—wanting to be parented, not be the parent",
+        "underlyingFear": "That they'll always need you and never see you"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "relaxation-guilt",
+      "title": "The Relaxation Guilt",
+      "content": "Relaxation triggers guilt because worth equals productivity. Rest feels like failure. The equation is deeply embedded: if you're not producing, you're not valuable.",
+      "branch": "identity",
+      "secondaryBranches": ["trauma", "growth"],
+      "emotion": {
+        "buoyancy": -0.4,
+        "intensity": 0.7,
+        "tone": "fear",
+        "undertones": ["grief"]
+      },
+      "temporal": {
+        "year": 2020,
+        "isFoundational": true
+      },
+      "connections": [
+        { "targetId": "worth-productivity", "type": "echoes", "strength": 0.95 },
+        { "targetId": "core-avoidance-loop", "type": "echoes", "strength": 0.6 }
+      ],
+      "tags": ["rest", "guilt", "worth", "productivity"],
+      "bloom": {
+        "color": "#6366f1",
+        "size": 1.2,
+        "glow": 0.6,
+        "variant": 2
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "worth-productivity",
+      "title": "The Worth = Productivity Equation",
+      "content": "Self-worth is fundamentally tied to output. This makes rest feel like failure and creates a cycle of burnout and shame. The belief was likely formed early.",
+      "branch": "identity",
+      "secondaryBranches": ["trauma"],
+      "emotion": {
+        "buoyancy": -0.5,
+        "intensity": 0.85,
+        "tone": "fear",
+        "undertones": ["grief", "longing"]
+      },
+      "temporal": {
+        "year": 2016,
+        "isFoundational": true
+      },
+      "connections": [
+        { "targetId": "relaxation-guilt", "type": "led_to", "strength": 0.95 },
+        { "targetId": "core-avoidance-loop", "type": "led_to", "strength": 0.7 },
+        { "targetId": "intellectual-identity", "type": "echoes", "strength": 0.6 }
+      ],
+      "tags": ["worth", "productivity", "identity", "belief"],
+      "bloom": {
+        "color": "#6366f1",
+        "size": 1.5,
+        "glow": 0.8,
+        "variant": 1
+      },
+      "shadowSelf": {
+        "inversion": "High standards also drive excellence. The key is decoupling output from inherent worth.",
+        "underlyingFear": "That without achievement, you are nothing"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "intellectual-identity",
+      "title": "Intellectual Identity Protection",
+      "content": "When you don't know something, there's a tendency to exaggerate or make things up. This protects the identity of being the 'smart one' but creates distance from authentic connection.",
+      "branch": "identity",
+      "secondaryBranches": ["relationships"],
+      "emotion": {
+        "buoyancy": -0.3,
+        "intensity": 0.7,
+        "tone": "fear",
+        "undertones": ["longing"]
+      },
+      "temporal": {
+        "year": 2017,
+        "isFoundational": true
+      },
+      "connections": [
+        { "targetId": "comparison-trigger", "type": "echoes", "strength": 0.7 },
+        { "targetId": "worth-productivity", "type": "echoes", "strength": 0.6 }
+      ],
+      "tags": ["intelligence", "identity", "authenticity", "fear"],
+      "bloom": {
+        "color": "#6366f1",
+        "size": 1.3,
+        "glow": 0.7,
+        "variant": 3
+      },
+      "shadowSelf": {
+        "inversion": "The 'smart one' identity also drove learning and curiosity.",
+        "avoidance": "The vulnerability of saying 'I don't know'",
+        "underlyingFear": "That intelligence is all you have"
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "environment-sensitivity",
+      "title": "Environment Sensitivity",
+      "content": "Highly sensitive to physical environment. Temporary spaces (home during break) prevent focus and lead to mess. Stable, familiar spaces enable productivity. Cluttered room = cluttered mind.",
+      "branch": "growth",
+      "emotion": {
+        "buoyancy": 0.1,
+        "intensity": 0.5,
+        "tone": "acceptance"
+      },
+      "temporal": {
+        "year": 2022,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "break-degeneration", "type": "led_to", "strength": 0.8 }
+      ],
+      "tags": ["environment", "space", "productivity", "sensitivity"],
+      "bloom": {
+        "color": "#10b981",
+        "size": 1.0,
+        "glow": 0.5,
+        "variant": 2
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "group-surface",
+      "title": "Surface-Level in Groups",
+      "content": "Group settings stay surface-level. Deeper connection only happens one-on-one. Large groups trigger performance mode rather than authentic presence.",
+      "branch": "relationships",
+      "emotion": {
+        "buoyancy": 0.0,
+        "intensity": 0.4,
+        "tone": "acceptance"
+      },
+      "temporal": {
+        "year": 2021,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "intellectual-identity", "type": "echoes", "strength": 0.4 }
+      ],
+      "tags": ["social", "groups", "authenticity", "connection"],
+      "bloom": {
+        "color": "#ec4899",
+        "size": 0.9,
+        "glow": 0.4,
+        "variant": 1
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "physical-habits-stick",
+      "title": "Physical Habits Stick",
+      "content": "BJJ and gym are consistent while trading and other mental pursuits aren't. Physical habits have stickiness that mental ones lack. The body remembers what the mind forgets.",
+      "branch": "growth",
+      "secondaryBranches": ["joy"],
+      "emotion": {
+        "buoyancy": 0.6,
+        "intensity": 0.6,
+        "tone": "hope"
+      },
+      "temporal": {
+        "year": 2023,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "bjj-anchor", "type": "echoes", "strength": 0.9 }
+      ],
+      "tags": ["habits", "physical", "consistency", "bjj", "gym"],
+      "bloom": {
+        "color": "#10b981",
+        "size": 1.2,
+        "glow": 0.7,
+        "variant": 1
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "bjj-anchor",
+      "title": "BJJ as Life Anchor",
+      "content": "BJJ and gym are the consistent anchors. They should be the foundation—schedule other commitments around them, not the reverse. The mat doesn't lie.",
+      "branch": "joy",
+      "secondaryBranches": ["growth", "purpose"],
+      "emotion": {
+        "buoyancy": 0.8,
+        "intensity": 0.7,
+        "tone": "peace",
+        "undertones": ["joy"]
+      },
+      "temporal": {
+        "year": 2023,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "physical-habits-stick", "type": "led_to", "strength": 0.9 }
+      ],
+      "tags": ["bjj", "anchor", "consistency", "foundation"],
+      "bloom": {
+        "color": "#10b981",
+        "size": 1.4,
+        "glow": 0.8,
+        "variant": 2
+      },
+      "microWorld": {
+        "narrative": "On the mat, there are no abstractions. Your technique either works or it doesn't. Your conditioning is either sufficient or it isn't. This clarity is a gift in a world of ambiguity.",
+        "soundscape": "silence",
+        "quotes": [
+          { "text": "A black belt is a white belt who never quit.", "source": "BJJ Proverb" }
+        ]
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "one-goal-principle",
+      "title": "One Goal, Not Many",
+      "content": "Historical pattern: too many goals leads to none completed. Pick the single most important thing and protect it ruthlessly. Dilution is the enemy of achievement.",
+      "branch": "purpose",
+      "emotion": {
+        "buoyancy": 0.4,
+        "intensity": 0.6,
+        "tone": "acceptance"
+      },
+      "temporal": {
+        "year": 2024,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "core-avoidance-loop", "type": "transforms", "strength": 0.5 }
+      ],
+      "tags": ["goals", "focus", "priority", "discipline"],
+      "bloom": {
+        "color": "#06b6d4",
+        "size": 1.1,
+        "glow": 0.6,
+        "variant": 1
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "make-it-real",
+      "title": "Make It Real",
+      "content": "The paper trading pattern applies everywhere. At some point, you have to make the real trade, publish the real content, send the real message. The fantasy is comfortable but static.",
+      "branch": "purpose",
+      "secondaryBranches": ["growth"],
+      "emotion": {
+        "buoyancy": 0.5,
+        "intensity": 0.7,
+        "tone": "hope"
+      },
+      "temporal": {
+        "year": 2025,
+        "isFoundational": false
+      },
+      "connections": [
+        { "targetId": "paper-trading-paradox", "type": "transforms", "strength": 0.8 },
+        { "targetId": "core-avoidance-loop", "type": "heals", "strength": 0.6 }
+      ],
+      "tags": ["action", "real", "commitment", "courage"],
+      "bloom": {
+        "color": "#3b82f6",
+        "size": 1.3,
+        "glow": 0.75,
+        "variant": 2
+      },
+      "microWorld": {
+        "narrative": "The gap between potential and kinetic energy is a single decision. Every dream unrealized is a weight. Every action taken—even failed—is liberation.",
+        "soundscape": "wind",
+        "quotes": [
+          { "text": "The only way to do great work is to love what you do.", "source": "Steve Jobs" }
+        ]
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    },
+    {
+      "id": "editing-bottleneck",
+      "title": "The Editing Bottleneck",
+      "content": "Content ideas are abundant but editing was taking too long. The switch to reels was a workaround. Creation is easy; refinement is the barrier.",
+      "branch": "career",
+      "emotion": {
+        "buoyancy": 0.1,
+        "intensity": 0.4,
+        "tone": "acceptance"
+      },
+      "temporal": {
+        "year": 2024,
+        "isFoundational": false
+      },
+      "connections": [],
+      "tags": ["content", "editing", "bottleneck", "adaptation"],
+      "bloom": {
+        "color": "#f59e0b",
+        "size": 0.8,
+        "glow": 0.4,
+        "variant": 3
+      },
+      "createdAt": "2026-01-02",
+      "updatedAt": "2026-01-02"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "pattern-avoidance-protection",
+      "title": "Avoidance as Protection",
+      "description": "Multiple behaviors serve to protect identity and potential from the risk of failure. Paper trading, late waking, phone scrolling—all maintain the possibility of greatness without testing it.",
+      "relatedInsightIds": ["core-avoidance-loop", "paper-trading-paradox", "late-waking", "phone-scrolling"]
+    },
+    {
+      "id": "pattern-worth-output",
+      "title": "Worth Tied to Output",
+      "description": "A core belief that value comes from production. This drives achievement but makes rest feel shameful and creates burnout cycles.",
+      "relatedInsightIds": ["worth-productivity", "relaxation-guilt", "intellectual-identity"]
+    },
+    {
+      "id": "pattern-physical-anchor",
+      "title": "Physical Practice as Anchor",
+      "description": "BJJ and gym provide consistency that mental pursuits lack. The body as foundation for the mind.",
+      "relatedInsightIds": ["bjj-anchor", "physical-habits-stick"]
+    },
+    {
+      "id": "pattern-environment-dependency",
+      "title": "Environment Shapes State",
+      "description": "Strong sensitivity to physical space. Temporary or cluttered environments fragment focus and enable habit collapse.",
+      "relatedInsightIds": ["environment-sensitivity", "break-degeneration"]
+    }
+  ]
+}
