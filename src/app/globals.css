@@ -42,20 +42,37 @@
   --color-surface-hover: 23 23 23;
 }
 
-/* Light theme - Vercel light */
+/* Light theme - Vercel light with enhanced contrast */
 .light {
   --color-background: 255 255 255;
-  --color-background-secondary: 250 250 250;
-  --color-background-tertiary: 245 245 245;
-  --color-foreground: 10 10 10;
-  --color-foreground-muted: 82 82 82;
-  --color-foreground-subtle: 115 115 115;
-  --color-border: 234 234 234;
-  --color-border-subtle: 245 245 245;
+  --color-background-secondary: 249 250 251;
+  --color-background-tertiary: 243 244 246;
+  --color-foreground: 17 24 39;
+  --color-foreground-muted: 55 65 81;
+  --color-foreground-subtle: 107 114 128;
+  --color-border: 229 231 235;
+  --color-border-subtle: 243 244 246;
 
   /* Card/surface colors */
   --color-surface: 255 255 255;
-  --color-surface-hover: 250 250 250;
+  --color-surface-hover: 249 250 251;
+}
+
+/* Light mode specific enhancements */
+.light .hover-lift:hover {
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.15);
+}
+
+.light .hover-glow:hover {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+}
+
+.light .card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.light .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 @theme inline {
@@ -353,4 +370,152 @@ pre code {
 /* Light mode adjustments for code */
 .light [data-rehype-pretty-code-figure] pre {
   background: rgb(var(--color-background-tertiary)) !important;
+}
+
+/* ============================================
+   ANIMATIONS - Site-wide
+   ============================================ */
+
+/* Keyframe Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes data-flow {
+  0% { stroke-dashoffset: 20; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes scale-in {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
+}
+
+/* Animation Utility Classes */
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-data-flow {
+  animation: data-flow 1s linear infinite;
+  stroke-dasharray: 10 10;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+  transform-origin: center;
+}
+
+.animate-blink {
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* Hover Animations */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.4);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Staggered Animation Delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
+
+/* SVG Animation Styles */
+svg .animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+svg .animate-data-flow {
+  animation: data-flow 1s linear infinite;
+  stroke-dasharray: 10 10;
+}
+
+svg .animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+  transform-origin: center;
+  transform-box: fill-box;
 }

@@ -6,6 +6,32 @@ import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content";
 
+// Staggered letter animation component
+function AnimatedText({ text, className }: { text: string; className?: string }) {
+  const letters = text.split("");
+
+  return (
+    <span className={className}>
+      {letters.map((letter, index) => (
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.4,
+            delay: 0.1 + index * 0.03,
+            ease: [0.2, 0.65, 0.3, 0.9],
+          }}
+          className="inline-block"
+          style={{ display: letter === " " ? "inline" : "inline-block" }}
+        >
+          {letter === " " ? "\u00A0" : letter}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
+
 // Simple grid pattern - Vercel style
 function GridPattern() {
   return (
@@ -79,18 +105,23 @@ export function Hero({ profile }: HeroProps) {
           </span>
         </motion.div>
 
-        {/* Name - clean, no rainbow gradient */}
+        {/* Name - with staggered letter animation */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
         >
-          <span className="block text-foreground-muted text-3xl sm:text-4xl md:text-5xl font-normal mb-2">
+          <motion.span
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="block text-foreground-muted text-3xl sm:text-4xl md:text-5xl font-normal mb-2"
+          >
             Hi, I&apos;m
-          </span>
+          </motion.span>
           <span className="block text-foreground">
-            {profile.name}
+            <AnimatedText text={profile.name} />
           </span>
         </motion.h1>
 
@@ -114,31 +145,46 @@ export function Hero({ profile }: HeroProps) {
           {profile.bio[0]}
         </motion.p>
 
-        {/* CTA Buttons - Vercel style */}
+        {/* CTA Buttons - with hover animations */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
-          <Link
-            href="#projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
+          <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            View My Work
-            <ArrowDown className="w-4 h-4" />
-          </Link>
+            <Link
+              href="#projects"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
+            >
+              View My Work
+              <motion.span
+                animate={{ y: [0, 3, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              >
+                <ArrowDown className="w-4 h-4" />
+              </motion.span>
+            </Link>
+          </motion.div>
 
-          <Link
-            href={profile.resumeUrl}
-            target="_blank"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-background-tertiary hover:border-foreground-subtle transition-all"
+          <motion.div
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Download Resume
-          </Link>
+            <Link
+              href={profile.resumeUrl}
+              target="_blank"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-background-tertiary hover:border-foreground-subtle transition-all"
+            >
+              Download Resume
+            </Link>
+          </motion.div>
         </motion.div>
 
-        {/* Social Links - minimal */}
+        {/* Social Links - with staggered animation */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -149,17 +195,25 @@ export function Hero({ profile }: HeroProps) {
             { icon: Github, href: profile.social.github, label: "GitHub" },
             { icon: Linkedin, href: profile.social.linkedin, label: "LinkedIn" },
             { icon: Mail, href: `mailto:${profile.email}`, label: "Email" },
-          ].map(({ icon: Icon, href, label }) => (
-            <Link
+          ].map(({ icon: Icon, href, label }, index) => (
+            <motion.div
               key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="p-3 rounded-lg text-foreground-muted hover:text-foreground hover:bg-background-tertiary transition-all"
-              aria-label={label}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Icon className="w-5 h-5" />
-            </Link>
+              <Link
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className="p-3 rounded-lg text-foreground-muted hover:text-foreground hover:bg-background-tertiary transition-all block"
+                aria-label={label}
+              >
+                <Icon className="w-5 h-5" />
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       </motion.div>

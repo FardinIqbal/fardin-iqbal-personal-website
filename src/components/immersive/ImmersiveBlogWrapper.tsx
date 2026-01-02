@@ -91,14 +91,21 @@ function ImmersiveTitle({ title }: { title: string }) {
   );
 }
 
+// Seeded random for deterministic values (avoids hydration mismatch)
+function seededRandom(seed: number) {
+  const x = Math.sin(seed * 9999) * 10000;
+  return x - Math.floor(x);
+}
+
 // Floating particles overlay for extra depth
 function FloatingDots() {
+  // Use deterministic values based on index to avoid hydration mismatch
   const dots = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    size: 2 + Math.random() * 4,
-    duration: 10 + Math.random() * 20,
+    x: seededRandom(i * 1) * 100,
+    y: seededRandom(i * 2) * 100,
+    size: 2 + seededRandom(i * 3) * 4,
+    duration: 10 + seededRandom(i * 4) * 20,
   }));
 
   return (

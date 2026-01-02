@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Project, ProjectCategory } from "@/lib/content";
-import { ProjectVisual } from "@/components/ui/ProjectVisual";
+import { AnimatedProjectVisual } from "@/components/ui/AnimatedProjectVisual";
 
 function ProjectCard({
   project,
@@ -20,16 +20,23 @@ function ProjectCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={{ y: -4 }}
       className="group"
     >
-      {/* Card - clean Vercel style */}
-      <div className="relative overflow-hidden rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-colors">
+      {/* Card - clean Vercel style with hover animation */}
+      <div className="relative overflow-hidden rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-all hover-lift hover-glow">
         {/* Visual */}
         <div className="relative h-48 overflow-hidden">
-          <ProjectVisual projectId={project.id} category={project.category} />
+          <AnimatedProjectVisual projectId={project.id} category={project.category} />
 
-          {/* Category badge - clean */}
-          <div className="absolute top-3 left-3">
+          {/* Category badge - animated */}
+          <motion.div
+            className="absolute top-3 left-3"
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 + 0.2 }}
+          >
             <span
               className={cn(
                 "px-2 py-1 text-xs font-medium rounded-md",
@@ -41,7 +48,7 @@ function ProjectCard({
               {project.category === "web" && "Full-Stack"}
               {project.category === "tools" && "Tools"}
             </span>
-          </div>
+          </motion.div>
         </div>
 
         {/* Content */}
@@ -56,15 +63,23 @@ function ProjectCard({
             {project.description}
           </p>
 
-          {/* Tech stack - minimal */}
+          {/* Tech stack - staggered animation */}
           <div className="flex flex-wrap gap-1.5 mb-4">
-            {project.tech.slice(0, 4).map((tech) => (
-              <span
+            {project.tech.slice(0, 4).map((tech, techIndex) => (
+              <motion.span
                 key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.2,
+                  delay: index * 0.1 + techIndex * 0.03
+                }}
+                whileHover={{ scale: 1.05 }}
                 className="px-2 py-0.5 text-xs rounded bg-background-tertiary text-foreground-subtle"
               >
                 {tech}
-              </span>
+              </motion.span>
             ))}
             {project.tech.length > 4 && (
               <span className="px-2 py-0.5 text-xs text-foreground-subtle">
@@ -73,29 +88,33 @@ function ProjectCard({
             )}
           </div>
 
-          {/* Links - clean */}
+          {/* Links - with hover animation */}
           <div className="flex items-center gap-4 pt-3 border-t border-border">
             {project.github && (
-              <Link
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                <span>Code</span>
-              </Link>
+              <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
+                >
+                  <Github className="w-4 h-4" />
+                  <span>Code</span>
+                </Link>
+              </motion.div>
             )}
             {project.live && (
-              <Link
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
-              >
-                <ExternalLink className="w-4 h-4" />
-                <span>Demo</span>
-              </Link>
+              <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.95 }}>
+                <Link
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Demo</span>
+                </Link>
+              </motion.div>
             )}
           </div>
         </div>

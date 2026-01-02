@@ -25,11 +25,20 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
       {/* Timeline line */}
       <div className="absolute left-0 top-2 bottom-0 w-px bg-border" />
 
-      {/* Timeline dot */}
-      <div className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-foreground-muted" />
+      {/* Timeline dot - animated */}
+      <motion.div
+        className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-foreground-muted"
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.1 + 0.2, type: "spring", stiffness: 300 }}
+      />
 
       {/* Card */}
-      <div className="rounded-lg bg-background border border-border p-5 hover:border-foreground-subtle transition-colors">
+      <motion.div
+        className="rounded-lg bg-background border border-border p-5 hover:border-foreground-subtle transition-colors"
+        whileHover={{ x: 4, transition: { duration: 0.2 } }}
+      >
         {/* Header */}
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div>
@@ -113,20 +122,28 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
           </div>
         )}
 
-        {/* Tech stack */}
+        {/* Tech stack - staggered animation */}
         {experience.tech && experience.tech.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
-            {experience.tech.map((tech) => (
-              <span
+            {experience.tech.map((tech, techIndex) => (
+              <motion.span
                 key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.2,
+                  delay: index * 0.1 + techIndex * 0.03
+                }}
+                whileHover={{ scale: 1.05 }}
                 className="px-2 py-0.5 text-xs rounded bg-background-tertiary text-foreground-subtle"
               >
                 {tech}
-              </span>
+              </motion.span>
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

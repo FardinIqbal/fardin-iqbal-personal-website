@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
+  { label: "About", href: "/#about" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Experience", href: "/#experience" },
+  { label: "Projects", href: "/#projects" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 function ScrollProgress() {
@@ -43,8 +43,8 @@ export function Header() {
 
       // Detect active section
       const sections = navItems
-        .filter((item) => item.href.startsWith("#"))
-        .map((item) => item.href.replace("#", ""));
+        .filter((item) => item.href.startsWith("/#"))
+        .map((item) => item.href.replace("/#", ""));
 
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
@@ -96,7 +96,7 @@ export function Header() {
             {/* Desktop Navigation - clean */}
             <div className="hidden md:flex items-center gap-6">
               {navItems.map((item) => {
-                const isActive = activeSection === item.href.replace("#", "");
+                const isActive = activeSection === item.href.replace("/#", "");
                 return (
                   <Link
                     key={item.label}

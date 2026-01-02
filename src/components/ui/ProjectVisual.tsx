@@ -8,7 +8,7 @@ interface ProjectVisualProps {
   className?: string;
 }
 
-// Memory Allocator - memory blocks grid
+// Memory Allocator - memory blocks grid with animation
 function MemoryAllocatorVisual() {
   return (
     <svg viewBox="0 0 400 200" className="w-full h-full">
@@ -19,7 +19,7 @@ function MemoryAllocatorVisual() {
         </linearGradient>
       </defs>
       <rect width="400" height="200" fill="rgb(var(--color-background-tertiary))" />
-      {/* Memory blocks */}
+      {/* Memory blocks with staggered animation */}
       {[0, 1, 2, 3, 4, 5, 6, 7].map((row) =>
         [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((col) => {
           const isAllocated = (row + col) % 3 === 0 || (row * col) % 5 === 0;
@@ -33,18 +33,20 @@ function MemoryAllocatorVisual() {
               rx="2"
               fill={isAllocated ? "url(#mem-grad)" : "rgb(var(--color-border))"}
               opacity={isAllocated ? 1 : 0.3}
+              className={isAllocated ? "animate-pulse-glow" : ""}
+              style={{ animationDelay: `${(row + col) * 0.1}s` }}
             />
           );
         })
       )}
-      {/* Pointer arrows */}
-      <path d="M60 100 L90 100 L85 95 M90 100 L85 105" stroke="rgb(239 68 68 / 0.6)" strokeWidth="2" fill="none" />
-      <path d="M180 60 L180 90 L175 85 M180 90 L185 85" stroke="rgb(249 115 22 / 0.6)" strokeWidth="2" fill="none" />
+      {/* Pointer arrows with flow animation */}
+      <path d="M60 100 L90 100 L85 95 M90 100 L85 105" stroke="rgb(239 68 68 / 0.6)" strokeWidth="2" fill="none" className="animate-data-flow" />
+      <path d="M180 60 L180 90 L175 85 M180 90 L185 85" stroke="rgb(249 115 22 / 0.6)" strokeWidth="2" fill="none" className="animate-data-flow" style={{ animationDelay: "0.5s" }} />
     </svg>
   );
 }
 
-// Game Server - network nodes with connections
+// Game Server - network nodes with connections and animations
 function GameServerVisual() {
   const nodes = [
     { x: 200, y: 100, r: 20, main: true },
@@ -60,7 +62,7 @@ function GameServerVisual() {
   return (
     <svg viewBox="0 0 400 200" className="w-full h-full">
       <rect width="400" height="200" fill="rgb(var(--color-background-tertiary))" />
-      {/* Connection lines */}
+      {/* Connection lines with data flow animation */}
       {nodes.slice(1).map((node, i) => (
         <line
           key={i}
@@ -70,10 +72,11 @@ function GameServerVisual() {
           y2={node.y}
           stroke="rgb(239 68 68 / 0.3)"
           strokeWidth="1"
-          strokeDasharray="4 4"
+          className="animate-data-flow"
+          style={{ animationDelay: `${i * 0.2}s` }}
         />
       ))}
-      {/* Nodes */}
+      {/* Nodes with pulse animation */}
       {nodes.map((node, i) => (
         <g key={i}>
           <circle
@@ -83,7 +86,21 @@ function GameServerVisual() {
             fill={node.main ? "rgb(239 68 68 / 0.2)" : "rgb(var(--color-border))"}
             stroke={node.main ? "rgb(239 68 68 / 0.6)" : "rgb(var(--color-foreground-subtle))"}
             strokeWidth={node.main ? 2 : 1}
+            className={node.main ? "animate-pulse-glow" : ""}
           />
+          {/* Ping effect for non-main nodes */}
+          {!node.main && (
+            <circle
+              cx={node.x}
+              cy={node.y}
+              r={node.r + 3}
+              fill="none"
+              stroke="rgb(239 68 68 / 0.3)"
+              strokeWidth="1"
+              className="animate-pulse-glow"
+              style={{ animationDelay: `${i * 0.3}s` }}
+            />
+          )}
           {node.main && (
             <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="10" fill="rgb(239 68 68)">
               S
@@ -95,13 +112,13 @@ function GameServerVisual() {
   );
 }
 
-// Movie Revenue - bar chart with film reel
+// Movie Revenue - bar chart with film reel and animations
 function MovieRevenueVisual() {
   const bars = [65, 85, 45, 95, 70, 55, 80, 60, 90, 50];
   return (
     <svg viewBox="0 0 400 200" className="w-full h-full">
       <rect width="400" height="200" fill="rgb(var(--color-background-tertiary))" />
-      {/* Bars */}
+      {/* Bars with staggered pulse animation */}
       {bars.map((h, i) => (
         <rect
           key={i}
@@ -111,32 +128,35 @@ function MovieRevenueVisual() {
           height={h * 1.5}
           rx="2"
           fill={`rgb(168 85 247 / ${0.3 + (h / 100) * 0.4})`}
+          className="animate-pulse-glow"
+          style={{ animationDelay: `${i * 0.15}s` }}
         />
       ))}
-      {/* Film reel accent */}
-      <circle cx="350" cy="40" r="25" fill="none" stroke="rgb(168 85 247 / 0.4)" strokeWidth="3" />
-      <circle cx="350" cy="40" r="8" fill="rgb(168 85 247 / 0.3)" />
-      {[0, 60, 120, 180, 240, 300].map((angle) => (
-        <circle
-          key={angle}
-          cx={350 + 17 * Math.cos((angle * Math.PI) / 180)}
-          cy={40 + 17 * Math.sin((angle * Math.PI) / 180)}
-          r="4"
-          fill="rgb(var(--color-background-tertiary))"
-        />
-      ))}
+      {/* Film reel accent with rotation */}
+      <g style={{ transformOrigin: "350px 40px" }} className="animate-rotate-slow">
+        <circle cx="350" cy="40" r="25" fill="none" stroke="rgb(168 85 247 / 0.4)" strokeWidth="3" />
+        <circle cx="350" cy="40" r="8" fill="rgb(168 85 247 / 0.3)" className="animate-pulse-glow" />
+        {/* Film reel holes - pre-calculated positions */}
+        <circle cx={367} cy={40} r="4" fill="rgb(var(--color-background-tertiary))" />
+        <circle cx={358.5} cy={54.72} r="4" fill="rgb(var(--color-background-tertiary))" />
+        <circle cx={341.5} cy={54.72} r="4" fill="rgb(var(--color-background-tertiary))" />
+        <circle cx={333} cy={40} r="4" fill="rgb(var(--color-background-tertiary))" />
+        <circle cx={341.5} cy={25.28} r="4" fill="rgb(var(--color-background-tertiary))" />
+        <circle cx={358.5} cy={25.28} r="4" fill="rgb(var(--color-background-tertiary))" />
+      </g>
     </svg>
   );
 }
 
-// Energy Demand - lightning with chart
+// Energy Demand - lightning with chart and animations
 function EnergyDemandVisual() {
   return (
     <svg viewBox="0 0 400 200" className="w-full h-full">
       <rect width="400" height="200" fill="rgb(var(--color-background-tertiary))" />
-      {/* Wave chart */}
+      {/* Wave chart with flowing animation */}
       <path
         d="M20 150 Q60 100, 100 120 T180 90 T260 110 T340 70 T380 90"
+        className="animate-data-flow"
         fill="none"
         stroke="rgb(168 85 247 / 0.4)"
         strokeWidth="2"

@@ -30,13 +30,18 @@ function SkillCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      className="p-6 rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-colors"
+      whileHover={{ y: -4 }}
+      className="p-6 rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-all hover-lift group"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-5">
-        <div className="p-2.5 rounded-lg bg-background-tertiary">
-          <Icon className="w-5 h-5 text-foreground-muted" />
-        </div>
+        <motion.div
+          className="p-2.5 rounded-lg bg-background-tertiary"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          transition={{ type: "spring", stiffness: 300 }}
+        >
+          <Icon className="w-5 h-5 text-foreground-muted group-hover:text-foreground transition-colors" />
+        </motion.div>
         <div>
           <h3 className="text-base font-semibold text-foreground">
             {category.title}
@@ -47,15 +52,26 @@ function SkillCard({
         </div>
       </div>
 
-      {/* Skills */}
+      {/* Skills - staggered animation */}
       <div className="flex flex-wrap gap-2">
-        {category.skills.map((skill) => (
-          <span
+        {category.skills.map((skill, skillIndex) => (
+          <motion.span
             key={skill}
-            className="px-2.5 py-1 text-sm rounded-md bg-background-tertiary text-foreground-muted"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.3,
+              delay: index * 0.1 + skillIndex * 0.03
+            }}
+            whileHover={{
+              scale: 1.05,
+              backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
+            }}
+            className="px-2.5 py-1 text-sm rounded-md bg-background-tertiary text-foreground-muted cursor-default"
           >
             {skill}
-          </span>
+          </motion.span>
         ))}
       </div>
     </motion.div>

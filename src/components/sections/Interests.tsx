@@ -71,7 +71,7 @@ function InterestCard({
       />
 
       <motion.div
-        className="relative h-full p-6 rounded-2xl bg-gradient-to-br from-background-secondary to-background-tertiary border border-white/5 overflow-hidden"
+        className="relative h-full p-6 rounded-2xl bg-gradient-to-br from-background-secondary to-background-tertiary border border-white/5 overflow-hidden hover-lift transition-all"
         animate={{ y: isHovered ? -4 : 0 }}
         transition={{ duration: 0.3 }}
       >

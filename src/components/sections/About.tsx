@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Code2, Lightbulb } from "lucide-react";
 import type { Profile } from "@/lib/content";
+import { AnimatedProfilePicture } from "@/components/ui/AnimatedProfilePicture";
 
 interface AboutProps {
   profile: Profile;
@@ -30,25 +30,15 @@ export function About({ profile }: AboutProps) {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
+          {/* Animated Profile Visual - Neural Network Style */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative"
+            className="flex justify-center lg:justify-start"
           >
-            <div className="relative aspect-square max-w-sm mx-auto lg:mx-0">
-              <div className="relative rounded-xl overflow-hidden bg-background-tertiary border border-border">
-                <Image
-                  src="/images/profile/profile-pic.png"
-                  alt={profile.name}
-                  width={400}
-                  height={400}
-                  className="object-cover w-full h-full"
-                />
-              </div>
-            </div>
+            <AnimatedProfilePicture size={350} />
           </motion.div>
 
           {/* Content */}
@@ -65,59 +55,36 @@ export function About({ profile }: AboutProps) {
                 </p>
               ))}
 
-              {/* Info cards */}
+              {/* Info cards - staggered animation */}
               <div className="grid sm:grid-cols-2 gap-4 pt-4">
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
-                  <GraduationCap className="w-5 h-5 text-foreground-muted mt-0.5" />
-                  <div>
-                    <p className="font-medium text-foreground text-sm">Education</p>
-                    <p className="text-sm text-foreground-muted">
-                      {profile.education.degree} {profile.education.major}
-                    </p>
-                    <p className="text-sm text-foreground-subtle">
-                      {profile.education.school}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
-                  <MapPin className="w-5 h-5 text-foreground-muted mt-0.5" />
-                  <div>
-                    <p className="font-medium text-foreground text-sm">Location</p>
-                    <p className="text-sm text-foreground-muted">
-                      {profile.location}
-                    </p>
-                    <p className="text-sm text-foreground-subtle">
-                      Open to relocation
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
-                  <Code2 className="w-5 h-5 text-foreground-muted mt-0.5" />
-                  <div>
-                    <p className="font-medium text-foreground text-sm">Focus Areas</p>
-                    <p className="text-sm text-foreground-muted">
-                      Full-Stack Development
-                    </p>
-                    <p className="text-sm text-foreground-subtle">
-                      Systems Programming
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border">
-                  <Lightbulb className="w-5 h-5 text-foreground-muted mt-0.5" />
-                  <div>
-                    <p className="font-medium text-foreground text-sm">Interests</p>
-                    <p className="text-sm text-foreground-muted">
-                      AI/ML Applications
-                    </p>
-                    <p className="text-sm text-foreground-subtle">
-                      Open Source
-                    </p>
-                  </div>
-                </div>
+                {[
+                  { Icon: GraduationCap, title: "Education", line1: `${profile.education.degree} ${profile.education.major}`, line2: profile.education.school },
+                  { Icon: MapPin, title: "Location", line1: profile.location, line2: "Open to relocation" },
+                  { Icon: Code2, title: "Focus Areas", line1: "Full-Stack Development", line2: "Systems Programming" },
+                  { Icon: Lightbulb, title: "Interests", line1: "AI/ML Applications", line2: "Open Source" },
+                ].map((card, i) => (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
+                    whileHover={{ y: -2, transition: { duration: 0.2 } }}
+                    className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border hover:border-foreground-subtle group"
+                  >
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <card.Icon className="w-5 h-5 text-foreground-muted mt-0.5 group-hover:text-foreground transition-colors" />
+                    </motion.div>
+                    <div>
+                      <p className="font-medium text-foreground text-sm">{card.title}</p>
+                      <p className="text-sm text-foreground-muted">{card.line1}</p>
+                      <p className="text-sm text-foreground-subtle">{card.line2}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
           </motion.div>
