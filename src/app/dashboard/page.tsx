@@ -11,6 +11,7 @@ import {
   ArrowDownRight,
   Clock,
   Globe,
+  type LucideIcon,
 } from "lucide-react";
 import {
   LineChart,
@@ -57,7 +58,7 @@ interface StatCardProps {
   title: string;
   value: string | number;
   change: number;
-  icon: React.ElementType;
+  icon: LucideIcon;
   delay?: number;
 }
 

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Book, Tv, GraduationCap, Star, ExternalLink, Compass } from "lucide-react";
+import { Book, Tv, GraduationCap, Star, ExternalLink, Compass, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { Book as BookType, Media, Course } from "@/lib/content";
@@ -41,7 +41,7 @@ function InterestCard({
   index = 0,
 }: {
   children: React.ReactNode;
-  icon: React.ElementType;
+  icon: LucideIcon;
   title: string;
   subtitle: string;
   iconColor: string;
