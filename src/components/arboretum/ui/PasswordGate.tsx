@@ -8,6 +8,26 @@ interface PasswordGateProps {
   children: React.ReactNode;
 }
 
+// Simple hash for client-side verification (not cryptographically secure, but sufficient for privacy)
+const VALID_HASH = "a]k#9Xm$2pL@vR7n";
+
+function simpleHash(str: string): string {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  // Convert to base36 and add some obfuscation
+  const base = Math.abs(hash).toString(36);
+  return base.split('').map((c, i) =>
+    String.fromCharCode(c.charCodeAt(0) + (i % 3))
+  ).join('');
+}
+
+// Pre-computed hash of the correct password
+const CORRECT_HASH = "ar49tg";
+
 export function PasswordGate({ children }: PasswordGateProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [password, setPassword] = useState("");
@@ -16,49 +36,35 @@ export function PasswordGate({ children }: PasswordGateProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
 
-  // Check if already authenticated on mount
+  // Check if already authenticated on mount (via sessionStorage)
   useEffect(() => {
-    checkAuth();
+    const stored = sessionStorage.getItem("arboretum_auth");
+    setIsAuthenticated(stored === VALID_HASH);
   }, []);
-
-  const checkAuth = async () => {
-    try {
-      const res = await fetch("/arboretum/api/verify");
-      const data = await res.json();
-      setIsAuthenticated(data.authenticated);
-    } catch {
-      setIsAuthenticated(false);
-    }
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
 
-    try {
-      const res = await fetch("/arboretum/api/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
-      });
+    // Small delay to feel more real
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-      if (res.ok) {
-        setIsUnlocking(true);
-        // Dramatic unlock animation
-        setTimeout(() => {
-          setIsAuthenticated(true);
-        }, 2000);
-      } else {
-        const data = await res.json();
-        setError(data.error || "Invalid password");
-        setPassword("");
-      }
-    } catch {
-      setError("Connection failed");
-    } finally {
-      setIsLoading(false);
+    const inputHash = simpleHash(password);
+
+    if (inputHash === CORRECT_HASH) {
+      sessionStorage.setItem("arboretum_auth", VALID_HASH);
+      setIsUnlocking(true);
+      // Dramatic unlock animation
+      setTimeout(() => {
+        setIsAuthenticated(true);
+      }, 2000);
+    } else {
+      setError("Invalid password");
+      setPassword("");
     }
+
+    setIsLoading(false);
   };
 
   // Loading state
