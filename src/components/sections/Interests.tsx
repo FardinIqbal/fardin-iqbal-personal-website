@@ -2,33 +2,36 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Book, Tv, GraduationCap, Star, ExternalLink, Compass, type LucideIcon } from "lucide-react";
+import { Book, Tv, GraduationCap, ExternalLink, Compass, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import type { Book as BookType, Media, Course } from "@/lib/content";
 
-function RatingStars({ rating }: { rating?: number | null }) {
+function RatingDisplay({ rating }: { rating?: number | null }) {
   if (!rating) return null;
   return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <motion.div
-          key={star}
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ delay: star * 0.1, type: "spring", stiffness: 200 }}
-        >
-          <Star
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="flex items-center gap-1"
+    >
+      <div className="flex gap-0.5">
+        {[1, 2, 3, 4, 5].map((dot) => (
+          <motion.div
+            key={dot}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: dot * 0.05, type: "spring", stiffness: 300 }}
             className={cn(
-              "w-3 h-3",
-              star <= rating
-                ? "fill-yellow-400 text-yellow-400"
-                : "text-foreground-subtle"
+              "w-1.5 h-1.5 rounded-full transition-colors",
+              dot <= rating
+                ? "bg-emerald-500"
+                : "bg-foreground/20"
             )}
           />
-        </motion.div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </motion.div>
   );
 }
 
@@ -71,7 +74,7 @@ function InterestCard({
       />
 
       <motion.div
-        className="relative h-full p-6 rounded-2xl bg-gradient-to-br from-background-secondary to-background-tertiary border border-white/5 overflow-hidden hover-lift transition-all"
+        className="relative h-full p-6 rounded-2xl bg-gradient-to-br from-background-secondary to-background-tertiary border border-border overflow-hidden hover-lift transition-all"
         animate={{ y: isHovered ? -4 : 0 }}
         transition={{ duration: 0.3 }}
       >
@@ -88,7 +91,7 @@ function InterestCard({
 
         {/* Shine effect */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/5 to-transparent"
           initial={{ x: "-100%", opacity: 0 }}
           animate={{ x: isHovered ? "100%" : "-100%", opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.6 }}
@@ -161,7 +164,7 @@ function ItemCard({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "relative p-3 rounded-lg bg-background/50 border border-white/5 backdrop-blur-sm overflow-hidden transition-colors hover:border-white/10",
+        "relative p-3 rounded-lg bg-background/50 border border-border backdrop-blur-sm overflow-hidden transition-colors hover:border-foreground/20",
         className
       )}
     >
@@ -234,10 +237,10 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
           </motion.div>
 
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            <span className="bg-gradient-to-r from-foreground via-foreground to-foreground-muted bg-clip-text text-transparent">
+            <span className="text-foreground">
               What I&apos;m{" "}
             </span>
-            <span className="bg-gradient-to-r from-primary-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="text-emerald-500">
               Into
             </span>
           </h2>
@@ -303,7 +306,7 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
                           by {book.author}
                         </p>
                       </div>
-                      <RatingStars rating={book.rating} />
+                      <RatingDisplay rating={book.rating} />
                     </div>
                   </ItemCard>
                 </motion.div>
@@ -395,7 +398,7 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
                             </p>
                           </div>
                         </div>
-                        <RatingStars rating={item.rating} />
+                        <RatingDisplay rating={item.rating} />
                       </div>
                     </ItemCard>
                   </motion.div>

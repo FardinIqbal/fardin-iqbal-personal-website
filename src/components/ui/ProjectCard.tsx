@@ -65,7 +65,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className="group relative overflow-hidden rounded-2xl bg-background-secondary border border-white/5 cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl bg-background-secondary border border-border cursor-pointer"
     >
       {/* Animated border glow */}
       <motion.div
@@ -111,7 +111,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 + 0.3 }}
           >
-            <span className="relative px-3 py-1.5 text-xs font-medium rounded-full bg-background/90 backdrop-blur-md text-foreground-muted capitalize border border-white/10">
+            <span className="relative px-3 py-1.5 text-xs font-medium rounded-full bg-background/90 backdrop-blur-md text-foreground-muted capitalize border border-border">
               <motion.span
                 className="absolute inset-0 rounded-full bg-primary-500/20 blur-md -z-10"
                 animate={{ opacity: isHovered ? 1 : 0 }}
@@ -181,7 +181,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
           </div>
 
           {/* Links with hover animations */}
-          <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+          <div className="flex items-center gap-4 pt-4 border-t border-border">
             {project.github && (
               <Link
                 href={project.github}
