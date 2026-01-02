@@ -4,28 +4,31 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, Play, Pause, Radio, X, SkipForward } from "lucide-react";
 
-// Verified working radio streams
+// All SomaFM streams - verified reliable, ad-free
 const RADIO_STATIONS = [
   // Chill / Lofi
-  { id: "lofi", name: "Lofi Beats", url: "https://play.streamafrica.net/lofiradio", genre: "Chill" },
-  { id: "chillout", name: "Chillout", url: "https://icecast.radiofrance.fr/fip-webradio6.mp3", genre: "Chill" },
+  { id: "groovesalad", name: "Groove Salad", url: "https://ice1.somafm.com/groovesalad-128-mp3", genre: "Chill" },
+  { id: "lush", name: "Lush", url: "https://ice1.somafm.com/lush-128-mp3", genre: "Chill" },
+  { id: "dronezone", name: "Drone Zone", url: "https://ice1.somafm.com/dronezone-128-mp3", genre: "Chill" },
 
   // Electronic
-  { id: "electronica", name: "Electronica", url: "https://icecast.radiofrance.fr/fip-webradio8.mp3", genre: "Electronic" },
-  { id: "house", name: "House", url: "https://stream.laut.fm/deephouse", genre: "Electronic" },
-  { id: "ambient", name: "Ambient", url: "https://ice2.somafm.com/dronezone-128-mp3", genre: "Electronic" },
+  { id: "deepspace", name: "Deep Space", url: "https://ice1.somafm.com/deepspaceone-128-mp3", genre: "Electronic" },
+  { id: "beatblender", name: "Beat Blender", url: "https://ice1.somafm.com/beatblender-128-mp3", genre: "Electronic" },
+  { id: "spacestation", name: "Space Station", url: "https://ice1.somafm.com/spacestation-128-mp3", genre: "Electronic" },
 
   // Pop / Hits
-  { id: "pop", name: "Pop Hits", url: "https://icecast.radiofrance.fr/fip-webradio5.mp3", genre: "Pop" },
-  { id: "hits", name: "Top 40", url: "https://stream.laut.fm/top100", genre: "Pop" },
+  { id: "poptron", name: "PopTron", url: "https://ice1.somafm.com/poptron-128-mp3", genre: "Pop" },
+  { id: "covers", name: "Covers", url: "https://ice1.somafm.com/covers-128-mp3", genre: "Pop" },
+  { id: "seventies", name: "70s Hits", url: "https://ice1.somafm.com/seventies-128-mp3", genre: "Pop" },
 
-  // Hip Hop
-  { id: "hiphop", name: "Hip Hop", url: "https://icecast.radiofrance.fr/fip-webradio7.mp3", genre: "Hip Hop" },
-  { id: "rap", name: "Rap", url: "https://stream.laut.fm/1000hiphop", genre: "Hip Hop" },
+  // Hip Hop / Urban
+  { id: "illstreet", name: "Ill Street", url: "https://ice1.somafm.com/illstreet-128-mp3", genre: "Hip Hop" },
+  { id: "dubstep", name: "Dub Step", url: "https://ice1.somafm.com/dubstep-128-mp3", genre: "Hip Hop" },
 
   // Rock
-  { id: "rock", name: "Rock", url: "https://icecast.radiofrance.fr/fip-webradio1.mp3", genre: "Rock" },
-  { id: "indie", name: "Indie", url: "https://stream.laut.fm/indierock", genre: "Rock" },
+  { id: "indiepop", name: "Indie Pop", url: "https://ice1.somafm.com/indiepop-128-mp3", genre: "Rock" },
+  { id: "metal", name: "Metal", url: "https://ice1.somafm.com/metal-128-mp3", genre: "Rock" },
+  { id: "defcon", name: "DEF CON", url: "https://ice1.somafm.com/defcon-128-mp3", genre: "Rock" },
 ] as const;
 
 type StationId = (typeof RADIO_STATIONS)[number]["id"];
@@ -65,7 +68,7 @@ export function MusicPlayer() {
   const [volume, setVolume] = useState(0.3);
   const [isMuted, setIsMuted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [currentStation, setCurrentStation] = useState<StationId>("lofi");
+  const [currentStation, setCurrentStation] = useState<StationId>("groovesalad");
   const [selectedGenre, setSelectedGenre] = useState<Genre>("Chill");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -117,7 +120,7 @@ export function MusicPlayer() {
         audioRef.current!.volume = isMuted ? 0 : volume;
         await audioRef.current!.play();
         setIsPlaying(true);
-      } catch (error) {
+      } catch {
         // Autoplay blocked by browser - that's ok, user can click
         console.log("Autoplay blocked - click to play");
       }
@@ -185,8 +188,8 @@ export function MusicPlayer() {
         audioRef.current.load();
         try {
           await audioRef.current.play();
-        } catch (error) {
-          console.log("Playback failed:", error);
+        } catch {
+          console.log("Playback failed");
           setHasError(true);
           setIsLoading(false);
         }
@@ -211,8 +214,8 @@ export function MusicPlayer() {
       setIsLoading(true);
       try {
         await audioRef.current.play();
-      } catch (error) {
-        console.log("Playback failed:", error);
+      } catch {
+        console.log("Playback failed");
         setHasError(true);
         setIsLoading(false);
       }
@@ -258,7 +261,7 @@ export function MusicPlayer() {
                   <div className="flex items-center justify-between pr-8 sm:pr-0">
                     <div className="flex items-center gap-3">
                       <Radio className="w-4 h-4 text-emerald-500" />
-                      <span className="text-sm font-medium text-foreground">Radio</span>
+                      <span className="text-sm font-medium text-foreground">SomaFM Radio</span>
                     </div>
                     <button
                       onClick={() => setIsMuted(!isMuted)}
