@@ -46,7 +46,7 @@ export const metadata: Metadata = {
       "Computer Science student at Stony Brook University. Full-stack developer passionate about building impactful technologies.",
     images: [
       {
-        url: "/images/profile/profile-pic.jpeg",
+        url: "/images/profile/profile-pic.png",
         width: 1200,
         height: 630,
         alt: "Fardin Iqbal - Software Engineer",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Fardin Iqbal | Software Engineer",
     description: "Computer Science student at Stony Brook University.",
-    images: ["/images/profile/profile-pic.jpeg"],
+    images: ["/images/profile/profile-pic.png"],
   },
   robots: {
     index: true,

@@ -41,7 +41,7 @@ export function About({ profile }: AboutProps) {
             <div className="relative aspect-square max-w-sm mx-auto lg:mx-0">
               <div className="relative rounded-xl overflow-hidden bg-background-tertiary border border-border">
                 <Image
-                  src="/images/profile/profile-pic.jpeg"
+                  src="/images/profile/profile-pic.png"
                   alt={profile.name}
                   width={400}
                   height={400}
