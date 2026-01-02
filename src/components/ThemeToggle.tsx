@@ -1,93 +1,116 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Sun, Moon, Monitor } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
-  const { theme, setTheme, resolvedTheme } = useTheme();
-  const [isOpen, setIsOpen] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
 
-  const themes = [
-    { value: "light" as const, icon: Sun, label: "Light" },
-    { value: "dark" as const, icon: Moon, label: "Dark" },
-    { value: "system" as const, icon: Monitor, label: "System" },
-  ];
-
-  const CurrentIcon = resolvedTheme === "dark" ? Moon : Sun;
+  const toggleTheme = () => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  };
 
   return (
-    <div className="relative">
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="p-2 rounded-lg text-foreground-muted hover:text-foreground hover:bg-background-secondary transition-colors"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        aria-label="Toggle theme"
-      >
-        <AnimatePresence mode="wait">
+    <motion.button
+      onClick={toggleTheme}
+      className="relative p-3 rounded-xl bg-foreground text-background border-2 border-foreground shadow-lg overflow-hidden"
+      whileHover={{ scale: 1.1, rotate: 5 }}
+      whileTap={{ scale: 0.9, rotate: -5 }}
+      aria-label={`Switch to ${resolvedTheme === "dark" ? "light" : "dark"} mode`}
+    >
+      {/* Glow effect */}
+      <motion.div
+        className="absolute inset-0 rounded-xl"
+        animate={{
+          boxShadow: resolvedTheme === "dark"
+            ? ["0 0 20px rgb(147 197 253 / 0.3)", "0 0 40px rgb(147 197 253 / 0.5)", "0 0 20px rgb(147 197 253 / 0.3)"]
+            : ["0 0 20px rgb(251 191 36 / 0.3)", "0 0 40px rgb(251 191 36 / 0.5)", "0 0 20px rgb(251 191 36 / 0.3)"],
+        }}
+        transition={{ duration: 2, repeat: Infinity }}
+      />
+
+      <AnimatePresence mode="wait">
+        {resolvedTheme === "dark" ? (
           <motion.div
-            key={resolvedTheme}
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: 90, opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            key="moon"
+            initial={{ rotate: -180, opacity: 0, scale: 0 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: 180, opacity: 0, scale: 0 }}
+            transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+            className="relative"
           >
-            <CurrentIcon className="w-5 h-5" />
+            <Moon className="w-5 h-5" />
+            {/* Stars around moon */}
+            {[
+              { x: -8, y: -6, size: 2, delay: 0 },
+              { x: 10, y: -4, size: 1.5, delay: 0.1 },
+              { x: 8, y: 8, size: 2, delay: 0.2 },
+            ].map((star, i) => (
+              <motion.div
+                key={i}
+                className="absolute rounded-full bg-current"
+                style={{
+                  width: star.size,
+                  height: star.size,
+                  left: `calc(50% + ${star.x}px)`,
+                  top: `calc(50% + ${star.y}px)`,
+                }}
+                animate={{
+                  opacity: [0.3, 1, 0.3],
+                  scale: [0.8, 1.2, 0.8],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  delay: star.delay,
+                }}
+              />
+            ))}
           </motion.div>
-        </AnimatePresence>
-      </motion.button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            {/* Backdrop */}
+        ) : (
+          <motion.div
+            key="sun"
+            initial={{ rotate: 180, opacity: 0, scale: 0 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: -180, opacity: 0, scale: 0 }}
+            transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+            className="relative"
+          >
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-40"
-              onClick={() => setIsOpen(false)}
-            />
-
-            {/* Dropdown */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-              transition={{ duration: 0.15 }}
-              className="absolute right-0 top-full mt-2 z-50 min-w-[140px] p-1 rounded-lg bg-background-secondary border border-border shadow-xl"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
             >
-              {themes.map(({ value, icon: Icon, label }) => (
-                <button
-                  key={value}
-                  onClick={() => {
-                    setTheme(value);
-                    setIsOpen(false);
+              <Sun className="w-5 h-5" />
+            </motion.div>
+            {/* Sun rays */}
+            <motion.div
+              className="absolute inset-0 flex items-center justify-center"
+              animate={{ rotate: -360 }}
+              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            >
+              {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => (
+                <motion.div
+                  key={angle}
+                  className="absolute w-0.5 h-2 bg-current origin-center"
+                  style={{
+                    transform: `rotate(${angle}deg) translateY(-12px)`,
                   }}
-                  className={cn(
-                    "w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors",
-                    theme === value
-                      ? "bg-primary-500/10 text-primary-400"
-                      : "text-foreground-muted hover:text-foreground hover:bg-background-tertiary"
-                  )}
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{label}</span>
-                  {theme === value && (
-                    <motion.div
-                      layoutId="activeTheme"
-                      className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-500"
-                    />
-                  )}
-                </button>
+                  animate={{
+                    opacity: [0.3, 0.8, 0.3],
+                    scaleY: [0.8, 1.2, 0.8],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: angle / 360,
+                  }}
+                />
               ))}
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.button>
   );
 }

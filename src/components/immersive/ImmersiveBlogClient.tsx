@@ -198,11 +198,18 @@ export function ImmersiveBlogClient({
           scale: showScrollTop ? 1 : 0.8,
           pointerEvents: showScrollTop ? "auto" : "none",
         }}
+        whileHover={{ scale: 1.1, y: -2 }}
+        whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
-        className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 p-3 rounded-full bg-background-secondary border border-border hover:border-foreground-subtle transition-colors z-40"
+        className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 p-3.5 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl z-40"
         aria-label="Scroll to top"
       >
-        <ChevronUp className="w-5 h-5 text-foreground-muted" />
+        <motion.div
+          animate={{ y: [0, -2, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <ChevronUp className="w-5 h-5" />
+        </motion.div>
       </motion.button>
     </ImmersiveBlogWrapper>
   );

@@ -34,21 +34,21 @@ type Genre = (typeof RADIO_STATIONS)[number]["genre"];
 
 const GENRES = ["Chill", "Electronic", "Pop", "Hip Hop", "Rock"] as const;
 
-function AudioVisualizer({ isPlaying }: { isPlaying: boolean }) {
+function AudioVisualizer({ isPlaying, light = false }: { isPlaying: boolean; light?: boolean }) {
   return (
     <div className="flex items-end justify-center gap-0.5 h-4">
       {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}
-          className="w-0.5 bg-emerald-500 rounded-full"
+          className={`w-1 rounded-full ${light ? "bg-white" : "bg-emerald-500"}`}
           animate={
             isPlaying
-              ? { height: [4, 14, 6, 12, 8, 4] }
+              ? { height: [4, 16, 6, 14, 8, 4] }
               : { height: 4 }
           }
           transition={
             isPlaying
-              ? { duration: 0.8, repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }
+              ? { duration: 0.6, repeat: Infinity, delay: i * 0.08, ease: "easeInOut" }
               : { duration: 0.2 }
           }
         />
@@ -373,17 +373,17 @@ export function MusicPlayer() {
         <motion.button
           ref={buttonRef}
           onClick={() => setIsExpanded(!isExpanded)}
-          className={`relative p-3 rounded-full border transition-all shadow-lg ${
+          className={`relative p-3.5 rounded-full border-2 transition-all ${
             isPlaying
-              ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-500"
-              : "bg-background border-border text-foreground-muted hover:text-foreground hover:border-foreground-subtle"
+              ? "bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-500/30"
+              : "bg-foreground text-background border-foreground shadow-xl hover:scale-105"
           }`}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
         >
           {isPlaying ? (
             <div className="w-5 h-5 flex items-center justify-center">
-              <AudioVisualizer isPlaying={true} />
+              <AudioVisualizer isPlaying={true} light={true} />
             </div>
           ) : (
             <Radio className="w-5 h-5" />

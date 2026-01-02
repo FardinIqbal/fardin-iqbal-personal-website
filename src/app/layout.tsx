@@ -84,13 +84,10 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('theme') || 'dark';
-                  if (theme === 'system') {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
+                  var theme = localStorage.getItem('theme') || 'light';
                   document.documentElement.classList.add(theme);
                 } catch (e) {
-                  document.documentElement.classList.add('dark');
+                  document.documentElement.classList.add('light');
                 }
               })();
             `,
@@ -101,7 +98,7 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground`}
       >
         <ClerkWrapper>
-          <ThemeProvider defaultTheme="dark">
+          <ThemeProvider defaultTheme="light">
             {children}
             <MusicPlayer />
           </ThemeProvider>
