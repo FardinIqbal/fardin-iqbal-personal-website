@@ -4,14 +4,14 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, Play, Pause, Music, X } from "lucide-react";
 
-// Music genres with streaming URLs
+// Ad-free music streams (SomaFM - listener supported, no ads)
 const MUSIC_GENRES = [
-  { id: "lofi", name: "Lofi", url: "https://stream.zeno.fm/f3wvbbqmdg8uv" },
-  { id: "jazz", name: "Jazz", url: "https://stream.zeno.fm/0r0xa792kwzuv" },
-  { id: "classical", name: "Classical", url: "https://stream.zeno.fm/e3b75lmgfm8uv" },
-  { id: "ambient", name: "Ambient", url: "https://stream.zeno.fm/yn65fsaurfhvv" },
-  { id: "chillhop", name: "Chillhop", url: "https://stream.zeno.fm/fyn8fxkyb2zuv" },
-  { id: "piano", name: "Piano", url: "https://stream.zeno.fm/2acdnp7sne8uv" },
+  { id: "lofi", name: "Lofi", url: "https://ice1.somafm.com/groovesalad-128-mp3" },
+  { id: "ambient", name: "Ambient", url: "https://ice1.somafm.com/dronezone-128-mp3" },
+  { id: "chillout", name: "Chillout", url: "https://ice1.somafm.com/spacestation-128-mp3" },
+  { id: "jazz", name: "Jazz", url: "https://ice1.somafm.com/sonicuniverse-128-mp3" },
+  { id: "deephouse", name: "Deep House", url: "https://ice1.somafm.com/deepspaceone-128-mp3" },
+  { id: "indie", name: "Indie", url: "https://ice1.somafm.com/indiepop-128-mp3" },
 ] as const;
 
 type GenreId = (typeof MUSIC_GENRES)[number]["id"];
@@ -26,6 +26,7 @@ export function MusicPlayer() {
   const [isLoading, setIsLoading] = useState(false);
 
   const currentTrack = MUSIC_GENRES.find((g) => g.id === currentGenre)!;
+  const [autoplayAttempted, setAutoplayAttempted] = useState(false);
 
   // Load saved state from localStorage
   useEffect(() => {
@@ -39,6 +40,27 @@ export function MusicPlayer() {
       setCurrentGenre(savedGenre);
     }
   }, []);
+
+  // Attempt autoplay on mount
+  useEffect(() => {
+    if (autoplayAttempted || !audioRef.current) return;
+
+    const attemptAutoplay = async () => {
+      try {
+        audioRef.current!.volume = isMuted ? 0 : volume;
+        await audioRef.current!.play();
+        setIsPlaying(true);
+      } catch {
+        // Browser blocked autoplay - user will need to click play
+        console.log("Autoplay blocked by browser - click to play");
+      }
+      setAutoplayAttempted(true);
+    };
+
+    // Small delay to ensure component is mounted
+    const timer = setTimeout(attemptAutoplay, 100);
+    return () => clearTimeout(timer);
+  }, [autoplayAttempted, volume, isMuted]);
 
   // Save state to localStorage
   useEffect(() => {
