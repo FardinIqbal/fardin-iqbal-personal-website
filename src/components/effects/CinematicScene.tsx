@@ -35,7 +35,7 @@ function GlowingOrbs() {
       scale: 0.3 + Math.random() * 0.5,
       speed: 0.3 + Math.random() * 0.4,
       offset: Math.random() * Math.PI * 2,
-      color: i % 2 === 0 ? "#22c55e" : "#3b82f6",
+      color: i % 2 === 0 ? "#6366f1" : "#8b5cf6",
     }));
   }, []);
 
@@ -113,7 +113,7 @@ function ParticleField() {
     <points ref={pointsRef} geometry={geometry}>
       <pointsMaterial
         size={0.08}
-        color="#22c55e"
+        color="#6366f1"
         transparent
         opacity={0.4}
         sizeAttenuation
@@ -131,7 +131,7 @@ function BackgroundGradient() {
       <shaderMaterial
         uniforms={{
           uColor1: { value: new THREE.Color("#0a0a0f") },
-          uColor2: { value: new THREE.Color("#0f1a14") },
+          uColor2: { value: new THREE.Color("#0f0a1a") },
         }}
         vertexShader={`
           varying vec2 vUv;
@@ -218,7 +218,7 @@ export function CinematicScene() {
       <div
         className="fixed inset-0 -z-10"
         style={{
-          background: "linear-gradient(to bottom, #0a0a0f, #0f1a14)",
+          background: "linear-gradient(to bottom, #0a0a0f, #0f0a1a)",
         }}
       />
     );

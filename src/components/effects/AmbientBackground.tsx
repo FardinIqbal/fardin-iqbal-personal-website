@@ -20,14 +20,14 @@ export function AmbientBackground() {
         style={{ backgroundColor: "#0a0a0f" }}
       />
 
-      {/* Top center glow - subtle emerald */}
+      {/* Top center glow - subtle blue/purple */}
       <div
         className="fixed top-0 left-1/2 -translate-x-1/2 -z-10 pointer-events-none"
         style={{
           width: "100%",
           maxWidth: "1200px",
           height: "600px",
-          background: "radial-gradient(ellipse at 50% 0%, rgba(34, 197, 94, 0.08) 0%, transparent 60%)",
+          background: "radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 60%)",
         }}
       />
 

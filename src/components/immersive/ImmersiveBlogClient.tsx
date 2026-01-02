@@ -51,7 +51,7 @@ export function ImmersiveBlogClient({
       >
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-white/50 hover:text-white/80 transition-colors group"
+          className="inline-flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
           Back to blog
@@ -63,7 +63,7 @@ export function ImmersiveBlogClient({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.7 }}
-        className="flex flex-wrap items-center gap-4 text-sm text-white/40 mb-6"
+        className="flex flex-wrap items-center gap-4 text-sm text-foreground-subtle mb-6"
       >
         <span className="flex items-center gap-1.5">
           <Calendar className="w-4 h-4" />
@@ -96,7 +96,7 @@ export function ImmersiveBlogClient({
 
       {/* Content */}
       <div
-        className="prose prose-lg max-w-none prose-invert"
+        className="prose prose-lg max-w-none dark:prose-invert"
         dangerouslySetInnerHTML={{ __html: compiledContent }}
       />
     </ImmersiveBlogWrapper>

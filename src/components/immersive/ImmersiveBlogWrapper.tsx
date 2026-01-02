@@ -25,7 +25,7 @@ function LoadingScreen({ onComplete }: { onComplete: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a0f]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
@@ -180,7 +180,7 @@ export function ImmersiveBlogWrapper({
             {description && (
               <ScrollReveal>
                 <motion.p
-                  className="text-xl md:text-2xl text-white/60 max-w-2xl leading-relaxed"
+                  className="text-xl md:text-2xl text-foreground-muted max-w-2xl leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8, duration: 0.8 }}
@@ -198,12 +198,12 @@ export function ImmersiveBlogWrapper({
               transition={{ delay: 1.5 }}
             >
               <motion.div
-                className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2"
+                className="w-6 h-10 rounded-full border-2 border-foreground/20 flex justify-center pt-2"
                 animate={{ y: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
                 <motion.div
-                  className="w-1 h-2 rounded-full bg-white/40"
+                  className="w-1 h-2 rounded-full bg-foreground/40"
                   animate={{ opacity: [0.4, 1, 0.4], y: [0, 4, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 />
@@ -241,7 +241,7 @@ export function ImmersiveBlogWrapper({
       {/* Global immersive styles */}
       <style jsx global>{`
         .immersive-prose {
-          color: rgba(255, 255, 255, 0.85);
+          color: rgb(var(--color-foreground));
         }
 
         .immersive-prose h1,
@@ -249,9 +249,15 @@ export function ImmersiveBlogWrapper({
         .immersive-prose h3,
         .immersive-prose h4 {
           color: rgb(var(--mood-primary));
-          text-shadow: 0 0 30px rgba(var(--mood-primary), 0.3);
           margin-top: 3rem;
           margin-bottom: 1.5rem;
+        }
+
+        .dark .immersive-prose h1,
+        .dark .immersive-prose h2,
+        .dark .immersive-prose h3,
+        .dark .immersive-prose h4 {
+          text-shadow: 0 0 30px rgba(var(--mood-primary), 0.3);
         }
 
         .immersive-prose h2 {
@@ -280,6 +286,9 @@ export function ImmersiveBlogWrapper({
         .immersive-prose a:hover {
           color: rgb(var(--mood-primary));
           border-bottom-color: rgb(var(--mood-primary));
+        }
+
+        .dark .immersive-prose a:hover {
           text-shadow: 0 0 10px rgba(var(--mood-primary), 0.5);
         }
 
@@ -290,7 +299,7 @@ export function ImmersiveBlogWrapper({
           margin: 2rem 0;
           border-radius: 0 8px 8px 0;
           font-style: italic;
-          color: rgba(255, 255, 255, 0.9);
+          color: rgb(var(--color-foreground-muted));
         }
 
         .immersive-prose code {
@@ -302,11 +311,14 @@ export function ImmersiveBlogWrapper({
         }
 
         .immersive-prose pre {
-          background: rgba(0, 0, 0, 0.5);
+          background: rgb(var(--color-background-tertiary));
           border: 1px solid rgba(var(--mood-primary), 0.2);
           border-radius: 12px;
           padding: 1.5rem;
           overflow-x: auto;
+        }
+
+        .dark .immersive-prose pre {
           box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3),
             inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
@@ -350,13 +362,16 @@ export function ImmersiveBlogWrapper({
         }
 
         .immersive-prose em {
-          color: rgba(255, 255, 255, 0.95);
+          color: rgb(var(--color-foreground));
         }
 
         .immersive-prose img {
           border-radius: 12px;
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
           margin: 2rem 0;
+        }
+
+        .dark .immersive-prose img {
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
         }
       `}</style>
     </MoodProvider>
