@@ -2,45 +2,53 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, Play, Pause, Music, X } from "lucide-react";
+import { Volume2, VolumeX, Play, Pause, Radio, X, SkipForward } from "lucide-react";
 
-// Working streams with CORS support
-const MUSIC_GENRES = [
-  { id: "lofi", name: "Lofi", url: "https://streams.ilovemusic.de/iloveradio17.mp3" },
-  { id: "chillout", name: "Chillout", url: "https://streams.ilovemusic.de/iloveradio-chillhop.mp3" },
-  { id: "jazz", name: "Jazz", url: "https://streaming.radio.co/s774887f7b/listen" },
-  { id: "ambient", name: "Ambient", url: "https://ice2.somafm.com/dronezone-128-mp3" },
-  { id: "electronic", name: "Electronic", url: "https://streams.ilovemusic.de/iloveradio2.mp3" },
-  { id: "classical", name: "Classical", url: "https://live.musopen.org:8085/streamvbr0" },
+// Real radio stations with actual songs
+const RADIO_STATIONS = [
+  // Lofi / Chill
+  { id: "lofi", name: "Lofi Hip Hop", url: "https://streams.ilovemusic.de/iloveradio17.mp3", genre: "Chill" },
+  { id: "chillhop", name: "Chillhop", url: "https://streams.ilovemusic.de/iloveradio-chillhop.mp3", genre: "Chill" },
+
+  // Electronic / Dance
+  { id: "deephouse", name: "Deep House", url: "https://streams.ilovemusic.de/iloveradio16.mp3", genre: "Electronic" },
+  { id: "techno", name: "Techno", url: "https://streams.ilovemusic.de/iloveradio6.mp3", genre: "Electronic" },
+  { id: "trance", name: "Trance", url: "https://streams.ilovemusic.de/iloveradio15.mp3", genre: "Electronic" },
+
+  // Pop / Hits
+  { id: "hits", name: "Top Hits", url: "https://streams.ilovemusic.de/iloveradio1.mp3", genre: "Pop" },
+  { id: "2000s", name: "2000s Hits", url: "https://streams.ilovemusic.de/iloveradio12.mp3", genre: "Pop" },
+  { id: "90s", name: "90s Hits", url: "https://streams.ilovemusic.de/iloveradio10.mp3", genre: "Pop" },
+
+  // Hip Hop / R&B
+  { id: "hiphop", name: "Hip Hop", url: "https://streams.ilovemusic.de/iloveradio3.mp3", genre: "Hip Hop" },
+  { id: "rnb", name: "R&B", url: "https://streams.ilovemusic.de/iloveradio-rnb.mp3", genre: "Hip Hop" },
+
+  // Rock / Alternative
+  { id: "rock", name: "Rock Classics", url: "https://streams.ilovemusic.de/iloveradio21.mp3", genre: "Rock" },
+  { id: "alternative", name: "Alternative", url: "https://streams.ilovemusic.de/iloveradio-alternative.mp3", genre: "Rock" },
 ] as const;
 
-type GenreId = (typeof MUSIC_GENRES)[number]["id"];
+type StationId = (typeof RADIO_STATIONS)[number]["id"];
+type Genre = (typeof RADIO_STATIONS)[number]["genre"];
 
-// Audio visualizer bars component
+const GENRES = ["Chill", "Electronic", "Pop", "Hip Hop", "Rock"] as const;
+
 function AudioVisualizer({ isPlaying }: { isPlaying: boolean }) {
-  const bars = [0, 1, 2, 3, 4];
-
   return (
     <div className="flex items-end justify-center gap-0.5 h-4">
-      {bars.map((i) => (
+      {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}
           className="w-0.5 bg-emerald-500 rounded-full"
           animate={
             isPlaying
-              ? {
-                  height: [4, 12, 6, 14, 8, 4],
-                }
+              ? { height: [4, 14, 6, 12, 8, 4] }
               : { height: 4 }
           }
           transition={
             isPlaying
-              ? {
-                  duration: 0.8,
-                  repeat: Infinity,
-                  delay: i * 0.1,
-                  ease: "easeInOut",
-                }
+              ? { duration: 0.8, repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }
               : { duration: 0.2 }
           }
         />
@@ -53,15 +61,18 @@ export function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3);
   const [isMuted, setIsMuted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [currentGenre, setCurrentGenre] = useState<GenreId>("lofi");
+  const [currentStation, setCurrentStation] = useState<StationId>("lofi");
+  const [selectedGenre, setSelectedGenre] = useState<Genre>("Chill");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
-  const currentTrack = MUSIC_GENRES.find((g) => g.id === currentGenre)!;
+  const station = RADIO_STATIONS.find((s) => s.id === currentStation)!;
+  const stationsInGenre = RADIO_STATIONS.filter((s) => s.genre === selectedGenre);
 
   // Click outside to close
   const handleClickOutside = useCallback((e: MouseEvent) => {
@@ -81,27 +92,29 @@ export function MusicPlayer() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [handleClickOutside]);
 
-  // Load saved state from localStorage
+  // Load saved state
   useEffect(() => {
-    const savedVolume = localStorage.getItem("music_volume");
-    const savedMuted = localStorage.getItem("music_muted");
-    const savedGenre = localStorage.getItem("music_genre") as GenreId | null;
+    const savedVolume = localStorage.getItem("radio_volume");
+    const savedMuted = localStorage.getItem("radio_muted");
+    const savedStation = localStorage.getItem("radio_station") as StationId | null;
 
     if (savedVolume) setVolume(parseFloat(savedVolume));
     if (savedMuted) setIsMuted(savedMuted === "true");
-    if (savedGenre && MUSIC_GENRES.some((g) => g.id === savedGenre)) {
-      setCurrentGenre(savedGenre);
+    if (savedStation && RADIO_STATIONS.some((s) => s.id === savedStation)) {
+      setCurrentStation(savedStation);
+      const stationData = RADIO_STATIONS.find((s) => s.id === savedStation);
+      if (stationData) setSelectedGenre(stationData.genre);
     }
   }, []);
 
-  // Save state to localStorage
+  // Save state
   useEffect(() => {
-    localStorage.setItem("music_volume", volume.toString());
-    localStorage.setItem("music_muted", isMuted.toString());
-    localStorage.setItem("music_genre", currentGenre);
-  }, [volume, isMuted, currentGenre]);
+    localStorage.setItem("radio_volume", volume.toString());
+    localStorage.setItem("radio_muted", isMuted.toString());
+    localStorage.setItem("radio_station", currentStation);
+  }, [volume, isMuted, currentStation]);
 
-  // Update audio element when state changes
+  // Update volume
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = isMuted ? 0 : volume;
@@ -119,44 +132,51 @@ export function MusicPlayer() {
       setIsLoading(false);
     };
 
-    const handleCanPlay = () => {
-      setHasError(false);
+    const handleCanPlay = () => setHasError(false);
+    const handlePlaying = () => {
+      setIsLoading(false);
+      setIsPlaying(true);
     };
 
     audio.addEventListener("error", handleError);
     audio.addEventListener("canplay", handleCanPlay);
+    audio.addEventListener("playing", handlePlaying);
 
     return () => {
       audio.removeEventListener("error", handleError);
       audio.removeEventListener("canplay", handleCanPlay);
+      audio.removeEventListener("playing", handlePlaying);
     };
   }, []);
 
-  // Handle genre change
-  const changeGenre = async (genreId: GenreId) => {
+  const changeStation = async (stationId: StationId) => {
     const wasPlaying = isPlaying;
     setHasError(false);
+    setCurrentStation(stationId);
 
-    if (audioRef.current && isPlaying) {
+    if (audioRef.current) {
       audioRef.current.pause();
       setIsPlaying(false);
-    }
 
-    setCurrentGenre(genreId);
-
-    // If was playing, start new track
-    if (wasPlaying && audioRef.current) {
-      setIsLoading(true);
-      audioRef.current.src = MUSIC_GENRES.find((g) => g.id === genreId)!.url;
-      try {
-        await audioRef.current.play();
-        setIsPlaying(true);
-      } catch (error) {
-        console.log("Playback failed:", error);
-        setHasError(true);
+      if (wasPlaying) {
+        setIsLoading(true);
+        audioRef.current.src = RADIO_STATIONS.find((s) => s.id === stationId)!.url;
+        audioRef.current.load();
+        try {
+          await audioRef.current.play();
+        } catch (error) {
+          console.log("Playback failed:", error);
+          setHasError(true);
+          setIsLoading(false);
+        }
       }
-      setIsLoading(false);
     }
+  };
+
+  const nextStation = () => {
+    const currentIndex = stationsInGenre.findIndex((s) => s.id === currentStation);
+    const nextIndex = (currentIndex + 1) % stationsInGenre.length;
+    changeStation(stationsInGenre[nextIndex].id);
   };
 
   const togglePlay = async () => {
@@ -170,38 +190,18 @@ export function MusicPlayer() {
       setIsLoading(true);
       try {
         await audioRef.current.play();
-        setIsPlaying(true);
       } catch (error) {
         console.log("Playback failed:", error);
         setHasError(true);
+        setIsLoading(false);
       }
-      setIsLoading(false);
-    }
-  };
-
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-  };
-
-  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newVolume = parseFloat(e.target.value);
-    setVolume(newVolume);
-    if (newVolume > 0 && isMuted) {
-      setIsMuted(false);
     }
   };
 
   return (
     <>
-      {/* Hidden audio element */}
-      <audio
-        ref={audioRef}
-        src={currentTrack.url}
-        preload="none"
-        crossOrigin="anonymous"
-      />
+      <audio ref={audioRef} src={station.url} preload="none" />
 
-      {/* Floating player */}
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
         <AnimatePresence>
           {isExpanded && (
@@ -222,9 +222,9 @@ export function MusicPlayer() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 className="fixed bottom-0 left-0 right-0 p-4 pb-6 bg-background border-t border-border rounded-t-2xl
-                  sm:absolute sm:bottom-14 sm:left-auto sm:right-0 sm:p-4 sm:rounded-xl sm:border sm:shadow-2xl sm:min-w-[280px]"
+                  sm:absolute sm:bottom-14 sm:left-auto sm:right-0 sm:p-4 sm:rounded-xl sm:border sm:shadow-2xl sm:w-[320px]"
               >
-                {/* Close button - mobile only */}
+                {/* Close button - mobile */}
                 <button
                   onClick={() => setIsExpanded(false)}
                   className="absolute top-3 right-3 p-2 text-foreground-subtle hover:text-foreground sm:hidden"
@@ -233,33 +233,56 @@ export function MusicPlayer() {
                 </button>
 
                 <div className="space-y-4">
-                  {/* Header with visualizer */}
+                  {/* Header */}
                   <div className="flex items-center justify-between pr-8 sm:pr-0">
                     <div className="flex items-center gap-3">
-                      <AudioVisualizer isPlaying={isPlaying} />
-                      <span className="text-sm font-medium text-foreground">Music</span>
+                      <Radio className="w-4 h-4 text-emerald-500" />
+                      <span className="text-sm font-medium text-foreground">Radio</span>
                     </div>
                     <button
-                      onClick={toggleMute}
+                      onClick={() => setIsMuted(!isMuted)}
                       className="p-2 rounded-lg text-foreground-subtle hover:text-foreground hover:bg-background-tertiary transition-colors"
                     >
                       {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
                     </button>
                   </div>
 
-                  {/* Genre selection */}
-                  <div className="grid grid-cols-3 gap-2">
-                    {MUSIC_GENRES.map((genre) => (
+                  {/* Genre tabs */}
+                  <div className="flex gap-1 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+                    {GENRES.map((genre) => (
                       <button
-                        key={genre.id}
-                        onClick={() => changeGenre(genre.id)}
-                        className={`px-3 py-2 rounded-lg text-sm transition-all ${
-                          currentGenre === genre.id
+                        key={genre}
+                        onClick={() => {
+                          setSelectedGenre(genre);
+                          const firstInGenre = RADIO_STATIONS.find((s) => s.genre === genre);
+                          if (firstInGenre && firstInGenre.id !== currentStation) {
+                            changeStation(firstInGenre.id);
+                          }
+                        }}
+                        className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap transition-all ${
+                          selectedGenre === genre
+                            ? "bg-emerald-500 text-white font-medium"
+                            : "bg-background-tertiary text-foreground-muted hover:text-foreground"
+                        }`}
+                      >
+                        {genre}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Stations in selected genre */}
+                  <div className="grid grid-cols-2 gap-2">
+                    {stationsInGenre.map((s) => (
+                      <button
+                        key={s.id}
+                        onClick={() => changeStation(s.id)}
+                        className={`px-3 py-2.5 rounded-lg text-sm text-left transition-all ${
+                          currentStation === s.id
                             ? "bg-foreground text-background font-medium"
                             : "bg-background-tertiary text-foreground-muted hover:text-foreground hover:bg-background-secondary"
                         }`}
                       >
-                        {genre.name}
+                        {s.name}
                       </button>
                     ))}
                   </div>
@@ -273,74 +296,71 @@ export function MusicPlayer() {
                       max="1"
                       step="0.01"
                       value={isMuted ? 0 : volume}
-                      onChange={handleVolumeChange}
+                      onChange={(e) => {
+                        const v = parseFloat(e.target.value);
+                        setVolume(v);
+                        if (v > 0 && isMuted) setIsMuted(false);
+                      }}
                       className="flex-1 h-1.5 bg-background-tertiary rounded-full appearance-none cursor-pointer
-                        [&::-webkit-slider-thumb]:appearance-none
-                        [&::-webkit-slider-thumb]:w-4
-                        [&::-webkit-slider-thumb]:h-4
-                        [&::-webkit-slider-thumb]:rounded-full
-                        [&::-webkit-slider-thumb]:bg-foreground
-                        [&::-webkit-slider-thumb]:cursor-pointer
-                        [&::-webkit-slider-thumb]:shadow-md
-                        [&::-moz-range-thumb]:w-4
-                        [&::-moz-range-thumb]:h-4
-                        [&::-moz-range-thumb]:rounded-full
-                        [&::-moz-range-thumb]:bg-foreground
-                        [&::-moz-range-thumb]:border-0
-                        [&::-moz-range-thumb]:cursor-pointer"
+                        [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4
+                        [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-foreground [&::-webkit-slider-thumb]:cursor-pointer
+                        [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:rounded-full
+                        [&::-moz-range-thumb]:bg-foreground [&::-moz-range-thumb]:border-0"
                     />
                     <span className="text-xs text-foreground-subtle w-8 text-right tabular-nums">
                       {Math.round((isMuted ? 0 : volume) * 100)}%
                     </span>
                   </div>
 
-                  {/* Play button */}
-                  <button
-                    onClick={togglePlay}
-                    disabled={isLoading}
-                    className={`w-full py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
-                      isPlaying
-                        ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/30"
-                        : hasError
-                        ? "bg-red-500/10 text-red-400 border border-red-500/30"
-                        : "bg-foreground text-background hover:opacity-90"
-                    }`}
-                  >
-                    {isLoading ? (
-                      <motion.span
-                        className="text-sm"
-                        animate={{ opacity: [1, 0.5, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                      >
-                        Loading...
-                      </motion.span>
-                    ) : hasError ? (
-                      <span className="text-sm">Stream unavailable - try another</span>
-                    ) : isPlaying ? (
-                      <>
-                        <Pause className="w-4 h-4" />
-                        <span className="text-sm">Pause</span>
-                      </>
-                    ) : (
-                      <>
-                        <Play className="w-4 h-4" />
-                        <span className="text-sm">Play {currentTrack.name}</span>
-                      </>
-                    )}
-                  </button>
+                  {/* Controls */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={togglePlay}
+                      disabled={isLoading}
+                      className={`flex-1 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
+                        isPlaying
+                          ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/30"
+                          : hasError
+                          ? "bg-red-500/10 text-red-400 border border-red-500/30"
+                          : "bg-foreground text-background hover:opacity-90"
+                      }`}
+                    >
+                      {isLoading ? (
+                        <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ duration: 1, repeat: Infinity }}>
+                          Connecting...
+                        </motion.span>
+                      ) : hasError ? (
+                        <span className="text-sm">Unavailable</span>
+                      ) : isPlaying ? (
+                        <>
+                          <Pause className="w-4 h-4" />
+                          <span className="text-sm">Pause</span>
+                        </>
+                      ) : (
+                        <>
+                          <Play className="w-4 h-4" />
+                          <span className="text-sm">Play</span>
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={nextStation}
+                      className="p-3 rounded-xl bg-background-tertiary text-foreground-muted hover:text-foreground hover:bg-background-secondary transition-all"
+                      title="Next station"
+                    >
+                      <SkipForward className="w-4 h-4" />
+                    </button>
+                  </div>
 
-                  {/* Status */}
+                  {/* Now playing */}
                   {isPlaying && (
                     <motion.div
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="flex items-center justify-center gap-2 text-xs text-foreground-subtle"
                     >
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                      </span>
-                      <span>Now playing {currentTrack.name}</span>
+                      <AudioVisualizer isPlaying={true} />
+                      <span>Now playing: {station.name}</span>
                     </motion.div>
                   )}
                 </div>
@@ -349,11 +369,11 @@ export function MusicPlayer() {
           )}
         </AnimatePresence>
 
-        {/* Main floating button */}
+        {/* Floating button */}
         <motion.button
           ref={buttonRef}
           onClick={() => setIsExpanded(!isExpanded)}
-          className={`relative p-3 sm:p-3 rounded-full border transition-all shadow-lg ${
+          className={`relative p-3 rounded-full border transition-all shadow-lg ${
             isPlaying
               ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-500"
               : "bg-background border-border text-foreground-muted hover:text-foreground hover:border-foreground-subtle"
@@ -363,13 +383,12 @@ export function MusicPlayer() {
         >
           {isPlaying ? (
             <div className="w-5 h-5 flex items-center justify-center">
-              <AudioVisualizer isPlaying={isPlaying} />
+              <AudioVisualizer isPlaying={true} />
             </div>
           ) : (
-            <Music className="w-5 h-5" />
+            <Radio className="w-5 h-5" />
           )}
 
-          {/* Playing indicator pulse */}
           {isPlaying && (
             <motion.div
               className="absolute inset-0 rounded-full border-2 border-emerald-500"
