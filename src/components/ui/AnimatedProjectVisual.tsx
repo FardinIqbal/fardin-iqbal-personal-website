@@ -556,11 +556,19 @@ function MovieRevenueVisual() {
       >
         <circle cx="340" cy="60" r="35" fill="none" stroke="rgb(168 85 247 / 0.6)" strokeWidth="4" />
         <circle cx="340" cy="60" r="12" fill="rgb(168 85 247 / 0.4)" />
-        {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+        {/* Pre-calculated positions to avoid hydration mismatch */}
+        {[
+          { cx: 364, cy: 60 },
+          { cx: 352, cy: 81 },
+          { cx: 328, cy: 81 },
+          { cx: 316, cy: 60 },
+          { cx: 328, cy: 39 },
+          { cx: 352, cy: 39 },
+        ].map((pos, i) => (
           <circle
             key={i}
-            cx={340 + 24 * Math.cos((angle * Math.PI) / 180)}
-            cy={60 + 24 * Math.sin((angle * Math.PI) / 180)}
+            cx={pos.cx}
+            cy={pos.cy}
             r="6"
             fill="rgb(var(--color-background-tertiary))"
           />

@@ -1,32 +1,85 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, Play, Pause, Music, X } from "lucide-react";
 
-// Ad-free music streams (SomaFM - listener supported, no ads)
+// Working streams with CORS support
 const MUSIC_GENRES = [
-  { id: "lofi", name: "Lofi", url: "https://ice1.somafm.com/groovesalad-128-mp3" },
-  { id: "ambient", name: "Ambient", url: "https://ice1.somafm.com/dronezone-128-mp3" },
-  { id: "chillout", name: "Chillout", url: "https://ice1.somafm.com/spacestation-128-mp3" },
-  { id: "jazz", name: "Jazz", url: "https://ice1.somafm.com/sonicuniverse-128-mp3" },
-  { id: "deephouse", name: "Deep House", url: "https://ice1.somafm.com/deepspaceone-128-mp3" },
-  { id: "indie", name: "Indie", url: "https://ice1.somafm.com/indiepop-128-mp3" },
+  { id: "lofi", name: "Lofi", url: "https://streams.ilovemusic.de/iloveradio17.mp3" },
+  { id: "chillout", name: "Chillout", url: "https://streams.ilovemusic.de/iloveradio-chillhop.mp3" },
+  { id: "jazz", name: "Jazz", url: "https://streaming.radio.co/s774887f7b/listen" },
+  { id: "ambient", name: "Ambient", url: "https://ice2.somafm.com/dronezone-128-mp3" },
+  { id: "electronic", name: "Electronic", url: "https://streams.ilovemusic.de/iloveradio2.mp3" },
+  { id: "classical", name: "Classical", url: "https://live.musopen.org:8085/streamvbr0" },
 ] as const;
 
 type GenreId = (typeof MUSIC_GENRES)[number]["id"];
 
+// Audio visualizer bars component
+function AudioVisualizer({ isPlaying }: { isPlaying: boolean }) {
+  const bars = [0, 1, 2, 3, 4];
+
+  return (
+    <div className="flex items-end justify-center gap-0.5 h-4">
+      {bars.map((i) => (
+        <motion.div
+          key={i}
+          className="w-0.5 bg-emerald-500 rounded-full"
+          animate={
+            isPlaying
+              ? {
+                  height: [4, 12, 6, 14, 8, 4],
+                }
+              : { height: 4 }
+          }
+          transition={
+            isPlaying
+              ? {
+                  duration: 0.8,
+                  repeat: Infinity,
+                  delay: i * 0.1,
+                  ease: "easeInOut",
+                }
+              : { duration: 0.2 }
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
 export function MusicPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3);
   const [isMuted, setIsMuted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [currentGenre, setCurrentGenre] = useState<GenreId>("lofi");
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   const currentTrack = MUSIC_GENRES.find((g) => g.id === currentGenre)!;
-  const [autoplayAttempted, setAutoplayAttempted] = useState(false);
+
+  // Click outside to close
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (
+      isExpanded &&
+      panelRef.current &&
+      buttonRef.current &&
+      !panelRef.current.contains(e.target as Node) &&
+      !buttonRef.current.contains(e.target as Node)
+    ) {
+      setIsExpanded(false);
+    }
+  }, [isExpanded]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [handleClickOutside]);
 
   // Load saved state from localStorage
   useEffect(() => {
@@ -40,27 +93,6 @@ export function MusicPlayer() {
       setCurrentGenre(savedGenre);
     }
   }, []);
-
-  // Attempt autoplay on mount
-  useEffect(() => {
-    if (autoplayAttempted || !audioRef.current) return;
-
-    const attemptAutoplay = async () => {
-      try {
-        audioRef.current!.volume = isMuted ? 0 : volume;
-        await audioRef.current!.play();
-        setIsPlaying(true);
-      } catch {
-        // Browser blocked autoplay - user will need to click play
-        console.log("Autoplay blocked by browser - click to play");
-      }
-      setAutoplayAttempted(true);
-    };
-
-    // Small delay to ensure component is mounted
-    const timer = setTimeout(attemptAutoplay, 100);
-    return () => clearTimeout(timer);
-  }, [autoplayAttempted, volume, isMuted]);
 
   // Save state to localStorage
   useEffect(() => {
@@ -76,9 +108,35 @@ export function MusicPlayer() {
     }
   }, [volume, isMuted]);
 
+  // Handle audio errors
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleError = () => {
+      setHasError(true);
+      setIsPlaying(false);
+      setIsLoading(false);
+    };
+
+    const handleCanPlay = () => {
+      setHasError(false);
+    };
+
+    audio.addEventListener("error", handleError);
+    audio.addEventListener("canplay", handleCanPlay);
+
+    return () => {
+      audio.removeEventListener("error", handleError);
+      audio.removeEventListener("canplay", handleCanPlay);
+    };
+  }, []);
+
   // Handle genre change
   const changeGenre = async (genreId: GenreId) => {
     const wasPlaying = isPlaying;
+    setHasError(false);
+
     if (audioRef.current && isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
@@ -95,6 +153,7 @@ export function MusicPlayer() {
         setIsPlaying(true);
       } catch (error) {
         console.log("Playback failed:", error);
+        setHasError(true);
       }
       setIsLoading(false);
     }
@@ -102,6 +161,7 @@ export function MusicPlayer() {
 
   const togglePlay = async () => {
     if (!audioRef.current) return;
+    setHasError(false);
 
     if (isPlaying) {
       audioRef.current.pause();
@@ -113,6 +173,7 @@ export function MusicPlayer() {
         setIsPlaying(true);
       } catch (error) {
         console.log("Playback failed:", error);
+        setHasError(true);
       }
       setIsLoading(false);
     }
@@ -133,7 +194,12 @@ export function MusicPlayer() {
   return (
     <>
       {/* Hidden audio element */}
-      <audio ref={audioRef} src={currentTrack.url} loop preload="none" />
+      <audio
+        ref={audioRef}
+        src={currentTrack.url}
+        preload="none"
+        crossOrigin="anonymous"
+      />
 
       {/* Floating player */}
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
@@ -151,6 +217,7 @@ export function MusicPlayer() {
 
               {/* Panel */}
               <motion.div
+                ref={panelRef}
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
@@ -166,10 +233,10 @@ export function MusicPlayer() {
                 </button>
 
                 <div className="space-y-4">
-                  {/* Header */}
+                  {/* Header with visualizer */}
                   <div className="flex items-center justify-between pr-8 sm:pr-0">
-                    <div className="flex items-center gap-2">
-                      <Music className="w-4 h-4 text-foreground-subtle" />
+                    <div className="flex items-center gap-3">
+                      <AudioVisualizer isPlaying={isPlaying} />
                       <span className="text-sm font-medium text-foreground">Music</span>
                     </div>
                     <button
@@ -227,18 +294,28 @@ export function MusicPlayer() {
                     </span>
                   </div>
 
-                  {/* Play button - large on mobile */}
+                  {/* Play button */}
                   <button
                     onClick={togglePlay}
                     disabled={isLoading}
                     className={`w-full py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
                       isPlaying
                         ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/30"
+                        : hasError
+                        ? "bg-red-500/10 text-red-400 border border-red-500/30"
                         : "bg-foreground text-background hover:opacity-90"
                     }`}
                   >
                     {isLoading ? (
-                      <span className="text-sm">Loading...</span>
+                      <motion.span
+                        className="text-sm"
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      >
+                        Loading...
+                      </motion.span>
+                    ) : hasError ? (
+                      <span className="text-sm">Stream unavailable - try another</span>
                     ) : isPlaying ? (
                       <>
                         <Pause className="w-4 h-4" />
@@ -254,13 +331,17 @@ export function MusicPlayer() {
 
                   {/* Status */}
                   {isPlaying && (
-                    <div className="flex items-center justify-center gap-2 text-xs text-foreground-subtle">
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center justify-center gap-2 text-xs text-foreground-subtle"
+                    >
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                       </span>
                       <span>Now playing {currentTrack.name}</span>
-                    </div>
+                    </motion.div>
                   )}
                 </div>
               </motion.div>
@@ -270,6 +351,7 @@ export function MusicPlayer() {
 
         {/* Main floating button */}
         <motion.button
+          ref={buttonRef}
           onClick={() => setIsExpanded(!isExpanded)}
           className={`relative p-3 sm:p-3 rounded-full border transition-all shadow-lg ${
             isPlaying
@@ -279,18 +361,21 @@ export function MusicPlayer() {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          {isPlaying ? <Pause className="w-5 h-5" /> : <Music className="w-5 h-5" />}
+          {isPlaying ? (
+            <div className="w-5 h-5 flex items-center justify-center">
+              <AudioVisualizer isPlaying={isPlaying} />
+            </div>
+          ) : (
+            <Music className="w-5 h-5" />
+          )}
 
-          {/* Playing indicator */}
+          {/* Playing indicator pulse */}
           {isPlaying && (
             <motion.div
-              className="absolute -top-1 -right-1 w-3 h-3"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-            >
-              <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
-            </motion.div>
+              className="absolute inset-0 rounded-full border-2 border-emerald-500"
+              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
           )}
         </motion.button>
       </div>
