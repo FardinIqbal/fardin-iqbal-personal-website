@@ -91,17 +91,23 @@ export default async function BlogPostPage({ params }: Props) {
           </header>
 
           {/* Content */}
-          <div className="prose prose-invert prose-lg max-w-none">
-            <div
-              className="text-foreground-muted leading-relaxed"
-              dangerouslySetInnerHTML={{
-                __html: post.content
-                  .split("\n")
-                  .map((line) => `<p>${line}</p>`)
-                  .join(""),
-              }}
-            />
-          </div>
+          <div
+            className="prose prose-lg max-w-none
+              prose-headings:text-foreground prose-headings:font-semibold
+              prose-h1:text-3xl prose-h1:mt-12 prose-h1:mb-4
+              prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+              prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+              prose-p:text-foreground-muted prose-p:leading-relaxed prose-p:mb-4
+              prose-a:text-primary-400 prose-a:no-underline hover:prose-a:underline
+              prose-strong:text-foreground prose-strong:font-semibold
+              prose-code:text-foreground prose-code:bg-background-tertiary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:before:content-none prose-code:after:content-none
+              prose-pre:bg-background-tertiary prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-0 prose-pre:my-6
+              prose-blockquote:border-l-primary-500 prose-blockquote:text-foreground-muted prose-blockquote:italic
+              prose-ul:text-foreground-muted prose-ol:text-foreground-muted
+              prose-li:marker:text-foreground-subtle
+              prose-hr:border-border"
+            dangerouslySetInnerHTML={{ __html: post.compiledContent }}
+          />
         </article>
       </main>
       <Footer />

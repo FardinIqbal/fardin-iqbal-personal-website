@@ -269,3 +269,88 @@ pre code {
   padding: 0;
   background: transparent;
 }
+
+/* ============================================
+   REHYPE-PRETTY-CODE STYLES
+   ============================================ */
+
+/* Code blocks with syntax highlighting */
+[data-rehype-pretty-code-figure] {
+  margin: 1.5rem 0;
+}
+
+[data-rehype-pretty-code-figure] pre {
+  background: rgb(var(--color-background-tertiary)) !important;
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+[data-rehype-pretty-code-figure] code {
+  background: transparent !important;
+  padding: 0;
+  font-size: inherit;
+  display: grid;
+}
+
+[data-rehype-pretty-code-figure] [data-line] {
+  padding: 0 1rem;
+  margin: 0 -1rem;
+}
+
+/* Line numbers */
+[data-rehype-pretty-code-figure] code[data-line-numbers] {
+  counter-reset: line;
+}
+
+[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: rgb(var(--color-foreground-subtle));
+  font-size: 0.875em;
+}
+
+/* Highlighted lines */
+[data-rehype-pretty-code-figure] [data-highlighted-line] {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 2px solid rgb(var(--primary-500));
+}
+
+/* Inline code title */
+[data-rehype-pretty-code-title] {
+  background: rgb(var(--color-border));
+  color: rgb(var(--color-foreground-muted));
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-family: var(--font-mono);
+  border-radius: 8px 8px 0 0;
+  border: 1px solid rgb(var(--color-border));
+  border-bottom: none;
+}
+
+[data-rehype-pretty-code-title] + pre {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 0 !important;
+}
+
+/* Inline code in prose */
+.prose :not(pre) > code {
+  background: rgb(var(--color-background-tertiary));
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.875em;
+  color: rgb(var(--color-foreground));
+}
+
+/* Light mode adjustments for code */
+.light [data-rehype-pretty-code-figure] pre {
+  background: rgb(var(--color-background-tertiary)) !important;
+}
