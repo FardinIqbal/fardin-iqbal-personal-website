@@ -6,14 +6,14 @@
       "company": "New York City Housing Authority (NYCHA)",
       "role": "Cybersecurity Intern",
       "location": "New York, NY",
-      "period": "June 2025 - Present",
+      "period": "June 2025 - August 2025",
       "type": "internship",
       "description": "One of two interns selected to join NYCHA's Cybersecurity team, supporting threat detection, incident response, and vulnerability management at the largest public housing authority in North America.",
       "highlights": [
-        "Monitor and investigate security events using Splunk (SIEM) and CrowdStrike Falcon (EDR)",
-        "Assist in incident response workflows, including triage, threat analysis, and remediation support",
-        "Contribute to vulnerability management, including reviewing scan data and risk prioritization",
-        "Shadow security engineers to gain exposure to endpoint protection, DLP, and security control implementation"
+        "Monitored and investigated security events using Splunk (SIEM) and CrowdStrike Falcon (EDR)",
+        "Assisted in incident response workflows, including triage, threat analysis, and remediation support",
+        "Contributed to vulnerability management, including reviewing scan data and risk prioritization",
+        "Shadowed security engineers to gain exposure to endpoint protection, DLP, and security control implementation"
       ],
       "tech": ["Splunk", "CrowdStrike Falcon", "SIEM", "EDR", "Incident Response", "Vulnerability Management"]
     },

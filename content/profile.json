@@ -2,11 +2,12 @@
   "_schema": "Profile information - edit this to update personal details",
   "profile": {
     "name": "Fardin Iqbal",
-    "tagline": "Cybersecurity Intern @ NYCHA | Open to Summer 2026 Internships",
+    "tagline": "Builder, Thinker, Grappler | Digital Vagabond",
     "bio": [
-      "Computer Science student at Stony Brook University gaining hands-on cybersecurity experience at the New York City Housing Authority (NYCHA). Contributing to threat detection, incident response, and vulnerability management using Splunk and CrowdStrike Falcon.",
-      "Previously automated BIM workflows at Beyer Blinder Belle using Python, and have a strong foundation in full-stack development spanning from low-level systems programming in C to modern web frameworks like React and Ruby on Rails.",
-      "Currently seeking 2026 internships in software or security engineering to drive impactful solutions. When I'm not coding, you'll find me coaching Brazilian Jiu-Jitsu at Stony Brook or exploring the intersection of AI and software engineering."
+      "Fardin is in his final semester at Stony Brook University, but he's already checked out of the 'student' identity. Right now he's a digital vagabond - building his own projects, reading voraciously, and figuring out what kind of life he actually wants to live.",
+      "His days look nothing like a typical college senior's. He's deep in building a healthcare startup (Early Intervention space), coaching Brazilian Jiu-Jitsu at the university club, and writing essays that explore questions most people don't bother asking - like whether dictators can be good or why love needs no reason.",
+      "He's the kind of person who reads Marcus Aurelius for fun, debates the nature of free will over coffee, and then spends the evening debugging a React Native app. Some call it scattered - he calls it following curiosity wherever it leads.",
+      "No corporate job lined up. No 10-year plan. Just a relentless drive to build things that matter, understand how the world actually works, and become someone worth being. Currently seeking the next interesting problem to solve."
     ],
     "location": "New York, NY",
     "email": "fardin.iqbal1@gmail.com",
@@ -16,7 +17,7 @@
       "major": "Computer Science",
       "graduationDate": "May 2026",
       "gpa": "3.13",
-      "activities": "Treasurer & Assistant Coach – Brazilian Jiu-Jitsu Club"
+      "activities": "Treasurer & Assistant Coach - Brazilian Jiu-Jitsu Club"
     },
     "social": {
       "github": "https://github.com/FardinIqbal",
@@ -24,6 +25,6 @@
       "twitter": null
     },
     "resumeUrl": "/resume/Fardin_Iqbal_Resume.pdf",
-    "topSkills": ["React.js", "Python", "JavaScript", "Node.js", "Git", "Splunk", "CrowdStrike"]
+    "topSkills": ["React", "TypeScript", "Python", "Systems Thinking", "BJJ", "Writing"]
   }
 }

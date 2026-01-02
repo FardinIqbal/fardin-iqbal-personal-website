@@ -1,15 +1,15 @@
 {
-  "_schema": "Courses - status: in-progress | completed | want-to-take",
+  "_schema": "Courses & Learning - status: in-progress | completed | want-to-take",
   "courses": [
     {
-      "id": "cs50",
-      "title": "CS50: Introduction to Computer Science",
-      "platform": "Harvard/edX",
-      "instructor": "David Malan",
-      "status": "completed",
-      "topics": ["C", "Python", "SQL", "Web Development"],
-      "link": "https://cs50.harvard.edu",
-      "thoughts": "The best intro CS course. David Malan is an incredible educator."
+      "id": "bjj-fundamentals",
+      "title": "BJJ Blue Belt Curriculum",
+      "platform": "Stony Brook BJJ Club",
+      "instructor": "Self-directed",
+      "status": "in-progress",
+      "topics": ["Guard Passing", "Submissions", "Escapes", "Competition Strategy"],
+      "link": null,
+      "thoughts": "Learning to teach is learning twice. Coaching beginners has refined Fardin's own fundamentals."
     },
     {
       "id": "fullstack-open",
@@ -19,27 +19,47 @@
       "status": "completed",
       "topics": ["React", "Node.js", "MongoDB", "GraphQL", "TypeScript"],
       "link": "https://fullstackopen.com",
-      "thoughts": "Comprehensive modern web development curriculum."
+      "thoughts": "The foundation for everything Fardin builds now. Free and better than most bootcamps."
     },
     {
-      "id": "ml-specialization",
-      "title": "Machine Learning Specialization",
-      "platform": "Coursera",
-      "instructor": "Andrew Ng",
+      "id": "cs50",
+      "title": "CS50: Introduction to Computer Science",
+      "platform": "Harvard/edX",
+      "instructor": "David Malan",
+      "status": "completed",
+      "topics": ["C", "Python", "SQL", "Web Development"],
+      "link": "https://cs50.harvard.edu",
+      "thoughts": "Where it all started. David Malan made CS feel like magic."
+    },
+    {
+      "id": "philosophy-of-mind",
+      "title": "Philosophy of Mind",
+      "platform": "Self-study",
+      "instructor": "Various (Dennett, Chalmers, Hofstadter)",
       "status": "in-progress",
-      "topics": ["Supervised Learning", "Neural Networks", "Decision Trees"],
-      "link": "https://www.coursera.org/specializations/machine-learning-introduction",
-      "thoughts": "The gold standard for learning ML fundamentals."
+      "topics": ["Consciousness", "Free Will", "Identity", "AI"],
+      "link": null,
+      "thoughts": "What is a mind? What makes us us? These questions don't have answers, but asking them changes you."
     },
     {
-      "id": "nand-to-tetris",
-      "title": "Nand to Tetris",
-      "platform": "Coursera",
+      "id": "stoic-philosophy",
+      "title": "Practical Stoicism",
+      "platform": "Self-study",
+      "instructor": "Marcus Aurelius, Seneca, Epictetus",
+      "status": "in-progress",
+      "topics": ["Emotional Regulation", "Focus", "Perspective", "Virtue Ethics"],
+      "link": null,
+      "thoughts": "Not about suppressing emotions - about seeing clearly. The ancient equivalent of cognitive behavioral therapy."
+    },
+    {
+      "id": "trading-markets",
+      "title": "Market Structure & Trading",
+      "platform": "Self-study + Paper Trading",
       "instructor": null,
-      "status": "want-to-take",
-      "topics": ["Computer Architecture", "Hardware", "Compilers"],
-      "link": "https://www.nand2tetris.org",
-      "thoughts": "Build a computer from first principles. On my list!"
+      "status": "in-progress",
+      "topics": ["Technical Analysis", "Risk Management", "Psychology", "Options"],
+      "link": null,
+      "thoughts": "Markets as a teacher of humility. Every trade is a lesson in decision-making under uncertainty."
     }
   ]
 }

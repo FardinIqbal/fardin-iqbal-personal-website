@@ -2,44 +2,196 @@
   "_schema": "Books - status: reading | completed | want-to-read, rating: 1-5",
   "books": [
     {
-      "id": "clean-code",
-      "title": "Clean Code",
-      "author": "Robert C. Martin",
+      "id": "stoner",
+      "title": "Stoner",
+      "author": "John Williams",
       "status": "completed",
       "rating": 5,
-      "thoughts": "Essential reading for any developer. Changed how I think about writing maintainable code."
+      "thoughts": "A quiet life lived fully. Fardin's all-time favorite - the kind of book that makes you reconsider what 'success' actually means."
     },
     {
-      "id": "ddia",
-      "title": "Designing Data-Intensive Applications",
-      "author": "Martin Kleppmann",
-      "status": "reading",
-      "rating": null,
-      "thoughts": "Deep dive into distributed systems. Dense but incredibly valuable."
-    },
-    {
-      "id": "pragmatic-programmer",
-      "title": "The Pragmatic Programmer",
-      "author": "David Thomas & Andrew Hunt",
+      "id": "crime-punishment",
+      "title": "Crime and Punishment",
+      "author": "Fyodor Dostoevsky",
       "status": "completed",
       "rating": 5,
-      "thoughts": "Timeless wisdom on software craftsmanship."
+      "thoughts": "Dostoevsky gets inside a mind destroying itself. The psychology here is more real than most modern novels."
     },
     {
-      "id": "atomic-habits",
-      "title": "Atomic Habits",
-      "author": "James Clear",
+      "id": "notes-underground",
+      "title": "Notes from Underground",
+      "author": "Fyodor Dostoevsky",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "The original anti-hero. Uncomfortable because Fardin recognized parts of himself in the Underground Man."
+    },
+    {
+      "id": "white-nights",
+      "title": "White Nights",
+      "author": "Fyodor Dostoevsky",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Dostoevsky's most romantic work. Brief, devastating, beautiful."
+    },
+    {
+      "id": "one-hundred-years",
+      "title": "One Hundred Years of Solitude",
+      "author": "Gabriel Garcia Marquez",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Magical realism that feels more real than realism. Every page is a fever dream."
+    },
+    {
+      "id": "birth-tragedy",
+      "title": "The Birth of Tragedy",
+      "author": "Friedrich Nietzsche",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Apollonian vs Dionysian - a framework for understanding art, culture, and oneself."
+    },
+    {
+      "id": "man-search-meaning",
+      "title": "Man's Search for Meaning",
+      "author": "Viktor Frankl",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "A book that puts everything in perspective. Suffering is inevitable; meaning is a choice."
+    },
+    {
+      "id": "stranger",
+      "title": "The Stranger",
+      "author": "Albert Camus",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Meursault's detachment is either terrifying or liberating, depending on when you read it."
+    },
+    {
+      "id": "five-dialogues",
+      "title": "Five Dialogues",
+      "author": "Plato",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Socrates in action. The Apology alone is worth the price - a man choosing death over compromise."
+    },
+    {
+      "id": "don-quixote",
+      "title": "Don Quixote",
+      "author": "Miguel de Cervantes",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "The first modern novel. Don Quixote is mad, yes - but also the only one truly alive."
+    },
+    {
+      "id": "count-monte-cristo",
+      "title": "The Count of Monte Cristo",
+      "author": "Alexandre Dumas",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "The ultimate revenge fantasy. 1000+ pages that never drag for a second."
+    },
+    {
+      "id": "man-and-symbols",
+      "title": "Man and His Symbols",
+      "author": "Carl Jung",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Jung's accessible entry point. Fardin came to this through Peterson, stayed for the depth."
+    },
+    {
+      "id": "way-of-zen",
+      "title": "The Way of Zen",
+      "author": "Alan Watts",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Eastern philosophy made accessible. Changed how Fardin thinks about thinking."
+    },
+    {
+      "id": "metamorphosis",
+      "title": "The Metamorphosis",
+      "author": "Franz Kafka",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Alienation made literal. Kafka's absurdism hits different in the age of remote work."
+    },
+    {
+      "id": "siddhartha",
+      "title": "Siddhartha",
+      "author": "Hermann Hesse",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Everyone must find their own path. The river metaphor stays with you."
+    },
+    {
+      "id": "septology",
+      "title": "Septology",
+      "author": "Jon Fosse",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Nobel Prize-winning stream of consciousness. Seven parts, one sentence, infinite depth."
+    },
+    {
+      "id": "flowers-algernon",
+      "title": "Flowers for Algernon",
+      "author": "Daniel Keyes",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Intelligence vs wisdom. The gradual decline is devastating."
+    },
+    {
+      "id": "1984",
+      "title": "1984",
+      "author": "George Orwell",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Gets more relevant every year. The appendix on Newspeak is the scariest part."
+    },
+    {
+      "id": "king-lear",
+      "title": "King Lear",
+      "author": "William Shakespeare",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Shakespeare's darkest tragedy. Pride, aging, and the impossibility of truly knowing another person."
+    },
+    {
+      "id": "book-of-job",
+      "title": "The Book of Job",
+      "author": "Anonymous",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "The oldest philosophical text. Why do the righteous suffer? No easy answers - just the question itself."
+    },
+    {
+      "id": "alchemist",
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Simple but not simplistic. The universe conspiring thing sounds cheesy until you live it."
+    },
+    {
+      "id": "great-gatsby",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "The American Dream dissected. That green light still means something."
+    },
+    {
+      "id": "picture-dorian-gray",
+      "title": "The Picture of Dorian Gray",
+      "author": "Oscar Wilde",
       "status": "completed",
       "rating": 4,
-      "thoughts": "Practical framework for building good habits and breaking bad ones."
+      "thoughts": "Wilde at his most decadent. Every epigram is quotable."
     },
     {
-      "id": "system-design-interview",
-      "title": "System Design Interview",
-      "author": "Alex Xu",
-      "status": "reading",
-      "rating": null,
-      "thoughts": "Great for understanding large-scale system architecture."
+      "id": "sorrows-werther",
+      "title": "The Sorrows of Young Werther",
+      "author": "Johann Wolfgang von Goethe",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "The book that invented Romanticism - and caused a suicide epidemic. Handle with care."
     }
   ]
 }

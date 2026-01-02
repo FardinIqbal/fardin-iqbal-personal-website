@@ -8,6 +8,18 @@
   },
   "projects": [
     {
+      "id": "neo-provider",
+      "title": "Neo Provider",
+      "category": "web",
+      "featured": true,
+      "description": "Healthcare SaaS platform for Early Intervention providers. Full-stack monorepo with mobile app, API, and admin dashboard. Built to simplify clinical documentation, scheduling, and billing for therapists serving children 0-3.",
+      "narrative": "Fardin's current obsession. Building a startup from scratch - handling everything from database schema design to pitch decks.",
+      "tech": ["TypeScript", "React Native", "tRPC", "Drizzle ORM", "PostgreSQL", "Expo"],
+      "github": null,
+      "live": null,
+      "image": "/images/projects/neo-provider.png"
+    },
+    {
       "id": "dynamic-memory-allocator",
       "title": "Dynamic Memory Allocator",
       "category": "systems",

@@ -2,22 +2,76 @@
   "_schema": "Movies & Shows - type: movie | show | documentary | anime, status: watching | completed | want-to-watch",
   "media": [
     {
+      "id": "jiro-dreams-sushi",
+      "title": "Jiro Dreams of Sushi",
+      "type": "documentary",
+      "status": "completed",
+      "rating": 5,
+      "year": "2011",
+      "thoughts": "The pursuit of mastery. Fardin watches this whenever he needs to remember what dedication looks like."
+    },
+    {
+      "id": "the-last-dance",
+      "title": "The Last Dance",
+      "type": "documentary",
+      "status": "completed",
+      "rating": 5,
+      "year": "2020",
+      "thoughts": "Jordan's relentless drive is both inspiring and terrifying. The price of greatness."
+    },
+    {
+      "id": "stutz",
+      "title": "Stutz",
+      "type": "documentary",
+      "status": "completed",
+      "rating": 5,
+      "year": "2022",
+      "thoughts": "Phil Stutz's tools for living. The 'Life Force' concept hit different."
+    },
+    {
+      "id": "free-solo",
+      "title": "Free Solo",
+      "type": "documentary",
+      "status": "completed",
+      "rating": 5,
+      "year": "2018",
+      "thoughts": "Alex Honnold climbing El Capitan without ropes. Pure commitment."
+    },
+    {
+      "id": "succession",
+      "title": "Succession",
+      "type": "show",
+      "status": "completed",
+      "rating": 5,
+      "year": "2018-2023",
+      "thoughts": "A masterclass in power, family dysfunction, and Shakespearean tragedy. The writing is unreal."
+    },
+    {
       "id": "mr-robot",
       "title": "Mr. Robot",
       "type": "show",
       "status": "completed",
       "rating": 5,
       "year": "2015-2019",
-      "thoughts": "The most technically accurate hacking show ever made. Incredible storytelling."
+      "thoughts": "The most technically accurate hacking show ever made. Plus the mental health themes hit hard."
     },
     {
-      "id": "silicon-valley",
-      "title": "Silicon Valley",
-      "type": "show",
+      "id": "fight-club",
+      "title": "Fight Club",
+      "type": "movie",
       "status": "completed",
-      "rating": 4,
-      "year": "2014-2019",
-      "thoughts": "Hilariously accurate satire of tech startup culture."
+      "rating": 5,
+      "year": "1999",
+      "thoughts": "About masculinity, consumerism, and identity. Dangerous if misunderstood, profound if you get it."
+    },
+    {
+      "id": "whiplash",
+      "title": "Whiplash",
+      "type": "movie",
+      "status": "completed",
+      "rating": 5,
+      "year": "2014",
+      "thoughts": "Is greatness worth destroying yourself? The ending still gives chills."
     },
     {
       "id": "social-network",
@@ -26,25 +80,16 @@
       "status": "completed",
       "rating": 5,
       "year": "2010",
-      "thoughts": "Fincher's masterpiece about the birth of Facebook."
+      "thoughts": "Fincher's masterpiece. The loneliness at the top, captured perfectly."
     },
     {
-      "id": "black-mirror",
-      "title": "Black Mirror",
-      "type": "show",
-      "status": "watching",
-      "rating": null,
-      "year": "2011-present",
-      "thoughts": "Thought-provoking exploration of technology's dark side."
-    },
-    {
-      "id": "severance",
-      "title": "Severance",
-      "type": "show",
+      "id": "stutz-thinking",
+      "title": "Cosmos: A Spacetime Odyssey",
+      "type": "documentary",
       "status": "completed",
       "rating": 5,
-      "year": "2022-present",
-      "thoughts": "Mind-bending workplace thriller. Absolutely brilliant."
+      "year": "2014",
+      "thoughts": "Neil deGrasse Tyson making the universe feel personal. Big History vibes."
     }
   ]
 }
