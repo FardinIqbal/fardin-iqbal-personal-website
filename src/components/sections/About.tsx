@@ -11,7 +11,7 @@ interface AboutProps {
 
 export function About({ profile }: AboutProps) {
   return (
-    <section id="about" className="py-24 bg-background-secondary">
+    <section id="about" data-section="about" className="py-24 bg-background-secondary/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div

@@ -191,7 +191,7 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
   const completedCourses = courses.filter((c) => c.status === "completed");
 
   return (
-    <section id="interests" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="interests" data-section="interests" className="relative py-24 md:py-32 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div

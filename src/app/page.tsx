@@ -7,7 +7,7 @@ import { ExperienceSection } from "@/components/sections/Experience";
 import { ProjectsSection } from "@/components/sections/Projects";
 import { InterestsSection } from "@/components/sections/Interests";
 import { Contact } from "@/components/sections/Contact";
-import { GlobalEffects } from "@/components/effects/GlobalEffects";
+import { ImmersivePortfolioWrapper } from "@/components/immersive";
 
 // Content loaders - run at build time for static export
 import {
@@ -33,8 +33,7 @@ export default function Home() {
   const courses = getCourses();
 
   return (
-    <>
-      <GlobalEffects />
+    <ImmersivePortfolioWrapper>
       <Header />
       <main>
         <Hero profile={profile} />
@@ -49,6 +48,6 @@ export default function Home() {
         <Contact profile={profile} />
       </main>
       <Footer />
-    </>
+    </ImmersivePortfolioWrapper>
   );
 }

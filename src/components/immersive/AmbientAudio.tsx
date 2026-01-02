@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
-import { useMood } from "./MoodSystem";
 
 // Note frequencies for different keys
 const noteFrequencies: Record<string, number[]> = {
@@ -15,13 +14,50 @@ const noteFrequencies: Record<string, number[]> = {
   A: [440.0, 493.88, 554.37, 587.33, 659.25, 739.99, 830.61],
 };
 
+interface AudioConfig {
+  tempo: number;
+  key: string;
+  reverb: number;
+  volume: number;
+}
+
+interface Palette {
+  primary: string;
+  secondary: string;
+  accent: string;
+  glow: string;
+  background: string;
+}
+
 interface AmbientAudioProps {
   enabled?: boolean;
   onToggle?: (enabled: boolean) => void;
+  audioConfig?: AudioConfig;
+  palette?: Palette;
 }
 
-export function AmbientAudio({ enabled: controlledEnabled, onToggle }: AmbientAudioProps) {
-  const { audio: audioConfig, palette } = useMood();
+// Default values for when used outside of any provider
+const defaultAudioConfig: AudioConfig = {
+  tempo: 65,
+  key: "C",
+  reverb: 0.6,
+  volume: -20,
+};
+
+const defaultPalette: Palette = {
+  primary: "34, 197, 94",
+  secondary: "74, 222, 128",
+  accent: "250, 204, 21",
+  glow: "rgba(34, 197, 94, 0.25)",
+  background: "#0a120e",
+};
+
+export function AmbientAudio({
+  enabled: controlledEnabled,
+  onToggle,
+  audioConfig = defaultAudioConfig,
+  palette = defaultPalette,
+}: AmbientAudioProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [volume, setVolume] = useState(0.3);

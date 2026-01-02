@@ -64,7 +64,7 @@ function SkillCard({
 
 export function SkillsSection({ skills }: SkillsSectionProps) {
   return (
-    <section id="skills" className="py-24 bg-background">
+    <section id="skills" data-section="skills" className="py-24 bg-transparent">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header - clean */}
         <motion.div

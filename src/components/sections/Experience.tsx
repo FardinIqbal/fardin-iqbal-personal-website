@@ -10,7 +10,7 @@ interface ExperienceSectionProps {
 
 export function ExperienceSection({ experience }: ExperienceSectionProps) {
   return (
-    <section id="experience" className="py-24 bg-background-secondary">
+    <section id="experience" data-section="experience" className="py-24 bg-background-secondary/50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
