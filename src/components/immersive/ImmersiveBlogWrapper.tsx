@@ -1,382 +1,98 @@
 "use client";
 
-import { ReactNode, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { MoodProvider, Mood } from "./MoodSystem";
-import { ParticleBackground } from "./ParticleBackground";
-import { AmbientAudio } from "./AmbientAudio";
-import { ReadingProgress, ScrollReveal, GlowText, PullQuote, SectionDivider } from "./ScrollAnimations";
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 
 interface ImmersiveBlogWrapperProps {
   children: ReactNode;
   content: string;
   tags?: string[];
-  overrideMood?: Mood;
+  overrideMood?: string;
   title: string;
   description?: string;
 }
 
-// Loading screen with atmospheric transition
-function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  useEffect(() => {
-    const timer = setTimeout(onComplete, 1500);
-    return () => clearTimeout(timer);
-  }, [onComplete]);
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.8 }}
-    >
-      <motion.div
-        className="relative"
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <motion.div
-          className="w-16 h-16 rounded-full border-2 border-indigo-500/30"
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute inset-0 w-16 h-16 rounded-full border-2 border-t-indigo-500 border-r-transparent border-b-transparent border-l-transparent"
-          animate={{ rotate: -360 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute inset-2 w-12 h-12 rounded-full bg-indigo-500/10"
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-      </motion.div>
-    </motion.div>
-  );
-}
-
-// Immersive title with staggered letter animation
-function ImmersiveTitle({ title }: { title: string }) {
-  const words = title.split(" ");
-
-  return (
-    <motion.h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-      {words.map((word, wordIndex) => (
-        <span key={wordIndex} className="inline-block mr-4">
-          {word.split("").map((char, charIndex) => (
-            <motion.span
-              key={charIndex}
-              className="inline-block"
-              initial={{ opacity: 0, y: 50, rotateX: -90 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: wordIndex * 0.1 + charIndex * 0.03,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              style={{
-                background: "linear-gradient(135deg, rgb(var(--mood-primary)) 0%, rgb(var(--mood-secondary)) 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </span>
-      ))}
-    </motion.h1>
-  );
-}
-
-// Seeded random for deterministic values (avoids hydration mismatch)
-function seededRandom(seed: number) {
-  const x = Math.sin(seed * 9999) * 10000;
-  return x - Math.floor(x);
-}
-
-// Floating particles overlay for extra depth
-function FloatingDots() {
-  // Use deterministic values based on index to avoid hydration mismatch
-  const dots = Array.from({ length: 20 }, (_, i) => ({
-    id: i,
-    x: seededRandom(i * 1) * 100,
-    y: seededRandom(i * 2) * 100,
-    size: 2 + seededRandom(i * 3) * 4,
-    duration: 10 + seededRandom(i * 4) * 20,
-  }));
-
-  return (
-    <div className="fixed inset-0 pointer-events-none z-10 overflow-hidden opacity-30">
-      {dots.map((dot) => (
-        <motion.div
-          key={dot.id}
-          className="absolute rounded-full"
-          style={{
-            left: `${dot.x}%`,
-            top: `${dot.y}%`,
-            width: dot.size,
-            height: dot.size,
-            background: "rgb(var(--mood-primary))",
-            boxShadow: `0 0 ${dot.size * 2}px rgba(var(--mood-primary), 0.5)`,
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.3, 0.8, 0.3],
-          }}
-          transition={{
-            duration: dot.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      ))}
-    </div>
-  );
-}
-
 export function ImmersiveBlogWrapper({
   children,
-  content,
-  tags = [],
-  overrideMood,
   title,
   description,
 }: ImmersiveBlogWrapperProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [audioEnabled, setAudioEnabled] = useState(false);
-
   return (
-    <MoodProvider content={content} tags={tags} overrideMood={overrideMood}>
-      <AnimatePresence mode="wait">
-        {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      </AnimatePresence>
+    <>
+      <Header />
+      <main className="min-h-screen bg-background pt-24 pb-20">
+        {/* Hero section */}
+        <header className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-4xl md:text-5xl font-bold text-foreground mb-6 tracking-tight"
+          >
+            {title}
+          </motion.h1>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isLoading ? 0 : 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative min-h-screen"
-      >
-        {/* Particle background */}
-        <ParticleBackground />
-
-        {/* Floating overlay dots */}
-        <FloatingDots />
-
-        {/* Reading progress indicator */}
-        <ReadingProgress />
-
-        {/* Main content */}
-        <div className="relative z-20">
-          {/* Hero section with title */}
-          <header className="min-h-[60vh] flex flex-col justify-center items-center text-center px-4 pt-32 pb-16">
-            <ScrollReveal>
-              <ImmersiveTitle title={title} />
-            </ScrollReveal>
-
-            {description && (
-              <ScrollReveal>
-                <motion.p
-                  className="text-xl md:text-2xl text-foreground-muted max-w-2xl leading-relaxed"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8, duration: 0.8 }}
-                >
-                  {description}
-                </motion.p>
-              </ScrollReveal>
-            )}
-
-            {/* Scroll indicator */}
-            <motion.div
-              className="absolute bottom-8 left-1/2 -translate-x-1/2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
+          {description && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-xl text-foreground-muted max-w-2xl mx-auto leading-relaxed"
             >
-              <motion.div
-                className="w-6 h-10 rounded-full border-2 border-foreground/20 flex justify-center pt-2"
-                animate={{ y: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                <motion.div
-                  className="w-1 h-2 rounded-full bg-foreground/40"
-                  animate={{ opacity: [0.4, 1, 0.4], y: [0, 4, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </motion.div>
-            </motion.div>
-          </header>
+              {description}
+            </motion.p>
+          )}
+        </header>
 
-          {/* Content area */}
-          <main className="relative">
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-32">
-              {/* Section divider before content */}
-              <SectionDivider />
-
-              {/* Blog content with immersive prose styling */}
-              <ScrollReveal>
-                <div className="immersive-prose">{children}</div>
-              </ScrollReveal>
-            </div>
-          </main>
-        </div>
-
-        {/* Ambient audio control */}
-        <AmbientAudio enabled={audioEnabled} onToggle={setAudioEnabled} />
-
-        {/* Vignette overlay */}
-        <div
-          className="fixed inset-0 pointer-events-none z-30"
-          style={{
-            background:
-              "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.4) 100%)",
-          }}
-        />
-      </motion.div>
-
-      {/* Global immersive styles */}
-      <style jsx global>{`
-        .immersive-prose {
-          color: rgb(var(--color-foreground));
-        }
-
-        .immersive-prose h1,
-        .immersive-prose h2,
-        .immersive-prose h3,
-        .immersive-prose h4 {
-          color: rgb(var(--mood-primary));
-          margin-top: 3rem;
-          margin-bottom: 1.5rem;
-        }
-
-        .dark .immersive-prose h1,
-        .dark .immersive-prose h2,
-        .dark .immersive-prose h3,
-        .dark .immersive-prose h4 {
-          text-shadow: 0 0 30px rgba(var(--mood-primary), 0.3);
-        }
-
-        .immersive-prose h2 {
-          font-size: 2rem;
-          border-left: 3px solid rgb(var(--mood-primary));
-          padding-left: 1rem;
-        }
-
-        .immersive-prose h3 {
-          font-size: 1.5rem;
-        }
-
-        .immersive-prose p {
-          line-height: 1.9;
-          margin-bottom: 1.5rem;
-          font-size: 1.125rem;
-        }
-
-        .immersive-prose a {
-          color: rgb(var(--mood-secondary));
-          text-decoration: none;
-          border-bottom: 1px solid rgba(var(--mood-secondary), 0.3);
-          transition: all 0.3s ease;
-        }
-
-        .immersive-prose a:hover {
-          color: rgb(var(--mood-primary));
-          border-bottom-color: rgb(var(--mood-primary));
-        }
-
-        .dark .immersive-prose a:hover {
-          text-shadow: 0 0 10px rgba(var(--mood-primary), 0.5);
-        }
-
-        .immersive-prose blockquote {
-          border-left: 4px solid rgb(var(--mood-primary));
-          background: rgba(var(--mood-primary), 0.05);
-          padding: 1.5rem 2rem;
-          margin: 2rem 0;
-          border-radius: 0 8px 8px 0;
-          font-style: italic;
-          color: rgb(var(--color-foreground-muted));
-        }
-
-        .immersive-prose code {
-          background: rgba(var(--mood-primary), 0.1);
-          border: 1px solid rgba(var(--mood-primary), 0.2);
-          padding: 0.2rem 0.5rem;
-          border-radius: 4px;
-          font-size: 0.9em;
-        }
-
-        .immersive-prose pre {
-          background: rgb(var(--color-background-tertiary));
-          border: 1px solid rgba(var(--mood-primary), 0.2);
-          border-radius: 12px;
-          padding: 1.5rem;
-          overflow-x: auto;
-        }
-
-        .dark .immersive-prose pre {
-          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-
-        .immersive-prose pre code {
-          background: none;
-          border: none;
-          padding: 0;
-        }
-
-        .immersive-prose ul,
-        .immersive-prose ol {
-          margin: 1.5rem 0;
-          padding-left: 1.5rem;
-        }
-
-        .immersive-prose li {
-          margin-bottom: 0.5rem;
-          line-height: 1.8;
-        }
-
-        .immersive-prose li::marker {
-          color: rgb(var(--mood-primary));
-        }
-
-        .immersive-prose hr {
-          border: none;
-          height: 1px;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgb(var(--mood-primary)),
-            transparent
-          );
-          margin: 3rem 0;
-        }
-
-        .immersive-prose strong {
-          color: rgb(var(--mood-primary));
-          font-weight: 600;
-        }
-
-        .immersive-prose em {
-          color: rgb(var(--color-foreground));
-        }
-
-        .immersive-prose img {
-          border-radius: 12px;
-          margin: 2rem 0;
-        }
-
-        .dark .immersive-prose img {
-          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-        }
-      `}</style>
-    </MoodProvider>
+        {/* Content */}
+        <motion.article
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8"
+        >
+          <div className="prose prose-lg max-w-none dark:prose-invert
+            prose-headings:font-bold prose-headings:tracking-tight
+            prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-l-4 prose-h2:border-primary-500 prose-h2:pl-4
+            prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+            prose-p:text-foreground-muted prose-p:leading-relaxed
+            prose-a:text-primary-500 prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-foreground prose-strong:font-semibold
+            prose-blockquote:border-l-4 prose-blockquote:border-primary-500 prose-blockquote:bg-background-secondary prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
+            prose-code:bg-background-tertiary prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
+            prose-pre:bg-background-secondary prose-pre:border prose-pre:border-border prose-pre:rounded-xl
+            prose-img:rounded-xl prose-img:shadow-lg
+            prose-hr:border-border
+            prose-li:text-foreground-muted
+          ">
+            {children}
+          </div>
+        </motion.article>
+      </main>
+      <Footer />
+    </>
   );
 }
 
-// Re-export components for use in MDX
-export { GlowText, PullQuote, ScrollReveal, SectionDivider };
+// Export placeholder components for backward compatibility
+export function GlowText({ children }: { children: ReactNode }) {
+  return <span className="text-primary-500 font-semibold">{children}</span>;
+}
+
+export function PullQuote({ children }: { children: ReactNode }) {
+  return (
+    <blockquote className="text-xl italic text-foreground-muted border-l-4 border-primary-500 pl-6 my-8">
+      {children}
+    </blockquote>
+  );
+}
+
+export function ScrollReveal({ children }: { children: ReactNode }) {
+  return <>{children}</>;
+}
+
+export function SectionDivider() {
+  return <hr className="my-12 border-border" />;
+}

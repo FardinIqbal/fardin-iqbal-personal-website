@@ -19,6 +19,7 @@ export async function middleware(req: NextRequest) {
     "/dashboard(.*)",
     "/admin(.*)",
     "/api/admin(.*)",
+    "/insights(.*)",
   ]);
 
   return clerkMiddleware(async (auth, request) => {
