@@ -2,63 +2,52 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArboretumData, Insight, ThematicBranch, BRANCH_COLORS } from "@/types/arboretum";
+import { ArboretumData, Insight, BRANCH_COLORS } from "@/types/arboretum";
 import { PasswordGate } from "./PasswordGate";
-import { InsightCard } from "./InsightCard";
-import { InsightDetail } from "./InsightDetail";
-import { TreeVisualization } from "./TreeVisualization";
+import { ComprehensiveReport } from "./ComprehensiveReport";
 import {
   TreeDeciduous,
-  Filter,
-  Grid3X3,
-  Network,
-  Eye,
-  EyeOff,
-  Download
+  FileText,
+  Sparkles,
+  Calendar,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 
 interface ArboretumPageProps {
   data: ArboretumData;
 }
 
-const BRANCH_LABELS: Record<ThematicBranch, string> = {
-  relationships: "Relationships",
-  career: "Career",
-  trauma: "Trauma",
-  joy: "Joy",
-  growth: "Growth",
-  identity: "Identity",
-  purpose: "Purpose",
-};
-
 export function ArboretumPage({ data }: ArboretumPageProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [selectedInsight, setSelectedInsight] = useState<Insight | null>(null);
-  const [activeBranch, setActiveBranch] = useState<ThematicBranch | "all">("all");
-  const [viewMode, setViewMode] = useState<"grid" | "tree">("grid");
-  const [showConnections, setShowConnections] = useState(true);
-  const [showShadow, setShowShadow] = useState(false);
+  const [activeTab, setActiveTab] = useState<"insights" | "report">("insights");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
-  // Check authentication on mount
   useEffect(() => {
     const stored = sessionStorage.getItem("arboretum_auth");
     setIsAuthenticated(stored === "a]k#9Xm$2pL@vR7n");
   }, []);
 
-  // Filter insights
-  const filteredInsights = data.insights.filter((insight) => {
-    if (activeBranch !== "all" && insight.branch !== activeBranch) return false;
-    return true;
+  // Sort insights by year (newest first), then by creation date
+  const sortedInsights = [...data.insights].sort((a, b) => {
+    if (b.temporal.year !== a.temporal.year) {
+      return b.temporal.year - a.temporal.year;
+    }
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 
-  // Group by branch for grid view
-  const groupedInsights = data.insights.reduce((acc, insight) => {
-    if (!acc[insight.branch]) acc[insight.branch] = [];
-    acc[insight.branch].push(insight);
+  // Group by year for timeline
+  const insightsByYear = sortedInsights.reduce((acc, insight) => {
+    const year = insight.temporal.year;
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(insight);
     return acc;
-  }, {} as Record<ThematicBranch, Insight[]>);
+  }, {} as Record<number, Insight[]>);
 
-  // Loading state
+  const years = Object.keys(insightsByYear)
+    .map(Number)
+    .sort((a, b) => b - a);
+
   if (isAuthenticated === null) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -72,7 +61,6 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
     );
   }
 
-  // Password gate
   if (!isAuthenticated) {
     return <PasswordGate onSuccess={() => setIsAuthenticated(true)} />;
   }
@@ -81,231 +69,238 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
               <TreeDeciduous className="w-5 h-5 text-emerald-500" />
               <h1 className="text-lg font-semibold text-foreground">The Arboretum</h1>
             </div>
 
-            <div className="flex items-center gap-2">
-              {/* View mode toggle */}
-              <div className="flex items-center bg-background-tertiary rounded-lg p-1">
-                <button
-                  onClick={() => setViewMode("grid")}
-                  className={`p-2 rounded-md transition-colors ${
-                    viewMode === "grid"
-                      ? "bg-background text-foreground"
-                      : "text-foreground-subtle hover:text-foreground"
-                  }`}
-                >
-                  <Grid3X3 className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => setViewMode("tree")}
-                  className={`p-2 rounded-md transition-colors ${
-                    viewMode === "tree"
-                      ? "bg-background text-foreground"
-                      : "text-foreground-subtle hover:text-foreground"
-                  }`}
-                >
-                  <Network className="w-4 h-4" />
-                </button>
-              </div>
-
-              {/* Connections toggle */}
+            {/* Tab Navigation */}
+            <div className="flex items-center gap-1 bg-background-tertiary rounded-lg p-1">
               <button
-                onClick={() => setShowConnections(!showConnections)}
-                className={`p-2 rounded-lg transition-colors ${
-                  showConnections
-                    ? "bg-primary-500/10 text-primary-500"
+                onClick={() => setActiveTab("insights")}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
+                  activeTab === "insights"
+                    ? "bg-background text-foreground"
                     : "text-foreground-subtle hover:text-foreground"
                 }`}
-                title="Toggle connections"
               >
-                <Network className="w-4 h-4" />
+                <Sparkles className="w-4 h-4" />
+                Insights
               </button>
-
-              {/* Shadow toggle */}
               <button
-                onClick={() => setShowShadow(!showShadow)}
-                className={`p-2 rounded-lg transition-colors ${
-                  showShadow
-                    ? "bg-purple-500/10 text-purple-500"
+                onClick={() => setActiveTab("report")}
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
+                  activeTab === "report"
+                    ? "bg-background text-foreground"
                     : "text-foreground-subtle hover:text-foreground"
                 }`}
-                title="Toggle shadow self"
               >
-                {showShadow ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
-              </button>
-
-              {/* Export */}
-              <button
-                onClick={() => alert("PDF export coming soon")}
-                className="p-2 rounded-lg text-foreground-subtle hover:text-foreground transition-colors"
-                title="Export PDF"
-              >
-                <Download className="w-4 h-4" />
+                <FileText className="w-4 h-4" />
+                Full Report
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Intro section */}
-      <section className="py-12 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="max-w-2xl"
+      <AnimatePresence mode="wait">
+        {activeTab === "insights" ? (
+          <motion.main
+            key="insights"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="py-8"
           >
-            <p className="text-foreground-muted leading-relaxed">
-              A living visualization of insights, patterns, and the architecture of self.
-              These nodes represent observations synthesized from journal entries and
-              conversations over time. The connections between them reveal deeper patterns.
-            </p>
-          </motion.div>
-
-          {/* Branch filters */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="flex flex-wrap gap-2 mt-6"
-          >
-            <button
-              onClick={() => setActiveBranch("all")}
-              className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all ${
-                activeBranch === "all"
-                  ? "bg-foreground text-background"
-                  : "bg-background-tertiary text-foreground-muted hover:text-foreground border border-border"
-              }`}
-            >
-              <Filter className="w-3 h-3" />
-              All Branches
-            </button>
-            {(Object.keys(BRANCH_LABELS) as ThematicBranch[]).map((branch) => {
-              const count = groupedInsights[branch]?.length || 0;
-              if (count === 0) return null;
-              return (
-                <button
-                  key={branch}
-                  onClick={() => setActiveBranch(branch)}
-                  className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all ${
-                    activeBranch === branch
-                      ? "text-background"
-                      : "bg-background-tertiary text-foreground-muted hover:text-foreground border border-border"
-                  }`}
-                  style={
-                    activeBranch === branch
-                      ? { backgroundColor: BRANCH_COLORS[branch] }
-                      : undefined
-                  }
-                >
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: BRANCH_COLORS[branch] }}
-                  />
-                  {BRANCH_LABELS[branch]}
-                  <span className="text-xs opacity-60">({count})</span>
-                </button>
-              );
-            })}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Main content */}
-      <main className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatePresence mode="wait">
-            {viewMode === "grid" ? (
-              <motion.div
-                key="grid"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              {/* Intro */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-foreground-muted mb-12 max-w-2xl"
               >
-                {filteredInsights.map((insight, index) => (
-                  <InsightCard
-                    key={insight.id}
-                    insight={insight}
-                    index={index}
-                    showShadow={showShadow}
-                    onClick={() => setSelectedInsight(insight)}
-                    connections={
-                      showConnections
-                        ? insight.connections.map((c) => {
-                            const target = data.insights.find((i) => i.id === c.targetId);
-                            return target?.title || "";
-                          }).filter(Boolean)
-                        : []
-                    }
-                  />
+                Observations and patterns synthesized from journal entries and conversations.
+                A living record of insights about the self.
+              </motion.p>
+
+              {/* Timeline */}
+              <div className="relative">
+                {/* Timeline line */}
+                <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+
+                {years.map((year, yearIndex) => (
+                  <motion.div
+                    key={year}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: yearIndex * 0.1 }}
+                    className="mb-12"
+                  >
+                    {/* Year marker */}
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center relative z-10">
+                        <Calendar className="w-4 h-4 text-emerald-500" />
+                      </div>
+                      <h2 className="text-xl font-semibold text-foreground">{year}</h2>
+                      <span className="text-sm text-foreground-subtle">
+                        {insightsByYear[year].length} insight{insightsByYear[year].length !== 1 ? "s" : ""}
+                      </span>
+                    </div>
+
+                    {/* Insights for this year */}
+                    <div className="space-y-4 ml-12">
+                      {insightsByYear[year].map((insight, index) => (
+                        <InsightTimelineCard
+                          key={insight.id}
+                          insight={insight}
+                          index={index}
+                          isExpanded={expandedId === insight.id}
+                          onToggle={() =>
+                            setExpandedId(expandedId === insight.id ? null : insight.id)
+                          }
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
                 ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="tree"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <TreeVisualization
-                  insights={filteredInsights}
-                  allInsights={data.insights}
-                  showConnections={showConnections}
-                  showShadow={showShadow}
-                  onInsightClick={setSelectedInsight}
-                />
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </main>
+              </div>
 
-      {/* Insight detail modal */}
-      <AnimatePresence>
-        {selectedInsight && (
-          <InsightDetail
-            insight={selectedInsight}
-            allInsights={data.insights}
-            showShadow={showShadow}
-            onClose={() => setSelectedInsight(null)}
-            onNavigate={(id) => {
-              const next = data.insights.find((i) => i.id === id);
-              if (next) setSelectedInsight(next);
-            }}
-          />
+              {/* Footer */}
+              <div className="mt-16 pt-8 border-t border-border flex items-center justify-center gap-2 text-sm text-foreground-subtle">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>Constantly evolving</span>
+              </div>
+            </div>
+          </motion.main>
+        ) : (
+          <motion.main
+            key="report"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="py-8"
+          >
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <ComprehensiveReport data={data} />
+            </div>
+          </motion.main>
         )}
       </AnimatePresence>
-
-      {/* Stats footer */}
-      <footer className="py-8 border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-foreground-subtle">
-            <div className="flex items-center gap-6">
-              <span>{data.insights.length} insights</span>
-              <span>
-                {data.insights.reduce((acc, i) => acc + i.connections.length, 0)} connections
-              </span>
-              <span>
-                Spanning {Math.min(...data.insights.map((i) => i.temporal.year))} -{" "}
-                {Math.max(...data.insights.map((i) => i.temporal.year))}
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-              </span>
-              <span>Constantly evolving</span>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
+  );
+}
+
+function InsightTimelineCard({
+  insight,
+  index,
+  isExpanded,
+  onToggle,
+}: {
+  insight: Insight;
+  index: number;
+  isExpanded: boolean;
+  onToggle: () => void;
+}) {
+  const branchColor = BRANCH_COLORS[insight.branch];
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: index * 0.05 }}
+      className="bg-background-secondary border border-border rounded-xl overflow-hidden hover:border-foreground-subtle transition-colors"
+    >
+      <button
+        onClick={onToggle}
+        className="w-full p-5 text-left flex items-start justify-between gap-4"
+      >
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-2">
+            <span
+              className="w-2 h-2 rounded-full flex-shrink-0"
+              style={{ backgroundColor: branchColor }}
+            />
+            <span className="text-xs text-foreground-subtle capitalize">
+              {insight.branch}
+            </span>
+            {insight.temporal.isFoundational && (
+              <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500">
+                Foundational
+              </span>
+            )}
+          </div>
+          <h3 className="text-foreground font-medium">{insight.title}</h3>
+          {!isExpanded && (
+            <p className="text-sm text-foreground-muted mt-1 line-clamp-2">
+              {insight.content}
+            </p>
+          )}
+        </div>
+        <div className="flex-shrink-0 text-foreground-subtle">
+          {isExpanded ? (
+            <ChevronUp className="w-5 h-5" />
+          ) : (
+            <ChevronDown className="w-5 h-5" />
+          )}
+        </div>
+      </button>
+
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="overflow-hidden"
+          >
+            <div className="px-5 pb-5 pt-0 space-y-4">
+              <p className="text-foreground-muted leading-relaxed whitespace-pre-wrap">
+                {insight.content}
+              </p>
+
+              {insight.shadowSelf && (
+                <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/20">
+                  <p className="text-xs text-purple-400 font-medium mb-1">Shadow Self</p>
+                  <p className="text-sm text-foreground-muted">
+                    {insight.shadowSelf.inversion}
+                  </p>
+                  {insight.shadowSelf.underlyingFear && (
+                    <p className="text-xs text-purple-400/70 mt-2">
+                      Underlying fear: {insight.shadowSelf.underlyingFear}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {insight.microWorld?.narrative && (
+                <div className="p-4 rounded-lg bg-cyan-500/5 border border-cyan-500/20">
+                  <p className="text-xs text-cyan-400 font-medium mb-1">Deeper Narrative</p>
+                  <p className="text-sm text-foreground-muted italic">
+                    {insight.microWorld.narrative}
+                  </p>
+                </div>
+              )}
+
+              <div className="flex flex-wrap gap-2 pt-2">
+                {insight.tags?.map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs px-2 py-1 rounded-full bg-background-tertiary text-foreground-subtle"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.article>
   );
 }
