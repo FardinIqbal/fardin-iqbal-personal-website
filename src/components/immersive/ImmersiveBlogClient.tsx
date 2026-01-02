@@ -189,7 +189,7 @@ export function ImmersiveBlogClient({
         </div>
       </motion.footer>
 
-      {/* Scroll to top button */}
+      {/* Scroll to top button - positioned above music player */}
       <motion.button
         onClick={scrollToTop}
         initial={{ opacity: 0, scale: 0.8 }}
@@ -199,7 +199,7 @@ export function ImmersiveBlogClient({
           pointerEvents: showScrollTop ? "auto" : "none",
         }}
         transition={{ duration: 0.2 }}
-        className="fixed bottom-8 right-8 p-3 rounded-full bg-background-secondary border border-border hover:border-foreground-subtle transition-colors z-40"
+        className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 p-3 rounded-full bg-background-secondary border border-border hover:border-foreground-subtle transition-colors z-40"
         aria-label="Scroll to top"
       >
         <ChevronUp className="w-5 h-5 text-foreground-muted" />
