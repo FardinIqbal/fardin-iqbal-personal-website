@@ -21,7 +21,3 @@ export { AmbientAudio } from "./AmbientAudio";
 
 export { ImmersiveBlogWrapper } from "./ImmersiveBlogWrapper";
 export { ImmersiveBlogClient } from "./ImmersiveBlogClient";
-
-// Portfolio-wide immersive system
-export { SectionMoodProvider, useSectionMood, sectionMoods } from "./SectionMoodProvider";
-export { ImmersivePortfolioWrapper } from "./ImmersivePortfolioWrapper";

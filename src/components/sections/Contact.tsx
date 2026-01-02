@@ -56,7 +56,7 @@ export function Contact({ profile }: ContactProps) {
   ];
 
   return (
-    <section id="contact" data-section="contact" className="py-24 bg-background-secondary/50">
+    <section id="contact" className="py-24 bg-background-secondary">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - clean */}
         <motion.div

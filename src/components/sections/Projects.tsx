@@ -155,8 +155,7 @@ export function ProjectsSection({ projects, categories }: ProjectsSectionProps) 
   return (
     <section
       id="projects"
-      data-section="projects"
-      className="relative py-24 bg-transparent"
+      className="relative py-24 bg-background"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header - clean Vercel style */}

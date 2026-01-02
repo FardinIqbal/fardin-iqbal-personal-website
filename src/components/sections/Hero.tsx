@@ -5,42 +5,20 @@ import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content";
-import { useSectionMood } from "@/components/immersive/SectionMoodProvider";
 
-// Staggered letter animation component
-function AnimatedName({ name }: { name: string }) {
-  const { palette } = useSectionMood();
-  const words = name.split(" ");
-
+// Simple grid pattern - Vercel style
+function GridPattern() {
   return (
-    <span className="block">
-      {words.map((word, wordIndex) => (
-        <span key={wordIndex} className="inline-block mr-4">
-          {word.split("").map((char, charIndex) => (
-            <motion.span
-              key={charIndex}
-              className="inline-block"
-              initial={{ opacity: 0, y: 50, rotateX: -90 }}
-              animate={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.3 + wordIndex * 0.15 + charIndex * 0.04,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              style={{
-                background: `linear-gradient(135deg, rgb(${palette.primary}) 0%, rgb(${palette.secondary}) 100%)`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                textShadow: `0 0 40px rgba(${palette.primary}, 0.3)`,
-              }}
-            >
-              {char}
-            </motion.span>
-          ))}
-        </span>
-      ))}
-    </span>
+    <div className="absolute inset-0 overflow-hidden">
+      <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
+        <defs>
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="1" />
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+      </svg>
+    </div>
   );
 }
 
@@ -63,11 +41,19 @@ export function Hero({ profile }: HeroProps) {
   return (
     <section
       id="hero"
-      data-section="hero"
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background handled by ImmersivePortfolioWrapper */}
+      {/* Clean background */}
+      <div className="absolute inset-0 bg-background" />
+
+      {/* Subtle gradient accent - Vercel style */}
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary-500/5 rounded-full blur-[100px]" />
+      </div>
+
+      {/* Grid pattern */}
+      <GridPattern />
 
       {/* Content */}
       <motion.div
@@ -93,19 +79,19 @@ export function Hero({ profile }: HeroProps) {
           </span>
         </motion.div>
 
-        {/* Name with staggered letter animation */}
+        {/* Name - clean, no rainbow gradient */}
         <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
         >
-          <motion.span
-            className="block text-foreground-muted text-3xl sm:text-4xl md:text-5xl font-normal mb-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <span className="block text-foreground-muted text-3xl sm:text-4xl md:text-5xl font-normal mb-2">
             Hi, I&apos;m
-          </motion.span>
-          <AnimatedName name={profile.name} />
+          </span>
+          <span className="block text-foreground">
+            {profile.name}
+          </span>
         </motion.h1>
 
         {/* Tagline */}
@@ -199,6 +185,8 @@ export function Hero({ profile }: HeroProps) {
         </Link>
       </motion.div>
 
+      {/* Bottom gradient fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 }
