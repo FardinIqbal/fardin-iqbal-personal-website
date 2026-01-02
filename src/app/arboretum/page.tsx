@@ -1,19 +1,14 @@
 import { Metadata } from "next";
-import { PasswordGate } from "@/components/arboretum/ui/PasswordGate";
-import { ArboretumView } from "@/components/arboretum/ArboretumView";
+import { ArboretumPage } from "@/components/arboretum/ArboretumPage";
 import arboretumData from "@/../content/arboretum.json";
 import { ArboretumData } from "@/types/arboretum";
 
 export const metadata: Metadata = {
-  title: "The Arboretum of the Soul",
-  description: "A living visualization of insights and the architecture of self",
+  title: "The Arboretum | Fardin Iqbal",
+  description: "A living visualization of insights and patterns",
   robots: "noindex, nofollow",
 };
 
-export default function ArboretumPage() {
-  return (
-    <PasswordGate>
-      <ArboretumView data={arboretumData as ArboretumData} />
-    </PasswordGate>
-  );
+export default function Page() {
+  return <ArboretumPage data={arboretumData as ArboretumData} />;
 }
