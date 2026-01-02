@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import { PasswordGate } from "@/components/arboretum/ui/PasswordGate";
 import { ArboretumView } from "@/components/arboretum/ArboretumView";
-import { getArboretumData } from "@/lib/arboretum/content";
+import arboretumData from "@/../content/arboretum.json";
+import { ArboretumData } from "@/types/arboretum";
 
 export const metadata: Metadata = {
   title: "The Arboretum of the Soul",
@@ -9,12 +10,10 @@ export const metadata: Metadata = {
   robots: "noindex, nofollow",
 };
 
-export default async function ArboretumPage() {
-  const data = await getArboretumData();
-
+export default function ArboretumPage() {
   return (
     <PasswordGate>
-      <ArboretumView data={data} />
+      <ArboretumView data={arboretumData as ArboretumData} />
     </PasswordGate>
   );
 }
