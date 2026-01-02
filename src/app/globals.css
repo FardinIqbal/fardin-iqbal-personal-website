@@ -521,3 +521,330 @@ svg .animate-rotate-slow {
   transform-origin: center;
   transform-box: fill-box;
 }
+
+/* ============================================
+   BLOG ARTICLE TYPOGRAPHY
+   Clean, readable, modern
+   ============================================ */
+
+.prose-article {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: rgb(var(--color-foreground-muted));
+}
+
+.prose-article > * + * {
+  margin-top: 1.5em;
+}
+
+/* Headings */
+.prose-article h1,
+.prose-article h2,
+.prose-article h3,
+.prose-article h4 {
+  color: rgb(var(--color-foreground));
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.prose-article h1 {
+  font-size: 2.25rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.prose-article h2 {
+  font-size: 1.75rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.prose-article h3 {
+  font-size: 1.375rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose-article h4 {
+  font-size: 1.125rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+.prose-article p {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.prose-article p:first-child {
+  margin-top: 0;
+}
+
+/* Lead paragraph - first p after h1 or at start */
+.prose-article > p:first-of-type {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: rgb(var(--color-foreground));
+}
+
+/* Links */
+.prose-article a {
+  color: rgb(var(--primary-500));
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.prose-article a:hover {
+  border-bottom-color: rgb(var(--primary-500));
+}
+
+/* Strong & emphasis */
+.prose-article strong {
+  color: rgb(var(--color-foreground));
+  font-weight: 600;
+}
+
+.prose-article em {
+  font-style: italic;
+}
+
+/* Blockquotes */
+.prose-article blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 3px solid rgb(var(--primary-500));
+  background: rgb(var(--color-background-secondary));
+  border-radius: 0 12px 12px 0;
+  font-style: normal;
+}
+
+.prose-article blockquote p {
+  margin: 0;
+  font-size: 1.125rem;
+  color: rgb(var(--color-foreground));
+}
+
+.prose-article blockquote p + p {
+  margin-top: 1rem;
+}
+
+/* Lists */
+.prose-article ul,
+.prose-article ol {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose-article li {
+  margin: 0.75rem 0;
+  padding-left: 0.5rem;
+}
+
+.prose-article li::marker {
+  color: rgb(var(--color-foreground-subtle));
+}
+
+.prose-article ul li::marker {
+  content: "---  ";
+}
+
+.prose-article ol {
+  list-style-type: decimal;
+}
+
+.prose-article li > ul,
+.prose-article li > ol {
+  margin: 0.5rem 0;
+}
+
+/* Inline code */
+.prose-article :not(pre) > code {
+  background: rgb(var(--color-background-tertiary));
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-family: var(--font-mono);
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgb(var(--color-border));
+}
+
+/* Code blocks */
+.prose-article pre {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  background: rgb(var(--color-background-secondary));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.prose-article pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  font-size: inherit;
+  color: rgb(var(--color-foreground));
+}
+
+/* Images */
+.prose-article img {
+  margin: 2.5rem auto;
+  border-radius: 12px;
+  max-width: 100%;
+  height: auto;
+}
+
+.prose-article figure {
+  margin: 2.5rem 0;
+}
+
+.prose-article figcaption {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: rgb(var(--color-foreground-subtle));
+}
+
+/* Horizontal rule */
+.prose-article hr {
+  margin: 3rem 0;
+  border: none;
+  height: 1px;
+  background: rgb(var(--color-border));
+}
+
+/* Tables */
+.prose-article table {
+  width: 100%;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.prose-article th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  border-bottom: 2px solid rgb(var(--color-border));
+  background: rgb(var(--color-background-secondary));
+}
+
+.prose-article td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgb(var(--color-border));
+  color: rgb(var(--color-foreground-muted));
+}
+
+.prose-article tr:last-child td {
+  border-bottom: none;
+}
+
+/* Definition lists */
+.prose-article dl {
+  margin: 1.5rem 0;
+}
+
+.prose-article dt {
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  margin-top: 1rem;
+}
+
+.prose-article dd {
+  margin-left: 1.5rem;
+  margin-top: 0.25rem;
+}
+
+/* Footnotes */
+.prose-article .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(var(--color-border));
+  font-size: 0.9rem;
+}
+
+.prose-article .footnotes ol {
+  padding-left: 1.25rem;
+}
+
+.prose-article .footnotes li {
+  margin: 0.5rem 0;
+}
+
+/* Sup/Sub */
+.prose-article sup,
+.prose-article sub {
+  font-size: 0.75em;
+}
+
+.prose-article sup a {
+  border-bottom: none;
+}
+
+/* Abbreviations */
+.prose-article abbr {
+  text-decoration: underline dotted;
+  cursor: help;
+}
+
+/* Keyboard input */
+.prose-article kbd {
+  display: inline-block;
+  padding: 0.1em 0.4em;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: rgb(var(--color-background-tertiary));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgb(var(--color-border));
+}
+
+/* Mark/highlight */
+.prose-article mark {
+  background: rgba(59, 130, 246, 0.2);
+  color: rgb(var(--color-foreground));
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+}
+
+/* Video embeds */
+.prose-article iframe,
+.prose-article video {
+  margin: 2.5rem auto;
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .prose-article {
+    font-size: 1rem;
+  }
+
+  .prose-article h2 {
+    font-size: 1.5rem;
+  }
+
+  .prose-article h3 {
+    font-size: 1.25rem;
+  }
+
+  .prose-article blockquote {
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+  }
+
+  .prose-article pre {
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+}

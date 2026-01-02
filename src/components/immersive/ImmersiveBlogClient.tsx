@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
 import { ImmersiveBlogWrapper } from "./ImmersiveBlogWrapper";
-import { SkillBadge } from "@/components/ui/SkillBadge";
 import { formatDate } from "@/lib/utils";
 import { Mood } from "./MoodSystem";
 
@@ -27,7 +27,26 @@ export function ImmersiveBlogClient({
   compiledContent,
   rawContent,
 }: ImmersiveBlogClientProps) {
-  // Determine mood from tags if available
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const moodTag = tags.find((tag): tag is Mood =>
     ["philosophical", "technical", "intense", "calm", "nostalgic", "hopeful", "mysterious"].includes(
       tag.toLowerCase()
@@ -42,63 +61,149 @@ export function ImmersiveBlogClient({
       description={description}
       overrideMood={moodTag?.toLowerCase() as Mood | undefined}
     >
-      {/* Back link with fade */}
+      {/* Reading progress bar */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.5 }}
-        className="mb-12"
-      >
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors group"
-        >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Back to blog
-        </Link>
-      </motion.div>
-
-      {/* Meta information */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-        className="flex flex-wrap items-center gap-4 text-sm text-foreground-subtle mb-6"
-      >
-        <span className="flex items-center gap-1.5">
-          <Calendar className="w-4 h-4" />
-          {formatDate(date)}
-        </span>
-        <span className="flex items-center gap-1.5">
-          <Clock className="w-4 h-4" />
-          {readingTime}
-        </span>
-      </motion.div>
-
-      {/* Tags */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="flex flex-wrap gap-2 mb-12"
-      >
-        {tags.map((tag, index) => (
-          <motion.div
-            key={tag}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 + index * 0.1 }}
-          >
-            <SkillBadge name={tag} size="sm" />
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Content */}
-      <div
-        className="prose prose-lg max-w-none dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: compiledContent }}
+        className="fixed top-0 left-0 right-0 h-0.5 bg-primary-500 origin-left z-50"
+        style={{ scaleX }}
       />
+
+      {/* Hero Section */}
+      <header className="pt-32 pb-16 px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto">
+          {/* Back link */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm text-foreground-subtle hover:text-foreground transition-colors group mb-8"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              All posts
+            </Link>
+          </motion.div>
+
+          {/* Tags */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="flex flex-wrap gap-2 mb-6"
+          >
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 text-xs font-medium rounded-full bg-background-tertiary text-foreground-muted border border-border"
+              >
+                {tag}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* Title */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-[1.1] mb-6"
+          >
+            {title}
+          </motion.h1>
+
+          {/* Description */}
+          {description && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-xl text-foreground-muted leading-relaxed mb-8"
+            >
+              {description}
+            </motion.p>
+          )}
+
+          {/* Meta */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: 0.25 }}
+            className="flex items-center gap-6 text-sm text-foreground-subtle"
+          >
+            <span className="flex items-center gap-2">
+              <Calendar className="w-4 h-4" />
+              {formatDate(date)}
+            </span>
+            <span className="flex items-center gap-2">
+              <Clock className="w-4 h-4" />
+              {readingTime}
+            </span>
+          </motion.div>
+        </div>
+      </header>
+
+      {/* Divider */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="h-px bg-border origin-left"
+        />
+      </div>
+
+      {/* Article Content */}
+      <motion.article
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="py-16 px-4 sm:px-6"
+      >
+        <div
+          className="prose-article max-w-3xl mx-auto"
+          dangerouslySetInnerHTML={{ __html: compiledContent }}
+        />
+      </motion.article>
+
+      {/* Footer divider */}
+      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="h-px bg-border" />
+      </div>
+
+      {/* Post footer */}
+      <motion.footer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: 0.5 }}
+        className="py-16 px-4 sm:px-6"
+      >
+        <div className="max-w-3xl mx-auto">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors group"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            Back to all posts
+          </Link>
+        </div>
+      </motion.footer>
+
+      {/* Scroll to top button */}
+      <motion.button
+        onClick={scrollToTop}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{
+          opacity: showScrollTop ? 1 : 0,
+          scale: showScrollTop ? 1 : 0.8,
+          pointerEvents: showScrollTop ? "auto" : "none",
+        }}
+        transition={{ duration: 0.2 }}
+        className="fixed bottom-8 right-8 p-3 rounded-full bg-background-secondary border border-border hover:border-foreground-subtle transition-colors z-40"
+        aria-label="Scroll to top"
+      >
+        <ChevronUp className="w-5 h-5 text-foreground-muted" />
+      </motion.button>
     </ImmersiveBlogWrapper>
   );
 }
