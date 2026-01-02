@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArboretumData, Insight, BRANCH_COLORS } from "@/types/arboretum";
 import { PasswordGate } from "./PasswordGate";
 import { ComprehensiveReport } from "./ComprehensiveReport";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import {
   TreeDeciduous,
   FileText,
@@ -66,44 +68,46 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              <TreeDeciduous className="w-5 h-5 text-emerald-500" />
-              <h1 className="text-lg font-semibold text-foreground">The Arboretum</h1>
-            </div>
+    <>
+      <Header />
+      <div className="min-h-screen bg-background pt-16">
+        {/* Sub-header with tabs */}
+        <div className="sticky top-16 z-30 bg-background/80 backdrop-blur-xl border-b border-border">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-14">
+              <div className="flex items-center gap-3">
+                <TreeDeciduous className="w-5 h-5 text-emerald-500" />
+                <h1 className="text-lg font-semibold text-foreground">The Arboretum</h1>
+              </div>
 
-            {/* Tab Navigation */}
-            <div className="flex items-center gap-1 bg-background-tertiary rounded-lg p-1">
-              <button
-                onClick={() => setActiveTab("insights")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
-                  activeTab === "insights"
-                    ? "bg-background text-foreground"
-                    : "text-foreground-subtle hover:text-foreground"
-                }`}
-              >
-                <Sparkles className="w-4 h-4" />
-                Insights
-              </button>
-              <button
-                onClick={() => setActiveTab("report")}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm transition-colors ${
-                  activeTab === "report"
-                    ? "bg-background text-foreground"
-                    : "text-foreground-subtle hover:text-foreground"
-                }`}
-              >
-                <FileText className="w-4 h-4" />
-                Full Report
-              </button>
+              {/* Tab Navigation */}
+              <div className="flex items-center gap-1 bg-background-tertiary rounded-lg p-1">
+                <button
+                  onClick={() => setActiveTab("insights")}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                    activeTab === "insights"
+                      ? "bg-background text-foreground"
+                      : "text-foreground-subtle hover:text-foreground"
+                  }`}
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span className="hidden sm:inline">Insights</span>
+                </button>
+                <button
+                  onClick={() => setActiveTab("report")}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
+                    activeTab === "report"
+                      ? "bg-background text-foreground"
+                      : "text-foreground-subtle hover:text-foreground"
+                  }`}
+                >
+                  <FileText className="w-4 h-4" />
+                  <span className="hidden sm:inline">Full Report</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </header>
 
       <AnimatePresence mode="wait">
         {activeTab === "insights" ? (
@@ -167,8 +171,8 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
                 ))}
               </div>
 
-              {/* Footer */}
-              <div className="mt-16 pt-8 border-t border-border flex items-center justify-center gap-2 text-sm text-foreground-subtle">
+              {/* Status indicator */}
+              <div className="mt-16 flex items-center justify-center gap-2 text-sm text-foreground-subtle">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -191,7 +195,9 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
           </motion.main>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 }
 
