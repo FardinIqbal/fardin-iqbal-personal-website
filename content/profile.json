@@ -2,11 +2,11 @@
   "_schema": "Profile information - edit this to update personal details",
   "profile": {
     "name": "Fardin Iqbal",
-    "tagline": "I craft elegant software from the ground up",
+    "tagline": "Cybersecurity Intern @ NYCHA | Open to Summer 2026 Internships",
     "bio": [
-      "Computer Science @ Stony Brook University. Building everything from memory allocators in C to full-stack web apps. Currently exploring the intersection of AI and software engineering.",
-      "I specialize in full-stack web development, with experience spanning from low-level systems programming in C to modern web frameworks like React and Ruby on Rails. I enjoy working across the entire stack and am always eager to learn new technologies.",
-      "When I'm not coding, you can find me exploring new tech, contributing to open-source projects, or diving into research at the intersection of AI and software engineering."
+      "Computer Science student at Stony Brook University gaining hands-on cybersecurity experience at the New York City Housing Authority (NYCHA). Contributing to threat detection, incident response, and vulnerability management using Splunk and CrowdStrike Falcon.",
+      "Previously automated BIM workflows at Beyer Blinder Belle using Python, and have a strong foundation in full-stack development spanning from low-level systems programming in C to modern web frameworks like React and Ruby on Rails.",
+      "Currently seeking 2026 internships in software or security engineering to drive impactful solutions. When I'm not coding, you'll find me coaching Brazilian Jiu-Jitsu at Stony Brook or exploring the intersection of AI and software engineering."
     ],
     "location": "New York, NY",
     "email": "fardin.iqbal1@gmail.com",
@@ -15,13 +15,15 @@
       "degree": "B.S.",
       "major": "Computer Science",
       "graduationDate": "May 2026",
-      "gpa": "3.13"
+      "gpa": "3.13",
+      "activities": "Treasurer & Assistant Coach – Brazilian Jiu-Jitsu Club"
     },
     "social": {
       "github": "https://github.com/FardinIqbal",
       "linkedin": "https://www.linkedin.com/in/fardin-iqbal",
       "twitter": null
     },
-    "resumeUrl": "/resume/Fardin_Iqbal_Resume.pdf"
+    "resumeUrl": "/resume/Fardin_Iqbal_Resume.pdf",
+    "topSkills": ["React.js", "Python", "JavaScript", "Node.js", "Git", "Splunk", "CrowdStrike"]
   }
 }
