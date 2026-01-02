@@ -1,0 +1,45 @@
+{
+  "_schema": "Books - status: reading | completed | want-to-read, rating: 1-5",
+  "books": [
+    {
+      "id": "clean-code",
+      "title": "Clean Code",
+      "author": "Robert C. Martin",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Essential reading for any developer. Changed how I think about writing maintainable code."
+    },
+    {
+      "id": "ddia",
+      "title": "Designing Data-Intensive Applications",
+      "author": "Martin Kleppmann",
+      "status": "reading",
+      "rating": null,
+      "thoughts": "Deep dive into distributed systems. Dense but incredibly valuable."
+    },
+    {
+      "id": "pragmatic-programmer",
+      "title": "The Pragmatic Programmer",
+      "author": "David Thomas & Andrew Hunt",
+      "status": "completed",
+      "rating": 5,
+      "thoughts": "Timeless wisdom on software craftsmanship."
+    },
+    {
+      "id": "atomic-habits",
+      "title": "Atomic Habits",
+      "author": "James Clear",
+      "status": "completed",
+      "rating": 4,
+      "thoughts": "Practical framework for building good habits and breaking bad ones."
+    },
+    {
+      "id": "system-design-interview",
+      "title": "System Design Interview",
+      "author": "Alex Xu",
+      "status": "reading",
+      "rating": null,
+      "thoughts": "Great for understanding large-scale system architecture."
+    }
+  ]
+}

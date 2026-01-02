@@ -1,0 +1,98 @@
+---
+title: "Building a Modern Portfolio with Next.js 15"
+date: "2024-01-15"
+description: "How I rebuilt my portfolio from scratch using Next.js 15, Tailwind CSS, and Framer Motion for stunning animations."
+image: "/images/blog/nextjs-portfolio-hero.png"
+tags: ["Next.js", "React", "Tailwind CSS", "Framer Motion"]
+---
+
+# Building a Modern Portfolio with Next.js 15
+
+When I decided to rebuild my portfolio, I knew I wanted something that would stand out. Not just another static page with a list of projects, but something that felt alive, responsive, and memorable.
+
+## Why Next.js 15?
+
+Next.js 15 brings some incredible features that make it perfect for portfolio sites:
+
+- **App Router**: The new routing system is intuitive and powerful
+- **Server Components**: Better performance out of the box
+- **Static Export**: Perfect for deploying to any host
+- **Turbopack**: Lightning-fast development builds
+
+## The Tech Stack
+
+Here's what I used:
+
+```typescript
+const stack = {
+  framework: "Next.js 15",
+  styling: "Tailwind CSS",
+  animations: "Framer Motion",
+  icons: "Lucide React",
+  fonts: ["Inter", "JetBrains Mono"],
+  deployment: "Vercel"
+};
+```
+
+## Motion Design Philosophy
+
+I believe animations should enhance, not distract. Every motion effect serves a purpose:
+
+1. **Scroll-triggered reveals** - Content fades in as you scroll
+2. **Hover interactions** - Cards lift and glow on hover
+3. **Magnetic buttons** - Subtle pull effect on CTAs
+4. **Parallax backgrounds** - Depth without dizziness
+
+## The Custom Cursor
+
+One of my favorite additions is the custom cursor. It's a simple effect that adds personality:
+
+```tsx
+function CustomCursor() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const updatePosition = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", updatePosition);
+    return () => window.removeEventListener("mousemove", updatePosition);
+  }, []);
+
+  return (
+    <motion.div
+      className="fixed pointer-events-none z-50"
+      animate={{ x: position.x, y: position.y }}
+      transition={{ type: "spring", damping: 30 }}
+    />
+  );
+}
+```
+
+## Content Management
+
+Instead of a CMS, I use JSON files for content. This keeps things simple and version-controlled:
+
+```
+content/
+├── profile.json     # About me, social links
+├── projects.json    # Project details
+├── experience.json  # Work history
+└── books.json       # What I'm reading
+```
+
+## Lessons Learned
+
+1. **Start with mobile**: Responsive design is easier when you design mobile-first
+2. **Performance matters**: Every animation should run at 60fps
+3. **Accessibility**: Don't sacrifice usability for aesthetics
+4. **Ship it**: A deployed portfolio beats a perfect local one
+
+## What's Next?
+
+I'm planning to add:
+- A blog with syntax highlighting (you're reading it!)
+- Dark/light theme toggle
+- An admin dashboard for content management
+
+Feel free to check out the [source code](https://github.com/FardinIqbal/FardinIqbal.github.io) and let me know what you think!

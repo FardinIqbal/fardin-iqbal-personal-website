@@ -1,0 +1,45 @@
+{
+  "_schema": "Courses - status: in-progress | completed | want-to-take",
+  "courses": [
+    {
+      "id": "cs50",
+      "title": "CS50: Introduction to Computer Science",
+      "platform": "Harvard/edX",
+      "instructor": "David Malan",
+      "status": "completed",
+      "topics": ["C", "Python", "SQL", "Web Development"],
+      "link": "https://cs50.harvard.edu",
+      "thoughts": "The best intro CS course. David Malan is an incredible educator."
+    },
+    {
+      "id": "fullstack-open",
+      "title": "Full Stack Open",
+      "platform": "University of Helsinki",
+      "instructor": null,
+      "status": "completed",
+      "topics": ["React", "Node.js", "MongoDB", "GraphQL", "TypeScript"],
+      "link": "https://fullstackopen.com",
+      "thoughts": "Comprehensive modern web development curriculum."
+    },
+    {
+      "id": "ml-specialization",
+      "title": "Machine Learning Specialization",
+      "platform": "Coursera",
+      "instructor": "Andrew Ng",
+      "status": "in-progress",
+      "topics": ["Supervised Learning", "Neural Networks", "Decision Trees"],
+      "link": "https://www.coursera.org/specializations/machine-learning-introduction",
+      "thoughts": "The gold standard for learning ML fundamentals."
+    },
+    {
+      "id": "nand-to-tetris",
+      "title": "Nand to Tetris",
+      "platform": "Coursera",
+      "instructor": null,
+      "status": "want-to-take",
+      "topics": ["Computer Architecture", "Hardware", "Compilers"],
+      "link": "https://www.nand2tetris.org",
+      "thoughts": "Build a computer from first principles. On my list!"
+    }
+  ]
+}

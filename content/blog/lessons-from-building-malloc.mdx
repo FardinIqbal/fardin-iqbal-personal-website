@@ -1,0 +1,127 @@
+---
+title: "What Building malloc() Taught Me About Memory"
+date: "2024-01-10"
+description: "Building a dynamic memory allocator from scratch in C taught me more about systems programming than any textbook."
+image: "/images/projects/memory-allocator.png"
+tags: ["C", "Systems Programming", "Memory Management", "Low-Level"]
+---
+
+# What Building malloc() Taught Me About Memory
+
+Every developer uses `malloc()` and `free()`. Few understand what happens under the hood. Building my own implementation changed how I think about memory forever.
+
+## The Challenge
+
+The assignment was deceptively simple: implement `malloc()`, `free()`, and `realloc()` for x86-64. The constraints:
+
+- No external libraries
+- Must handle arbitrary allocation sizes
+- Must be thread-safe (bonus)
+- Must be *fast*
+
+## How Memory Really Works
+
+When your program starts, the OS gives you a heap—a contiguous region of memory. Your allocator's job is to carve this up efficiently.
+
+```
+Heap Layout:
+┌─────────────────────────────────────────────┐
+│ Header │ Block 1 │ Header │ Block 2 │ ...   │
+└─────────────────────────────────────────────┘
+         ↑                   ↑
+         Allocated           Free
+```
+
+Each block needs a header storing its size and status. The challenge is minimizing overhead while maximizing speed.
+
+## Strategy: Segregated Free Lists
+
+Instead of one big free list, I use multiple lists based on size classes:
+
+```c
+// Size classes: 32, 64, 128, 256, 512, 1024, 2048, 4096+
+static block_t *free_lists[NUM_SIZE_CLASSES];
+
+void *sf_malloc(size_t size) {
+    int class = get_size_class(size);
+    block_t *block = find_fit(class);
+
+    if (!block) {
+        block = request_more_heap();
+    }
+
+    return split_and_allocate(block, size);
+}
+```
+
+This gives O(1) allocation for common sizes.
+
+## The Coalescing Problem
+
+When you free a block, you need to merge it with adjacent free blocks. Otherwise, you get fragmentation—lots of small free blocks that can't satisfy large requests.
+
+```c
+void sf_free(void *ptr) {
+    block_t *block = get_block(ptr);
+
+    // Check previous block
+    if (prev_is_free(block)) {
+        block = coalesce_with_prev(block);
+    }
+
+    // Check next block
+    if (next_is_free(block)) {
+        block = coalesce_with_next(block);
+    }
+
+    add_to_free_list(block);
+}
+```
+
+## Security: Header Obfuscation
+
+A vulnerability: attackers can overflow a buffer and corrupt adjacent block headers. My solution: XOR headers with a magic value.
+
+```c
+#define MAGIC 0xDEADBEEF
+
+size_t encode_header(size_t header) {
+    return header ^ MAGIC;
+}
+
+size_t decode_header(size_t encoded) {
+    return encoded ^ MAGIC;
+}
+```
+
+Not bulletproof, but it catches most corruption.
+
+## Performance Results
+
+After optimization:
+
+- **malloc**: ~50 cycles for cached sizes
+- **free**: ~30 cycles with coalescing
+- **Memory overhead**: 8 bytes per block
+- **Fragmentation**: <5% on typical workloads
+
+## What I Learned
+
+1. **Every byte counts**: Headers eat into usable memory
+2. **Cache locality matters**: Keep metadata close to data
+3. **Trade-offs everywhere**: Speed vs. memory vs. complexity
+4. **Debugging is hard**: Printf doesn't work when the heap is corrupted
+
+## The Bigger Picture
+
+Understanding memory allocation changed how I write code:
+
+- I think twice before allocating in hot paths
+- I understand why languages have garbage collectors
+- I appreciate the complexity hidden behind simple APIs
+
+If you want to truly understand systems programming, build something that manages memory. The lessons stick with you forever.
+
+---
+
+*Check out the [full implementation](https://github.com/FardinIqbal/dynamic-memory-allocator) on GitHub.*

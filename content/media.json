@@ -1,0 +1,50 @@
+{
+  "_schema": "Movies & Shows - type: movie | show | documentary | anime, status: watching | completed | want-to-watch",
+  "media": [
+    {
+      "id": "mr-robot",
+      "title": "Mr. Robot",
+      "type": "show",
+      "status": "completed",
+      "rating": 5,
+      "year": "2015-2019",
+      "thoughts": "The most technically accurate hacking show ever made. Incredible storytelling."
+    },
+    {
+      "id": "silicon-valley",
+      "title": "Silicon Valley",
+      "type": "show",
+      "status": "completed",
+      "rating": 4,
+      "year": "2014-2019",
+      "thoughts": "Hilariously accurate satire of tech startup culture."
+    },
+    {
+      "id": "social-network",
+      "title": "The Social Network",
+      "type": "movie",
+      "status": "completed",
+      "rating": 5,
+      "year": "2010",
+      "thoughts": "Fincher's masterpiece about the birth of Facebook."
+    },
+    {
+      "id": "black-mirror",
+      "title": "Black Mirror",
+      "type": "show",
+      "status": "watching",
+      "rating": null,
+      "year": "2011-present",
+      "thoughts": "Thought-provoking exploration of technology's dark side."
+    },
+    {
+      "id": "severance",
+      "title": "Severance",
+      "type": "show",
+      "status": "completed",
+      "rating": 5,
+      "year": "2022-present",
+      "thoughts": "Mind-bending workplace thriller. Absolutely brilliant."
+    }
+  ]
+}

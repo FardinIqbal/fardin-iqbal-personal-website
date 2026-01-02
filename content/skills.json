@@ -1,0 +1,21 @@
+{
+  "_schema": "Skills organized by category",
+  "categories": [
+    {
+      "title": "Languages",
+      "skills": ["Python", "JavaScript", "TypeScript", "Ruby", "C", "C#", "Java", "SQL"]
+    },
+    {
+      "title": "Frameworks & Libraries",
+      "skills": ["React", "Next.js", "Ruby on Rails", "Django", "Flask", "Node.js", "Tailwind CSS", "Framer Motion"]
+    },
+    {
+      "title": "Tools & Platforms",
+      "skills": ["Git", "Docker", "AWS", "Heroku", "PostgreSQL", "MongoDB", "Linux", "Vercel"]
+    },
+    {
+      "title": "Concepts",
+      "skills": ["REST APIs", "System Design", "Data Structures", "Algorithms", "CI/CD", "Agile/Scrum", "Testing", "Performance Optimization"]
+    }
+  ]
+}

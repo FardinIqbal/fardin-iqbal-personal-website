@@ -1,0 +1,214 @@
+{
+  "_schema": "Projects organized by category. Categories: systems, ml, web, tools",
+  "_categories": {
+    "systems": { "title": "Systems & Low-Level", "description": "Memory allocators, servers, parsers", "gradient": "from-red-500 to-orange-500" },
+    "ml": { "title": "ML & Data Science", "description": "Prediction models, analysis, visualization", "gradient": "from-purple-500 to-pink-500" },
+    "web": { "title": "Full-Stack Applications", "description": "End-to-end products", "gradient": "from-blue-500 to-cyan-500" },
+    "tools": { "title": "Tools & Experiments", "description": "Side projects and explorations", "gradient": "from-green-500 to-emerald-500" }
+  },
+  "projects": [
+    {
+      "id": "dynamic-memory-allocator",
+      "title": "Dynamic Memory Allocator",
+      "category": "systems",
+      "featured": true,
+      "description": "A secure, high-performance malloc() implementation for x86-64. Features segregated free lists, quick lists, block coalescing, and obfuscated headers to detect heap corruption.",
+      "narrative": "Built my own malloc/free/realloc from scratch. This taught me more about memory management than any textbook could.",
+      "tech": ["C", "x86-64", "Systems Programming", "Memory Management"],
+      "github": "https://github.com/FardinIqbal/dynamic-memory-allocator",
+      "live": null,
+      "image": "/images/projects/memory-allocator.png"
+    },
+    {
+      "id": "concurrent-game-server",
+      "title": "Concurrent Network Game Server",
+      "category": "systems",
+      "featured": true,
+      "description": "Multi-threaded C server for a real-time maze game. Handles concurrent connections with POSIX threads, custom binary protocols, and synchronized game state.",
+      "narrative": "Real-time multiplayer requires precise synchronization. This server handles multiple clients without race conditions.",
+      "tech": ["C", "POSIX Threads", "Sockets", "Binary Protocols"],
+      "github": "https://github.com/FardinIqbal/concurrent-network-game-server",
+      "live": null,
+      "image": "/images/projects/game-server.png"
+    },
+    {
+      "id": "posix-printer-spooler",
+      "title": "POSIX Print Spooler",
+      "category": "systems",
+      "featured": false,
+      "description": "A complete print spooler with job queuing, dynamic printer management, signal handling, and conversion pipelines.",
+      "tech": ["C", "POSIX", "Signals", "IPC", "Process Control"],
+      "github": "https://github.com/FardinIqbal/posix-printer-spooler",
+      "live": null,
+      "image": "/images/projects/memory-allocator.png"
+    },
+    {
+      "id": "openstreetmap-parser",
+      "title": "OpenStreetMap PBF Parser",
+      "category": "systems",
+      "featured": false,
+      "description": "Systems-level parser for OpenStreetMap .pbf files. Custom Protocol Buffers deserializer with no third-party libs.",
+      "tech": ["C", "Protocol Buffers", "Binary Parsing", "zlib"],
+      "github": "https://github.com/FardinIqbal/openstreetmap-pbf-parser",
+      "live": null,
+      "image": "/images/projects/game-server.png"
+    },
+    {
+      "id": "web-server-proxy",
+      "title": "HTTP Server & Proxy",
+      "category": "systems",
+      "featured": false,
+      "description": "Built an HTTP/1.1 web server and caching proxy from scratch. Handles concurrent requests and caches responses.",
+      "tech": ["Python", "HTTP", "Sockets", "Caching"],
+      "github": "https://github.com/FardinIqbal/Web-Server-and-Proxy-Server-",
+      "live": null,
+      "image": "/images/projects/game-server.png"
+    },
+    {
+      "id": "tcp-flow-analysis",
+      "title": "TCP Flow Analysis Tool",
+      "category": "systems",
+      "featured": false,
+      "description": "Network packet analyzer for TCP flows. Parses pcap files, reconstructs streams, and visualizes connection patterns.",
+      "tech": ["Python", "TCP/IP", "Packet Analysis", "Networking"],
+      "github": "https://github.com/FardinIqbal/TCP-Flow-Analysis-Tool",
+      "live": null,
+      "image": "/images/projects/game-server.png"
+    },
+    {
+      "id": "movie-revenue-prediction",
+      "title": "Box Office Revenue Predictor",
+      "category": "ml",
+      "featured": true,
+      "description": "ML pipeline to predict movie revenue using TMDB 5000 dataset. Includes EDA, feature engineering, and comparison of Linear, KNN, and Random Forest regressors.",
+      "narrative": "Can we predict if a movie will be a hit? Turns out budget, cast popularity, and release timing matter most.",
+      "tech": ["Python", "scikit-learn", "Pandas", "Feature Engineering"],
+      "github": "https://github.com/FardinIqbal/movie-revenue-prediction",
+      "live": null,
+      "image": "/images/projects/movie-prediction.png"
+    },
+    {
+      "id": "energy-demand-prediction",
+      "title": "Energy Demand Forecasting",
+      "category": "ml",
+      "featured": true,
+      "description": "Weather-driven residential energy modeling. Built data pipelines, trained regression models, and profiled appliance load patterns.",
+      "tech": ["Python", "Pandas", "Regression", "Data Engineering"],
+      "github": "https://github.com/FardinIqbal/energy-usage-prediction-weather",
+      "live": null,
+      "image": "/images/projects/energy-prediction.png"
+    },
+    {
+      "id": "nyc-airbnb-analysis",
+      "title": "NYC Airbnb Market Analysis",
+      "category": "ml",
+      "featured": false,
+      "description": "Deep-dive analysis of NYC Airbnb listings. Data cleaning, correlation analysis, and strategic insights for pricing.",
+      "tech": ["Python", "Pandas", "Data Visualization", "Statistical Analysis"],
+      "github": "https://github.com/FardinIqbal/nyc-airbnb-data-analysis",
+      "live": null,
+      "image": "/images/projects/movie-prediction.png"
+    },
+    {
+      "id": "spectrum-analyzer",
+      "title": "Exoplanet Spectrum Analyzer",
+      "category": "ml",
+      "featured": true,
+      "description": "3D visualization tool for James Webb Space Telescope FITS data. Interactive plots for analyzing spectral patterns in exoplanet observations.",
+      "narrative": "Processing real astronomical data from JWST to visualize what distant worlds might look like.",
+      "tech": ["Python", "Flask", "Plotly", "Astropy", "NumPy"],
+      "github": "https://github.com/FardinIqbal/spectrum_analyzer",
+      "live": "https://spectrum-analyzer-55f97c211e3e.herokuapp.com/",
+      "image": "/images/projects/spectrum-analyzer.png"
+    },
+    {
+      "id": "fairshare",
+      "title": "FairShare",
+      "category": "web",
+      "featured": true,
+      "description": "Splitwise-style expense sharing app. Group finance management with secure auth, real-time balance tracking, and smart settlement suggestions.",
+      "narrative": "Built for my roommates who were tired of Venmo requests. Now we actually know who owes what.",
+      "tech": ["Ruby on Rails", "PostgreSQL", "Tailwind", "AWS", "Devise"],
+      "github": "https://github.com/FardinIqbal/FairShare",
+      "live": "https://finshare-app-552abe51e905.herokuapp.com/",
+      "image": "/images/projects/fairshare.png"
+    },
+    {
+      "id": "mindmesh-ai",
+      "title": "MindMesh AI",
+      "category": "web",
+      "featured": true,
+      "description": "AI-powered brainstorming companion. Expand ideas through intelligent mind mapping with GPT integration and interactive visualizations.",
+      "tech": ["React", "TypeScript", "OpenAI API", "D3.js"],
+      "github": "https://github.com/FardinIqbal/MindMeshAI",
+      "live": null,
+      "image": "/images/projects/mindmesh.png"
+    },
+    {
+      "id": "reddit-clone",
+      "title": "Reddit Clone",
+      "category": "web",
+      "featured": false,
+      "description": "Full-featured social platform with real-time updates, JWT auth, nested comment threading, and upvote/downvote mechanics.",
+      "tech": ["React", "Node.js", "MongoDB", "Socket.io", "Express"],
+      "github": "https://github.com/FardinIqbal/Reddit-Clone",
+      "live": null,
+      "image": "/images/projects/reddit-clone.png"
+    },
+    {
+      "id": "versecraft",
+      "title": "VerseCraft",
+      "category": "web",
+      "featured": false,
+      "description": "Poetry publishing platform with a minimalist New Yorker-inspired design. Real-time interactions powered by Hotwire/Turbo.",
+      "tech": ["Ruby on Rails", "Hotwire", "SCSS", "PostgreSQL"],
+      "github": "https://github.com/FardinIqbal/VerseCraft",
+      "live": null,
+      "image": "/images/projects/fairshare.png"
+    },
+    {
+      "id": "roommatch",
+      "title": "RoomMatch",
+      "category": "web",
+      "featured": false,
+      "description": "Tinder-style roommate matching app. Swipe through potential roommates, match based on lifestyle compatibility, chat in-app.",
+      "tech": ["React", "Node.js", "MongoDB", "WebSockets"],
+      "github": "https://github.com/FardinIqbal/roommatch",
+      "live": null,
+      "image": "/images/projects/mindmesh.png"
+    },
+    {
+      "id": "computational-geometry",
+      "title": "Computational Geometry Visualizer",
+      "category": "tools",
+      "featured": false,
+      "description": "Interactive tool for visualizing geometric algorithms - convex hulls, Voronoi diagrams, Delaunay triangulation.",
+      "tech": ["JavaScript", "Canvas API", "Algorithms", "Visualization"],
+      "github": "https://github.com/FardinIqbal/computational-geometry-tool",
+      "live": null,
+      "image": "/images/projects/geometry.png"
+    },
+    {
+      "id": "cold-caller",
+      "title": "Cold Caller",
+      "category": "tools",
+      "featured": false,
+      "description": "Android app for teachers to randomly call on students. Tracks participation, manages class sessions.",
+      "tech": ["Java", "Android", "Firebase", "Material Design"],
+      "github": "https://github.com/FardinIqbal/Cold-Caller",
+      "live": null,
+      "image": "/images/projects/geometry.png"
+    },
+    {
+      "id": "trading-simulation",
+      "title": "Trading Simulator",
+      "category": "tools",
+      "featured": false,
+      "description": "Paper trading platform with real market data. Practice strategies without risking real money.",
+      "tech": ["Python", "APIs", "Data Visualization"],
+      "github": "https://github.com/FardinIqbal/trading_simulation",
+      "live": null,
+      "image": "/images/projects/geometry.png"
+    }
+  ]
+}
