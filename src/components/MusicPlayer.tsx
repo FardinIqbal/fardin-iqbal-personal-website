@@ -4,29 +4,28 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, Play, Pause, Radio, X, SkipForward } from "lucide-react";
 
-// Real radio stations with actual songs
+// Verified working radio streams
 const RADIO_STATIONS = [
-  // Lofi / Chill
-  { id: "lofi", name: "Lofi Hip Hop", url: "https://streams.ilovemusic.de/iloveradio17.mp3", genre: "Chill" },
-  { id: "chillhop", name: "Chillhop", url: "https://streams.ilovemusic.de/iloveradio-chillhop.mp3", genre: "Chill" },
+  // Chill / Lofi
+  { id: "lofi", name: "Lofi Beats", url: "https://play.streamafrica.net/lofiradio", genre: "Chill" },
+  { id: "chillout", name: "Chillout", url: "https://icecast.radiofrance.fr/fip-webradio6.mp3", genre: "Chill" },
 
-  // Electronic / Dance
-  { id: "deephouse", name: "Deep House", url: "https://streams.ilovemusic.de/iloveradio16.mp3", genre: "Electronic" },
-  { id: "techno", name: "Techno", url: "https://streams.ilovemusic.de/iloveradio6.mp3", genre: "Electronic" },
-  { id: "trance", name: "Trance", url: "https://streams.ilovemusic.de/iloveradio15.mp3", genre: "Electronic" },
+  // Electronic
+  { id: "electronica", name: "Electronica", url: "https://icecast.radiofrance.fr/fip-webradio8.mp3", genre: "Electronic" },
+  { id: "house", name: "House", url: "https://stream.laut.fm/deephouse", genre: "Electronic" },
+  { id: "ambient", name: "Ambient", url: "https://ice2.somafm.com/dronezone-128-mp3", genre: "Electronic" },
 
   // Pop / Hits
-  { id: "hits", name: "Top Hits", url: "https://streams.ilovemusic.de/iloveradio1.mp3", genre: "Pop" },
-  { id: "2000s", name: "2000s Hits", url: "https://streams.ilovemusic.de/iloveradio12.mp3", genre: "Pop" },
-  { id: "90s", name: "90s Hits", url: "https://streams.ilovemusic.de/iloveradio10.mp3", genre: "Pop" },
+  { id: "pop", name: "Pop Hits", url: "https://icecast.radiofrance.fr/fip-webradio5.mp3", genre: "Pop" },
+  { id: "hits", name: "Top 40", url: "https://stream.laut.fm/top100", genre: "Pop" },
 
-  // Hip Hop / R&B
-  { id: "hiphop", name: "Hip Hop", url: "https://streams.ilovemusic.de/iloveradio3.mp3", genre: "Hip Hop" },
-  { id: "rnb", name: "R&B", url: "https://streams.ilovemusic.de/iloveradio-rnb.mp3", genre: "Hip Hop" },
+  // Hip Hop
+  { id: "hiphop", name: "Hip Hop", url: "https://icecast.radiofrance.fr/fip-webradio7.mp3", genre: "Hip Hop" },
+  { id: "rap", name: "Rap", url: "https://stream.laut.fm/1000hiphop", genre: "Hip Hop" },
 
-  // Rock / Alternative
-  { id: "rock", name: "Rock Classics", url: "https://streams.ilovemusic.de/iloveradio21.mp3", genre: "Rock" },
-  { id: "alternative", name: "Alternative", url: "https://streams.ilovemusic.de/iloveradio-alternative.mp3", genre: "Rock" },
+  // Rock
+  { id: "rock", name: "Rock", url: "https://icecast.radiofrance.fr/fip-webradio1.mp3", genre: "Rock" },
+  { id: "indie", name: "Indie", url: "https://stream.laut.fm/indierock", genre: "Rock" },
 ] as const;
 
 type StationId = (typeof RADIO_STATIONS)[number]["id"];
@@ -70,6 +69,7 @@ export function MusicPlayer() {
   const [selectedGenre, setSelectedGenre] = useState<Genre>("Chill");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [autoplayAttempted, setAutoplayAttempted] = useState(false);
 
   const station = RADIO_STATIONS.find((s) => s.id === currentStation)!;
   const stationsInGenre = RADIO_STATIONS.filter((s) => s.genre === selectedGenre);
@@ -106,6 +106,27 @@ export function MusicPlayer() {
       if (stationData) setSelectedGenre(stationData.genre);
     }
   }, []);
+
+  // Autoplay on page load
+  useEffect(() => {
+    if (autoplayAttempted || !audioRef.current) return;
+
+    const attemptAutoplay = async () => {
+      setAutoplayAttempted(true);
+      try {
+        audioRef.current!.volume = isMuted ? 0 : volume;
+        await audioRef.current!.play();
+        setIsPlaying(true);
+      } catch (error) {
+        // Autoplay blocked by browser - that's ok, user can click
+        console.log("Autoplay blocked - click to play");
+      }
+    };
+
+    // Wait for user interaction or try after delay
+    const timer = setTimeout(attemptAutoplay, 500);
+    return () => clearTimeout(timer);
+  }, [autoplayAttempted, volume, isMuted]);
 
   // Save state
   useEffect(() => {
@@ -391,8 +412,8 @@ export function MusicPlayer() {
 
           {isPlaying && (
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-emerald-500"
-              animate={{ scale: [1, 1.3, 1], opacity: [0.5, 0, 0.5] }}
+              className="absolute inset-0 rounded-full border-2 border-emerald-300"
+              animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
           )}
