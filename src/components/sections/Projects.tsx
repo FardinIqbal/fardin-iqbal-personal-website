@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Project, ProjectCategory } from "@/lib/content";
+import { ProjectVisual } from "@/components/ui/ProjectVisual";
 
 function ProjectCard({
   project,
@@ -25,16 +24,9 @@ function ProjectCard({
     >
       {/* Card - clean Vercel style */}
       <div className="relative overflow-hidden rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-colors">
-        {/* Image */}
+        {/* Visual */}
         <div className="relative h-48 overflow-hidden">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
-          />
-          {/* Simple overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background-secondary to-transparent" />
+          <ProjectVisual projectId={project.id} category={project.category} />
 
           {/* Category badge - clean */}
           <div className="absolute top-3 left-3">
