@@ -145,33 +145,55 @@ export function MusicPlayer() {
     }
   }, [volume, isMuted]);
 
-  // Handle audio errors
+  // Handle audio events
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
+    let errorTimeout: NodeJS.Timeout;
+
     const handleError = () => {
-      setHasError(true);
-      setIsPlaying(false);
-      setIsLoading(false);
+      // Only show error if we were actually trying to play
+      // Give stream 3 seconds to connect before showing error
+      if (isLoading) {
+        errorTimeout = setTimeout(() => {
+          setHasError(true);
+          setIsPlaying(false);
+          setIsLoading(false);
+        }, 3000);
+      }
     };
 
-    const handleCanPlay = () => setHasError(false);
+    const handleCanPlay = () => {
+      clearTimeout(errorTimeout);
+      setHasError(false);
+    };
+
     const handlePlaying = () => {
+      clearTimeout(errorTimeout);
+      setHasError(false);
       setIsLoading(false);
       setIsPlaying(true);
+    };
+
+    const handleWaiting = () => {
+      // Stream is buffering, not an error
+      clearTimeout(errorTimeout);
     };
 
     audio.addEventListener("error", handleError);
     audio.addEventListener("canplay", handleCanPlay);
     audio.addEventListener("playing", handlePlaying);
+    audio.addEventListener("waiting", handleWaiting);
 
     return () => {
+      clearTimeout(errorTimeout);
       audio.removeEventListener("error", handleError);
       audio.removeEventListener("canplay", handleCanPlay);
       audio.removeEventListener("playing", handlePlaying);
+      audio.removeEventListener("waiting", handleWaiting);
     };
-  }, []);
+  }, [isLoading]);
 
   const changeStation = async (stationId: StationId) => {
     const wasPlaying = isPlaying;
