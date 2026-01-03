@@ -59,7 +59,7 @@ export interface Experience {
 export interface Project {
   id: string;
   title: string;
-  category: 'systems' | 'ml' | 'web' | 'tools';
+  category: 'systems' | 'ml' | 'web' | 'tools' | 'ai';
   featured: boolean;
   description: string;
   narrative?: string;

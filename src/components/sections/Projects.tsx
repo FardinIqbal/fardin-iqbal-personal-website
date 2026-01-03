@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Project, ProjectCategory } from "@/lib/content";
 import { AnimatedProjectVisual } from "@/components/ui/AnimatedProjectVisual";
@@ -23,102 +23,122 @@ function ProjectCard({
       whileHover={{ y: -2 }}
       className="group"
     >
-      {/* Card - elegant with subtle hover */}
-      <div className="relative overflow-hidden rounded-lg bg-surface border border-border hover:border-foreground/10 hover:shadow-lg hover:shadow-foreground/5 transition-all duration-300">
-        {/* Visual */}
-        <div className="relative h-48 overflow-hidden">
-          <AnimatedProjectVisual projectId={project.id} category={project.category} />
+      <Link href={`/projects/${project.id}`} className="block">
+        {/* Card - elegant with subtle hover */}
+        <div className="relative overflow-hidden rounded-lg bg-surface border border-border hover:border-foreground/10 hover:shadow-lg hover:shadow-foreground/5 transition-all duration-300 cursor-pointer">
+          {/* Visual */}
+          <div className="relative h-48 overflow-hidden">
+            <AnimatedProjectVisual projectId={project.id} category={project.category} />
 
-          {/* Category badge - animated */}
-          <motion.div
-            className="absolute top-3 left-3"
-            initial={{ opacity: 0, x: -10 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 + 0.2 }}
-          >
-            <span
-              className={cn(
-                "px-2 py-1 text-xs font-medium rounded-md",
-                "bg-background/80 backdrop-blur-sm border border-border text-foreground-muted"
-              )}
+            {/* Category badge - animated */}
+            <motion.div
+              className="absolute top-3 left-3"
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 + 0.2 }}
             >
-              {project.category === "systems" && "Systems"}
-              {project.category === "ml" && "ML / Data"}
-              {project.category === "web" && "Full-Stack"}
-              {project.category === "tools" && "Tools"}
-            </span>
-          </motion.div>
-        </div>
-
-        {/* Content */}
-        <div className="p-6">
-          {/* Title */}
-          <h3 className="text-lg font-display font-semibold text-foreground mb-3 group-hover:text-primary-500 transition-colors duration-300">
-            {project.title}
-          </h3>
-
-          {/* Description */}
-          <p className="text-foreground-muted font-serif text-sm leading-relaxed mb-4 line-clamp-2">
-            {project.description}
-          </p>
-
-          {/* Tech stack - staggered animation */}
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {project.tech.slice(0, 4).map((tech, techIndex) => (
-              <motion.span
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.2,
-                  delay: index * 0.1 + techIndex * 0.03
-                }}
-                whileHover={{ scale: 1.05 }}
-                className="px-2 py-0.5 text-xs rounded bg-background-tertiary text-foreground-subtle"
+              <span
+                className={cn(
+                  "px-2 py-1 text-xs font-medium rounded-md",
+                  "bg-background/80 backdrop-blur-sm border border-border text-foreground-muted"
+                )}
               >
-                {tech}
-              </motion.span>
-            ))}
-            {project.tech.length > 4 && (
-              <span className="px-2 py-0.5 text-xs text-foreground-subtle">
-                +{project.tech.length - 4}
+                {project.category === "systems" && "Systems"}
+                {project.category === "ml" && "ML / Data"}
+                {project.category === "web" && "Full-Stack"}
+                {project.category === "tools" && "Tools"}
+                {project.category === "ai" && "AI"}
               </span>
-            )}
+            </motion.div>
+
+            {/* Read More indicator on hover */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
+              <span className="flex items-center gap-1.5 text-sm font-sans text-foreground">
+                Read More <ArrowRight className="w-4 h-4" />
+              </span>
+            </div>
           </div>
 
-          {/* Links - with hover animation */}
-          <div className="flex items-center gap-4 pt-3 border-t border-border">
-            {project.github && (
-              <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
+          {/* Content */}
+          <div className="p-6">
+            {/* Title */}
+            <h3 className="text-lg font-display font-semibold text-foreground mb-3 group-hover:text-primary-500 transition-colors duration-300">
+              {project.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-foreground-muted font-serif text-sm leading-relaxed mb-4 line-clamp-2">
+              {project.description}
+            </p>
+
+            {/* Tech stack - staggered animation */}
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {project.tech.slice(0, 4).map((tech, techIndex) => (
+                <motion.span
+                  key={tech}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.2,
+                    delay: index * 0.1 + techIndex * 0.03
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  className="px-2 py-0.5 text-xs rounded bg-background-tertiary text-foreground-subtle"
                 >
-                  <Github className="w-4 h-4" />
-                  <span>Code</span>
-                </Link>
-              </motion.div>
-            )}
-            {project.live && (
-              <motion.div whileHover={{ x: 2 }} whileTap={{ scale: 0.95 }}>
-                <Link
-                  href={project.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
+                  {tech}
+                </motion.span>
+              ))}
+              {project.tech.length > 4 && (
+                <span className="px-2 py-0.5 text-xs text-foreground-subtle">
+                  +{project.tech.length - 4}
+                </span>
+              )}
+            </div>
+
+            {/* Links - with hover animation */}
+            <div className="flex items-center gap-4 pt-3 border-t border-border">
+              {project.github && (
+                <motion.div
+                  whileHover={{ x: 2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <ExternalLink className="w-4 h-4" />
-                  <span>Demo</span>
-                </Link>
-              </motion.div>
-            )}
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Github className="w-4 h-4" />
+                    <span>Code</span>
+                  </a>
+                </motion.div>
+              )}
+              {project.live && (
+                <motion.div
+                  whileHover={{ x: 2 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                    <span>Demo</span>
+                  </a>
+                </motion.div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     </motion.article>
   );
 }
@@ -160,8 +180,8 @@ interface ProjectsSectionProps {
 }
 
 export function ProjectsSection({ projects, categories }: ProjectsSectionProps) {
-  // Group projects by category
-  const categoryOrder = ["systems", "ml", "web", "tools"];
+  // Group projects by category - AI first since it's the most impressive
+  const categoryOrder = ["ai", "web", "systems", "ml", "tools"];
   const categorizedProjects = categoryOrder
     .filter(catId => categories[catId])
     .map((catId) => ({
