@@ -2,139 +2,83 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import type { Project, ProjectCategory } from "@/lib/content";
-import { AnimatedProjectVisual } from "@/components/ui/AnimatedProjectVisual";
 
-function ProjectCard({
+// Featured project IDs (flagship work)
+const FEATURED_IDS = ["prometheus", "neo-provider", "dynamic-memory-allocator", "localelo"];
+
+function FeaturedCard({
   project,
   index,
 }: {
   project: Project;
   index: number;
 }) {
+  const gradients: Record<string, string> = {
+    ai: "from-violet-500/10 to-indigo-500/5",
+    web: "from-blue-500/10 to-cyan-500/5",
+    systems: "from-orange-500/10 to-red-500/5",
+    ml: "from-pink-500/10 to-purple-500/5",
+    tools: "from-emerald-500/10 to-green-500/5",
+  };
+
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -2 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
       className="group"
     >
       <Link href={`/projects/${project.id}`} className="block">
-        {/* Card - elegant with subtle hover */}
-        <div className="relative overflow-hidden rounded-lg bg-surface border border-border hover:border-foreground/10 hover:shadow-lg hover:shadow-foreground/5 transition-all duration-300 cursor-pointer">
-          {/* Visual */}
-          <div className="relative h-48 overflow-hidden">
-            <AnimatedProjectVisual projectId={project.id} category={project.category} />
-
-            {/* Category badge - animated */}
-            <motion.div
-              className="absolute top-3 left-3"
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 + 0.2 }}
-            >
-              <span
-                className={cn(
-                  "px-2 py-1 text-xs font-medium rounded-md",
-                  "bg-background/80 backdrop-blur-sm border border-border text-foreground-muted"
-                )}
-              >
-                {project.category === "systems" && "Systems"}
-                {project.category === "ml" && "ML / Data"}
-                {project.category === "web" && "Full-Stack"}
-                {project.category === "tools" && "Tools"}
-                {project.category === "ai" && "AI"}
-              </span>
-            </motion.div>
-
-            {/* Read More indicator on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-              <span className="flex items-center gap-1.5 text-sm font-sans text-foreground">
-                Read More <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </div>
+        <div className="relative overflow-hidden rounded-2xl border border-border/50 hover:border-border transition-all duration-500">
+          {/* Gradient background */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${gradients[project.category]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
           {/* Content */}
-          <div className="p-6">
-            {/* Title */}
-            <h3 className="text-lg font-display font-semibold text-foreground mb-3 group-hover:text-primary-500 transition-colors duration-300">
-              {project.title}
-            </h3>
-
-            {/* Description */}
-            <p className="text-foreground-muted font-serif text-sm leading-relaxed mb-4 line-clamp-2">
-              {project.description}
-            </p>
-
-            {/* Tech stack - staggered animation */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {project.tech.slice(0, 4).map((tech, techIndex) => (
-                <motion.span
-                  key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.2,
-                    delay: index * 0.1 + techIndex * 0.03
-                  }}
-                  whileHover={{ scale: 1.05 }}
-                  className="px-2 py-0.5 text-xs rounded bg-background-tertiary text-foreground-subtle"
-                >
-                  {tech}
-                </motion.span>
-              ))}
-              {project.tech.length > 4 && (
-                <span className="px-2 py-0.5 text-xs text-foreground-subtle">
-                  +{project.tech.length - 4}
+          <div className="relative p-8 md:p-10">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              {/* Left side - text content */}
+              <div className="flex-1 min-w-0">
+                {/* Category */}
+                <span className="inline-block text-xs font-medium tracking-widest uppercase text-foreground-subtle mb-4">
+                  {project.category === "ai" && "AI Infrastructure"}
+                  {project.category === "web" && "Full-Stack"}
+                  {project.category === "systems" && "Systems"}
+                  {project.category === "ml" && "Machine Learning"}
+                  {project.category === "tools" && "Tools"}
                 </span>
-              )}
-            </div>
 
-            {/* Links - with hover animation */}
-            <div className="flex items-center gap-4 pt-3 border-t border-border">
-              {project.github && (
-                <motion.div
-                  whileHover={{ x: 2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Github className="w-4 h-4" />
-                    <span>Code</span>
-                  </a>
-                </motion.div>
-              )}
-              {project.live && (
-                <motion.div
-                  whileHover={{ x: 2 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm text-foreground-muted hover:text-foreground transition-colors"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Demo</span>
-                  </a>
-                </motion.div>
-              )}
+                {/* Title */}
+                <h3 className="text-2xl md:text-3xl font-display font-medium text-foreground mb-4 tracking-tight group-hover:text-foreground transition-colors">
+                  {project.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-foreground-muted text-base md:text-lg leading-relaxed mb-6 max-w-2xl">
+                  {project.narrative || project.description}
+                </p>
+
+                {/* Tech tags */}
+                <div className="flex flex-wrap gap-2">
+                  {project.tech.slice(0, 4).map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-3 py-1 text-sm rounded-full bg-background-tertiary/50 text-foreground-subtle border border-border/30"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right side - arrow indicator */}
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 rounded-full border border-border/50 flex items-center justify-center group-hover:border-foreground/20 group-hover:bg-foreground/5 transition-all duration-300">
+                  <ArrowUpRight className="w-5 h-5 text-foreground-subtle group-hover:text-foreground transition-colors" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -143,34 +87,83 @@ function ProjectCard({
   );
 }
 
-function CategorySection({
-  category,
-  categoryId,
-  categoryProjects,
+function ArchiveRow({
+  project,
+  index,
 }: {
-  category: ProjectCategory;
-  categoryId: string;
-  categoryProjects: Project[];
+  project: Project;
+  index: number;
 }) {
   return (
-    <div className="mb-20 last:mb-0">
-      {/* Category Header - elegant */}
-      <div className="mb-10">
-        <h3 className="text-2xl font-display font-semibold text-foreground mb-3 tracking-tight">
-          {category.title}
-        </h3>
-        <p className="text-foreground-muted font-serif text-lg leading-relaxed">
-          {category.description}
-        </p>
-      </div>
+    <motion.tr
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3, delay: index * 0.03 }}
+      className="group border-b border-border/30 last:border-0 hover:bg-foreground/[0.02] transition-colors"
+    >
+      {/* Year */}
+      <td className="py-4 pr-4 text-sm text-foreground-subtle font-mono whitespace-nowrap hidden md:table-cell">
+        2024
+      </td>
 
-      {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categoryProjects.map((project, i) => (
-          <ProjectCard key={project.id} project={project} index={i} />
-        ))}
-      </div>
-    </div>
+      {/* Project Name */}
+      <td className="py-4 pr-4">
+        <Link
+          href={`/projects/${project.id}`}
+          className="text-foreground font-medium hover:text-foreground-muted transition-colors inline-flex items-center gap-2"
+        >
+          {project.title}
+          <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </Link>
+      </td>
+
+      {/* Category */}
+      <td className="py-4 pr-4 text-sm text-foreground-subtle hidden lg:table-cell">
+        {project.category === "ai" && "AI"}
+        {project.category === "web" && "Web"}
+        {project.category === "systems" && "Systems"}
+        {project.category === "ml" && "ML"}
+        {project.category === "tools" && "Tools"}
+      </td>
+
+      {/* Tech */}
+      <td className="py-4 pr-4 hidden sm:table-cell">
+        <span className="text-sm text-foreground-subtle">
+          {project.tech.slice(0, 3).join(" · ")}
+        </span>
+      </td>
+
+      {/* Links */}
+      <td className="py-4 text-right">
+        <div className="flex items-center justify-end gap-3">
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="text-foreground-subtle hover:text-foreground transition-colors"
+              aria-label="View source code"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="text-foreground-subtle hover:text-foreground transition-colors"
+              aria-label="View live demo"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          )}
+        </div>
+      </td>
+    </motion.tr>
   );
 }
 
@@ -179,50 +172,77 @@ interface ProjectsSectionProps {
   categories: Record<string, ProjectCategory>;
 }
 
-export function ProjectsSection({ projects, categories }: ProjectsSectionProps) {
-  // Group projects by category - AI first since it's the most impressive
-  const categoryOrder = ["ai", "web", "systems", "ml", "tools"];
-  const categorizedProjects = categoryOrder
-    .filter(catId => categories[catId])
-    .map((catId) => ({
-      id: catId,
-      category: categories[catId],
-      projects: projects.filter((p) => p.category === catId),
-    }))
-    .filter(({ projects }) => projects.length > 0);
+export function ProjectsSection({ projects }: ProjectsSectionProps) {
+  // Split into featured and archive
+  const featured = projects.filter((p) => FEATURED_IDS.includes(p.id));
+  const archive = projects.filter((p) => !FEATURED_IDS.includes(p.id));
 
   return (
-    <section
-      id="projects"
-      className="relative py-32 bg-background"
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header - elegant editorial style */}
+    <section id="projects" className="relative py-32 md:py-40 bg-background">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-20"
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+          className="mb-20 md:mb-28"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-6 tracking-tight">
-            Projects
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium text-foreground mb-6 tracking-tight">
+            Selected Work
           </h2>
-          <p className="text-foreground-muted font-serif text-lg md:text-xl max-w-2xl leading-relaxed">
-            From low-level memory allocators to full-stack applications.
-            Each project taught me something new.
+          <p className="text-foreground-muted text-lg md:text-xl max-w-xl leading-relaxed">
+            A curated collection of projects spanning systems programming, AI infrastructure, and full-stack development.
           </p>
         </motion.div>
 
-        {/* Projects by Category */}
-        {categorizedProjects.map(({ id, category, projects: catProjects }) => (
-          <CategorySection
-            key={id}
-            categoryId={id}
-            category={category}
-            categoryProjects={catProjects}
-          />
-        ))}
+        {/* Featured Projects */}
+        <div className="space-y-6 mb-32">
+          {featured.map((project, i) => (
+            <FeaturedCard key={project.id} project={project} index={i} />
+          ))}
+        </div>
+
+        {/* Archive Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h3 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle mb-8">
+            Archive
+          </h3>
+
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-border/50">
+                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle hidden md:table-cell">
+                    Year
+                  </th>
+                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle">
+                    Project
+                  </th>
+                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle hidden lg:table-cell">
+                    Type
+                  </th>
+                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle hidden sm:table-cell">
+                    Built with
+                  </th>
+                  <th className="pb-3 text-right text-xs font-medium tracking-widest uppercase text-foreground-subtle">
+                    Links
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {archive.map((project, i) => (
+                  <ArchiveRow key={project.id} project={project} index={i} />
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
