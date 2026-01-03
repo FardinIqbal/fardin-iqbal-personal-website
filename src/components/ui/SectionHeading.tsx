@@ -14,25 +14,25 @@ export function SectionHeading({
   title,
   subtitle,
   className,
-  align = "center",
+  align = "left",
 }: SectionHeadingProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(
-        "mb-12",
+        "mb-16",
         align === "center" && "text-center",
         className
       )}
     >
-      <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+      <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-6 tracking-tight">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-foreground-muted text-lg max-w-2xl mx-auto">
+        <p className="text-foreground-muted text-lg md:text-xl font-serif leading-relaxed max-w-2xl">
           {subtitle}
         </p>
       )}

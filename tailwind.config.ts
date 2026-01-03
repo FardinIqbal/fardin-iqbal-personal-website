@@ -11,20 +11,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Vercel-inspired primary blue
+        // Editorial deep blue
         primary: {
-          DEFAULT: "#3b82f6",
+          DEFAULT: "#1e3a8a",
           50: "#eff6ff",
           100: "#dbeafe",
           200: "#bfdbfe",
           300: "#93c5fd",
           400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
-          950: "#172554",
+          500: "#1e3a8a",
+          600: "#1a3278",
+          700: "#162a64",
+          800: "#122250",
+          900: "#0e1a3c",
+          950: "#0a1228",
         },
         // Clean grayscale backgrounds
         background: {
@@ -43,12 +43,32 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-playfair)", "Georgia", "serif"],
+        serif: ["var(--font-source-serif)", "Georgia", "serif"],
+        sans: ["var(--font-source-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-jetbrains-mono)", "monospace"],
       },
+      fontSize: {
+        // NY Times-inspired type scale
+        "body": ["1.0625rem", { lineHeight: "1.7" }],
+        "body-lg": ["1.1875rem", { lineHeight: "1.85" }],
+      },
+      maxWidth: {
+        measure: "68ch",
+        "measure-narrow": "55ch",
+        "measure-wide": "75ch",
+        content: "720px",
+        container: "1200px",
+      },
+      spacing: {
+        section: "8rem",
+        "section-sm": "5rem",
+        block: "3rem",
+        element: "1.5rem",
+      },
       animation: {
-        "fade-in": "fadeIn 0.5s ease-out forwards",
-        "slide-up": "slideUp 0.5s ease-out forwards",
+        "fade-in": "fadeIn 0.6s ease-out forwards",
+        "slide-up": "slideUp 0.6s ease-out forwards",
       },
       keyframes: {
         fadeIn: {
@@ -56,7 +76,7 @@ const config: Config = {
           "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
@@ -64,15 +84,23 @@ const config: Config = {
         DEFAULT: {
           css: {
             color: "rgb(var(--color-foreground))",
+            fontFamily: "var(--font-source-serif), Georgia, serif",
+            fontSize: "1.0625rem",
+            lineHeight: "1.7",
             a: {
-              color: "#3b82f6",
+              color: "#1e3a8a",
+              textDecoration: "none",
+              borderBottom: "1px solid transparent",
+              transition: "border-color 0.25s ease",
               "&:hover": {
-                color: "#2563eb",
+                borderBottomColor: "#1e3a8a",
               },
             },
             "h1, h2, h3, h4": {
+              fontFamily: "var(--font-playfair), Georgia, serif",
               color: "rgb(var(--color-foreground))",
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.015em",
+              fontWeight: "600",
             },
             code: {
               color: "rgb(var(--color-foreground))",
@@ -81,8 +109,11 @@ const config: Config = {
               borderRadius: "4px",
             },
             blockquote: {
-              borderLeftColor: "#3b82f6",
+              borderLeftColor: "rgb(var(--color-border))",
               color: "rgb(var(--color-foreground-muted))",
+              fontStyle: "italic",
+              paddingLeft: "2rem",
+              background: "transparent",
             },
           },
         },

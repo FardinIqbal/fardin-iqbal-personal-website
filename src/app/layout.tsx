@@ -1,18 +1,41 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import {
+  Playfair_Display,
+  Source_Serif_4,
+  Source_Sans_3,
+  JetBrains_Mono,
+} from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ClerkWrapper } from "@/components/ClerkWrapper";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import "./globals.css";
 
-const inter = Inter({
+// Elegant display serif for headings
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-playfair",
+  display: "swap",
 });
 
+// Readable serif for body text
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-source-serif",
+  display: "swap",
+});
+
+// Clean sans for UI elements
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  variable: "--font-source-sans",
+  display: "swap",
+});
+
+// Monospace for code
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -95,7 +118,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${playfair.variable} ${sourceSerif.variable} ${sourceSans.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
       >
         <ClerkWrapper>
           <ThemeProvider defaultTheme="light">

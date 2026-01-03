@@ -89,13 +89,13 @@ export function Header() {
       >
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo - clean */}
-            <Link href="/" className="text-lg font-semibold text-foreground hover:opacity-80 transition-opacity">
+            {/* Logo - elegant display font */}
+            <Link href="/" className="text-lg font-display font-semibold text-foreground hover:opacity-80 transition-opacity duration-300">
               Fardin Iqbal
             </Link>
 
-            {/* Desktop Navigation - clean */}
-            <div className="hidden md:flex items-center gap-6">
+            {/* Desktop Navigation - clean sans-serif */}
+            <div className="hidden md:flex items-center gap-7">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("/#", "");
                 return (
@@ -103,7 +103,7 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-sm transition-colors",
+                      "text-sm font-sans transition-colors duration-200",
                       isActive
                         ? "text-foreground"
                         : "text-foreground-muted hover:text-foreground"
@@ -118,7 +118,7 @@ export function Header() {
               <Link
                 href="/resume/Fardin_Iqbal_Resume.pdf"
                 target="_blank"
-                className="px-3 py-1.5 text-sm font-medium rounded-md border border-border text-foreground hover:bg-background-tertiary transition-colors"
+                className="px-4 py-1.5 text-sm font-sans font-medium rounded-md border border-border text-foreground hover:bg-background-tertiary hover:border-foreground/10 transition-all duration-300"
               >
                 Resume
               </Link>
@@ -175,7 +175,7 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="py-3 text-foreground-muted hover:text-foreground transition-colors"
+                    className="py-3 font-sans text-foreground-muted hover:text-foreground transition-colors duration-200"
                   >
                     {item.label}
                   </Link>
@@ -186,7 +186,7 @@ export function Header() {
                     href="/resume/Fardin_Iqbal_Resume.pdf"
                     target="_blank"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium border border-border rounded-md hover:bg-background-tertiary transition-colors"
+                    className="inline-flex items-center px-4 py-2 text-sm font-sans font-medium border border-border rounded-md hover:bg-background-tertiary transition-all duration-300"
                   >
                     Resume
                   </Link>

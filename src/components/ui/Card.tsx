@@ -25,11 +25,11 @@ export function Card({
 }: CardProps) {
   return (
     <motion.div
-      whileHover={hover ? { y: -4 } : undefined}
-      transition={{ duration: 0.3 }}
+      whileHover={hover ? { y: -2 } : undefined}
+      transition={{ duration: 0.25, ease: "easeOut" }}
       className={cn(
-        "rounded-xl bg-background-secondary border border-border",
-        hover && "transition-shadow duration-300 hover:shadow-xl hover:shadow-primary-500/5",
+        "rounded-lg bg-surface border border-border",
+        hover && "transition-all duration-300 hover:shadow-lg hover:shadow-foreground/5 hover:border-foreground/10",
         paddingSizes[padding],
         className
       )}

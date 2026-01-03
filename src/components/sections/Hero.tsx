@@ -105,65 +105,66 @@ export function Hero({ profile }: HeroProps) {
           </span>
         </motion.div>
 
-        {/* Name - with staggered letter animation */}
+        {/* Name - elegant serif with staggered animation */}
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="mb-8"
         >
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="block text-foreground-muted text-3xl sm:text-4xl md:text-5xl font-normal mb-2"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="block text-foreground-muted text-lg sm:text-xl font-sans font-normal mb-4 tracking-wide"
           >
-            Hi, I&apos;m
+            Hello, I&apos;m
           </motion.span>
-          <span className="block text-foreground">
+          <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-semibold text-foreground tracking-tight">
             <AnimatedText text={profile.name} />
           </span>
         </motion.h1>
 
-        {/* Tagline */}
+        {/* Tagline - elegant serif */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl sm:text-2xl text-foreground-muted font-light mb-6 max-w-2xl mx-auto"
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-2xl sm:text-3xl text-foreground-muted font-serif font-light mb-8 max-w-2xl mx-auto leading-relaxed"
         >
           {profile.tagline}
         </motion.p>
 
-        {/* Description */}
+        {/* Description - readable body text */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-foreground-subtle text-base sm:text-lg max-w-xl mx-auto mb-10 leading-relaxed"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-foreground-muted text-lg sm:text-xl font-serif max-w-xl mx-auto mb-12 leading-relaxed"
         >
           {profile.bio[0]}
         </motion.p>
 
-        {/* CTA Buttons - with hover animations */}
+        {/* CTA Buttons - subtle, elegant hover */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <motion.div
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.25 }}
           >
             <Link
               href="#projects"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-foreground text-background font-sans font-medium hover:opacity-90 transition-opacity"
             >
               View My Work
               <motion.span
                 animate={{ y: [0, 3, 0] }}
-                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
               >
                 <ArrowDown className="w-4 h-4" />
               </motion.span>
@@ -171,13 +172,14 @@ export function Hero({ profile }: HeroProps) {
           </motion.div>
 
           <motion.div
-            whileHover={{ scale: 1.02, y: -2 }}
+            whileHover={{ y: -2 }}
             whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.25 }}
           >
             <Link
               href={profile.resumeUrl}
               target="_blank"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-background-tertiary hover:border-foreground-subtle transition-all"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg border border-border text-foreground font-sans font-medium hover:bg-background-tertiary hover:border-foreground-subtle transition-all duration-300"
             >
               Download Resume
             </Link>

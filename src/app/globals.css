@@ -1,63 +1,97 @@
 @import "tailwindcss";
 
 /* ============================================
-   VERCEL-INSPIRED THEME SYSTEM
-   Clean, minimal, high contrast
+   ELEGANT EDITORIAL DESIGN SYSTEM
+   NY Times-inspired typography & reading experience
    ============================================ */
 
 :root {
-  /* Primary accent - Vercel blue */
+  /* ----------------------------------------
+     TYPOGRAPHY SCALE - Elegant, readable
+     ---------------------------------------- */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1.0625rem;  /* 17px - NY Times standard */
+  --text-lg: 1.1875rem;    /* 19px */
+  --text-xl: 1.375rem;     /* 22px */
+  --text-2xl: 1.75rem;     /* 28px */
+  --text-3xl: 2.25rem;     /* 36px */
+  --text-4xl: 3rem;        /* 48px */
+  --text-5xl: 3.75rem;     /* 60px */
+  --text-6xl: 4.5rem;      /* 72px */
+
+  /* Line Heights - optimized for reading */
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+  --leading-loose: 1.85;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.03em;
+  --tracking-tight: -0.015em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+
+  /* Optimal measure (line length) for reading */
+  --measure-narrow: 55ch;
+  --measure-optimal: 68ch;
+  --measure-wide: 75ch;
+
+  /* ----------------------------------------
+     ACCENT COLORS - Refined, editorial
+     ---------------------------------------- */
   --primary-50: 239 246 255;
   --primary-100: 219 234 254;
   --primary-200: 191 219 254;
   --primary-300: 147 197 253;
   --primary-400: 96 165 250;
-  --primary-500: 59 130 246;
-  --primary-600: 37 99 235;
-  --primary-700: 29 78 216;
-  --primary-800: 30 64 175;
-  --primary-900: 30 58 138;
-  --primary-950: 23 37 84;
+  --primary-500: 30 58 138;    /* Deep editorial blue */
+  --primary-600: 26 50 120;
+  --primary-700: 22 42 100;
+  --primary-800: 18 34 80;
+  --primary-900: 14 26 60;
+  --primary-950: 10 18 40;
 
-  /* Accent colors */
-  --accent-purple: 139 92 246;
-  --accent-pink: 236 72 153;
-  --accent-cyan: 6 182 212;
+  /* Subtle accent colors */
+  --accent-highlight: 255 248 220;  /* Warm cream highlight */
+  --accent-success: 52 120 90;       /* Muted green */
+  --accent-error: 180 60 50;         /* Refined red */
 }
 
 /* ============================================
-   THEME COLLECTION - Artistic & Immersive
+   THEME COLLECTION - Warm, Sophisticated
    ============================================ */
 
-/* Dark theme - Pure black, high contrast */
+/* Dark theme - Warm black, refined */
 :root,
 .dark {
-  --color-background: 0 0 0;
-  --color-background-secondary: 12 12 12;
-  --color-background-tertiary: 24 24 24;
-  --color-foreground: 255 255 255;
-  --color-foreground-muted: 180 180 180;
-  --color-foreground-subtle: 130 130 130;
-  --color-border: 60 60 60;
-  --color-border-subtle: 45 45 45;
-  --color-surface: 12 12 12;
-  --color-surface-hover: 24 24 24;
-  --theme-accent: 59 130 246;
+  --color-background: 18 16 14;           /* Warm black */
+  --color-background-secondary: 26 24 21;
+  --color-background-tertiary: 38 35 31;
+  --color-foreground: 245 243 238;        /* Warm white */
+  --color-foreground-muted: 185 180 172;
+  --color-foreground-subtle: 130 125 118;
+  --color-border: 55 50 45;
+  --color-border-subtle: 42 38 34;
+  --color-surface: 24 22 19;
+  --color-surface-hover: 34 31 27;
+  --theme-accent: 30 58 138;
 }
 
-/* Light theme - Clean white */
+/* Light theme - Warm cream, elegant */
 .light {
-  --color-background: 255 255 255;
-  --color-background-secondary: 250 250 250;
-  --color-background-tertiary: 245 245 245;
-  --color-foreground: 15 15 15;
-  --color-foreground-muted: 60 60 60;
-  --color-foreground-subtle: 100 100 100;
-  --color-border: 230 230 230;
-  --color-border-subtle: 240 240 240;
-  --color-surface: 255 255 255;
-  --color-surface-hover: 250 250 250;
-  --theme-accent: 59 130 246;
+  --color-background: 253 251 247;        /* Warm cream */
+  --color-background-secondary: 248 246 240;
+  --color-background-tertiary: 240 237 230;
+  --color-foreground: 28 25 23;           /* Warm black */
+  --color-foreground-muted: 75 70 65;
+  --color-foreground-subtle: 120 115 108;
+  --color-border: 220 215 205;            /* Warm gray */
+  --color-border-subtle: 232 228 220;
+  --color-surface: 255 253 249;
+  --color-surface-hover: 250 248 243;
+  --theme-accent: 30 58 138;
 }
 
 /* Light mode specific enhancements */
@@ -87,26 +121,54 @@
   --color-border: rgb(var(--color-border));
   --color-border-subtle: rgb(var(--color-border-subtle));
   --color-primary: rgb(var(--primary-500));
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  /* Font families - elegant serif for reading, sans for UI */
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-sans: var(--font-source-sans), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
 /* ============================================
-   BASE STYLES
+   BASE STYLES - Elegant Typography
    ============================================ */
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  font-size: 16px;
 }
 
 body {
   background-color: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+/* Headings - elegant display serif */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: rgb(var(--color-foreground));
+}
+
+/* Paragraphs - optimal reading */
+p {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  max-width: var(--measure-optimal);
+}
+
+/* Navigation & UI - clean sans */
+nav, button, .label, .meta, .badge, .btn {
+  font-family: var(--font-sans);
 }
 
 /* Clean scrollbar */
@@ -265,17 +327,7 @@ html.transitioning * {
   transition-duration: 150ms !important;
 }
 
-/* ============================================
-   TYPOGRAPHY IMPROVEMENTS
-   ============================================ */
-
-h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.02em;
-}
-
-p {
-  line-height: 1.7;
-}
+/* Typography improvements are now in base styles above */
 
 /* Code blocks */
 code {
@@ -472,14 +524,14 @@ pre code {
   animation: glow-pulse 2s ease-in-out infinite;
 }
 
-/* Hover Animations */
+/* Hover Animations - Subtle & Elegant */
 .hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px -12px rgba(0, 0, 0, 0.2);
 }
 
 .hover-glow {
@@ -487,15 +539,15 @@ pre code {
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 20px rgba(30, 58, 138, 0.15);
 }
 
 .hover-scale {
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
 
 .hover-scale:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 /* Staggered Animation Delays */
@@ -526,79 +578,86 @@ svg .animate-rotate-slow {
 
 /* ============================================
    BLOG ARTICLE TYPOGRAPHY
-   Clean, readable, modern
+   NY Times-inspired, elegant reading experience
    ============================================ */
 
 .prose-article {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: rgb(var(--color-foreground-muted));
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;           /* 19px - slightly larger for comfort */
+  line-height: 1.85;              /* Very generous line height */
+  color: rgb(var(--color-foreground));
+  max-width: var(--measure-optimal);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .prose-article > * + * {
-  margin-top: 1.5em;
+  margin-top: 1.75em;
 }
 
-/* Headings */
+/* Headings - elegant display font */
 .prose-article h1,
 .prose-article h2,
 .prose-article h3,
 .prose-article h4 {
+  font-family: var(--font-display);
   color: rgb(var(--color-foreground));
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
+  font-weight: 600;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-snug);
 }
 
 .prose-article h1 {
-  font-size: 2.25rem;
+  font-size: 2.75rem;
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .prose-article h2 {
-  font-size: 1.75rem;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid rgb(var(--color-border));
+  font-size: 2rem;
+  margin-top: 4rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0;
+  border-bottom: none;            /* Clean, no underline */
 }
 
 .prose-article h3 {
-  font-size: 1.375rem;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+.prose-article h4 {
+  font-size: 1.25rem;
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
 }
 
-.prose-article h4 {
-  font-size: 1.125rem;
-  margin-top: 2rem;
-  margin-bottom: 0.5rem;
-}
-
 /* Paragraphs */
 .prose-article p {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+  margin-top: 1.75em;
+  margin-bottom: 1.75em;
+  orphans: 3;
+  widows: 3;
 }
 
 .prose-article p:first-child {
   margin-top: 0;
 }
 
-/* Lead paragraph - first p after h1 or at start */
+/* Lead paragraph - first p, larger and bolder */
 .prose-article > p:first-of-type {
-  font-size: 1.25rem;
+  font-size: 1.375rem;
   line-height: 1.7;
   color: rgb(var(--color-foreground));
 }
 
-/* Links */
+/* Links - elegant underline animation */
 .prose-article a {
   color: rgb(var(--primary-500));
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.15s ease;
+  transition: border-color 0.25s ease;
 }
 
 .prose-article a:hover {
@@ -615,36 +674,38 @@ svg .animate-rotate-slow {
   font-style: italic;
 }
 
-/* Blockquotes */
+/* Blockquotes - elegant, indented */
 .prose-article blockquote {
-  margin: 2rem 0;
-  padding: 1.5rem 2rem;
-  border-left: 3px solid rgb(var(--primary-500));
-  background: rgb(var(--color-background-secondary));
-  border-radius: 0 12px 12px 0;
-  font-style: normal;
+  margin: 2.5rem 0;
+  padding: 0 0 0 2rem;
+  border-left: 3px solid rgb(var(--color-border));
+  background: transparent;
+  border-radius: 0;
+  font-style: italic;
 }
 
 .prose-article blockquote p {
   margin: 0;
-  font-size: 1.125rem;
-  color: rgb(var(--color-foreground));
+  font-size: 1.25rem;
+  line-height: 1.75;
+  color: rgb(var(--color-foreground-muted));
 }
 
 .prose-article blockquote p + p {
   margin-top: 1rem;
 }
 
-/* Lists */
+/* Lists - clean and readable */
 .prose-article ul,
 .prose-article ol {
-  margin: 1.5rem 0;
-  padding-left: 1.5rem;
+  margin: 1.75rem 0;
+  padding-left: 1.75rem;
 }
 
 .prose-article li {
   margin: 0.75rem 0;
   padding-left: 0.5rem;
+  line-height: 1.75;
 }
 
 .prose-article li::marker {
@@ -652,7 +713,7 @@ svg .animate-rotate-slow {
 }
 
 .prose-article ul li::marker {
-  content: "---  ";
+  content: "\2022  ";             /* Simple bullet */
 }
 
 .prose-article ol {
@@ -828,25 +889,50 @@ svg .animate-rotate-slow {
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .prose-article {
-    font-size: 1rem;
+    font-size: 1.0625rem;         /* 17px on mobile */
+    line-height: 1.75;
+  }
+
+  .prose-article h1 {
+    font-size: 2rem;
   }
 
   .prose-article h2 {
     font-size: 1.5rem;
+    margin-top: 3rem;
   }
 
   .prose-article h3 {
     font-size: 1.25rem;
   }
 
+  .prose-article > p:first-of-type {
+    font-size: 1.125rem;
+  }
+
   .prose-article blockquote {
-    padding: 1rem 1.25rem;
-    margin: 1.5rem 0;
+    padding-left: 1.25rem;
+    margin: 1.75rem 0;
   }
 
   .prose-article pre {
     padding: 1rem;
     border-radius: 8px;
     font-size: 0.85rem;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY - Reduced Motion
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -19,12 +19,12 @@ function ProjectCard({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      whileHover={{ y: -4 }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      whileHover={{ y: -2 }}
       className="group"
     >
-      {/* Card - clean Vercel style with hover animation */}
-      <div className="relative overflow-hidden rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-all hover-lift hover-glow">
+      {/* Card - elegant with subtle hover */}
+      <div className="relative overflow-hidden rounded-lg bg-surface border border-border hover:border-foreground/10 hover:shadow-lg hover:shadow-foreground/5 transition-all duration-300">
         {/* Visual */}
         <div className="relative h-48 overflow-hidden">
           <AnimatedProjectVisual projectId={project.id} category={project.category} />
@@ -52,14 +52,14 @@ function ProjectCard({
         </div>
 
         {/* Content */}
-        <div className="p-5">
+        <div className="p-6">
           {/* Title */}
-          <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary-500 transition-colors">
+          <h3 className="text-lg font-display font-semibold text-foreground mb-3 group-hover:text-primary-500 transition-colors duration-300">
             {project.title}
           </h3>
 
           {/* Description */}
-          <p className="text-foreground-muted text-sm leading-relaxed mb-4 line-clamp-2">
+          <p className="text-foreground-muted font-serif text-sm leading-relaxed mb-4 line-clamp-2">
             {project.description}
           </p>
 
@@ -133,19 +133,19 @@ function CategorySection({
   categoryProjects: Project[];
 }) {
   return (
-    <div className="mb-16 last:mb-0">
-      {/* Category Header - clean */}
-      <div className="mb-8">
-        <h3 className="text-xl font-semibold text-foreground mb-2">
+    <div className="mb-20 last:mb-0">
+      {/* Category Header - elegant */}
+      <div className="mb-10">
+        <h3 className="text-2xl font-display font-semibold text-foreground mb-3 tracking-tight">
           {category.title}
         </h3>
-        <p className="text-foreground-muted">
+        <p className="text-foreground-muted font-serif text-lg leading-relaxed">
           {category.description}
         </p>
       </div>
 
       {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {categoryProjects.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
         ))}
@@ -174,21 +174,21 @@ export function ProjectsSection({ projects, categories }: ProjectsSectionProps) 
   return (
     <section
       id="projects"
-      className="relative py-24 bg-background"
+      className="relative py-32 bg-background"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header - clean Vercel style */}
+        {/* Section Header - elegant editorial style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-16"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="mb-20"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-6 tracking-tight">
             Projects
           </h2>
-          <p className="text-foreground-muted text-lg max-w-2xl">
+          <p className="text-foreground-muted font-serif text-lg md:text-xl max-w-2xl leading-relaxed">
             From low-level memory allocators to full-stack applications.
             Each project taught me something new.
           </p>
