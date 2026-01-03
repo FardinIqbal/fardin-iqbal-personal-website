@@ -87,8 +87,8 @@ export function ThemeToggle() {
                             : "hover:bg-foreground/5"
                         }`}
                         style={{
-                          ringColor: theme === key ? ACCENTS[accent].color : undefined
-                        }}
+                          ["--tw-ring-color" as string]: theme === key ? ACCENTS[accent].color : undefined
+                        } as React.CSSProperties}
                       >
                         <div
                           className={`w-8 h-8 rounded-full border-2 transition-all ${
@@ -130,8 +130,8 @@ export function ThemeToggle() {
                         }`}
                         style={{
                           backgroundColor: config.color,
-                          ringColor: accent === key ? config.color : undefined
-                        }}
+                          ["--tw-ring-color" as string]: accent === key ? config.color : undefined
+                        } as React.CSSProperties}
                         title={config.name}
                       >
                         {accent === key && (
