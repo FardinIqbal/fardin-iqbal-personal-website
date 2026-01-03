@@ -8,8 +8,8 @@ export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
-  const toggleTheme = (e: React.MouseEvent) => {
-    setTheme(isDark ? "light" : "dark", e);
+  const toggleTheme = () => {
+    setTheme(isDark ? "light" : "dark");
   };
 
   return (
