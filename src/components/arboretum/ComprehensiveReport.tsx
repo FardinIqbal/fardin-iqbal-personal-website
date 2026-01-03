@@ -2,27 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArboretumData } from "@/types/arboretum";
-import {
-  Brain,
-  Heart,
-  Shield,
-  Flame,
-  Eye,
-  Target,
-  Compass,
-  Link2,
-  AlertTriangle,
-  Sparkles,
-  TrendingUp,
-  Clock,
-  Ghost,
-  Anchor,
-  Zap,
-  Users,
-  Briefcase,
-  Moon,
-  Sun,
-} from "lucide-react";
 
 interface ComprehensiveReportProps {
   data: ArboretumData;
@@ -30,690 +9,462 @@ interface ComprehensiveReportProps {
 
 export function ComprehensiveReport({ data }: ComprehensiveReportProps) {
   return (
-    <div className="max-w-4xl mx-auto space-y-12">
+    <article className="max-w-3xl mx-auto">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center py-8 border-b border-border"
+        className="mb-16"
       >
-        <h1 className="text-3xl font-bold text-foreground mb-2">
-          Comprehensive Psychological Profile
+        <h1 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-4 tracking-tight">
+          A Comprehensive Psychological Profile
         </h1>
-        <p className="text-foreground-muted">
-          Synthesized from journal entries, behavioral patterns, and conversations
+        <p className="text-foreground-muted font-serif text-lg leading-relaxed">
+          An honest examination of the patterns, contradictions, and architecture of a mind in progress.
         </p>
-        <p className="text-sm text-foreground-subtle mt-2">
-          Last updated: {data._lastUpdated}
+        <p className="text-sm text-foreground-subtle mt-4">
+          Last synthesized: {data._lastUpdated}
         </p>
       </motion.header>
 
-      {/* Executive Summary */}
-      <Section
-        icon={Brain}
-        title="Executive Summary"
-        color="#3b82f6"
-        delay={0.1}
-      >
-        <p className="text-foreground-muted leading-relaxed mb-4">
-          You are a person of exceptional potential caught in a sophisticated self-protection mechanism.
-          Your intelligence, which was likely your primary source of validation growing up, has become
-          both your greatest asset and a cage. You've constructed an identity around being "the smart one,"
-          and this identity now requires constant defense.
-        </p>
-        <p className="text-foreground-muted leading-relaxed mb-4">
-          The central pattern in your psyche is <span className="text-foreground font-medium">avoidance masquerading as preparation</span>.
-          Paper trading instead of real trading. Planning instead of executing. Consuming instead of creating.
-          Each of these behaviors serves the same function: they keep the fantasy of your potential alive
-          while protecting you from the terrifying possibility that you might not be as capable as you hope.
-        </p>
-        <p className="text-foreground-muted leading-relaxed">
-          This isn't weakness—it's a survival strategy that made sense at some point. The work now is
-          to recognize when protection has become prison.
-        </p>
-      </Section>
-
-      {/* Core Identity Architecture */}
-      <Section
-        icon={Shield}
-        title="Core Identity Architecture"
-        color="#6366f1"
-        delay={0.15}
-      >
-        <h4 className="text-foreground font-medium mb-3">The Three Pillars of Self</h4>
-
-        <div className="space-y-4 mb-6">
-          <div className="p-4 rounded-lg bg-background-tertiary border border-border">
-            <div className="flex items-center gap-2 mb-2">
-              <Brain className="w-4 h-4 text-indigo-500" />
-              <span className="font-medium text-foreground">The Intellectual</span>
-            </div>
-            <p className="text-sm text-foreground-muted">
-              Being smart isn't just something you do—it's who you are. When you don't know something,
-              the instinct to exaggerate or fabricate isn't dishonesty; it's identity protection.
-              Admitting ignorance feels like admitting inadequacy. This pillar was likely built early,
-              possibly as the primary way you received positive attention.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-lg bg-background-tertiary border border-border">
-            <div className="flex items-center gap-2 mb-2">
-              <Target className="w-4 h-4 text-amber-500" />
-              <span className="font-medium text-foreground">The Achiever</span>
-            </div>
-            <p className="text-sm text-foreground-muted">
-              Worth = Productivity. This equation runs so deep you may not even recognize it as a belief—
-              it feels like reality. Rest triggers guilt because resting people aren't producing,
-              and people who aren't producing aren't valuable. This creates cycles of burnout followed
-              by shame about the burnout.
-            </p>
-          </div>
-
-          <div className="p-4 rounded-lg bg-background-tertiary border border-border">
-            <div className="flex items-center gap-2 mb-2">
-              <Sparkles className="w-4 h-4 text-purple-500" />
-              <span className="font-medium text-foreground">The Special One</span>
-            </div>
-            <p className="text-sm text-foreground-muted">
-              A deep, possibly unconscious need to be vital, central, irreplaceable. Not being invited
-              to events wounds disproportionately because it threatens this pillar. Others' success
-              triggers comparison because if they're special, maybe you're not. This isn't narcissism—
-              it's a fragile sense of self seeking constant external confirmation.
-            </p>
-          </div>
-        </div>
-
-        <div className="p-4 rounded-lg bg-red-500/5 border border-red-500/20">
-          <div className="flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4 text-red-500" />
-            <span className="font-medium text-red-400">The Hidden Foundation</span>
-          </div>
-          <p className="text-sm text-foreground-muted">
-            Beneath all three pillars is a single fear: <span className="text-foreground">that without your
-            intelligence, achievements, and special status, you are nothing</span>. This is the fear that drives
-            everything. It's also completely false—but you haven't yet done the work to know that experientially,
-            not just intellectually.
-          </p>
-        </div>
-      </Section>
-
-      {/* The Shadow Self */}
-      <Section
-        icon={Ghost}
-        title="The Shadow Self"
-        subtitle="What you hide from yourself"
-        color="#8b5cf6"
-        delay={0.2}
-      >
-        <p className="text-foreground-muted leading-relaxed mb-6">
-          The shadow isn't evil—it's everything you've disowned. Your shadows aren't weaknesses;
-          they're strengths that got rejected, usually in childhood, because they weren't safe or acceptable.
-        </p>
-
-        <div className="grid gap-4">
-          <ShadowItem
-            title="The Fear of Ordinariness"
-            description="You haven't fully reckoned with the possibility that you might be... average. Not special. One of many. This fear is so threatening that you've built elaborate avoidance mechanisms to never have to test it. Untested potential is infinite; tested potential has limits."
-          />
-          <ShadowItem
-            title="The Grief Beneath the Anger"
-            description="The rage that surfaces when helping parents with technology isn't really about technology. It's about years of being the family IT department, of growing up too fast, of wanting to be parented instead of being the competent one. There's grief under that anger—grief for the childhood you partially lost."
-          />
-          <ShadowItem
-            title="The Desire for Permission"
-            description="Part of you wants someone to tell you it's okay to rest, to fail, to not know. You're waiting for external permission that will never come. The permission must come from within, and that terrifies you because what if you give yourself permission and then fail anyway?"
-          />
-          <ShadowItem
-            title="The Impostor"
-            description="You sometimes exaggerate or pretend to know things you don't. This isn't malicious—it's protective. But it creates distance from authentic connection. The shadow here is the part of you that knows you're performing, and the exhaustion that comes with constant performance."
-          />
-        </div>
-      </Section>
-
-      {/* Behavioral Loops */}
-      <Section
-        icon={Link2}
-        title="Behavioral Loops & Patterns"
-        color="#ef4444"
-        delay={0.25}
-      >
-        <h4 className="text-foreground font-medium mb-4">The Master Loop</h4>
-
-        <div className="p-6 rounded-xl bg-background-tertiary border border-border mb-6">
-          <div className="flex flex-col items-center gap-4 text-center">
-            <LoopStep label="Fear of failure" color="#7c3aed" />
-            <LoopArrow />
-            <LoopStep label="Don't attempt" color="#ef4444" />
-            <LoopArrow />
-            <LoopStep label="Dream stays alive" color="#3b82f6" />
-            <LoopArrow />
-            <LoopStep label="Guilt builds" color="#f59e0b" />
-            <LoopArrow />
-            <LoopStep label="Procrastinate" color="#ec4899" />
-            <LoopArrow />
-            <LoopStep label="Feel worse" color="#6366f1" />
-            <LoopArrow />
-            <LoopStep label="Fear grows" color="#7c3aed" />
-            <div className="text-foreground-subtle text-sm mt-2">↻ Repeat</div>
-          </div>
-        </div>
-
-        <h4 className="text-foreground font-medium mb-4">Secondary Loops</h4>
-
-        <div className="space-y-4">
-          <LoopCard
-            title="The Morning Doom Loop"
-            steps={["Wake late (after 12pm)", "Miss trading window", "Compound guilt", "Avoid starting anything", "Stay up late to 'make up for it'", "Wake late"]}
-            insight="The late waking isn't laziness—it's avoidance. If you don't start the day, you can't fail at it."
-          />
-
-          <LoopCard
-            title="The Break Collapse"
-            steps={["Break begins with energy", "First week productive", "Week 2-3 habits erode", "Complete collapse", "Self-criticism", "Give up until break ends"]}
-            insight="Temporary spaces amplify this. Home during break feels impermanent, so why build habits?"
-          />
-
-          <LoopCard
-            title="The Scroll Escape"
-            steps={["Face difficult task", "Resistance arises", "Pick up phone 'for a second'", "6 hours later...", "Day is 'ruined'", "More scrolling to numb the shame"]}
-            insight="The phone isn't the problem—it's the solution to a problem you haven't addressed."
-          />
-        </div>
-      </Section>
-
-      {/* Emotional Landscape */}
-      <Section
-        icon={Heart}
-        title="Emotional Landscape"
-        color="#ec4899"
-        delay={0.3}
-      >
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <h4 className="text-foreground font-medium mb-3 flex items-center gap-2">
-              <Moon className="w-4 h-4" />
-              Dominant Emotional Tone
-            </h4>
-            <div className="space-y-2">
-              <EmotionBar label="Fear" value={0.85} color="#7c3aed" />
-              <EmotionBar label="Longing" value={0.75} color="#8b5cf6" />
-              <EmotionBar label="Grief" value={0.65} color="#1e3a5f" />
-              <EmotionBar label="Anger" value={0.55} color="#ef4444" />
-              <EmotionBar label="Hope" value={0.50} color="#3b82f6" />
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-foreground font-medium mb-3 flex items-center gap-2">
-              <Flame className="w-4 h-4" />
-              Emotional Triggers
-            </h4>
-            <ul className="space-y-2 text-sm text-foreground-muted">
-              <li className="flex items-start gap-2">
-                <span className="text-red-500 mt-1">•</span>
-                <span>Others' success → Depression, comparison</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500 mt-1">•</span>
-                <span>Not being invited → Feeling peripheral, rejected</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500 mt-1">•</span>
-                <span>Helping parents with tech → Disproportionate rage</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500 mt-1">•</span>
-                <span>Relaxation → Guilt, anxiety</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-red-500 mt-1">•</span>
-                <span>Not knowing something → Urge to fabricate</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-          <h4 className="text-emerald-500 font-medium mb-2 flex items-center gap-2">
-            <Sun className="w-4 h-4" />
-            Emotional Strengths
-          </h4>
-          <p className="text-sm text-foreground-muted">
-            You have genuine capacity for hope, even when things are difficult. Your fear shows you care.
-            Your longing reveals what you truly want. Your anger, properly channeled, could be a force
-            for change. The emotional intensity you experience isn't a bug—it's a feature. The work is
-            learning to ride the waves rather than being drowned by them.
-          </p>
-        </div>
-      </Section>
-
-      {/* Relational Patterns */}
-      <Section
-        icon={Users}
-        title="Relational Dynamics"
-        color="#ec4899"
-        delay={0.35}
-      >
-        <div className="space-y-6">
-          <div>
-            <h4 className="text-foreground font-medium mb-3">How You Show Up</h4>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="p-4 rounded-lg bg-background-tertiary border border-border">
-                <span className="text-sm text-foreground-subtle">In Groups</span>
-                <p className="text-foreground mt-1">Surface-level, performative</p>
-                <p className="text-sm text-foreground-muted mt-2">
-                  Groups trigger performance mode. You become who you think they want, not who you are.
-                </p>
-              </div>
-              <div className="p-4 rounded-lg bg-background-tertiary border border-border">
-                <span className="text-sm text-foreground-subtle">One-on-One</span>
-                <p className="text-foreground mt-1">Capable of depth</p>
-                <p className="text-sm text-foreground-muted mt-2">
-                  Deeper connection possible. The real you emerges when the audience shrinks to one.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-foreground font-medium mb-3">Relational Wounds</h4>
-            <ul className="space-y-3 text-foreground-muted">
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                <span>
-                  <span className="text-foreground font-medium">The exclusion wound:</span> Not being invited
-                  triggers a deep, old feeling of being peripheral. This suggests early experiences of feeling
-                  left out or not central in your family or social system.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                <span>
-                  <span className="text-foreground font-medium">The comparison trap:</span> Others' success
-                  feels like your failure because worth is relative, not absolute. You're in constant
-                  competition with everyone, even when they don't know it.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0" />
-                <span>
-                  <span className="text-foreground font-medium">The parentification:</span> The rage at
-                  helping parents with technology points to a role reversal—being the competent one
-                  when you needed to be the taken-care-of one.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      {/* Career & Purpose */}
-      <Section
-        icon={Briefcase}
-        title="Career & Purpose"
-        color="#f59e0b"
-        delay={0.4}
-      >
-        <div className="space-y-6">
-          <div>
-            <h4 className="text-foreground font-medium mb-3">The Trading Paradox</h4>
-            <p className="text-foreground-muted mb-4">
-              Trading represents the ultimate test of the avoidance pattern. Paper trading keeps the
-              dream alive: you could be a successful trader, you just haven't "gone live" yet. Going live
-              would mean confronting reality. Either you can do it or you can't. The fantasy is more
-              comfortable than the truth.
-            </p>
-            <p className="text-foreground-muted">
-              This isn't unique to trading—it's a template. Content creation, business ideas, career moves—
-              they all follow the same pattern. Preparation becomes a permanent state because completion
-              means judgment.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-foreground font-medium mb-3">What Actually Works</h4>
-            <div className="p-4 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-              <p className="text-foreground-muted">
-                <span className="text-emerald-500 font-medium">BJJ and physical training stick.</span> This
-                reveals something crucial: you can commit to hard things when the feedback is immediate and
-                physical. The mat doesn't lie. Your conditioning either works or it doesn't. There's no
-                room for the intellectual games that plague your other pursuits.
-              </p>
-            </div>
-          </div>
-
-          <div>
-            <h4 className="text-foreground font-medium mb-3">The Editing Bottleneck</h4>
-            <p className="text-foreground-muted">
-              You have abundant ideas but editing creates friction. Switching to reels was adaptive—you
-              found a format where the creation-to-completion gap is smaller. This self-knowledge is
-              valuable. Build systems that minimize the refinement phase, or find collaborators who
-              enjoy what you avoid.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* What You Don't See */}
-      <Section
-        icon={Eye}
-        title="What You Don't See"
-        subtitle="Blind spots and hidden truths"
-        color="#8b5cf6"
-        delay={0.45}
-      >
-        <div className="space-y-4">
-          <BlindSpot
-            title="Your Standards Are Self-Sabotage"
-            description="You think your high standards drive excellence. They don't—they drive paralysis. The standard is always set just high enough that nothing quite meets it, providing endless justification for not shipping, not starting, not risking."
-          />
-
-          <BlindSpot
-            title="You're More Resilient Than You Know"
-            description="The fact that you keep trying, keep planning, keep hoping—despite years of the same patterns—shows remarkable persistence. You haven't given up. That's not nothing. Most people would have accepted defeat by now."
-          />
-
-          <BlindSpot
-            title="The Phone Isn't The Enemy"
-            description="You blame the phone for lost time, but the phone is a symptom. It's the most available escape hatch when facing something uncomfortable. Remove the phone and you'll find another escape. The work is addressing what you're escaping from."
-          />
-
-          <BlindSpot
-            title="You Already Know What To Do"
-            description="You don't need more information. You don't need a better system. You don't need the perfect morning routine. You need to do the thing you're avoiding—and you already know what that thing is. More planning is just sophisticated procrastination."
-          />
-
-          <BlindSpot
-            title="Rest Is Not Laziness"
-            description="Your equation of worth with productivity is a lie you were taught. Rest is not failure—it's necessary. The guilt you feel when resting is not wisdom; it's programming. You can learn to reprogram it, but first you have to see it as programming and not truth."
-          />
-
-          <BlindSpot
-            title="You're Running From Yourself"
-            description="All the consumption—scrolling, content, information—is a way of being anywhere but here, now, with yourself. The fear isn't really about trading or career. It's about what you might feel if you stopped running."
-          />
-        </div>
-      </Section>
-
-      {/* Leverage Points */}
-      <Section
-        icon={Zap}
-        title="Leverage Points"
-        subtitle="Where small changes create big shifts"
-        color="#10b981"
-        delay={0.5}
-      >
-        <div className="grid gap-4">
-          <LeveragePoint
-            number={1}
-            title="Schedule Around BJJ, Not Vice Versa"
-            description="Your physical practice is the anchor. Everything else is negotiable. Build your life around the thing that actually works instead of trying to squeeze it in around things that don't."
-          />
-
-          <LeveragePoint
-            number={2}
-            title="Make One Real Trade"
-            description="Not paper. Real. Small enough that losing won't matter financially, big enough that it will matter emotionally. Break the seal. The fantasy of potential needs to encounter reality."
-          />
-
-          <LeveragePoint
-            number={3}
-            title="One Goal, Ruthlessly Protected"
-            description="Your history shows too many goals lead to none completed. Pick the single most important thing for the next 90 days. Say no to everything else. Dilution is how you've been hiding."
-          />
-
-          <LeveragePoint
-            number={4}
-            title="Create Space Between Stimulus and Response"
-            description="When the urge to scroll arises, pause. Feel the discomfort. Ask what you're avoiding. You don't have to act on the avoidance. Just 10 seconds of space can change everything."
-          />
-
-          <LeveragePoint
-            number={5}
-            title="Externalize the Internal Critic"
-            description="Write down what your internal critic says. Read it back. Ask if you would say this to a friend. The voice in your head is not truth—it's a scared part of you trying to protect you through cruelty."
-          />
-
-          <LeveragePoint
-            number={6}
-            title="Design Your Environment"
-            description="You're highly environment-sensitive. Use this. When at home on break, create a 'work' space even if it's just a corner. The brain needs cues. Don't fight your sensitivity—leverage it."
-          />
-        </div>
-      </Section>
-
-      {/* The Path Forward */}
-      <Section
-        icon={Compass}
-        title="The Path Forward"
-        color="#06b6d4"
-        delay={0.55}
-      >
-        <p className="text-foreground-muted leading-relaxed mb-6">
-          You don't need fixing. You need understanding. The patterns you've developed made sense at some
-          point—they protected you. The work now is to thank them for their service and ask if they're
-          still needed.
-        </p>
-
-        <div className="p-6 rounded-xl bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border border-cyan-500/20 mb-6">
-          <h4 className="text-foreground font-medium mb-4">Core Truths to Internalize</h4>
-          <ul className="space-y-3 text-foreground-muted">
-            <li className="flex items-start gap-3">
-              <span className="text-cyan-500 mt-1">◆</span>
-              <span>Your worth is not conditional on your output.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-cyan-500 mt-1">◆</span>
-              <span>Failure is information, not identity.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-cyan-500 mt-1">◆</span>
-              <span>Potential that's never tested is just another word for fear.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-cyan-500 mt-1">◆</span>
-              <span>You are allowed to rest, to not know, to be ordinary sometimes.</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="text-cyan-500 mt-1">◆</span>
-              <span>The person you're comparing yourself to is also struggling.</span>
-            </li>
-          </ul>
-        </div>
-
-        <p className="text-foreground-muted leading-relaxed mb-4">
-          The path forward isn't about becoming someone different. It's about becoming more fully yourself—
-          which means integrating the shadows, loosening the death grip on identity, and taking the risks
-          you've been avoiding.
-        </p>
-
-        <p className="text-foreground leading-relaxed font-medium">
-          You already know the next step. You've always known. The question isn't what to do—it's whether
-          you'll do it.
-        </p>
-      </Section>
-
-      {/* Footer */}
-      <motion.footer
+      {/* Content */}
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.6 }}
-        className="py-8 border-t border-border text-center"
+        transition={{ delay: 0.2 }}
+        className="prose-article"
       >
-        <p className="text-sm text-foreground-subtle">
-          This analysis is based on {data.insights.length} insights across {data.patterns?.length || 4} identified patterns.
-          <br />
-          It will continue to evolve as more data becomes available.
+        <p className="text-foreground-muted font-serif text-lg leading-relaxed mb-6">
+          There is a particular kind of person who builds things to understand themselves.
         </p>
-        <div className="flex items-center justify-center gap-2 mt-4">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
-          <span className="text-sm text-foreground-subtle">Living document</span>
-        </div>
-      </motion.footer>
-    </div>
+
+        <p className="text-foreground-muted font-serif text-lg leading-relaxed mb-6">
+          Fardin Iqbal is one of them.
+        </p>
+
+        <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+          On the surface: a software engineer with a CS degree from Rutgers, interests spanning systems programming to machine learning, a BJJ practitioner who serves as Assistant Coach at Stony Brook's club, a reader of history and philosophy. Standard enough.
+        </p>
+
+        <p className="text-foreground-muted font-serif leading-relaxed mb-12">
+          But underneath that resume-friendly surface lives something more complicated—a mind perpetually negotiating between ambition and self-doubt, between wanting to be seen and fearing what people might actually see.
+        </p>
+
+        {/* Section: The Fault Lines */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Fault Lines</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The most revealing documents are not portfolios or projects. They are the private self-authoring exercises—the ones never meant for public consumption.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            In them, a brutal honesty emerges:
+          </p>
+
+          <div className="space-y-6 mb-6">
+            <FaultLine
+              title="Procrastination as protection"
+              description="There is no lack of ideas or capability. There is a lack of follow-through. Completion means judgment. An unfinished project cannot fail. A shipped product can. So things stay in perpetual 'almost ready' states—a defense mechanism dressed as perfectionism."
+            />
+
+            <FaultLine
+              title="The exaggeration instinct"
+              description="A tendency to inflate, to make stories better, to position achievements more impressively than warranted. This is not pathological lying. It is symptom of something deeper: the belief that the unadorned self is not enough. That significance must be performed, not simply lived."
+            />
+
+            <FaultLine
+              title="Social asymmetry"
+              description="The ability to talk to anyone exists. The ability to connect to most does not. There is a gap between social presentation (charming, quick, intellectually engaging) and internal experience (often disconnected, performing competence, uncertain if genuine rapport exists). Knowing how to be impressive is different from knowing how to be known."
+            />
+
+            <FaultLine
+              title="The freeloader awareness"
+              description="A self-identified pattern of taking—from situations, from relationships, from opportunities—without adequate reciprocation. Whether this assessment is accurate or merely self-flagellation is unclear. But the awareness itself shapes behavior, creating guilt loops that paradoxically make genuine generosity harder."
+            />
+          </div>
+        </section>
+
+        {/* Section: The Shadow of the Father */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Shadow of the Father</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Every person carries their childhood. Some carry it heavier than others.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The relationship with the father is marked by violence—both witnessed and experienced. A household where anger could become physical. Where children learned that authority figures could be dangerous. This is not abstract trauma. It is formative architecture.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-4">
+            From this emerges:
+          </p>
+
+          <ul className="list-disc pl-6 space-y-2 text-foreground-muted font-serif mb-6">
+            <li>A hypervigilance around anger (one's own and others')</li>
+            <li>A complicated relationship with male authority</li>
+            <li>A drive to prove something—to become someone the child version would admire</li>
+            <li>A fear that the violence might be hereditary, that somewhere inside lives the same capacity for destruction</li>
+          </ul>
+
+          <p className="text-foreground-muted font-serif leading-relaxed">
+            The father shaped through opposition. "I will be nothing like him" is a powerful organizing principle. But it is still organized around <em>him</em>. The rebellion is still a relationship.
+          </p>
+        </section>
+
+        {/* Section: The Ambition Paradox */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Ambition Paradox</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Fardin Iqbal wants to be rich. This is admitted openly in private writings—financial freedom, the ability to build without constraint, to never worry about money again. It is not greed. It is escape velocity. Money represents the freedom to become whoever one might actually be without the gravitational pull of survival needs.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            But here is the paradox: alongside this ambition lives genuine doubt about whether conventional success matters at all.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The intellectual interests tell the story. Nietzsche. Big History. The Persian Empire. All point toward the impermanence of individual achievement. Empires fall. Legacies fade. The universe is indifferent.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            So the mind oscillates between "I need to build something massive" and "nothing I build will matter in 10,000 years."
+          </p>
+
+          <p className="text-foreground font-serif leading-relaxed">
+            Both are true. Neither offers peace.
+          </p>
+        </section>
+
+        {/* Section: The Intellectual Architecture */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Intellectual Architecture</SectionHeading>
+
+          <div className="space-y-6">
+            <ArchitectureBlock
+              title="Big History as Operating System"
+              description="There is a gravitational pull toward zoomed-out perspectives—David Christian's Big History approach, which views human civilization as a blip in 13.8 billion years of cosmic evolution. This is not casual interest. It is philosophical medicine. When one studies the Bronze Age collapse and realizes entire civilizations vanished with barely a trace, anxieties about shipping a feature on time feel appropriately sized."
+            />
+
+            <ArchitectureBlock
+              title="Nietzsche as Framework"
+              description="The influence is obvious in the thinking: the will to power (reframed as the will to create), the critique of herd morality, the eternal recurrence as a test of life choices. The moral framework is not handed down—it is self-constructed. This gives it both power and instability."
+            />
+
+            <ArchitectureBlock
+              title="Persian Heritage as Identity"
+              description="There is pride in the lineage—the Achaemenid Empire, Cyrus the Great, a civilization that shaped the ancient world. This heritage provides a counter-narrative to the 'immigrant kid from New Jersey' story. His people built empires. He carries that potential."
+            />
+
+            <ArchitectureBlock
+              title="Systems Thinking"
+              description="The programming interests (memory allocators, compilers, low-level systems) reveal how the mind works. There is a gravitational pull toward foundations, toward understanding what lies underneath. The same impulse that drives studying the Bronze Age collapse drives wanting to understand how malloc() actually works."
+            />
+          </div>
+
+          <p className="text-foreground font-serif leading-relaxed mt-6">
+            Surfaces are not trusted.
+          </p>
+        </section>
+
+        {/* Section: BJJ */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>BJJ: Philosophy Made Physical</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The jiu-jitsu practice is not exercise. It is therapy, meditation, and self-confrontation wrapped in a martial art.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-4">
+            What BJJ provides:
+          </p>
+
+          <div className="space-y-4 mb-6">
+            <BJJPoint
+              title="Honest feedback"
+              description="Code can lie. Social situations can be faked. A sparring partner choking you unconscious is undeniable truth. There is no exaggeration on the mat."
+            />
+            <BJJPoint
+              title="Ego death, regularly scheduled"
+              description="Getting submitted by someone smaller, newer, or less intellectually impressive is humbling. The practice deliberately undermines the kind of self-aggrandizement identified as a fault."
+            />
+            <BJJPoint
+              title="Flow states without screens"
+              description="For someone whose life is mediated through code and text, BJJ is purely physical. The analytical mind gets to shut up."
+            />
+            <BJJPoint
+              title="Physical metaphor for life philosophy"
+              description="Position before submission. Patience over force. Accepting the grind. The sport teaches things that apply far beyond the mat."
+            />
+          </div>
+
+          <p className="text-foreground-muted font-serif leading-relaxed">
+            Community exists there too—a rare thing for someone who describes struggling with genuine connection. The shared suffering of training creates bonds that do not require the social performance found exhausting elsewhere.
+          </p>
+        </section>
+
+        {/* Section: The Core Avoidance Loop */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Core Avoidance Loop</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            There is a pattern underneath the patterns.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            It looks like this:
+          </p>
+
+          <div className="p-6 rounded-xl bg-background-secondary border border-border mb-6">
+            <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
+              {["Fear of failure", "Don't attempt", "Dream stays alive", "Guilt builds", "Procrastinate", "Feel worse", "Fear grows", "Repeat"].map((step, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <span className="px-3 py-1.5 rounded-lg bg-background text-foreground-muted font-serif">
+                    {step}
+                  </span>
+                  {i < 7 && <span className="text-foreground-subtle">→</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <p className="text-foreground font-serif leading-relaxed mb-6">
+            The paralysis is protective.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Not trading keeps trading as a potential escape. Actually trading and failing would remove the backup plan. Not shipping keeps the project as potential genius. Actually shipping and failing would remove the fantasy.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Paper trading. Paper projects. Paper life.
+          </p>
+
+          <p className="text-foreground font-serif leading-relaxed">
+            At some point, the trade must become real.
+          </p>
+        </section>
+
+        {/* Section: The Contradictions */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Contradictions That Define</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Every person is a collection of contradictions. These are the ones that define:
+          </p>
+
+          <ul className="space-y-4 text-foreground-muted font-serif">
+            <li className="flex gap-3">
+              <span className="text-foreground-subtle mt-1.5">—</span>
+              <span><strong className="text-foreground">Intellectually confident, personally uncertain.</strong> Will argue philosophy with conviction but is not sure if likeable.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-foreground-subtle mt-1.5">—</span>
+              <span><strong className="text-foreground">Ambitious about the future, skeptical of ambition itself.</strong> Wants to build an empire; reads about how all empires fall.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-foreground-subtle mt-1.5">—</span>
+              <span><strong className="text-foreground">Socially capable, internally isolated.</strong> Can work a room; unsure if anyone there actually knows him.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-foreground-subtle mt-1.5">—</span>
+              <span><strong className="text-foreground">Self-critical to the point of distortion.</strong> The faults identified are real, but the intensity of focus on them suggests harder on self than evidence warrants.</span>
+            </li>
+            <li className="flex gap-3">
+              <span className="text-foreground-subtle mt-1.5">—</span>
+              <span><strong className="text-foreground">Drawn to systems, uncomfortable with rigidity.</strong> Loves understanding how things work; resists being reduced to a type.</span>
+            </li>
+          </ul>
+        </section>
+
+        {/* Section: The Fear Beneath */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Fear Beneath</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Strip away the capabilities, the interests, the projects. What remains is a fear articulated clearly in private writings:
+          </p>
+
+          <p className="text-foreground font-serif text-xl leading-relaxed mb-6">
+            The fear of becoming nobody.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Not nobody in the sense of obscurity (though that too). Nobody in the sense of unrealized potential. The person who could have been great, who had the raw materials, who never assembled them into anything. The wasted possibility.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed">
+            This fear drives the ambition. It also poisons it. Because when achievement is defense against existential terror, no achievement is ever enough. The goal post moves. The hunger stays.
+          </p>
+        </section>
+
+        {/* Section: Leverage Points */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>Leverage Points</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            What might actually move the needle:
+          </p>
+
+          <div className="space-y-4">
+            <LeveragePoint
+              title="Physical habits as anchor"
+              description="BJJ and gym are consistent. Use these as foundation—schedule other commitments around them, not the reverse."
+            />
+            <LeveragePoint
+              title="Environment design"
+              description="There is high sensitivity to environment. Investment in making space feel permanent and ordered pays dividends, even during breaks at home."
+            />
+            <LeveragePoint
+              title="One goal, not many"
+              description="Historical pattern shows too many goals leads to none. Pick the single most important thing and protect it ruthlessly."
+            />
+            <LeveragePoint
+              title="Make it real"
+              description="The paper trading pattern applies everywhere. At some point, the real trade must happen. The real content must be published. The real message must be sent. The fantasy is comfortable but static."
+            />
+          </div>
+        </section>
+
+        {/* Section: Where This Leads */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>Where This Leads</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Fardin Iqbal is in his early twenties. The anxieties and patterns described here are not fixed—they are raw material for a self still under construction.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The self-awareness is already there. The faults are known. The exercises have been done, the journals written, the patterns interrogated. What remains is the slower work of changing behavior, not just understanding it.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The intellectual infrastructure is solid. The interests are genuine and deep. The capacity for hard work exists (when not paralyzed by procrastination-as-protection). The writing is good—genuinely good, not resume-inflated good.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The danger is getting stuck in analysis. Being so good at understanding oneself that understanding gets mistaken for growth. The map is not the territory. Knowing why one procrastinates does not mean one has stopped.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed">
+            The opportunity is integration. The scattered interests—Big History, BJJ, systems programming, philosophy, Persian heritage—are not random. They are all expressions of the same underlying drives: to understand foundations, to build things that matter, to connect the present to something larger than individual anxiety.
+          </p>
+        </section>
+
+        {/* Section: The Honest Summary */}
+        <section className="mb-16">
+          <Divider />
+          <SectionHeading>The Honest Summary</SectionHeading>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Fardin Iqbal is a person of genuine capability and genuine fragility, often unable to see one because too focused on the other. A mind that can traverse centuries of history and microseconds of system calls with equal facility, but struggles to sit with itself without judgment.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Childhood left scars. Intelligence creates escape routes from those scars that sometimes become prisons. Ambition is real but complicated—equal parts drive and defense.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The want to matter persists. Underneath the philosophical frameworks that contextualize individual achievement as cosmic insignificance, the want to matter remains. The contradiction is the point. This is what being human looks like.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            The BJJ community. The intellectual friendships. The building of actual things. These are the paths forward. Not more self-analysis. More doing. More allowing oneself to be known by others instead of just understood by oneself.
+          </p>
+
+          <p className="text-foreground-muted font-serif leading-relaxed mb-6">
+            Closer than it appears. The person who writes with this much honesty about their own faults is already doing the work. The rest is patience and repetition.
+          </p>
+
+          <p className="text-foreground font-serif leading-relaxed">
+            Like a submission on the mat: position before submission. The position is there. Now it is just the grind.
+          </p>
+        </section>
+
+        {/* Footer */}
+        <Divider />
+        <motion.footer
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="pt-8"
+        >
+          <p className="text-foreground-subtle font-serif italic text-center">
+            This profile was synthesized from private journals, self-authoring exercises, future authoring documents, portfolio content, and the particular way a person builds their digital presence when they do not know who is watching—which is often when they are most honest.
+          </p>
+          <div className="flex items-center justify-center gap-2 mt-8">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-sm text-foreground-subtle">Living document</span>
+          </div>
+        </motion.footer>
+      </motion.div>
+    </article>
   );
 }
 
 // Helper Components
 
-function Section({
-  icon: Icon,
-  title,
-  subtitle,
-  color,
-  delay,
-  children,
-}: {
-  icon: typeof Brain;
-  title: string;
-  subtitle?: string;
-  color: string;
-  delay: number;
-  children: React.ReactNode;
-}) {
+function Divider() {
+  return <hr className="border-border my-8" />;
+}
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay }}
-    >
-      <div className="flex items-center gap-3 mb-4">
-        <div
-          className="p-2 rounded-lg"
-          style={{ backgroundColor: `${color}15` }}
-        >
-          <Icon className="w-5 h-5" style={{ color }} />
-        </div>
-        <div>
-          <h2 className="text-xl font-semibold text-foreground">{title}</h2>
-          {subtitle && (
-            <p className="text-sm text-foreground-subtle">{subtitle}</p>
-          )}
-        </div>
-      </div>
-      <div className="pl-12">{children}</div>
-    </motion.section>
+    <h2 className="text-2xl font-display font-semibold text-foreground mb-6 tracking-tight">
+      {children}
+    </h2>
   );
 }
 
-function ShadowItem({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
+function FaultLine({ title, description }: { title: string; description: string }) {
   return (
-    <div className="p-4 rounded-lg bg-purple-500/5 border border-purple-500/20">
-      <h4 className="text-purple-400 font-medium mb-2">{title}</h4>
-      <p className="text-sm text-foreground-muted">{description}</p>
+    <div className="pl-4 border-l-2 border-foreground-subtle/30">
+      <p className="text-foreground font-serif font-medium mb-2">{title}.</p>
+      <p className="text-foreground-muted font-serif leading-relaxed">{description}</p>
     </div>
   );
 }
 
-function LoopStep({ label, color }: { label: string; color: string }) {
+function ArchitectureBlock({ title, description }: { title: string; description: string }) {
   return (
-    <div
-      className="px-4 py-2 rounded-full text-sm font-medium"
-      style={{ backgroundColor: `${color}20`, color }}
-    >
-      {label}
+    <div>
+      <p className="text-foreground font-serif font-medium mb-2">{title}.</p>
+      <p className="text-foreground-muted font-serif leading-relaxed">{description}</p>
     </div>
   );
 }
 
-function LoopArrow() {
-  return <div className="text-foreground-subtle">↓</div>;
-}
-
-function LoopCard({
-  title,
-  steps,
-  insight,
-}: {
-  title: string;
-  steps: string[];
-  insight: string;
-}) {
+function BJJPoint({ title, description }: { title: string; description: string }) {
   return (
-    <div className="p-4 rounded-lg bg-background-tertiary border border-border">
-      <h5 className="font-medium text-foreground mb-3">{title}</h5>
-      <div className="flex flex-wrap gap-2 mb-3">
-        {steps.map((step, i) => (
-          <span key={i} className="text-xs px-2 py-1 rounded bg-background border border-border text-foreground-muted">
-            {i + 1}. {step}
-          </span>
-        ))}
-      </div>
-      <p className="text-sm text-foreground-subtle italic">{insight}</p>
+    <div className="flex gap-3">
+      <span className="text-foreground-subtle mt-1.5 font-bold">·</span>
+      <p className="text-foreground-muted font-serif leading-relaxed">
+        <strong className="text-foreground">{title}.</strong> {description}
+      </p>
     </div>
   );
 }
 
-function EmotionBar({
-  label,
-  value,
-  color,
-}: {
-  label: string;
-  value: number;
-  color: string;
-}) {
+function LeveragePoint({ title, description }: { title: string; description: string }) {
   return (
-    <div className="flex items-center gap-3">
-      <span className="text-sm text-foreground-muted w-16">{label}</span>
-      <div className="flex-1 h-2 bg-background-tertiary rounded-full overflow-hidden">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={{ width: `${value * 100}%` }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="h-full rounded-full"
-          style={{ backgroundColor: color }}
-        />
-      </div>
-      <span className="text-xs text-foreground-subtle w-8">
-        {Math.round(value * 100)}%
-      </span>
-    </div>
-  );
-}
-
-function BlindSpot({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="p-4 rounded-lg bg-background-tertiary border border-border border-l-4 border-l-purple-500">
-      <h4 className="text-foreground font-medium mb-2">{title}</h4>
-      <p className="text-sm text-foreground-muted">{description}</p>
-    </div>
-  );
-}
-
-function LeveragePoint({
-  number,
-  title,
-  description,
-}: {
-  number: number;
-  title: string;
-  description: string;
-}) {
-  return (
-    <div className="flex gap-4 p-4 rounded-lg bg-background-tertiary border border-border hover:border-emerald-500/50 transition-colors">
-      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 font-bold">
-        {number}
-      </div>
-      <div>
-        <h4 className="text-foreground font-medium mb-1">{title}</h4>
-        <p className="text-sm text-foreground-muted">{description}</p>
-      </div>
+    <div className="p-4 rounded-lg bg-background-secondary border border-border">
+      <p className="text-foreground font-serif font-medium mb-1">{title}.</p>
+      <p className="text-foreground-muted font-serif text-sm leading-relaxed">{description}</p>
     </div>
   );
 }
