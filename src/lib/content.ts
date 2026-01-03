@@ -61,6 +61,7 @@ export interface Project {
   title: string;
   category: 'systems' | 'ml' | 'web' | 'tools' | 'ai';
   featured: boolean;
+  year: string;
   description: string;
   narrative?: string;
   tech: string[];

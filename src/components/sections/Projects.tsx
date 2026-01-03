@@ -104,7 +104,7 @@ function ArchiveRow({
     >
       {/* Year */}
       <td className="py-4 pr-4 text-sm text-foreground-subtle font-mono whitespace-nowrap hidden md:table-cell">
-        2024
+        {project.year}
       </td>
 
       {/* Project Name */}
