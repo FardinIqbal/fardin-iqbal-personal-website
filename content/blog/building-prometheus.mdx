@@ -1,0 +1,131 @@
+---
+title: "Building Prometheus: A Personal AI Infrastructure"
+date: "2026-01-03"
+description: "How Fardin Iqbal constructed a comprehensive personal AI system with 30+ custom skills, memory systems, and self-optimizing capabilities."
+image: "/images/blog/prometheus.png"
+tags: ["AI", "Claude Code", "Personal Infrastructure", "Automation", "Technical"]
+---
+
+# Building Prometheus: A Personal AI Infrastructure
+
+Most people use AI as a tool. Fardin Iqbal decided to build one as an extension of himself.
+
+Over the past months, he has constructed what he calls Prometheus—a personal AI infrastructure built on Claude Code that goes far beyond simple chat interactions. It is a system that learns, remembers, and evolves alongside its creator.
+
+## The Vision
+
+The premise was simple but ambitious: what if an AI could truly understand not just what you ask, but who you are, what you're building, and how you think?
+
+Fardin's answer was to build a comprehensive skill architecture—30+ specialized modules that transform Claude Code from a general assistant into something more personal. Something that feels less like using a tool and more like collaborating with a partner who shares context across every project, every session, every idea.
+
+## The Architecture
+
+Prometheus is organized around several core concepts:
+
+### Custom Skills
+
+Each skill is a specialized capability. Some notable ones include:
+
+- **Journalist**: An investigative research agent that pulls from government data sources—FEC filings, SEC disclosures, FBI crime statistics, congressional records. When Fardin wants to understand who funds a political campaign or trace the flow of money through lobbying networks, this skill handles the complexity.
+
+- **SelfOptimize**: Perhaps the most meta component. This skill runs after significant sessions, analyzing gaps in capability and evolving Prometheus toward greater competence. The AI doesn't just help—it improves itself.
+
+- **NotionSync**: Bidirectional integration with Fardin's Notion workspace. Ideas captured on his phone appear in his AI's context. Blog drafts written by Prometheus sync back to Notion. The boundary between human notes and AI assistance dissolves.
+
+- **Orchestrator**: A project decomposition system. Give it an ambitious idea ("build a healthcare platform") and it breaks it into actionable phases, coordinating other skills as needed.
+
+### Memory Systems
+
+Prometheus maintains persistent memory across sessions:
+
+```
+~/.claude/
+├── memory/           # Persistent context
+├── knowledge/        # Accumulated learnings
+├── fardin-profile.md # Personal context
+└── session-env/      # Per-session state
+```
+
+This isn't just chat history. It's structured knowledge about projects, preferences, and patterns. When Fardin opens a new session, the AI already knows he prefers Ruby on Rails for rapid prototyping, that his portfolio uses Next.js 16, and that he's currently building a healthcare startup.
+
+### Hooks and Automation
+
+The system includes hooks that fire on specific events:
+
+- Session start: Load project context, remind about uncommitted changes
+- Tool calls: Validate security, track operations
+- Prompt submission: Preprocess and enhance queries
+
+These hooks create a feeling of intelligence that anticipates rather than reacts.
+
+## The CORE Skill
+
+At the heart of Prometheus is CORE—a skill that auto-loads at every session start. It contains:
+
+- Identity and response format preferences
+- Key contacts and relationships
+- Technical stack preferences
+- Security protocols
+- Active project state
+
+This means every conversation starts from a foundation of shared context rather than a blank slate.
+
+## Agent Composition
+
+One of the more experimental features is dynamic agent creation. Fardin can spin up specialized agents on demand:
+
+```
+/agents create "code-reviewer with focus on Rails best practices"
+```
+
+These agents inherit from a library of personality traits and capabilities, composing bespoke assistants for specific tasks.
+
+## Government Data Integration
+
+Several skills tap into public government data:
+
+| Skill | Data Source | Use Case |
+|-------|-------------|----------|
+| FEC | Federal Election Commission | Campaign finance, PAC tracking |
+| SEC | Securities and Exchange Commission | Company filings, insider trading |
+| Congress | Congress.gov API | Bill tracking, legislation analysis |
+| FBICrime | FBI UCR | Crime statistics, law enforcement data |
+| Census | Census Bureau | Demographics, economic data |
+
+This transforms Prometheus into an investigative tool. When Fardin wants to understand the money behind a political figure or the demographics of a market, the data is accessible through natural conversation.
+
+## Lessons Learned
+
+Building Prometheus taught several principles:
+
+**1. Context is everything.** The difference between a useful AI and a transformative one is shared context. Investing in memory and profile systems pays exponential dividends.
+
+**2. Skills compose.** Rather than building one monolithic system, composable skills that can be combined on demand create flexibility. The Orchestrator can call the Research skill which can call the WebScraper—chains of capability emerge naturally.
+
+**3. Self-improvement is possible.** The SelfOptimize skill demonstrates that AI systems can analyze their own performance and suggest improvements. This creates a flywheel of capability growth.
+
+**4. Personal means opinionated.** Prometheus works because it reflects Fardin's specific preferences, workflows, and interests. A generic system would be less useful. The value is in the customization.
+
+## The Philosophy
+
+There's a philosophical dimension to this project. Fardin has always been interested in questions of identity, agency, and what it means to extend human capability. Prometheus is, in a sense, an experiment in those questions.
+
+Is an AI system that knows your preferences, remembers your projects, and improves itself an extension of you? Or is it something else entirely?
+
+He doesn't have answers yet. But he believes the question is worth exploring through building rather than theorizing.
+
+## What's Next
+
+Prometheus continues to evolve. Current areas of development include:
+
+- **Voice integration**: Natural speech input and output for hands-free operation
+- **Deeper Notion integration**: Automatic blog generation from captured notes
+- **Learning synthesis**: Periodic reviews that consolidate learnings across sessions
+
+The goal isn't to build the most powerful AI. It's to build the most personal one—a system that amplifies Fardin's specific capabilities rather than generic ones.
+
+That distinction matters. And it's what makes Prometheus worth building.
+
+---
+
+*The Prometheus infrastructure is a personal project. The architecture described here reflects how Fardin Iqbal uses Claude Code, extended through custom skills and integrations.*

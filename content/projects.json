@@ -1,23 +1,48 @@
 {
-  "_schema": "Projects organized by category. Categories: systems, ml, web, tools",
+  "_schema": "Projects organized by category. Categories: systems, ml, web, tools, ai",
   "_categories": {
     "systems": { "title": "Systems & Low-Level", "description": "Memory allocators, servers, parsers", "gradient": "from-red-500 to-orange-500" },
     "ml": { "title": "ML & Data Science", "description": "Prediction models, analysis, visualization", "gradient": "from-purple-500 to-pink-500" },
     "web": { "title": "Full-Stack Applications", "description": "End-to-end products", "gradient": "from-blue-500 to-cyan-500" },
-    "tools": { "title": "Tools & Experiments", "description": "Side projects and explorations", "gradient": "from-green-500 to-emerald-500" }
+    "tools": { "title": "Tools & Experiments", "description": "Side projects and explorations", "gradient": "from-green-500 to-emerald-500" },
+    "ai": { "title": "AI & Infrastructure", "description": "Personal AI systems and automation", "gradient": "from-indigo-500 to-violet-500" }
   },
   "projects": [
+    {
+      "id": "prometheus",
+      "title": "Prometheus AI Infrastructure",
+      "category": "ai",
+      "featured": true,
+      "description": "A comprehensive personal AI infrastructure built on Claude Code. Features 30+ custom skills spanning investigative journalism, government data analysis, self-optimization, and dynamic agent orchestration. Includes hooks for session management, memory systems, and bidirectional Notion integration.",
+      "narrative": "Fardin's vision of personal AI taken to its logical conclusion—an ever-evolving system that learns, adapts, and operates as a true digital extension of its creator.",
+      "tech": ["Claude Code", "TypeScript", "MCP Servers", "Notion API", "Custom Skills"],
+      "github": null,
+      "live": null,
+      "image": "/images/projects/prometheus.png"
+    },
     {
       "id": "neo-provider",
       "title": "Neo Provider",
       "category": "web",
       "featured": true,
       "description": "Healthcare SaaS platform for Early Intervention providers. Full-stack monorepo with mobile app, API, and admin dashboard. Built to simplify clinical documentation, scheduling, and billing for therapists serving children 0-3.",
-      "narrative": "Fardin's current obsession. Building a startup from scratch - handling everything from database schema design to pitch decks.",
+      "narrative": "Fardin's current startup. Every layer—from database schema to pitch deck—crafted with the intent of solving a real problem for therapists who serve the most vulnerable patients.",
       "tech": ["TypeScript", "React Native", "tRPC", "Drizzle ORM", "PostgreSQL", "Expo"],
       "github": null,
       "live": null,
       "image": "/images/projects/neo-provider.png"
+    },
+    {
+      "id": "localelo",
+      "title": "LocalElo",
+      "category": "web",
+      "featured": true,
+      "description": "Multi-organization Elo ranking platform for martial arts academies and competitive communities. Real-time leaderboards, match logging, and athlete performance dashboards with historical Elo visualization.",
+      "narrative": "Born from Fardin's BJJ training—the question of 'who's actually better?' deserved a real answer. This is Chess.com for the mats.",
+      "tech": ["Ruby on Rails", "PostgreSQL", "Hotwire", "Turbo", "Stimulus", "Tailwind"],
+      "github": "https://github.com/FardinIqbal/localelo",
+      "live": null,
+      "image": "/images/projects/localelo.png"
     },
     {
       "id": "dynamic-memory-allocator",
@@ -172,11 +197,36 @@
       "title": "VerseCraft",
       "category": "web",
       "featured": false,
-      "description": "Poetry publishing platform with a minimalist New Yorker-inspired design. Real-time interactions powered by Hotwire/Turbo.",
-      "tech": ["Ruby on Rails", "Hotwire", "SCSS", "PostgreSQL"],
+      "description": "A literary platform for poetry with a sophisticated New Yorker-inspired aesthetic. Features a custom design system with meticulous typography hierarchy, BEM methodology, and responsive layouts that honor the written word.",
+      "narrative": "Where code meets literature. Fardin built VerseCraft to prove that web applications can be as thoughtfully composed as the poetry they display.",
+      "tech": ["Ruby on Rails", "Hotwire", "SCSS", "PostgreSQL", "Custom Design System"],
       "github": "https://github.com/FardinIqbal/VerseCraft",
       "live": null,
-      "image": "/images/projects/fairshare.png"
+      "image": "/images/projects/versecraft.png"
+    },
+    {
+      "id": "bigminds-email-scraper",
+      "title": "BigMinds Email Processor",
+      "category": "ai",
+      "featured": false,
+      "description": "AI-powered email-to-Excel processor using Google Gemini API. Extracts structured child and case data from unstructured emails for healthcare Early Intervention workflows. Features intelligent parsing, SharePoint integration, and comprehensive statistics tracking.",
+      "narrative": "Automation that matters. This tool saves hours of manual data entry for therapists, letting them focus on what actually helps children.",
+      "tech": ["Python", "Google Gemini API", "Gmail API", "SharePoint", "Excel"],
+      "github": "https://github.com/FardinIqbal/BigMindsTinyHandsEmailScraper",
+      "live": null,
+      "image": "/images/projects/bigminds.png"
+    },
+    {
+      "id": "sam-academics",
+      "title": "SAM - Stony Brook Academics Manager",
+      "category": "web",
+      "featured": false,
+      "description": "Comprehensive academic lifecycle management platform built for CSE 416. Handles course registration, degree requirements tracking, waitlists, audit logs, and academic planning with concept-driven architecture inspired by 'The Essence of Software'.",
+      "narrative": "A team capstone project that taught Fardin as much about collaboration as it did about building complex systems.",
+      "tech": ["React", "Express", "PostgreSQL", "Google OAuth", "Jest", "Vitest"],
+      "github": "https://github.com/FardinIqbal/Full-Stack-Overflow---SAM",
+      "live": null,
+      "image": "/images/projects/sam.png"
     },
     {
       "id": "roommatch",

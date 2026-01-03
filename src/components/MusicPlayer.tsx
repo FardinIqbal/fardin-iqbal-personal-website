@@ -72,6 +72,7 @@ export function MusicPlayer() {
   const [selectedGenre, setSelectedGenre] = useState<Genre>("Chill");
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [hasAttemptedPlay, setHasAttemptedPlay] = useState(false);
   const [autoplayAttempted, setAutoplayAttempted] = useState(false);
 
   const station = RADIO_STATIONS.find((s) => s.id === currentStation)!;
@@ -228,6 +229,7 @@ export function MusicPlayer() {
   const togglePlay = async () => {
     if (!audioRef.current) return;
     setHasError(false);
+    setHasAttemptedPlay(true);
 
     if (isPlaying) {
       audioRef.current.pause();
@@ -366,7 +368,7 @@ export function MusicPlayer() {
                       className={`flex-1 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
                         isPlaying
                           ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/30"
-                          : hasError
+                          : hasAttemptedPlay && hasError
                           ? "bg-red-500/10 text-red-400 border border-red-500/30"
                           : "bg-foreground text-background hover:opacity-90"
                       }`}
@@ -375,8 +377,8 @@ export function MusicPlayer() {
                         <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ duration: 1, repeat: Infinity }}>
                           Connecting...
                         </motion.span>
-                      ) : hasError ? (
-                        <span className="text-sm">Unavailable</span>
+                      ) : hasAttemptedPlay && hasError ? (
+                        <span className="text-sm">Retry</span>
                       ) : isPlaying ? (
                         <>
                           <Pause className="w-4 h-4" />

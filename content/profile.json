@@ -2,12 +2,12 @@
   "_schema": "Profile information - edit this to update personal details",
   "profile": {
     "name": "Fardin Iqbal",
-    "tagline": "Builder, Thinker, Grappler | Digital Vagabond",
+    "tagline": "Engineer, Philosopher, Grappler",
     "bio": [
-      "Fardin is in his final semester at Stony Brook University, but he's already checked out of the 'student' identity. Right now he's a digital vagabond - building his own projects, reading voraciously, and figuring out what kind of life he actually wants to live.",
-      "His days look nothing like a typical college senior's. He's deep in building a healthcare startup (Early Intervention space), coaching Brazilian Jiu-Jitsu at the university club, and writing essays that explore questions most people don't bother asking - like whether dictators can be good or why love needs no reason.",
-      "He's the kind of person who reads Marcus Aurelius for fun, debates the nature of free will over coffee, and then spends the evening debugging a React Native app. Some call it scattered - he calls it following curiosity wherever it leads.",
-      "No corporate job lined up. No 10-year plan. Just a relentless drive to build things that matter, understand how the world actually works, and become someone worth being. Currently seeking the next interesting problem to solve."
+      "Fardin Iqbal builds software with the same deliberation he brings to the mat. A computer science student at Stony Brook University entering his final semester, he has already moved beyond the conventional path—founding a healthcare startup, architecting personal AI infrastructure, and coaching Brazilian Jiu-Jitsu at the university club.",
+      "His work spans from systems-level programming (custom malloc implementations, concurrent servers) to full-stack applications that solve tangible problems. Currently, he is building Neo Provider, a platform designed to streamline clinical documentation for Early Intervention therapists. Alongside this, he has constructed Prometheus—a personal AI infrastructure featuring 30+ custom skills, from investigative journalism tools to self-optimizing systems.",
+      "Beyond code, Fardin is a practitioner of big questions. He reads Nietzsche and Marcus Aurelius not as academic exercises but as guides to living. His essays explore the nature of power, love, and meaning with the same rigor he applies to debugging distributed systems.",
+      "He trains Brazilian Jiu-Jitsu with competition aspirations, viewing the sport as philosophy made physical—a practice in humility, adaptation, and controlled aggression. The lessons from the mat inform how he approaches engineering: stay calm under pressure, find leverage in constraints, and never stop moving forward."
     ],
     "location": "New York, NY",
     "email": "fardin.iqbal1@gmail.com",
@@ -25,6 +25,6 @@
       "twitter": null
     },
     "resumeUrl": "/resume/Fardin_Iqbal_Resume.pdf",
-    "topSkills": ["React", "TypeScript", "Python", "Systems Thinking", "BJJ", "Writing"]
+    "topSkills": ["Full-Stack Development", "Systems Programming", "AI Infrastructure", "Ruby on Rails", "TypeScript", "Brazilian Jiu-Jitsu"]
   }
 }
