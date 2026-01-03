@@ -196,12 +196,12 @@
       "id": "versecraft",
       "title": "VerseCraft",
       "category": "web",
-      "featured": false,
-      "description": "A literary platform for poetry with a sophisticated New Yorker-inspired aesthetic. Features a custom design system with meticulous typography hierarchy, BEM methodology, and responsive layouts that honor the written word.",
+      "featured": true,
+      "description": "A literary platform for poetry with a sophisticated New Yorker-inspired aesthetic. Features smooth animations with Framer Motion, real-time interactions via Supabase, and a minimalist design system honoring the written word.",
       "narrative": "Where code meets literature. Fardin built VerseCraft to prove that web applications can be as thoughtfully composed as the poetry they display.",
-      "tech": ["Ruby on Rails", "Hotwire", "SCSS", "PostgreSQL", "Custom Design System"],
-      "github": "https://github.com/FardinIqbal/VerseCraft",
-      "live": null,
+      "tech": ["Next.js", "TypeScript", "Supabase", "Tailwind", "Framer Motion"],
+      "github": "https://github.com/fardiniqbal/versecraft",
+      "live": "https://versecraft-seven.vercel.app/",
       "image": "/images/projects/versecraft.png"
     },
     {
