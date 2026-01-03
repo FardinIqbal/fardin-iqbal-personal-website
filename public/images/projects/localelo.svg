@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f4d03f"/>
+      <stop offset="100%" style="stop-color:#c9a227"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#bdc3c7"/>
+      <stop offset="100%" style="stop-color:#95a5a6"/>
+    </linearGradient>
+    <linearGradient id="bronze" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#cd7f32"/>
+      <stop offset="100%" style="stop-color:#a0522d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#e74c3c"/>
+      <stop offset="100%" style="stop-color:#c0392b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.05">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+    </pattern>
+    <rect width="1200" height="630" fill="url(#grid)"/>
+  </g>
+
+  <!-- Main content area -->
+  <g transform="translate(80, 80)">
+    <!-- Logo/Brand area -->
+    <text x="0" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="white">
+      LocalElo
+    </text>
+    <text x="0" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="18" fill="#7f8c8d">
+      Competitive Ranking for Martial Arts
+    </text>
+
+    <!-- Elo Rating Display -->
+    <g transform="translate(0, 130)">
+      <rect x="0" y="0" width="320" height="100" rx="12" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      <text x="20" y="35" font-family="system-ui, sans-serif" font-size="14" fill="#95a5a6" text-transform="uppercase" letter-spacing="2">Your Rating</text>
+      <text x="20" y="75" font-family="system-ui, sans-serif" font-size="42" font-weight="700" fill="url(#gold)">1847</text>
+      <text x="150" y="75" font-family="system-ui, sans-serif" font-size="16" fill="#27ae60">+23</text>
+      <text x="200" y="35" font-family="system-ui, sans-serif" font-size="12" fill="#7f8c8d">Win Rate</text>
+      <text x="200" y="60" font-family="system-ui, sans-serif" font-size="24" font-weight="600" fill="white">67%</text>
+      <text x="260" y="35" font-family="system-ui, sans-serif" font-size="12" fill="#7f8c8d">Matches</text>
+      <text x="260" y="60" font-family="system-ui, sans-serif" font-size="24" font-weight="600" fill="white">142</text>
+    </g>
+
+    <!-- Leaderboard -->
+    <g transform="translate(0, 260)">
+      <text x="0" y="0" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="white">Academy Leaderboard</text>
+
+      <!-- Header -->
+      <g transform="translate(0, 30)">
+        <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d" text-transform="uppercase" letter-spacing="1">Rank</text>
+        <text x="60" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d" text-transform="uppercase" letter-spacing="1">Athlete</text>
+        <text x="240" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d" text-transform="uppercase" letter-spacing="1">Elo</text>
+        <text x="300" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d" text-transform="uppercase" letter-spacing="1">W-L</text>
+      </g>
+
+      <!-- Row 1 - Gold -->
+      <g transform="translate(0, 60)">
+        <rect x="-10" y="-18" width="340" height="36" rx="6" fill="rgba(244,208,63,0.1)"/>
+        <circle cx="15" cy="0" r="12" fill="url(#gold)"/>
+        <text x="15" y="5" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#1a1a2e" text-anchor="middle">1</text>
+        <text x="60" y="5" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="white">Marcus Silva</text>
+        <text x="240" y="5" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="url(#gold)">2156</text>
+        <text x="300" y="5" font-family="system-ui, sans-serif" font-size="14" fill="#95a5a6">89-12</text>
+      </g>
+
+      <!-- Row 2 - Silver -->
+      <g transform="translate(0, 105)">
+        <rect x="-10" y="-18" width="340" height="36" rx="6" fill="rgba(189,195,199,0.08)"/>
+        <circle cx="15" cy="0" r="12" fill="url(#silver)"/>
+        <text x="15" y="5" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#1a1a2e" text-anchor="middle">2</text>
+        <text x="60" y="5" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="white">Alex Chen</text>
+        <text x="240" y="5" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="url(#silver)">2089</text>
+        <text x="300" y="5" font-family="system-ui, sans-serif" font-size="14" fill="#95a5a6">76-18</text>
+      </g>
+
+      <!-- Row 3 - Bronze -->
+      <g transform="translate(0, 150)">
+        <rect x="-10" y="-18" width="340" height="36" rx="6" fill="rgba(205,127,50,0.08)"/>
+        <circle cx="15" cy="0" r="12" fill="url(#bronze)"/>
+        <text x="15" y="5" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#1a1a2e" text-anchor="middle">3</text>
+        <text x="60" y="5" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="white">Jordan Williams</text>
+        <text x="240" y="5" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="url(#bronze)">1998</text>
+        <text x="300" y="5" font-family="system-ui, sans-serif" font-size="14" fill="#95a5a6">68-24</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right side - Elo chart visualization -->
+  <g transform="translate(520, 120)">
+    <rect x="0" y="0" width="600" height="400" rx="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+    <text x="30" y="40" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="white">Elo Rating History</text>
+
+    <!-- Chart area -->
+    <g transform="translate(50, 70)">
+      <!-- Y-axis labels -->
+      <text x="-10" y="10" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="end">2000</text>
+      <text x="-10" y="80" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="end">1800</text>
+      <text x="-10" y="150" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="end">1600</text>
+      <text x="-10" y="220" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="end">1400</text>
+
+      <!-- Grid lines -->
+      <line x1="0" y1="10" x2="500" y2="10" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="0" y1="80" x2="500" y2="80" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="0" y1="150" x2="500" y2="150" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+      <line x1="0" y1="220" x2="500" y2="220" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+
+      <!-- Elo line chart -->
+      <polyline
+        points="0,200 50,180 100,160 150,170 200,140 250,120 300,100 350,90 400,70 450,55 500,45"
+        fill="none"
+        stroke="url(#accent)"
+        stroke-width="3"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+
+      <!-- Data points -->
+      <circle cx="0" cy="200" r="4" fill="#e74c3c"/>
+      <circle cx="100" cy="160" r="4" fill="#e74c3c"/>
+      <circle cx="200" cy="140" r="4" fill="#e74c3c"/>
+      <circle cx="300" cy="100" r="4" fill="#e74c3c"/>
+      <circle cx="400" cy="70" r="4" fill="#e74c3c"/>
+      <circle cx="500" cy="45" r="6" fill="#e74c3c" stroke="white" stroke-width="2"/>
+
+      <!-- X-axis labels -->
+      <text x="0" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Jan</text>
+      <text x="100" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Mar</text>
+      <text x="200" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">May</text>
+      <text x="300" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Jul</text>
+      <text x="400" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Sep</text>
+      <text x="500" y="250" font-family="system-ui, sans-serif" font-size="10" fill="#7f8c8d" text-anchor="middle">Nov</text>
+    </g>
+
+    <!-- Stats row at bottom -->
+    <g transform="translate(50, 350)">
+      <g>
+        <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d">Peak Rating</text>
+        <text x="0" y="20" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="url(#gold)">1847</text>
+      </g>
+      <g transform="translate(120, 0)">
+        <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d">Win Streak</text>
+        <text x="0" y="20" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#27ae60">7</text>
+      </g>
+      <g transform="translate(220, 0)">
+        <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d">Submissions</text>
+        <text x="0" y="20" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white">48</text>
+      </g>
+      <g transform="translate(330, 0)">
+        <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" fill="#7f8c8d">Points</text>
+        <text x="0" y="20" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="white">36</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Ruby on Rails badge -->
+  <g transform="translate(80, 560)">
+    <rect x="0" y="0" width="100" height="28" rx="4" fill="rgba(204,0,0,0.2)"/>
+    <text x="50" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#cc0000" text-anchor="middle">Ruby on Rails</text>
+  </g>
+  <g transform="translate(190, 560)">
+    <rect x="0" y="0" width="80" height="28" rx="4" fill="rgba(52,152,219,0.2)"/>
+    <text x="40" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#3498db" text-anchor="middle">PostgreSQL</text>
+  </g>
+  <g transform="translate(280, 560)">
+    <rect x="0" y="0" width="65" height="28" rx="4" fill="rgba(46,204,113,0.2)"/>
+    <text x="32" y="18" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#2ecc71" text-anchor="middle">Hotwire</text>
+  </g>
+</svg>

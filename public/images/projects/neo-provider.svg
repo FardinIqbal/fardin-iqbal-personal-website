@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgNeo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8fafc"/>
+      <stop offset="100%" style="stop-color:#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="primary" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1"/>
+      <stop offset="100%" style="stop-color:#4f46e5"/>
+    </linearGradient>
+    <linearGradient id="success" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/>
+      <stop offset="100%" style="stop-color:#d97706"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-opacity="0.1"/>
+    </filter>
+    <filter id="shadowLight" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgNeo)"/>
+
+  <!-- Subtle pattern -->
+  <g opacity="0.3">
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#94a3b8"/>
+    </pattern>
+    <rect width="1200" height="630" fill="url(#dots)"/>
+  </g>
+
+  <!-- Main App Window -->
+  <g transform="translate(60, 40)" filter="url(#shadow)">
+    <rect x="0" y="0" width="1080" height="550" rx="16" fill="white"/>
+
+    <!-- App Header -->
+    <rect x="0" y="0" width="1080" height="60" rx="16" fill="white"/>
+    <rect x="0" y="45" width="1080" height="15" fill="white"/>
+
+    <!-- Window controls -->
+    <circle cx="24" cy="24" r="6" fill="#ef4444"/>
+    <circle cx="44" cy="24" r="6" fill="#f59e0b"/>
+    <circle cx="64" cy="24" r="6" fill="#22c55e"/>
+
+    <!-- Logo -->
+    <g transform="translate(100, 12)">
+      <rect x="0" y="0" width="36" height="36" rx="8" fill="url(#primary)"/>
+      <text x="18" y="26" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="white" text-anchor="middle">N</text>
+    </g>
+    <text x="145" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" fill="#1e293b">Neo Provider</text>
+
+    <!-- Nav items -->
+    <g transform="translate(400, 20)">
+      <text x="0" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="url(#primary)">Dashboard</text>
+      <text x="90" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#64748b">Patients</text>
+      <text x="160" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#64748b">Schedule</text>
+      <text x="235" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#64748b">Notes</text>
+      <text x="290" y="20" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#64748b">Billing</text>
+    </g>
+
+    <!-- Sidebar -->
+    <rect x="0" y="60" width="220" height="490" fill="#f8fafc"/>
+
+    <!-- Sidebar menu -->
+    <g transform="translate(16, 80)">
+      <!-- Active item -->
+      <rect x="0" y="0" width="188" height="40" rx="8" fill="url(#primary)" opacity="0.1"/>
+      <rect x="0" y="0" width="4" height="40" rx="2" fill="url(#primary)"/>
+      <text x="20" y="26" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#4f46e5">Today's Sessions</text>
+
+      <text x="20" y="70" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">Pending Notes</text>
+      <rect x="150" y="56" width="24" height="20" rx="10" fill="#ef4444"/>
+      <text x="162" y="70" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="white" text-anchor="middle">3</text>
+
+      <text x="20" y="110" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">Progress Reports</text>
+      <text x="20" y="150" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">IFSP Goals</text>
+      <text x="20" y="190" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">Authorizations</text>
+    </g>
+
+    <!-- Quick stats -->
+    <g transform="translate(16, 340)">
+      <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8" text-transform="uppercase" letter-spacing="1">This Week</text>
+
+      <rect x="0" y="15" width="188" height="60" rx="8" fill="white" filter="url(#shadowLight)"/>
+      <text x="16" y="40" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">Sessions Completed</text>
+      <text x="16" y="60" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e293b">24</text>
+      <text x="50" y="60" font-family="system-ui, sans-serif" font-size="12" fill="#22c55e">+12%</text>
+
+      <rect x="0" y="85" width="188" height="60" rx="8" fill="white" filter="url(#shadowLight)"/>
+      <text x="16" y="110" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">Notes Submitted</text>
+      <text x="16" y="130" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#1e293b">21</text>
+      <text x="50" y="130" font-family="system-ui, sans-serif" font-size="12" fill="#f59e0b">3 pending</text>
+    </g>
+
+    <!-- Main Content Area -->
+    <g transform="translate(240, 80)">
+      <text x="0" y="0" font-family="system-ui, sans-serif" font-size="22" font-weight="700" fill="#1e293b">Good morning, Dr. Sarah</text>
+      <text x="0" y="28" font-family="system-ui, sans-serif" font-size="14" fill="#64748b">You have 6 sessions scheduled today</text>
+
+      <!-- Today's Schedule Cards -->
+      <g transform="translate(0, 55)">
+        <!-- Card 1 -->
+        <g filter="url(#shadowLight)">
+          <rect x="0" y="0" width="380" height="90" rx="12" fill="white"/>
+          <rect x="0" y="0" width="5" height="90" rx="3" fill="url(#success)"/>
+          <g transform="translate(20, 18)">
+            <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#22c55e">9:00 AM - 10:00 AM</text>
+            <text x="0" y="24" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Therapy Session - Emma R.</text>
+            <text x="0" y="44" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Speech Therapy | Home Visit</text>
+            <rect x="0" y="52" width="70" height="20" rx="4" fill="#dcfce7"/>
+            <text x="35" y="66" font-family="system-ui, sans-serif" font-size="10" font-weight="500" fill="#166534" text-anchor="middle">Confirmed</text>
+          </g>
+          <g transform="translate(300, 35)">
+            <circle cx="25" cy="15" r="20" fill="#e0e7ff"/>
+            <text x="25" y="20" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#4f46e5" text-anchor="middle">ER</text>
+          </g>
+        </g>
+
+        <!-- Card 2 -->
+        <g transform="translate(0, 105)" filter="url(#shadowLight)">
+          <rect x="0" y="0" width="380" height="90" rx="12" fill="white"/>
+          <rect x="0" y="0" width="5" height="90" rx="3" fill="url(#primary)"/>
+          <g transform="translate(20, 18)">
+            <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#6366f1">10:30 AM - 11:30 AM</text>
+            <text x="0" y="24" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Evaluation - Liam M.</text>
+            <text x="0" y="44" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Developmental Assessment | Telehealth</text>
+            <rect x="0" y="52" width="60" height="20" rx="4" fill="#fef3c7"/>
+            <text x="30" y="66" font-family="system-ui, sans-serif" font-size="10" font-weight="500" fill="#92400e" text-anchor="middle">Pending</text>
+          </g>
+          <g transform="translate(300, 35)">
+            <circle cx="25" cy="15" r="20" fill="#fef3c7"/>
+            <text x="25" y="20" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#d97706" text-anchor="middle">LM</text>
+          </g>
+        </g>
+
+        <!-- Card 3 -->
+        <g transform="translate(0, 210)" filter="url(#shadowLight)">
+          <rect x="0" y="0" width="380" height="90" rx="12" fill="white"/>
+          <rect x="0" y="0" width="5" height="90" rx="3" fill="url(#warm)"/>
+          <g transform="translate(20, 18)">
+            <text x="0" y="0" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#f59e0b">1:00 PM - 2:00 PM</text>
+            <text x="0" y="24" font-family="system-ui, sans-serif" font-size="15" font-weight="600" fill="#1e293b">Therapy Session - Noah K.</text>
+            <text x="0" y="44" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Occupational Therapy | Clinic</text>
+            <rect x="0" y="52" width="70" height="20" rx="4" fill="#dcfce7"/>
+            <text x="35" y="66" font-family="system-ui, sans-serif" font-size="10" font-weight="500" fill="#166534" text-anchor="middle">Confirmed</text>
+          </g>
+          <g transform="translate(300, 35)">
+            <circle cx="25" cy="15" r="20" fill="#fce7f3"/>
+            <text x="25" y="20" font-family="system-ui, sans-serif" font-size="14" font-weight="600" fill="#db2777" text-anchor="middle">NK</text>
+          </g>
+        </g>
+      </g>
+
+      <!-- Right Panel - Quick Note -->
+      <g transform="translate(410, 55)">
+        <rect x="0" y="0" width="400" height="300" rx="12" fill="white" filter="url(#shadowLight)"/>
+
+        <g transform="translate(20, 20)">
+          <text x="0" y="0" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#1e293b">Quick Session Note</text>
+
+          <g transform="translate(0, 30)">
+            <text x="0" y="0" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#64748b">Patient</text>
+            <rect x="0" y="10" width="360" height="36" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+            <text x="12" y="33" font-family="system-ui, sans-serif" font-size="13" fill="#1e293b">Emma Rodriguez - Session #24</text>
+          </g>
+
+          <g transform="translate(0, 90)">
+            <text x="0" y="0" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#64748b">IFSP Goals Addressed</text>
+            <rect x="0" y="10" width="170" height="28" rx="6" fill="#e0e7ff"/>
+            <text x="10" y="28" font-family="system-ui, sans-serif" font-size="11" font-weight="500" fill="#4f46e5">Expressive Language</text>
+            <rect x="180" y="10" width="120" height="28" rx="6" fill="#dcfce7"/>
+            <text x="190" y="28" font-family="system-ui, sans-serif" font-size="11" font-weight="500" fill="#166534">Social Skills</text>
+          </g>
+
+          <g transform="translate(0, 145)">
+            <text x="0" y="0" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#64748b">Session Notes</text>
+            <rect x="0" y="10" width="360" height="80" rx="6" fill="#f8fafc" stroke="#e2e8f0"/>
+            <text x="12" y="35" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">Emma showed significant progress in two-word</text>
+            <text x="12" y="52" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">combinations. Practiced 'more juice' and 'want</text>
+            <text x="12" y="69" font-family="system-ui, sans-serif" font-size="12" fill="#64748b">ball' with 80% accuracy...</text>
+          </g>
+
+          <g transform="translate(0, 250)">
+            <rect x="0" y="0" width="170" height="36" rx="8" fill="#f8fafc" stroke="#e2e8f0"/>
+            <text x="85" y="23" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#64748b" text-anchor="middle">Save Draft</text>
+            <rect x="185" y="0" width="175" height="36" rx="8" fill="url(#primary)"/>
+            <text x="272" y="23" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Submit Note</text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- Tech badges -->
+  <g transform="translate(80, 600)">
+    <rect x="0" y="0" width="80" height="24" rx="4" fill="rgba(99,102,241,0.15)"/>
+    <text x="40" y="16" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#6366f1" text-anchor="middle">TypeScript</text>
+  </g>
+  <g transform="translate(90, 600)">
+    <rect x="0" y="0" width="95" height="24" rx="4" fill="rgba(14,165,233,0.15)"/>
+    <text x="47" y="16" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#0ea5e9" text-anchor="middle">React Native</text>
+  </g>
+  <g transform="translate(195, 600)">
+    <rect x="0" y="0" width="50" height="24" rx="4" fill="rgba(236,72,153,0.15)"/>
+    <text x="25" y="16" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#ec4899" text-anchor="middle">tRPC</text>
+  </g>
+  <g transform="translate(255, 600)">
+    <rect x="0" y="0" width="80" height="24" rx="4" fill="rgba(34,197,94,0.15)"/>
+    <text x="40" y="16" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#22c55e" text-anchor="middle">PostgreSQL</text>
+  </g>
+</svg>

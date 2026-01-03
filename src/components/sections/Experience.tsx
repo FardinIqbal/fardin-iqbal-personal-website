@@ -10,24 +10,25 @@ interface ExperienceSectionProps {
 
 export function ExperienceSection({ experience }: ExperienceSectionProps) {
   return (
-    <section id="experience" className="py-24 bg-background-secondary">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="py-32 bg-background-secondary">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-4 tracking-tight">
             Experience
           </h2>
-          <p className="text-foreground-muted text-lg">
-            Where I&apos;ve worked and what I&apos;ve built
+          <p className="text-foreground-muted text-lg font-serif leading-relaxed">
+            Click any role to see details
           </p>
         </motion.div>
 
+        {/* Timeline */}
         <div className="relative">
           {experience.map((exp, index) => (
             <ExperienceCard

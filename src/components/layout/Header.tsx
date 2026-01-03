@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -37,6 +38,15 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const pathname = usePathname();
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    // If on home page, scroll to top instead of navigating
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,7 +100,11 @@ export function Header() {
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo - elegant display font */}
-            <Link href="/" className="text-lg font-display font-semibold text-foreground hover:opacity-80 transition-opacity duration-300">
+            <Link
+              href="/"
+              onClick={handleLogoClick}
+              className="text-lg font-display font-semibold text-foreground hover:opacity-80 transition-opacity duration-300"
+            >
               Fardin Iqbal
             </Link>
 

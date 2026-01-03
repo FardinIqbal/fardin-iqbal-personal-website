@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         hostname: "**",
       },
     ],
+    // Allow SVG images
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   pageExtensions: ["ts", "tsx", "md", "mdx"],
   // Enable experimental features

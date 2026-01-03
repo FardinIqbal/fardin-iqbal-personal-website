@@ -18,7 +18,7 @@
       "tech": ["Claude Code", "TypeScript", "MCP Servers", "Notion API", "Custom Skills"],
       "github": null,
       "live": null,
-      "image": "/images/projects/prometheus.png"
+      "image": "/images/projects/prometheus.svg"
     },
     {
       "id": "neo-provider",
@@ -30,7 +30,7 @@
       "tech": ["TypeScript", "React Native", "tRPC", "Drizzle ORM", "PostgreSQL", "Expo"],
       "github": null,
       "live": null,
-      "image": "/images/projects/neo-provider.png"
+      "image": "/images/projects/neo-provider.svg"
     },
     {
       "id": "localelo",
@@ -42,7 +42,7 @@
       "tech": ["Ruby on Rails", "PostgreSQL", "Hotwire", "Turbo", "Stimulus", "Tailwind"],
       "github": "https://github.com/FardinIqbal/localelo",
       "live": null,
-      "image": "/images/projects/localelo.png"
+      "image": "/images/projects/localelo.svg"
     },
     {
       "id": "dynamic-memory-allocator",

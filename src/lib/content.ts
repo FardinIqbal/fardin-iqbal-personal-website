@@ -50,7 +50,7 @@ export interface Experience {
   role: string;
   location: string;
   period: string;
-  type: 'full-time' | 'part-time' | 'internship' | 'contract';
+  type: 'full-time' | 'part-time' | 'internship' | 'contract' | 'fellowship';
   description: string;
   highlights: string[];
   tech: string[];
