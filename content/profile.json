@@ -2,7 +2,7 @@
   "_schema": "Profile information - edit this to update personal details",
   "profile": {
     "name": "Fardin Iqbal",
-    "tagline": "Engineer, Philosopher, Grappler",
+    "tagline": "Engineer, Philosopher, Martial Artist",
     "bio": [
       "Fardin Iqbal builds software with the same deliberation he brings to the mat. A computer science student at Stony Brook University entering his final semester, he has already moved beyond the conventional path—founding a healthcare startup, architecting personal AI infrastructure, and coaching Brazilian Jiu-Jitsu at the university club.",
       "His work spans from systems-level programming (custom malloc implementations, concurrent servers) to full-stack applications that solve tangible problems. Currently, he is building Neo Provider, a platform designed to streamline clinical documentation for Early Intervention therapists. Alongside this, he has constructed Prometheus—a personal AI infrastructure featuring 30+ custom skills, from investigative journalism tools to self-optimizing systems.",
