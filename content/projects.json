@@ -22,19 +22,6 @@
       "image": "/images/projects/prometheus.svg"
     },
     {
-      "id": "versecraft-health",
-      "title": "VerseCraft Health",
-      "category": "web",
-      "featured": true,
-      "year": "2025",
-      "description": "Healthcare SaaS platform for Early Intervention providers. Full-stack monorepo with mobile app, API, and admin dashboard. Built to simplify clinical documentation, scheduling, and billing for therapists serving children 0-3.",
-      "narrative": "Fardin's current startup. Every layer—from database schema to pitch deck—crafted with the intent of solving a real problem for therapists who serve the most vulnerable patients.",
-      "tech": ["TypeScript", "React Native", "tRPC", "Drizzle ORM", "PostgreSQL", "Expo"],
-      "github": null,
-      "live": null,
-      "image": "/images/projects/versecraft.png"
-    },
-    {
       "id": "localelo",
       "title": "LocalElo",
       "category": "web",

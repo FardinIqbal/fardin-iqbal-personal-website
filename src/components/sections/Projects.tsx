@@ -6,7 +6,7 @@ import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
 import type { Project, ProjectCategory } from "@/lib/content";
 
 // Featured project IDs (flagship work)
-const FEATURED_IDS = ["prometheus", "neo-provider", "dynamic-memory-allocator", "localelo"];
+const FEATURED_IDS = ["prometheus", "versecraft", "dynamic-memory-allocator", "localelo"];
 
 function FeaturedCard({
   project,
@@ -87,83 +87,85 @@ function FeaturedCard({
   );
 }
 
-function ArchiveRow({
+function ArchiveCard({
   project,
   index,
 }: {
   project: Project;
   index: number;
 }) {
+  const categoryLabels: Record<string, string> = {
+    ai: "AI",
+    web: "Web",
+    systems: "Systems",
+    ml: "ML",
+    tools: "Tools",
+  };
+
   return (
-    <motion.tr
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
+    <motion.article
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3, delay: index * 0.03 }}
-      className="group border-b border-border/30 last:border-0 hover:bg-foreground/[0.02] transition-colors"
+      className="group"
     >
-      {/* Year */}
-      <td className="py-4 pr-4 text-sm text-foreground-subtle font-mono whitespace-nowrap hidden md:table-cell">
-        {project.year}
-      </td>
+      <Link href={`/projects/${project.id}`} className="block">
+        <div className="flex items-start gap-4 py-4 px-4 -mx-4 rounded-lg hover:bg-foreground/[0.02] transition-colors">
+          {/* Year badge */}
+          <span className="flex-shrink-0 text-xs font-mono text-foreground-subtle bg-background-tertiary/50 px-2 py-1 rounded">
+            {project.year}
+          </span>
 
-      {/* Project Name */}
-      <td className="py-4 pr-4">
-        <Link
-          href={`/projects/${project.id}`}
-          className="text-foreground font-medium hover:text-foreground-muted transition-colors inline-flex items-center gap-2"
-        >
-          {project.title}
-          <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-        </Link>
-      </td>
+          {/* Main content */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <h4 className="text-foreground font-medium truncate group-hover:text-foreground-muted transition-colors">
+                {project.title}
+              </h4>
+              <ArrowUpRight className="w-3 h-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-foreground-subtle" />
+            </div>
 
-      {/* Category */}
-      <td className="py-4 pr-4 text-sm text-foreground-subtle hidden lg:table-cell">
-        {project.category === "ai" && "AI"}
-        {project.category === "web" && "Web"}
-        {project.category === "systems" && "Systems"}
-        {project.category === "ml" && "ML"}
-        {project.category === "tools" && "Tools"}
-      </td>
+            {/* Tech stack - visible on all screens */}
+            <p className="text-sm text-foreground-subtle truncate">
+              {project.tech.slice(0, 3).join(" · ")}
+            </p>
+          </div>
 
-      {/* Tech */}
-      <td className="py-4 pr-4 hidden sm:table-cell">
-        <span className="text-sm text-foreground-subtle">
-          {project.tech.slice(0, 3).join(" · ")}
-        </span>
-      </td>
+          {/* Category + Links */}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <span className="hidden sm:inline text-xs text-foreground-subtle">
+              {categoryLabels[project.category]}
+            </span>
 
-      {/* Links */}
-      <td className="py-4 text-right">
-        <div className="flex items-center justify-end gap-3">
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="text-foreground-subtle hover:text-foreground transition-colors"
-              aria-label="View source code"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-          )}
-          {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="text-foreground-subtle hover:text-foreground transition-colors"
-              aria-label="View live demo"
-            >
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-foreground-subtle hover:text-foreground transition-colors"
+                aria-label="View source code"
+              >
+                <Github className="w-4 h-4" />
+              </a>
+            )}
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="text-foreground-subtle hover:text-foreground transition-colors"
+                aria-label="View live demo"
+              >
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
+          </div>
         </div>
-      </td>
-    </motion.tr>
+      </Link>
+    </motion.article>
   );
 }
 
@@ -210,37 +212,16 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h3 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle mb-8">
+          <h3 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle mb-6">
             Archive
           </h3>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-border/50">
-                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle hidden md:table-cell">
-                    Year
-                  </th>
-                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle">
-                    Project
-                  </th>
-                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle hidden lg:table-cell">
-                    Type
-                  </th>
-                  <th className="pb-3 pr-4 text-left text-xs font-medium tracking-widest uppercase text-foreground-subtle hidden sm:table-cell">
-                    Built with
-                  </th>
-                  <th className="pb-3 text-right text-xs font-medium tracking-widest uppercase text-foreground-subtle">
-                    Links
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {archive.map((project, i) => (
-                  <ArchiveRow key={project.id} project={project} index={i} />
-                ))}
-              </tbody>
-            </table>
+          <div className="divide-y divide-border/30">
+            {archive
+              .sort((a, b) => parseInt(b.year) - parseInt(a.year))
+              .map((project, i) => (
+                <ArchiveCard key={project.id} project={project} index={i} />
+              ))}
           </div>
         </motion.div>
       </div>
