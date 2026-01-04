@@ -75,9 +75,20 @@ export function MusicPlayer() {
   const [hasError, setHasError] = useState(false);
   const [hasAttemptedPlay, setHasAttemptedPlay] = useState(false);
   const [autoplayAttempted, setAutoplayAttempted] = useState(false);
+  const [mobileNavVisible, setMobileNavVisible] = useState(true);
 
   const station = RADIO_STATIONS.find((s) => s.id === currentStation)!;
   const stationsInGenre = RADIO_STATIONS.filter((s) => s.genre === selectedGenre);
+
+  // Listen for mobile nav visibility changes
+  useEffect(() => {
+    const handleNavVisibility = (e: CustomEvent<{ visible: boolean }>) => {
+      setMobileNavVisible(e.detail.visible);
+    };
+
+    window.addEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+    return () => window.removeEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+  }, []);
 
   // Click outside to close
   const handleClickOutside = useCallback((e: MouseEvent) => {
@@ -254,8 +265,16 @@ export function MusicPlayer() {
     <>
       <audio ref={audioRef} src={station.url} preload="none" />
 
-      {/* Position above mobile bottom nav */}
-      <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50">
+      {/* Position above mobile bottom nav - slides with nav visibility */}
+      <motion.div
+        className="fixed right-4 md:right-6 z-50"
+        initial={false}
+        animate={{
+          bottom: mobileNavVisible ? 96 : 24, // bottom-24 vs bottom-6
+        }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        style={{ bottom: 24 }} // md:bottom-6 fallback for SSR
+      >
         <AnimatePresence>
           {isExpanded && (
             <>
@@ -453,7 +472,7 @@ export function MusicPlayer() {
             />
           )}
         </motion.button>
-      </div>
+      </motion.div>
     </>
   );
 }

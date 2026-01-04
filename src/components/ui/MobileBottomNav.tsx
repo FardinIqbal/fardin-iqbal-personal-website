@@ -34,6 +34,11 @@ export function MobileBottomNav() {
   const isBlogPage = pathname.startsWith("/blog");
   const showNav = isHomePage || isBlogPage;
 
+  // Dispatch custom event when visibility changes
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("mobileNavVisibility", { detail: { visible: isVisible && showNav } }));
+  }, [isVisible, showNav]);
+
   useEffect(() => {
     if (!showNav) return;
 

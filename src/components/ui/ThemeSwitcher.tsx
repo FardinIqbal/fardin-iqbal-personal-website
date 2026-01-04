@@ -157,6 +157,17 @@ export function ThemeSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("default");
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [mobileNavVisible, setMobileNavVisible] = useState(true);
+
+  // Listen for mobile nav visibility changes
+  useEffect(() => {
+    const handleNavVisibility = (e: CustomEvent<{ visible: boolean }>) => {
+      setMobileNavVisible(e.detail.visible);
+    };
+
+    window.addEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+    return () => window.removeEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+  }, []);
 
   // Apply colors to CSS variables
   const applyColors = (colors: typeof LIGHT_THEME) => {
@@ -237,22 +248,32 @@ export function ThemeSwitcher() {
 
   return (
     <>
-      {/* Floating Button - Only shown in dark mode */}
-      <motion.button
-        onClick={() => {
-          haptic("light");
-          setIsOpen(true);
+      {/* Floating Button Container - Animates with mobile nav */}
+      <motion.div
+        className="fixed left-4 md:left-6 z-40"
+        initial={false}
+        animate={{
+          bottom: mobileNavVisible ? 96 : 24,
         }}
-        className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-background-secondary border border-border shadow-lg hover:bg-background-tertiary transition-colors"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        title="Change color theme (dark mode only)"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.8 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        style={{ bottom: 24 }}
       >
-        <Palette className="w-5 h-5 text-foreground-muted" />
-      </motion.button>
+        <motion.button
+          onClick={() => {
+            haptic("light");
+            setIsOpen(true);
+          }}
+          className="p-3 rounded-full bg-background-secondary border border-border shadow-lg hover:bg-background-tertiary transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          title="Change color theme (dark mode only)"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+        >
+          <Palette className="w-5 h-5 text-foreground-muted" />
+        </motion.button>
+      </motion.div>
 
       {/* Modal */}
       <AnimatePresence>
