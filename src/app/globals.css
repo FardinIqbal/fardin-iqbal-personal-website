@@ -133,7 +133,8 @@
    ============================================ */
 
 html {
-  scroll-behavior: smooth;
+  /* Removed scroll-behavior: smooth - Lenis handles wheel scrolling,
+     arrow keys should use native instant scrolling for snappy control */
   overflow-x: hidden;
   font-size: 16px;
 }
@@ -972,4 +973,16 @@ svg .animate-rotate-slow {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ============================================
+   COMMAND PALETTE - Solid Backdrop
+   ============================================ */
+
+.command-palette-backdrop {
+  background-color: #12100e !important; /* Dark mode - fully opaque */
+}
+
+.light .command-palette-backdrop {
+  background-color: #fdfbf7 !important; /* Light mode - fully opaque */
 }

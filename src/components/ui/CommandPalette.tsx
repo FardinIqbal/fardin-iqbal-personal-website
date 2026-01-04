@@ -264,13 +264,13 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop - fully opaque for readability */}
+          {/* Backdrop - solid color for both themes */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-background z-50"
+            className="fixed inset-0 z-50 command-palette-backdrop"
             onClick={() => setIsOpen(false)}
           />
 
