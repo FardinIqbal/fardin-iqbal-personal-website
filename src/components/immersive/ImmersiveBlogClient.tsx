@@ -199,9 +199,9 @@ export function ImmersiveBlogClient({
         className="fixed right-4 sm:right-6 z-40"
         initial={false}
         animate={{
-          // Mobile: 96px (nav) + 72px (music player) + 16px gap = 184px when nav visible, 88px when hidden
-          // Desktop: stays at 96px
-          bottom: mobileNavVisible ? 184 : 88,
+          // Mobile: music player at 96px when nav visible + ~56px player height + 8px gap = 160px
+          // When nav hidden: music player at 24px + 56px + 8px = 88px
+          bottom: mobileNavVisible ? 160 : 88,
         }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
         style={{ bottom: 88 }}
