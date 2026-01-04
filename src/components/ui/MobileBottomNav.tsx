@@ -92,6 +92,9 @@ export function MobileBottomNav() {
       } else {
         router.push("/");
       }
+    } else {
+      // Non-section links like /blog
+      router.push(item.href);
     }
   };
 
