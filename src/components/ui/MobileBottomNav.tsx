@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, Briefcase, FolderOpen, BookOpen, Mail, Command } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -27,9 +27,12 @@ export function MobileBottomNav() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
+  const router = useRouter();
 
-  // Only show on home page and blog index
-  const showNav = pathname === "/" || pathname === "/blog";
+  // Show on home page and all blog pages (including /blog/[slug])
+  const isHomePage = pathname === "/";
+  const isBlogPage = pathname.startsWith("/blog");
+  const showNav = isHomePage || isBlogPage;
 
   useEffect(() => {
     if (!showNav) return;
@@ -45,35 +48,50 @@ export function MobileBottomNav() {
       }
       setLastScrollY(currentScrollY);
 
-      // Detect active section
-      const sections = ["experience", "projects", "contact", "about", "skills"];
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 200) {
-            setActiveSection(section);
-            break;
+      // Only detect active section on home page
+      if (isHomePage) {
+        const sections = ["experience", "projects", "contact", "about", "skills"];
+        let foundSection = "";
+        for (const section of sections.reverse()) {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 200) {
+              foundSection = section;
+              break;
+            }
           }
         }
+        setActiveSection(foundSection);
       }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, showNav]);
+  }, [lastScrollY, showNav, isHomePage]);
 
   const handleNavClick = (item: NavItem) => {
     haptic("selection");
 
     if (item.isSection) {
       const sectionId = item.href.replace("#", "");
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+
+      if (isHomePage) {
+        // On home page, scroll to section
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      } else {
+        // On other pages, navigate to home page with hash
+        router.push(`/${item.href}`);
       }
     } else if (item.href === "/") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (isHomePage) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        router.push("/");
+      }
     }
   };
 
@@ -99,8 +117,8 @@ export function MobileBottomNav() {
             <div className="flex items-center justify-around px-2 py-2">
               {navItems.map((item) => {
                 const isActive =
-                  (item.href === "/" && pathname === "/" && !activeSection) ||
-                  (item.href === "/blog" && pathname === "/blog") ||
+                  (item.href === "/" && isHomePage && !activeSection) ||
+                  (item.href === "/blog" && isBlogPage) ||
                   (item.isSection === true && activeSection === item.href.replace("#", ""));
 
                 return (
@@ -109,7 +127,6 @@ export function MobileBottomNav() {
                     item={item}
                     isActive={isActive}
                     onClick={() => handleNavClick(item)}
-                    pathname={pathname}
                   />
                 );
               })}
@@ -137,10 +154,9 @@ interface NavButtonProps {
   item: NavItem;
   isActive: boolean;
   onClick: () => void;
-  pathname: string;
 }
 
-function NavButton({ item, isActive, onClick, pathname }: NavButtonProps) {
+function NavButton({ item, isActive, onClick }: NavButtonProps) {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePress = () => {
@@ -148,49 +164,6 @@ function NavButton({ item, isActive, onClick, pathname }: NavButtonProps) {
     onClick();
     setTimeout(() => setIsPressed(false), 150);
   };
-
-  // For non-section items, use Link behavior
-  if (!item.isSection) {
-    return (
-      <a
-        href={item.href}
-        onClick={(e) => {
-          if (item.href === "/" && pathname === "/") {
-            e.preventDefault();
-            handlePress();
-          } else {
-            haptic("selection");
-          }
-        }}
-        className={cn(
-          "flex flex-col items-center justify-center w-14 h-14 rounded-xl transition-all",
-          isActive
-            ? "text-foreground bg-foreground/5"
-            : "text-foreground-subtle active:scale-95"
-        )}
-      >
-        <motion.div
-          animate={{ scale: isPressed ? 0.85 : 1 }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        >
-          {item.icon}
-        </motion.div>
-        <span className={cn(
-          "text-[10px] mt-1 font-medium",
-          isActive && "text-foreground"
-        )}>
-          {item.label}
-        </span>
-        {isActive && (
-          <motion.div
-            layoutId="activeTab"
-            className="absolute -bottom-1 w-1 h-1 rounded-full bg-foreground"
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
-          />
-        )}
-      </a>
-    );
-  }
 
   return (
     <button
