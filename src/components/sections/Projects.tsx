@@ -111,61 +111,57 @@ function ArchiveCard({
       transition={{ duration: 0.3, delay: index * 0.03 }}
       className="group"
     >
-      <Link href={`/projects/${project.id}`} className="block">
-        <div className="flex items-start gap-4 py-4 px-4 -mx-4 rounded-lg hover:bg-foreground/[0.02] transition-colors">
-          {/* Year badge */}
-          <span className="flex-shrink-0 text-xs font-mono text-foreground-subtle bg-background-tertiary/50 px-2 py-1 rounded">
-            {project.year}
+      <div className="flex items-start gap-4 py-4 px-4 -mx-4 rounded-lg hover:bg-foreground/[0.02] transition-colors">
+        {/* Year badge */}
+        <span className="flex-shrink-0 text-xs font-mono text-foreground-subtle bg-background-tertiary/50 px-2 py-1 rounded">
+          {project.year}
+        </span>
+
+        {/* Main content - clickable link */}
+        <Link href={`/projects/${project.id}`} className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <h4 className="text-foreground font-medium truncate group-hover:text-foreground-muted transition-colors">
+              {project.title}
+            </h4>
+            <ArrowUpRight className="w-3 h-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-foreground-subtle" />
+          </div>
+
+          {/* Tech stack - visible on all screens */}
+          <p className="text-sm text-foreground-subtle truncate">
+            {project.tech.slice(0, 3).join(" · ")}
+          </p>
+        </Link>
+
+        {/* Category + Links - separate from main link */}
+        <div className="flex items-center gap-3 flex-shrink-0">
+          <span className="hidden sm:inline text-xs text-foreground-subtle">
+            {categoryLabels[project.category]}
           </span>
 
-          {/* Main content */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-1">
-              <h4 className="text-foreground font-medium truncate group-hover:text-foreground-muted transition-colors">
-                {project.title}
-              </h4>
-              <ArrowUpRight className="w-3 h-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-foreground-subtle" />
-            </div>
-
-            {/* Tech stack - visible on all screens */}
-            <p className="text-sm text-foreground-subtle truncate">
-              {project.tech.slice(0, 3).join(" · ")}
-            </p>
-          </div>
-
-          {/* Category + Links */}
-          <div className="flex items-center gap-3 flex-shrink-0">
-            <span className="hidden sm:inline text-xs text-foreground-subtle">
-              {categoryLabels[project.category]}
-            </span>
-
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-foreground-subtle hover:text-foreground transition-colors"
-                aria-label="View source code"
-              >
-                <Github className="w-4 h-4" />
-              </a>
-            )}
-            {project.live && (
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="text-foreground-subtle hover:text-foreground transition-colors"
-                aria-label="View live demo"
-              >
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            )}
-          </div>
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground-subtle hover:text-foreground transition-colors"
+              aria-label="View source code"
+            >
+              <Github className="w-4 h-4" />
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground-subtle hover:text-foreground transition-colors"
+              aria-label="View live demo"
+            >
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          )}
         </div>
-      </Link>
+      </div>
     </motion.article>
   );
 }

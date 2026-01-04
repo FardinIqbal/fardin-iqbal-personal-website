@@ -874,6 +874,15 @@ svg .animate-rotate-slow {
   margin: 0.5rem 0;
 }
 
+/* Hide footnote back arrows */
+.prose-article .footnotes a[data-footnote-backref],
+.prose-article .footnotes .data-footnote-backref,
+.prose-article .footnotes a:has(> .sr-only),
+.essay-content .footnotes a[data-footnote-backref],
+.essay-content .footnotes .data-footnote-backref {
+  display: none !important;
+}
+
 /* Sup/Sub */
 .prose-article sup,
 .prose-article sub {
