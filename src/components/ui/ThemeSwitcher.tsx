@@ -263,7 +263,7 @@ export function ThemeSwitcher() {
             haptic("light");
             setIsOpen(true);
           }}
-          className="p-3 rounded-full bg-background-secondary border border-border shadow-lg hover:bg-background-tertiary transition-colors"
+          className="p-3 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl hover:opacity-90 transition-opacity"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           title="Change color theme (dark mode only)"
@@ -271,7 +271,7 @@ export function ThemeSwitcher() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
         >
-          <Palette className="w-5 h-5 text-foreground-muted" />
+          <Palette className="w-5 h-5" />
         </motion.button>
       </motion.div>
 
