@@ -8,33 +8,6 @@ interface PageTransitionProps {
   children: ReactNode;
 }
 
-const pageVariants = {
-  initial: {
-    opacity: 0,
-    y: 20,
-    scale: 0.98,
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.21, 0.47, 0.32, 0.98] as const,
-      staggerChildren: 0.1,
-    },
-  },
-  exit: {
-    opacity: 0,
-    y: -20,
-    scale: 0.98,
-    transition: {
-      duration: 0.3,
-      ease: [0.21, 0.47, 0.32, 0.98] as const,
-    },
-  },
-};
-
 export function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname();
 
@@ -42,10 +15,20 @@ export function PageTransition({ children }: PageTransitionProps) {
     <AnimatePresence mode="wait" initial={false}>
       <motion.div
         key={pathname}
-        variants={pageVariants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
+        initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          transition: { duration: 0.5, ease: "easeOut" }
+        }}
+        exit={{
+          opacity: 0,
+          y: -20,
+          filter: "blur(10px)",
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
+        className="min-h-screen"
       >
         {children}
       </motion.div>
@@ -53,156 +36,84 @@ export function PageTransition({ children }: PageTransitionProps) {
   );
 }
 
-// Stagger container for child animations
-export function StaggerContainer({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: 0.1,
-            delayChildren: delay,
-          },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+export function SlideTransition({ children }: PageTransitionProps) {
+  const pathname = usePathname();
 
-// Individual stagger items
-export function StaggerItem({
-  children,
-  className = "",
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
   return (
-    <motion.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y: 30, scale: 0.95 },
-        visible: {
+    <AnimatePresence mode="wait" initial={false}>
+      <motion.div
+        key={pathname}
+        initial={{ opacity: 0, x: 60 }}
+        animate={{
           opacity: 1,
-          y: 0,
-          scale: 1,
-          transition: {
-            duration: 0.5,
-            ease: [0.21, 0.47, 0.32, 0.98] as const,
-          },
-        },
-      }}
-    >
-      {children}
-    </motion.div>
+          x: 0,
+          transition: { duration: 0.5, ease: "easeOut" }
+        }}
+        exit={{
+          opacity: 0,
+          x: -60,
+          transition: { duration: 0.3, ease: "easeOut" }
+        }}
+        className="min-h-screen"
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
-// Fade in from direction
-export function FadeIn({
-  children,
-  className = "",
-  direction = "up",
-  delay = 0,
-  duration = 0.6,
-}: {
-  children: ReactNode;
-  className?: string;
-  direction?: "up" | "down" | "left" | "right";
-  delay?: number;
-  duration?: number;
-}) {
-  const directionOffsets = {
-    up: { y: 40, x: 0 },
-    down: { y: -40, x: 0 },
-    left: { x: 40, y: 0 },
-    right: { x: -40, y: 0 },
-  };
-
-  const offset = directionOffsets[direction];
+export function OverlayTransition({ children }: PageTransitionProps) {
+  const pathname = usePathname();
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, ...offset }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
-    >
-      {children}
-    </motion.div>
+    <>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.div
+          key={pathname}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.4 }}
+          className="min-h-screen"
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
+
+      <AnimatePresence>
+        <motion.div
+          key={`overlay-${pathname}`}
+          initial={{ scaleY: 1 }}
+          animate={{ scaleY: 0 }}
+          exit={{ scaleY: 1 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="fixed inset-0 bg-background z-50 origin-top pointer-events-none"
+        />
+      </AnimatePresence>
+    </>
   );
 }
 
-// Scale reveal effect
-export function ScaleReveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, scale: 0.8 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.6,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+// Fade up transition for content sections
+export const fadeUpVariants = {
+  initial: { opacity: 0, y: 30 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut" as const,
+    },
+  },
+};
 
-// Blur reveal effect
-export function BlurReveal({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, filter: "blur(10px)" }}
-      whileInView={{ opacity: 1, filter: "blur(0px)" }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.8,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
+// Stagger container for child elements
+export const staggerContainer = {
+  initial: {},
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};

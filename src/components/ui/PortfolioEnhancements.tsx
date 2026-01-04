@@ -8,12 +8,16 @@ import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Guestbook } from "./Guestbook";
 import { SmoothScroll } from "./SmoothScroll";
 import { MobileBottomNav } from "./MobileBottomNav";
+import { ScrollProgress } from "./ScrollProgress";
 
 export function PortfolioEnhancements() {
   return (
     <>
       {/* Smooth Scroll - Lenis */}
       <SmoothScroll />
+
+      {/* Scroll Progress Indicator - top bar showing scroll position */}
+      <ScrollProgress />
 
       {/* Command Palette - opens with Cmd+K */}
       <CommandPalette />

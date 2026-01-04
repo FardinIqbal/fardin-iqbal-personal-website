@@ -3,66 +3,30 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
 
-interface MagneticTarget {
-  element: HTMLElement;
-  rect: DOMRect;
-  strength: number;
-}
-
 export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [hoverText, setHoverText] = useState<string | null>(null);
+  const styleRef = useRef<HTMLStyleElement | null>(null);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const magneticTargetRef = useRef<MagneticTarget | null>(null);
 
-  // Smoother spring for cursor following
-  const springConfig = { damping: 20, stiffness: 300, mass: 0.5 };
+  // Fast, responsive spring for cursor (almost instant)
+  const springConfig = { damping: 50, stiffness: 800, mass: 0.1 };
   const cursorX = useSpring(mouseX, springConfig);
   const cursorY = useSpring(mouseY, springConfig);
 
-  // Slower spring for the ring (creates trailing effect)
-  const ringSpringConfig = { damping: 30, stiffness: 200, mass: 0.8 };
+  // Slightly slower for the ring (subtle trailing)
+  const ringSpringConfig = { damping: 40, stiffness: 400, mass: 0.2 };
   const ringX = useSpring(mouseX, ringSpringConfig);
   const ringY = useSpring(mouseY, ringSpringConfig);
 
-  // Even slower for glow
-  const glowSpringConfig = { damping: 40, stiffness: 150, mass: 1 };
+  // Glow follows loosely
+  const glowSpringConfig = { damping: 30, stiffness: 200, mass: 0.5 };
   const glowX = useSpring(mouseX, glowSpringConfig);
   const glowY = useSpring(mouseY, glowSpringConfig);
-
-  const findMagneticTarget = useCallback((x: number, y: number): MagneticTarget | null => {
-    const magneticElements = document.querySelectorAll('[data-magnetic], a, button');
-    let closestTarget: MagneticTarget | null = null;
-    let closestDistance = Infinity;
-
-    magneticElements.forEach((el) => {
-      const element = el as HTMLElement;
-      const rect = element.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const distance = Math.sqrt(
-        Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
-      );
-
-      // Magnetic radius - elements pull cursor when within this distance
-      const magneticRadius = Math.max(rect.width, rect.height) * 1.5;
-      const strength = element.dataset.magneticStrength
-        ? parseFloat(element.dataset.magneticStrength)
-        : 0.3;
-
-      if (distance < magneticRadius && distance < closestDistance) {
-        closestDistance = distance;
-        closestTarget = { element, rect, strength };
-      }
-    });
-
-    return closestTarget;
-  }, []);
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -70,33 +34,22 @@ export function CustomCursor() {
       return;
     }
 
-    // Hide default cursor
-    document.body.style.cursor = 'none';
+    // Inject global CSS to hide ALL cursors
+    const style = document.createElement("style");
+    style.textContent = `
+      *, *::before, *::after {
+        cursor: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+    styleRef.current = style;
 
     const updateMousePosition = (e: MouseEvent) => {
-      let targetX = e.clientX;
-      let targetY = e.clientY;
-
       if (!isVisible) setIsVisible(true);
 
-      // Find magnetic target
-      const target = findMagneticTarget(e.clientX, e.clientY);
-      magneticTargetRef.current = target;
-
-      if (target) {
-        const centerX = target.rect.left + target.rect.width / 2;
-        const centerY = target.rect.top + target.rect.height / 2;
-
-        // Calculate magnetic pull
-        const pullX = (centerX - e.clientX) * target.strength;
-        const pullY = (centerY - e.clientY) * target.strength;
-
-        targetX = e.clientX + pullX;
-        targetY = e.clientY + pullY;
-      }
-
-      mouseX.set(targetX);
-      mouseY.set(targetY);
+      // Direct 1:1 mapping - no magnetic effect (cleaner, more responsive)
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
 
     const handleMouseDown = () => setIsClicking(true);
@@ -104,7 +57,7 @@ export function CustomCursor() {
 
     const handleMouseEnter = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const interactive = target.closest('a, button, [data-magnetic]');
+      const interactive = target.closest('a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])');
 
       if (interactive) {
         setIsHovering(true);
@@ -119,7 +72,7 @@ export function CustomCursor() {
 
     const handleMouseLeave = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const interactive = target.closest('a, button, [data-magnetic]');
+      const interactive = target.closest('a, button, [role="button"], input, textarea, select, [tabindex]:not([tabindex="-1"])');
 
       if (interactive) {
         setIsHovering(false);
@@ -127,21 +80,23 @@ export function CustomCursor() {
       }
     };
 
-    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("mousemove", updateMousePosition, { passive: true });
     window.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mouseover", handleMouseEnter);
     document.addEventListener("mouseout", handleMouseLeave);
 
     return () => {
-      document.body.style.cursor = '';
+      if (styleRef.current) {
+        styleRef.current.remove();
+      }
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
       document.removeEventListener("mouseover", handleMouseEnter);
       document.removeEventListener("mouseout", handleMouseLeave);
     };
-  }, [isVisible, findMagneticTarget, mouseX, mouseY]);
+  }, [isVisible, mouseX, mouseY]);
 
   if (!isVisible) return null;
 
