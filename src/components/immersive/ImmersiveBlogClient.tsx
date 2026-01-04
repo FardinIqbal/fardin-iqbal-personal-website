@@ -71,8 +71,8 @@ export function ImmersiveBlogClient({
       {/* Ultra-minimal reading progress */}
       <BlogScrollProgress />
 
-      {/* Hero Section */}
-      <header className="pt-32 pb-16 px-4 sm:px-6">
+      {/* Hero Section - Premium on all devices */}
+      <header className="pt-24 sm:pt-32 pb-12 sm:pb-16 px-5 sm:px-6">
         <div className="max-w-3xl mx-auto">
           {/* Back link */}
           <motion.div
@@ -82,7 +82,7 @@ export function ImmersiveBlogClient({
           >
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-sm text-foreground-subtle hover:text-foreground transition-colors group mb-8"
+              className="inline-flex items-center gap-2 text-sm text-foreground-subtle hover:text-foreground transition-colors group mb-6 sm:mb-8"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               All posts
@@ -94,46 +94,46 @@ export function ImmersiveBlogClient({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="flex flex-wrap gap-2 mb-6"
+            className="flex flex-wrap gap-2 mb-5 sm:mb-6"
           >
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 text-xs font-medium rounded-full bg-background-tertiary text-foreground-muted border border-border"
+                className="px-3 py-1.5 text-xs font-medium rounded-full bg-background-tertiary text-foreground-muted border border-border"
               >
                 {tag}
               </span>
             ))}
           </motion.div>
 
-          {/* Title */}
+          {/* Title - Premium typography */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.15 }}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-[1.1] mb-6"
+            className="text-3xl sm:text-5xl lg:text-6xl font-bold text-foreground tracking-tight leading-[1.12] sm:leading-[1.1] mb-5 sm:mb-6"
           >
             {title}
           </motion.h1>
 
-          {/* Description */}
+          {/* Description - Elegant subtitle */}
           {description && (
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-xl text-foreground-muted leading-relaxed mb-8"
+              className="text-lg sm:text-xl text-foreground-muted leading-relaxed mb-6 sm:mb-8 font-serif"
             >
               {description}
             </motion.p>
           )}
 
-          {/* Meta */}
+          {/* Meta - Refined spacing */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.25 }}
-            className="flex items-center gap-6 text-sm text-foreground-subtle"
+            className="flex items-center gap-4 sm:gap-6 text-sm text-foreground-subtle"
           >
             <span className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
@@ -148,7 +148,7 @@ export function ImmersiveBlogClient({
       </header>
 
       {/* Divider */}
-      <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <div className="max-w-3xl mx-auto px-5 sm:px-6">
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -157,12 +157,12 @@ export function ImmersiveBlogClient({
         />
       </div>
 
-      {/* Article Content */}
+      {/* Article Content - Premium reading experience */}
       <motion.article
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="py-16 px-4 sm:px-6"
+        className="py-12 sm:py-16 px-5 sm:px-6"
       >
         <div
           className="prose-article max-w-3xl mx-auto"
