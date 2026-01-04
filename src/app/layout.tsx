@@ -94,6 +94,34 @@ export const metadata: Metadata = {
   },
 };
 
+// JSON-LD structured data for SEO
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Fardin Iqbal",
+  url: "https://fardin-portfolio-beryl.vercel.app",
+  image: "https://fardin-portfolio-beryl.vercel.app/images/profile/profile-pic.png",
+  jobTitle: "Software Engineer",
+  description:
+    "Computer Science student at Stony Brook University. Full-stack developer passionate about building impactful technologies.",
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Stony Brook University",
+  },
+  knowsAbout: [
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Python",
+    "Ruby on Rails",
+    "Full Stack Development",
+  ],
+  sameAs: [
+    "https://github.com/FardinIqbal",
+    "https://linkedin.com/in/fardiniqbal",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -102,6 +130,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {/* Prevent flash of wrong theme */}
         <script
           dangerouslySetInnerHTML={{

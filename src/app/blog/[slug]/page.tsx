@@ -2,9 +2,39 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { ImmersiveBlogClient } from "@/components/immersive/ImmersiveBlogClient";
+import Script from "next/script";
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+function generateArticleJsonLd(post: {
+  title: string;
+  description: string;
+  date: string;
+  slug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: {
+      "@type": "Person",
+      name: "Fardin Iqbal",
+      url: "https://fardin-portfolio-beryl.vercel.app",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Fardin Iqbal",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://fardin-portfolio-beryl.vercel.app/blog/${post.slug}`,
+    },
+  };
 }
 
 export async function generateStaticParams() {
@@ -41,15 +71,29 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
+  const jsonLd = generateArticleJsonLd({
+    title: post.title,
+    description: post.description,
+    date: post.date,
+    slug,
+  });
+
   return (
-    <ImmersiveBlogClient
-      title={post.title}
-      description={post.description}
-      date={post.date}
-      readingTime={post.readingTime}
-      tags={post.tags}
-      compiledContent={post.compiledContent}
-      rawContent={post.content}
-    />
+    <>
+      <Script
+        id="article-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ImmersiveBlogClient
+        title={post.title}
+        description={post.description}
+        date={post.date}
+        readingTime={post.readingTime}
+        tags={post.tags}
+        compiledContent={post.compiledContent}
+        rawContent={post.content}
+      />
+    </>
   );
 }
