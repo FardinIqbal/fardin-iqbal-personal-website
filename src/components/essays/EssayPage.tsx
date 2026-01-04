@@ -1,9 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { formatDate } from "@/lib/utils";
+import { ReadingControls } from "./ReadingControls";
+import { MusicPlayer } from "./MusicPlayer";
 
 interface EssayPageProps {
   title: string;
@@ -23,13 +26,13 @@ export function EssayPage({
   compiledContent,
 }: EssayPageProps) {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="essay-wrapper min-h-screen bg-background transition-colors duration-300">
       {/* Reading progress bar */}
       <ReadingProgress />
 
       {/* Header */}
       <header className="pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-6">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto" style={{ maxWidth: "var(--essay-content-width, 680px)" }}>
           {/* Back link */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -107,7 +110,7 @@ export function EssayPage({
       </header>
 
       {/* Divider */}
-      <div className="max-w-2xl mx-auto px-4 sm:px-6">
+      <div className="px-4 sm:px-6" style={{ maxWidth: "var(--essay-content-width, 680px)", margin: "0 auto" }}>
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
@@ -124,14 +127,14 @@ export function EssayPage({
         className="py-12 sm:py-16 px-4 sm:px-6"
       >
         <div
-          className="prose-article"
+          className="essay-content prose-article"
           dangerouslySetInnerHTML={{ __html: compiledContent }}
         />
       </motion.article>
 
       {/* Footer */}
       <footer className="py-16 px-4 sm:px-6 border-t border-border">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto" style={{ maxWidth: "var(--essay-content-width, 680px)" }}>
           <Link
             href="/essays"
             className="inline-flex items-center gap-2 text-sm text-foreground-subtle hover:text-foreground transition-colors group"
@@ -141,11 +144,22 @@ export function EssayPage({
           </Link>
         </div>
       </footer>
+
+      {/* Reading Controls & Music Player */}
+      <ReadingControls />
+      <MusicPlayer />
     </div>
   );
 }
 
 function ReadingProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
   return (
     <motion.div
       className="fixed top-0 left-0 right-0 h-0.5 bg-foreground/10 z-50"
@@ -155,12 +169,7 @@ function ReadingProgress() {
     >
       <motion.div
         className="h-full bg-foreground origin-left"
-        style={{
-          scaleX: 0,
-        }}
-        initial={{ scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: false }}
+        style={{ scaleX }}
       />
     </motion.div>
   );

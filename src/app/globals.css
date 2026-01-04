@@ -1018,3 +1018,307 @@ svg .animate-rotate-slow {
 .light .command-palette-backdrop {
   background-color: #fdfbf7 !important; /* Light mode - fully opaque */
 }
+
+/* ============================================
+   ESSAY READING EXPERIENCE
+   WebEssay-inspired features for portfolio
+   ============================================ */
+
+/* CSS Variables for dynamic reading controls */
+:root {
+  --essay-font-size: 19px;
+  --essay-line-height: 1.75;
+  --essay-content-width: 680px;
+}
+
+/* Essay Theme System */
+[data-essay-theme="sepia"] .essay-wrapper {
+  --color-background: 244 241 234;
+  --color-background-secondary: 235 231 223;
+  --color-background-tertiary: 226 221 211;
+  --color-foreground: 61 53 40;
+  --color-foreground-muted: 92 83 70;
+  --color-foreground-subtle: 138 127 110;
+  --color-border: 212 207 195;
+  background: rgb(244 241 234);
+}
+
+[data-essay-theme="midnight"] .essay-wrapper {
+  --color-background: 15 23 42;
+  --color-background-secondary: 30 41 59;
+  --color-background-tertiary: 51 65 85;
+  --color-foreground: 241 245 249;
+  --color-foreground-muted: 148 163 184;
+  --color-foreground-subtle: 100 116 139;
+  --color-border: 51 65 85;
+  background: rgb(15 23 42);
+}
+
+[data-essay-theme="forest"] .essay-wrapper {
+  --color-background: 12 26 20;
+  --color-background-secondary: 19 42 31;
+  --color-background-tertiary: 26 58 40;
+  --color-foreground: 236 253 245;
+  --color-foreground-muted: 167 196 181;
+  --color-foreground-subtle: 107 143 122;
+  --color-border: 45 90 66;
+  background: rgb(12 26 20);
+}
+
+[data-essay-theme="rose"] .essay-wrapper {
+  --color-background: 26 10 16;
+  --color-background-secondary: 42 16 24;
+  --color-background-tertiary: 58 26 36;
+  --color-foreground: 253 242 244;
+  --color-foreground-muted: 212 165 175;
+  --color-foreground-subtle: 160 96 112;
+  --color-border: 90 42 58;
+  background: rgb(26 10 16);
+}
+
+/* Essay Content - Dynamic Settings */
+.essay-content {
+  font-size: var(--essay-font-size) !important;
+  line-height: var(--essay-line-height) !important;
+  max-width: var(--essay-content-width) !important;
+}
+
+/* Drop Cap - Elegant first letter */
+.essay-content .drop-cap::first-letter,
+.prose-article .drop-cap::first-letter {
+  float: left;
+  font-size: 3.8em;
+  line-height: 0.8;
+  padding-right: 12px;
+  padding-top: 6px;
+  font-weight: 600;
+  font-family: var(--font-display);
+  color: rgb(var(--color-foreground));
+}
+
+/* Lead paragraph - Larger opening */
+.essay-content .lead,
+.prose-article .lead {
+  font-size: 1.2em !important;
+  line-height: 1.65 !important;
+  color: rgb(var(--color-foreground)) !important;
+}
+
+/* Essay Cards */
+.essay-content .essay-card,
+.prose-article .essay-card {
+  background: rgb(var(--color-background-secondary));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin: 36px 0;
+}
+
+.essay-content .essay-card h4,
+.prose-article .essay-card h4 {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(59 130 246);
+  margin: 0 0 12px;
+}
+
+.essay-content .essay-card p,
+.prose-article .essay-card p {
+  margin: 0;
+  font-size: 0.95em;
+}
+
+/* Highlight Box */
+.essay-content .highlight-box,
+.prose-article .highlight-box {
+  background: rgba(59, 130, 246, 0.1);
+  border-left: 4px solid rgb(59 130 246);
+  padding: 24px 28px;
+  margin: 36px 0;
+  border-radius: 0 12px 12px 0;
+}
+
+.essay-content .highlight-box p,
+.prose-article .highlight-box p {
+  margin: 0;
+  font-size: 0.95em;
+  color: rgb(var(--color-foreground));
+}
+
+/* Diagram - ASCII/Code diagrams */
+.essay-content .diagram,
+.prose-article .diagram {
+  background: rgb(var(--color-background-tertiary));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 12px;
+  padding: 32px;
+  margin: 40px 0;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  color: rgb(var(--color-foreground-muted));
+}
+
+.essay-content .diagram .hl,
+.prose-article .diagram .hl {
+  color: rgb(59 130 246);
+  font-weight: 500;
+}
+
+.essay-content .diagram .mt,
+.prose-article .diagram .mt {
+  color: rgb(var(--color-foreground-subtle));
+}
+
+/* Roles Grid - 2-column card grid */
+.essay-content .roles-grid,
+.prose-article .roles-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 32px 0;
+}
+
+@media (max-width: 600px) {
+  .essay-content .roles-grid,
+  .prose-article .roles-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.essay-content .role-card,
+.prose-article .role-card {
+  background: rgb(var(--color-background-secondary));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color 0.15s ease;
+}
+
+.essay-content .role-card:hover,
+.prose-article .role-card:hover {
+  border-color: rgb(var(--color-foreground-subtle));
+}
+
+.essay-content .role-card h4,
+.prose-article .role-card h4 {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: rgb(var(--color-foreground));
+}
+
+.essay-content .role-card p,
+.prose-article .role-card p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(var(--color-foreground-muted));
+  margin: 0;
+}
+
+/* Flow Diagram - Horizontal steps */
+.essay-content .flow,
+.prose-article .flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 36px 0;
+  font-family: var(--font-sans);
+  font-size: 13px;
+}
+
+.essay-content .flow-step,
+.prose-article .flow-step {
+  background: rgb(var(--color-background-tertiary));
+  border: 1px solid rgb(var(--color-border));
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+}
+
+.essay-content .flow-arrow,
+.prose-article .flow-arrow {
+  color: rgb(var(--color-foreground-subtle));
+}
+
+/* Bibliography */
+.essay-content .bibliography,
+.prose-article .bibliography {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgb(var(--color-border));
+}
+
+.essay-content .bibliography li,
+.prose-article .bibliography li {
+  font-size: 0.9em;
+  margin-bottom: 0.75rem;
+  color: rgb(var(--color-foreground-muted));
+}
+
+/* Citation superscript */
+.essay-content sup.cite,
+.prose-article sup.cite {
+  font-size: 0.7em;
+  font-family: var(--font-sans);
+}
+
+.essay-content sup.cite a,
+.prose-article sup.cite a {
+  color: rgb(59 130 246);
+  text-decoration: none;
+}
+
+/* Range slider styling for reading controls */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: rgb(var(--color-border));
+  border-radius: 2px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgb(var(--color-foreground));
+  cursor: pointer;
+  margin-top: -6px;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: rgb(var(--color-border));
+  border-radius: 2px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgb(var(--color-foreground));
+  border: none;
+  cursor: pointer;
+}
