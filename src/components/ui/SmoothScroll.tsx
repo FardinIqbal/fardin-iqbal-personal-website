@@ -13,11 +13,13 @@ export function SmoothScroll() {
     }
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.6, // Snappier, more responsive
+      easing: (t) => 1 - Math.pow(1 - t, 3), // Cubic ease-out - quick start, smooth end
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
+      wheelMultiplier: 1.2, // Slightly faster wheel response
+      touchMultiplier: 1.5, // Better touch response
     });
 
     lenisRef.current = lenis;
