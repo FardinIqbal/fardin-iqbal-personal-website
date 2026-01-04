@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Palette, Check, X } from "lucide-react";
+import { Palette, Check, X, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { haptic } from "@/lib/haptics";
 
@@ -26,6 +26,21 @@ interface Theme {
   name: string;
   colors: ThemeColors;
 }
+
+// Light theme colors (used when in light mode)
+const LIGHT_THEME = {
+  background: "253 251 247",
+  backgroundSecondary: "248 246 240",
+  backgroundTertiary: "240 237 230",
+  foreground: "28 25 23",
+  foregroundMuted: "75 70 65",
+  foregroundSubtle: "120 115 108",
+  border: "220 215 205",
+  borderSubtle: "232 228 220",
+  surface: "255 253 249",
+  surfaceHover: "250 248 243",
+  accent: "30 58 138",
+};
 
 const themes: Theme[] = [
   {
@@ -141,44 +156,74 @@ const themes: Theme[] = [
 export function ThemeSwitcher() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState("default");
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
-  useEffect(() => {
-    // Load saved theme
-    const saved = localStorage.getItem("portfolio-theme");
-    if (saved) {
-      setCurrentTheme(saved);
-      applyTheme(saved);
-    }
-
-    // Listen for open event from command palette
-    const handleOpen = () => setIsOpen(true);
-    window.addEventListener("open-theme-switcher", handleOpen);
-    return () => window.removeEventListener("open-theme-switcher", handleOpen);
-  }, []);
+  // Apply colors to CSS variables
+  const applyColors = (colors: typeof LIGHT_THEME) => {
+    const root = document.documentElement;
+    root.style.setProperty("--color-background", colors.background);
+    root.style.setProperty("--color-background-secondary", colors.backgroundSecondary);
+    root.style.setProperty("--color-background-tertiary", colors.backgroundTertiary);
+    root.style.setProperty("--color-foreground", colors.foreground);
+    root.style.setProperty("--color-foreground-muted", colors.foregroundMuted);
+    root.style.setProperty("--color-foreground-subtle", colors.foregroundSubtle);
+    root.style.setProperty("--color-border", colors.border);
+    root.style.setProperty("--color-border-subtle", colors.borderSubtle);
+    root.style.setProperty("--color-surface", colors.surface);
+    root.style.setProperty("--color-surface-hover", colors.surfaceHover);
+    root.style.setProperty("--theme-accent", colors.accent);
+  };
 
   const applyTheme = (themeId: string) => {
     const theme = themes.find((t) => t.id === themeId);
     if (!theme) return;
 
-    const root = document.documentElement;
-    const c = theme.colors;
-
-    // Set all color CSS variables (RGB triplet format)
-    root.style.setProperty("--color-background", c.background);
-    root.style.setProperty("--color-background-secondary", c.backgroundSecondary);
-    root.style.setProperty("--color-background-tertiary", c.backgroundTertiary);
-    root.style.setProperty("--color-foreground", c.foreground);
-    root.style.setProperty("--color-foreground-muted", c.foregroundMuted);
-    root.style.setProperty("--color-foreground-subtle", c.foregroundSubtle);
-    root.style.setProperty("--color-border", c.border);
-    root.style.setProperty("--color-border-subtle", c.borderSubtle);
-    root.style.setProperty("--color-surface", c.surface);
-    root.style.setProperty("--color-surface-hover", c.surfaceHover);
-    root.style.setProperty("--theme-accent", c.accent);
-
-    // Track which color theme is active
-    root.setAttribute("data-color-theme", themeId);
+    applyColors(theme.colors);
+    document.documentElement.setAttribute("data-color-theme", themeId);
   };
+
+  useEffect(() => {
+    // Check initial mode
+    const isLight = document.documentElement.classList.contains("light");
+    setIsDarkMode(!isLight);
+
+    // Load saved color theme (only apply if in dark mode)
+    const saved = localStorage.getItem("portfolio-theme");
+    if (saved && !isLight) {
+      setCurrentTheme(saved);
+      applyTheme(saved);
+    } else if (isLight) {
+      applyColors(LIGHT_THEME);
+    }
+
+    // Listen for open event from command palette
+    const handleOpen = () => setIsOpen(true);
+    window.addEventListener("open-theme-switcher", handleOpen);
+
+    // Listen for light/dark mode changes
+    const handleModeChange = (e: CustomEvent<{ theme: string }>) => {
+      const isLight = e.detail.theme === "light";
+      setIsDarkMode(!isLight);
+
+      if (isLight) {
+        // In light mode, apply light theme colors
+        applyColors(LIGHT_THEME);
+        document.documentElement.setAttribute("data-color-theme", "light");
+      } else {
+        // In dark mode, restore saved color theme
+        const savedTheme = localStorage.getItem("portfolio-theme") || "default";
+        setCurrentTheme(savedTheme);
+        applyTheme(savedTheme);
+      }
+    };
+
+    window.addEventListener("theme-mode-change", handleModeChange as EventListener);
+
+    return () => {
+      window.removeEventListener("open-theme-switcher", handleOpen);
+      window.removeEventListener("theme-mode-change", handleModeChange as EventListener);
+    };
+  }, []);
 
   const selectTheme = (themeId: string) => {
     haptic("selection");
@@ -187,9 +232,12 @@ export function ThemeSwitcher() {
     localStorage.setItem("portfolio-theme", themeId);
   };
 
+  // Hide the color theme button in light mode
+  if (!isDarkMode) return null;
+
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button - Only shown in dark mode */}
       <motion.button
         onClick={() => {
           haptic("light");
@@ -198,7 +246,10 @@ export function ThemeSwitcher() {
         className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-background-secondary border border-border shadow-lg hover:bg-background-tertiary transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        title="Change theme"
+        title="Change color theme (dark mode only)"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
       >
         <Palette className="w-5 h-5 text-foreground-muted" />
       </motion.button>
@@ -223,7 +274,10 @@ export function ThemeSwitcher() {
             >
               {/* Header */}
               <div className="flex items-center justify-between px-4 py-3 border-b border-border">
-                <h3 className="font-medium text-foreground">Theme</h3>
+                <div className="flex items-center gap-2">
+                  <Moon className="w-4 h-4 text-foreground-subtle" />
+                  <h3 className="font-medium text-foreground">Dark Mode Themes</h3>
+                </div>
                 <button
                   onClick={() => setIsOpen(false)}
                   className="p-1 text-foreground-subtle hover:text-foreground transition-colors"

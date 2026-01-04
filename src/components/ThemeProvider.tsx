@@ -35,6 +35,9 @@ export function ThemeProvider({ children, defaultTheme = "dark" }: ThemeProvider
     const root = document.documentElement;
     root.classList.remove("light", "dark");
     root.classList.add(t);
+
+    // Dispatch custom event for theme change (used by ThemeSwitcher)
+    window.dispatchEvent(new CustomEvent("theme-mode-change", { detail: { theme: t } }));
   };
 
   useEffect(() => {
