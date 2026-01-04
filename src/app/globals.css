@@ -582,7 +582,8 @@ svg .animate-rotate-slow {
    New York Times-inspired reading experience
    ============================================ */
 
-.prose-article {
+.prose-article,
+.essay-content {
   font-family: var(--font-serif), Georgia, "Times New Roman", serif !important;
   font-size: 20px !important;
   line-height: 1.8 !important;
@@ -596,7 +597,8 @@ svg .animate-rotate-slow {
   text-rendering: optimizeLegibility !important;
 }
 
-.prose-article > * + * {
+.prose-article > * + *,
+.essay-content > * + * {
   margin-top: 1.5em !important;
 }
 

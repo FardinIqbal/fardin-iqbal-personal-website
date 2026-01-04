@@ -18,7 +18,7 @@ const navItems: NavItem[] = [
   { icon: <Home className="w-5 h-5" />, label: "Home", href: "/", isSection: false },
   { icon: <Briefcase className="w-5 h-5" />, label: "Experience", href: "#experience", isSection: true },
   { icon: <FolderOpen className="w-5 h-5" />, label: "Projects", href: "#projects", isSection: true },
-  { icon: <BookOpen className="w-5 h-5" />, label: "Blog", href: "/blog", isSection: false },
+  { icon: <BookOpen className="w-5 h-5" />, label: "Essays", href: "/essays", isSection: false },
   { icon: <Mail className="w-5 h-5" />, label: "Contact", href: "#contact", isSection: true },
 ];
 
@@ -29,10 +29,10 @@ export function MobileBottomNav() {
   const pathname = usePathname();
   const router = useRouter();
 
-  // Show on home page and all blog pages (including /blog/[slug])
+  // Show on home page and all essay pages (including /essays/[slug])
   const isHomePage = pathname === "/";
-  const isBlogPage = pathname.startsWith("/blog");
-  const showNav = isHomePage || isBlogPage;
+  const isEssaysPage = pathname.startsWith("/essays");
+  const showNav = isHomePage || isEssaysPage;
 
   // Dispatch custom event when visibility changes
   useEffect(() => {
@@ -126,7 +126,7 @@ export function MobileBottomNav() {
               {navItems.map((item) => {
                 const isActive =
                   (item.href === "/" && isHomePage && !activeSection) ||
-                  (item.href === "/blog" && isBlogPage) ||
+                  (item.href === "/essays" && isEssaysPage) ||
                   (item.isSection === true && activeSection === item.href.replace("#", ""));
 
                 return (

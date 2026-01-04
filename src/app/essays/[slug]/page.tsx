@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
-import { ImmersiveBlogClient } from "@/components/immersive/ImmersiveBlogClient";
+import { EssayPage } from "@/components/essays/EssayPage";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import Script from "next/script";
 
 interface Props {
@@ -32,7 +34,7 @@ function generateArticleJsonLd(post: {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://fardin-portfolio-beryl.vercel.app/blog/${post.slug}`,
+      "@id": `https://fardin-portfolio-beryl.vercel.app/essays/${post.slug}`,
     },
   };
 }
@@ -47,7 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getPostBySlug(slug);
 
   if (!post) {
-    return { title: "Post Not Found" };
+    return { title: "Essay Not Found" };
   }
 
   return {
@@ -63,7 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function EssayPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
 
@@ -85,15 +87,16 @@ export default async function BlogPostPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ImmersiveBlogClient
+      <Header />
+      <EssayPage
         title={post.title}
         description={post.description}
         date={post.date}
         readingTime={post.readingTime}
         tags={post.tags}
         compiledContent={post.compiledContent}
-        rawContent={post.content}
       />
+      <Footer />
     </>
   );
 }

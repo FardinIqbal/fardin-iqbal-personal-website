@@ -72,11 +72,11 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       category: "navigation",
     },
     {
-      id: "blog",
-      label: "Go to Blog",
+      id: "essays",
+      label: "Go to Essays",
       icon: <BookOpen className="w-4 h-4" />,
-      action: () => { router.push("/blog"); setIsOpen(false); },
-      keywords: ["blog", "writing", "articles", "posts"],
+      action: () => { router.push("/essays"); setIsOpen(false); },
+      keywords: ["essays", "blog", "writing", "articles", "posts"],
       category: "navigation",
     },
     {

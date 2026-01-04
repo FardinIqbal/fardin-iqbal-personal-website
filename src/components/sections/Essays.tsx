@@ -18,7 +18,7 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
       className="group"
     >
-      <Link href={`/blog/${post.slug}`} className="block">
+      <Link href={`/essays/${post.slug}`} className="block">
         <div className="relative py-8 border-b border-border/30 hover:border-border/60 transition-colors">
           {/* Date and reading time */}
           <div className="flex items-center gap-4 mb-4">
@@ -56,9 +56,18 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
   );
 }
 
+// Manually curated featured essay slugs (in display order)
+const FEATURED_ESSAY_SLUGS = [
+  "why-love-needs-no-reason",
+  "building-prometheus",
+  "grappler-to-engineer",
+];
+
 export function EssaysSection({ posts }: EssaysSectionProps) {
-  // Show only the 3 most recent essays
-  const featuredPosts = posts.slice(0, 3);
+  // Show manually curated featured essays
+  const featuredPosts = FEATURED_ESSAY_SLUGS
+    .map(slug => posts.find(p => p.slug === slug))
+    .filter((p): p is BlogPost => p !== undefined);
 
   return (
     <section id="essays" className="py-24 md:py-32 bg-background-secondary relative overflow-hidden">
@@ -112,7 +121,7 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
           transition={{ duration: 0.5, delay: 0.3 }}
         >
           <Link
-            href="/blog"
+            href="/essays"
             className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground-muted transition-colors group"
           >
             View all essays
