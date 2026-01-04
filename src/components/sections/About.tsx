@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Code2, Lightbulb } from "lucide-react";
 import type { Profile } from "@/lib/content";
-import { NoiseOrb } from "@/components/ui/NoiseOrb";
 
 interface AboutProps {
   profile: Profile;
@@ -29,40 +28,15 @@ export function About({ profile }: AboutProps) {
           </p>
         </motion.div>
 
-        {/* Profile Picture + First Paragraph - Side by Side */}
+        {/* Bio paragraphs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-            {/* Profile Picture - floats left on desktop */}
-            <div className="flex-shrink-0 mx-auto md:mx-0">
-              <NoiseOrb size={200} />
-            </div>
-
-            {/* First two paragraphs beside the picture */}
-            <div className="space-y-6 flex-1">
-              {profile.bio.slice(0, 2).map((paragraph, index) => (
-                <p key={index} className="text-foreground-muted font-serif text-lg leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Remaining paragraphs - full width */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
           className="space-y-6 mb-12"
         >
-          {profile.bio.slice(2).map((paragraph, index) => (
+          {profile.bio.map((paragraph, index) => (
             <p key={index} className="text-foreground-muted font-serif text-lg leading-relaxed">
               {paragraph}
             </p>
