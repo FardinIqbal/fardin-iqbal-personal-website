@@ -111,7 +111,7 @@ export function Header() {
                 Fardin Iqbal
               </Link>
               <div className="hidden sm:block">
-                <AvailabilityStatus status="building" message="Building Neo Provider" />
+                <AvailabilityStatus status="building" message="VerseCraft" />
               </div>
             </div>
 

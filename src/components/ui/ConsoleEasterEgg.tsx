@@ -117,10 +117,9 @@ Available commands:
       ],
       projects: [
         "Prometheus AI",
-        "Neo Provider",
+        "VerseCraft",
         "LocalElo",
         "Dynamic Memory Allocator",
-        "VerseCraft",
       ],
       quote: () => {
         const quotes = [

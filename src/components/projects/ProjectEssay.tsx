@@ -119,7 +119,7 @@ const projectEssays: Record<string, {
     sections: [
       {
         type: 'lead',
-        content: "Early Intervention therapists serve the most vulnerable patients - children ages 0-3 with developmental delays. They travel to homes and daycares, often in areas with poor cell coverage, using paper forms that haven't changed since the 1990s. Neo Provider is rebuilding their entire workflow for the mobile age."
+        content: "Early Intervention therapists serve the most vulnerable patients - children ages 0-3 with developmental delays. They travel to homes and daycares, often in areas with poor cell coverage, using paper forms that haven't changed since the 1990s. VerseCraft is rebuilding their entire workflow for the mobile age."
       },
       {
         type: 'paragraph',
@@ -145,7 +145,7 @@ const projectEssays: Record<string, {
       },
       {
         type: 'paragraph',
-        content: "Neo Provider is built as a TypeScript monorepo with three main packages: a React Native mobile app (via Expo), a tRPC API server, and a shared database layer using Drizzle ORM with PostgreSQL. The architecture prioritizes offline-first operation and type safety across the entire stack."
+        content: "VerseCraft is built as a TypeScript monorepo with three main packages: a React Native mobile app (via Expo), a tRPC API server, and a shared database layer using Drizzle ORM with PostgreSQL. The architecture prioritizes offline-first operation and type safety across the entire stack."
       },
       {
         type: 'card',

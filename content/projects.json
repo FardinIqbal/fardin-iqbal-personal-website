@@ -22,8 +22,8 @@
       "image": "/images/projects/prometheus.svg"
     },
     {
-      "id": "neo-provider",
-      "title": "Neo Provider",
+      "id": "versecraft-health",
+      "title": "VerseCraft Health",
       "category": "web",
       "featured": true,
       "year": "2025",
@@ -32,7 +32,7 @@
       "tech": ["TypeScript", "React Native", "tRPC", "Drizzle ORM", "PostgreSQL", "Expo"],
       "github": null,
       "live": null,
-      "image": "/images/projects/neo-provider.svg"
+      "image": "/images/projects/versecraft.png"
     },
     {
       "id": "localelo",
