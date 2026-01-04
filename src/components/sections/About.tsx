@@ -37,9 +37,9 @@ export function About({ profile }: AboutProps) {
   ];
 
   return (
-    <section id="about" className="py-32 bg-background-secondary relative overflow-hidden">
-      {/* Subtle background accent */}
-      <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.02] pointer-events-none">
+    <section id="about" className="py-20 md:py-32 bg-background-secondary relative overflow-hidden">
+      {/* Subtle background accent - hidden on mobile */}
+      <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.02] pointer-events-none hidden md:block">
         <svg viewBox="0 0 400 400" className="w-full h-full">
           <defs>
             <pattern id="aboutGrid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -51,8 +51,82 @@ export function About({ profile }: AboutProps) {
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Two column layout on desktop */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        {/* Mobile Layout */}
+        <div className="lg:hidden">
+          {/* Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mb-8"
+          >
+            <span className="text-xs font-mono text-foreground-subtle uppercase tracking-widest mb-3 block">
+              About
+            </span>
+            <h2 className="text-3xl font-display font-semibold text-foreground tracking-tight leading-tight">
+              Building software that matters
+            </h2>
+          </motion.div>
+
+          {/* Bio */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="space-y-5 mb-10"
+          >
+            {profile.bio.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-foreground-muted font-serif text-base leading-relaxed"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </motion.div>
+
+          {/* Info cards - 2x2 grid on mobile */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-2 gap-3 mb-8"
+          >
+            {cards.map((card, i) => (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: 0.25 + i * 0.05 }}
+                className="p-4 rounded-xl bg-background/50 border border-border"
+              >
+                <card.Icon className="w-5 h-5 text-foreground-subtle mb-2" />
+                <p className="text-sm text-foreground font-medium leading-tight">{card.line1}</p>
+                <p className="text-xs text-foreground-subtle mt-1">{card.line2}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* CTA */}
+          <motion.a
+            href="#contact"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.4 }}
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground"
+          >
+            Get in touch
+            <ArrowUpRight className="w-4 h-4" />
+          </motion.a>
+        </div>
+
+        {/* Desktop Layout - Two columns */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-16">
           {/* Left column - Header + Cards */}
           <div className="lg:col-span-4">
             <motion.div
@@ -62,12 +136,11 @@ export function About({ profile }: AboutProps) {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="sticky top-32"
             >
-              {/* Section label */}
               <span className="text-xs font-mono text-foreground-subtle uppercase tracking-widest mb-4 block">
                 About
               </span>
 
-              <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 tracking-tight leading-tight">
+              <h2 className="text-5xl font-display font-semibold text-foreground mb-8 tracking-tight leading-tight">
                 Building software that matters
               </h2>
 
@@ -93,7 +166,6 @@ export function About({ profile }: AboutProps) {
                 ))}
               </div>
 
-              {/* CTA */}
               <motion.a
                 href="#contact"
                 initial={{ opacity: 0 }}
@@ -119,7 +191,7 @@ export function About({ profile }: AboutProps) {
             >
               {/* First paragraph with drop cap */}
               {profile.bio.length > 0 && (
-                <p className="text-foreground-muted font-serif text-lg md:text-xl leading-relaxed first-letter:text-5xl first-letter:font-display first-letter:font-semibold first-letter:text-foreground first-letter:mr-3 first-letter:float-left first-letter:leading-none">
+                <p className="text-foreground-muted font-serif text-xl leading-relaxed first-letter:text-5xl first-letter:font-display first-letter:font-semibold first-letter:text-foreground first-letter:mr-3 first-letter:float-left first-letter:leading-none">
                   {profile.bio[0]}
                 </p>
               )}
@@ -147,7 +219,7 @@ export function About({ profile }: AboutProps) {
                 className="w-16 h-px bg-border origin-left"
               />
 
-              {/* Quote or tagline */}
+              {/* Quote */}
               <motion.blockquote
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
