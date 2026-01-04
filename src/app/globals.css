@@ -71,7 +71,7 @@
   --color-background-tertiary: 38 35 31;
   --color-foreground: 245 243 238;        /* Warm white */
   --color-foreground-muted: 185 180 172;
-  --color-foreground-subtle: 130 125 118;
+  --color-foreground-subtle: 156 151 143; /* Improved contrast: was 130 125 118, now passes WCAG AA */
   --color-border: 55 50 45;
   --color-border-subtle: 42 38 34;
   --color-surface: 24 22 19;

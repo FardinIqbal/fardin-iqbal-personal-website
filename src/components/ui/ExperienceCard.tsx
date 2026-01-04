@@ -13,6 +13,15 @@ interface ExperienceCardProps {
 export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const handleToggle = () => setIsExpanded(!isExpanded);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleToggle();
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -35,8 +44,13 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
 
       {/* Card */}
       <motion.div
-        onClick={() => setIsExpanded(!isExpanded)}
-        className="cursor-pointer rounded-lg bg-background border border-border p-5 transition-all duration-300 hover:border-foreground/20 hover:shadow-sm"
+        role="button"
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-controls={`experience-details-${experience.id}`}
+        onClick={handleToggle}
+        onKeyDown={handleKeyDown}
+        className="cursor-pointer rounded-lg bg-background border border-border p-5 transition-all duration-300 hover:border-foreground/20 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
         layout
         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
@@ -76,6 +90,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
         <AnimatePresence>
           {isExpanded && (
             <motion.div
+              id={`experience-details-${experience.id}`}
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, ReactNode } from "react";
+import { useRef, useState, useEffect, ReactNode } from "react";
 import { motion, useSpring } from "framer-motion";
 
 interface MagneticButtonProps {
@@ -18,12 +18,18 @@ export function MagneticButton({
 }: MagneticButtonProps) {
   const ref = useRef<HTMLButtonElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const x = useSpring(0, { stiffness: 200, damping: 20 });
   const y = useSpring(0, { stiffness: 200, damping: 20 });
 
+  // Detect touch device on mount
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!ref.current) return;
+    if (isTouchDevice || !ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -41,6 +47,20 @@ export function MagneticButton({
     x.set(0);
     y.set(0);
   };
+
+  // On touch devices, render a simpler button without magnetic effect
+  if (isTouchDevice) {
+    return (
+      <motion.button
+        ref={ref}
+        className={className}
+        onClick={onClick}
+        whileTap={{ scale: 0.95 }}
+      >
+        {children}
+      </motion.button>
+    );
+  }
 
   return (
     <motion.button
@@ -82,12 +102,18 @@ export function MagneticLink({
 }: MagneticLinkProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const x = useSpring(0, { stiffness: 200, damping: 20 });
   const y = useSpring(0, { stiffness: 200, damping: 20 });
 
+  // Detect touch device on mount
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!ref.current) return;
+    if (isTouchDevice || !ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -105,6 +131,21 @@ export function MagneticLink({
     x.set(0);
     y.set(0);
   };
+
+  // On touch devices, render a simpler link without magnetic effect
+  if (isTouchDevice) {
+    return (
+      <a
+        ref={ref}
+        href={href}
+        target={target}
+        className={className}
+        style={{ display: "inline-block" }}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
     <motion.a
