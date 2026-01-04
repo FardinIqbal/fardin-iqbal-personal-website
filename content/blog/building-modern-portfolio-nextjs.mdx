@@ -1,113 +1,168 @@
 ---
 title: "Building a Modern Portfolio with Next.js"
 date: "2024-01-15"
-description: "How Fardin Iqbal rebuilt his portfolio from scratch using Next.js, Tailwind CSS, and Framer Motion—with principles that extend beyond the code."
+description: "Reflections on rebuilding a personal portfolio from scratch—on the philosophy of self-presentation, the craft of web development, and what it means to make software that represents its creator."
 image: "/images/blog/blog-nextjs.png"
-tags: ["technical", "Next.js", "React", "Tailwind CSS", "Framer Motion", "Web Development"]
+tags: ["Technical", "Next.js", "Design", "Philosophy", "Web Development"]
 ---
 
 # Building a Modern Portfolio with Next.js
 
-When Fardin Iqbal decided to rebuild his portfolio, he knew he wanted something that would stand apart. Not another static page with a list of projects, but something that felt alive, responsive, and memorable.
+I have been thinking about the curious problem of self-presentation in software.
 
-The result is a site that reflects both technical capability and design sensibility—a portfolio that functions as its own best project.
+A portfolio website is a strange artifact. It is code that represents a person. It is a system that must communicate competence through its own construction. The medium is, in an unusually direct way, the message. A portfolio built with outdated technology or poor design undermines whatever claims its content might make.
 
-## Why Next.js
+The philosopher Erving Goffman studied self-presentation as a form of performance—the ways humans strategically manage impressions in social situations.[^1] A portfolio extends this performance into the digital realm. Every design choice, every animation, every architectural decision communicates something about its creator.
 
-Next.js brings features that make it ideal for portfolio sites:
-
-- **App Router**: The new routing system is intuitive and powerful, allowing clean URL structures
-- **Server Components**: Better performance out of the box, with less JavaScript shipped to the client
-- **Static Export**: Perfect for deploying to any host without server infrastructure
-- **Turbopack**: Lightning-fast development builds that keep the feedback loop tight
-
-## The Technical Stack
-
-The architecture is deliberately focused:
-
-```typescript
-const stack = {
-  framework: "Next.js",
-  styling: "Tailwind CSS",
-  animations: "Framer Motion",
-  icons: "Lucide React",
-  fonts: ["Inter", "JetBrains Mono"],
-  deployment: "Vercel"
-};
-```
-
-Each choice serves a purpose. Tailwind enables rapid iteration without fighting CSS specificity. Framer Motion provides declarative animations that remain performant. Lucide offers consistent iconography without bloat.
-
-## Motion Design Philosophy
-
-Animations should enhance, not distract. Every motion effect in the portfolio serves a specific purpose:
-
-**Scroll-triggered reveals** — Content fades in as the user scrolls, creating a sense of discovery rather than presenting everything at once.
-
-**Hover interactions** — Cards lift and glow on hover, providing tactile feedback that confirms interactivity.
-
-**Magnetic buttons** — Subtle pull effects on calls-to-action draw attention without demanding it.
-
-**Parallax backgrounds** — Depth without dizziness, creating dimensionality that supports rather than overwhelms the content.
-
-## The Custom Cursor
-
-One of the more distinctive additions is a custom cursor—a simple effect that adds personality:
-
-```tsx
-function CustomCursor() {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const updatePosition = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener("mousemove", updatePosition);
-    return () => window.removeEventListener("mousemove", updatePosition);
-  }, []);
-
-  return (
-    <motion.div
-      className="fixed pointer-events-none z-50"
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", damping: 30 }}
-    />
-  );
-}
-```
-
-The spring physics make the cursor feel organic rather than mechanical.
-
-## Content Management
-
-Rather than implementing a CMS, the portfolio uses JSON files for content. This keeps things simple and version-controlled:
-
-```
-content/
-├── profile.json     # About, social links, bio
-├── projects.json    # Project details with categories
-├── experience.json  # Work history
-└── books.json       # Reading list
-```
-
-This approach treats content as code—versioned, reviewable, and deployable through the same pipeline as the rest of the application.
-
-## Principles Learned
-
-**Start with mobile.** Responsive design is easier when one designs mobile-first. The constraints force clarity.
-
-**Performance matters.** Every animation should run at 60fps. Users notice when things feel sluggish, even if they cannot articulate why.
-
-**Accessibility is not optional.** A portfolio that sacrifices usability for aesthetics fails at its primary purpose—communicating capability.
-
-**Ship it.** A deployed portfolio beats a perfect local one. Iteration happens after launch.
-
-## Ongoing Development
-
-The portfolio continues to evolve. Recent additions include a blog with syntax highlighting, a dark/light theme toggle, and an admin dashboard for content management.
-
-The source code is available on [GitHub](https://github.com/FardinIqbal/FardinIqbal.github.io) for those interested in the implementation details.
+This essay reflects on building such an artifact.
 
 ---
 
-*Fardin's portfolio represents an ongoing experiment in balancing technical sophistication with clear communication—a challenge that mirrors software development itself.*
+## The Design Philosophy
+
+The guiding question was: What should a portfolio communicate?
+
+Technical competence, certainly. Aesthetic sensibility. Attention to detail. The ability to ship complete, polished work rather than perpetual works-in-progress.
+
+But also something less tangible: taste. The philosopher David Hume argued that aesthetic judgments, while subjective, are not arbitrary—that trained sensibility can distinguish better from worse, even when the criteria resist explicit articulation.[^2]
+
+A portfolio should embody good taste in a way that does not require explanation. Visitors should *feel* that the design works, even if they cannot specify why.
+
+The aesthetic draws from what might be called the Vercel school of design: dark backgrounds, generous whitespace, subtle gradients, restrained animation. This style has become dominant in developer portfolios for good reasons—it photographs well, performs well, and signals membership in a particular technical community.
+
+But adherence to convention requires care. Too close, and the portfolio becomes generic. Too far, and it signals poor judgment. The constraint is to work within an idiom while finding distinctive expression.
+
+---
+
+## The Technical Foundation
+
+The choice of Next.js was not difficult. The framework has become the default for React applications that require both static generation and server capabilities.
+
+Several features made it particularly suitable:
+
+**App Router** provides a file-system-based routing model that maps cleanly to the mental model of a portfolio. Each project gets a route. Each blog post gets a route. The URL structure is intuitive and shareable.
+
+**Server Components** enable a separation between interactive and static content. The animations require JavaScript; the content does not. Server components render the static portions without shipping unnecessary code to the client.
+
+**Turbopack** accelerates development iteration. When tweaking animations or adjusting spacing, fast feedback loops matter. Waiting for rebuilds disrupts the creative flow that good design requires.
+
+**Image Optimization** handles the various images—project screenshots, blog headers, profile photos—with automatic resizing and format selection. Performance is handled by the framework rather than requiring manual optimization.
+
+The architect Christopher Alexander wrote of pattern languages—recurring solutions to design problems that can be composed into larger wholes.[^3] A framework like Next.js provides a pattern language for web applications. The patterns are not arbitrary; they encode accumulated wisdom about how web applications should be structured.
+
+---
+
+## Animation Philosophy
+
+Motion design requires particular care in portfolios. The temptation is to demonstrate capability through elaborate effects. This temptation should usually be resisted.
+
+The animator Frank Thomas, one of Disney's "Nine Old Men," distinguished between motion that serves story and motion that serves spectacle:[^4]
+
+> "Animation offers a medium of storytelling and visual entertainment which can bring pleasure and information to people of all ages everywhere in the world... The technique should not be noticeable, should not distract from the story."
+
+Applied to web design, the principle suggests that animations should serve communication rather than demonstrating technical skill. A subtle hover effect confirms that an element is interactive. A gentle fade-in creates hierarchy by revealing content in sequence. A smooth page transition maintains spatial continuity.
+
+The animations in this portfolio follow this philosophy. Framer Motion provides the implementation, but the philosophy precedes the technology. Every animation answers a question: What is this motion communicating? If the answer is unclear, the animation should be reconsidered.
+
+Specific choices:
+
+**Scroll-triggered reveals** create a sense of discovery. Content appears as the user scrolls rather than presenting everything at once. This creates pacing—a rhythm of revelation that makes the experience feel curated rather than dumped.
+
+**Hover interactions** provide feedback. Cards lift slightly. Links shift color. These effects confirm interactivity without requiring the user to click experimentally.
+
+**Page transitions** maintain context. When navigating between pages, content fades smoothly rather than snapping. The user understands that they are moving within a unified space rather than loading entirely separate documents.
+
+---
+
+## Content Architecture
+
+The portfolio treats content as data rather than embedded markup.
+
+```
+content/
+├── profile.json     # Bio, social links, identity
+├── projects.json    # Project details with metadata
+├── experience.json  # Work history
+├── books.json       # Reading list
+└── blog/            # MDX files for blog posts
+```
+
+This separation provides several benefits:
+
+**Version control** tracks content changes alongside code changes. When a project description is updated, the change appears in git history with the same fidelity as a code change.
+
+**Type safety** extends to content. TypeScript interfaces define the shape of project data, experience records, and blog frontmatter. The compiler catches schema violations before they reach users.
+
+**Portability** keeps options open. If the rendering layer changes—a different framework, a different approach—the content remains in human-readable, technology-agnostic formats.
+
+The computer scientist Niklaus Wirth titled his influential book *Algorithms + Data Structures = Programs*.[^5] The formulation applies to content as well. The portfolio is algorithms (rendering logic) plus data structures (content files). Separating them makes both easier to reason about.
+
+---
+
+## The Typography Question
+
+Typography deserves particular attention because it carries so much communicative weight.
+
+The designer Erik Spiekermann argues that typography is the foundational design decision:[^6]
+
+> "Type is a visual representation of language. The wrong typeface for your message is like the wrong outfit for an occasion—it sends signals you didn't intend."
+
+The portfolio uses Inter for body text and JetBrains Mono for code. Inter is a neutral sans-serif designed for screens, with carefully optimized letter-spacing and a large x-height for readability. JetBrains Mono is a programming font with ligatures and clear distinction between similar characters.
+
+The choices are deliberately conservative. Novel or decorative typefaces might make a stronger aesthetic statement but would risk distracting from the content. The typography should be invisible in the sense that Bringhurst intends—serving communication without calling attention to itself.
+
+---
+
+## Performance as Values
+
+The portfolio loads quickly. This is not an accident; it is a design decision with philosophical implications.
+
+The web has become slower as it has become more capable. The median page weight has grown substantially over the past decade. Many sites ship megabytes of JavaScript before displaying a single word of content.
+
+This is a values choice masquerading as a technical necessity. Slow sites signal that the developer's convenience or the advertiser's metrics matter more than the user's time.
+
+A portfolio that loads quickly makes the opposite statement. It says: I respect your attention. I have done the work to ensure that my site does not waste your time. The performance itself is a form of communication.
+
+The implementation involves standard techniques: server-side rendering for initial content, code splitting for JavaScript, optimized images, minimal third-party dependencies. Nothing exotic. The difficulty is not technical; it is disciplinary—the willingness to reject features that would slow the site down.
+
+---
+
+## What Was Learned
+
+Building the portfolio crystallized several principles:
+
+**Self-presentation is design.** The choices that shape how visitors perceive the creator are design choices, whether made consciously or by default. Better to make them consciously.
+
+**Constraints focus creativity.** The decision to build a personal portfolio rather than a general-purpose content management system eliminated options and forced decisions. The constraints were productive.
+
+**Details compound.** No single spacing adjustment, color choice, or animation timing matters much in isolation. Together, they create the difference between polished and amateur. The craft is in the accumulation of small decisions.
+
+**Ship imperfect work.** A deployed portfolio beats a perfect local one. The site continues to evolve—new blog posts, refined animations, updated content. Deployment is a waypoint, not a destination.
+
+---
+
+## The Ongoing Project
+
+The portfolio continues to evolve. Recent additions include an expanded blog with syntax highlighting, a reading list that tracks books and articles, and various animation refinements.
+
+Future possibilities include a more sophisticated project filtering system, integration with external data sources like GitHub activity, and experiments with three-dimensional elements.
+
+But the core remains stable: a clean, performant site that communicates who its creator is and what he builds. The code serves the communication. The communication serves the creator. The creator continues to learn and build.
+
+The portfolio is never finished. That is part of the point.
+
+---
+
+## Bibliography
+
+[^1]: Goffman, Erving. *The Presentation of Self in Everyday Life*. Anchor Books, 1959.
+
+[^2]: Hume, David. "Of the Standard of Taste." *Four Dissertations*. A. Millar, 1757.
+
+[^3]: Alexander, Christopher, Sara Ishikawa, and Murray Silverstein. *A Pattern Language: Towns, Buildings, Construction*. Oxford University Press, 1977.
+
+[^4]: Thomas, Frank, and Ollie Johnston. *The Illusion of Life: Disney Animation*. Disney Editions, 1981, p. 15.
+
+[^5]: Wirth, Niklaus. *Algorithms + Data Structures = Programs*. Prentice-Hall, 1976.
+
+[^6]: Spiekermann, Erik. *Stop Stealing Sheep & Find Out How Type Works*. Adobe Press, 1993, p. 27.

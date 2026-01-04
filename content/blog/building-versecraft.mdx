@@ -1,161 +1,169 @@
 ---
-title: "Building VerseCraft: A Healthcare Startup from First Principles"
+title: "Building VerseCraft: Where Code Meets Poetry"
 date: "2025-12-28"
-description: "The journey of building a healthcare SaaS platform for Early Intervention therapists—from identifying the problem to architecting the solution."
-image: "/images/blog/neo-provider.png"
-tags: ["Startup", "Healthcare", "Full-Stack", "Technical", "Entrepreneurship"]
+description: "An account of building a literary platform that honors the written word—on the relationship between technical craft and artistic sensibility."
+image: "/images/blog/versecraft.png"
+tags: ["Technical", "Design", "Full-Stack", "Philosophy", "Art"]
 ---
 
-# Building VerseCraft: A Healthcare Startup from First Principles
+# Building VerseCraft: Where Code Meets Poetry
 
-Fardin Iqbal didn't set out to build a healthcare company. He set out to solve a problem for people who needed solving.
+I have been contemplating the relationship between form and content—specifically, whether the medium through which art is presented can itself become a form of art.
 
-VerseCraft is a SaaS platform designed for Early Intervention therapists—the professionals who work with children aged 0-3 who have developmental delays. These therapists spend their days helping kids hit milestones, and their nights drowning in paperwork.
+VerseCraft began as a question: What would it look like to build a web application that honored poetry the way a well-designed book honors its text? Not a platform that merely displays poems, but one where the interface itself participates in the aesthetic experience.
 
-This is the story of how that problem became a startup.
-
-## Finding the Problem
-
-The Early Intervention space is peculiar. The therapists—speech pathologists, occupational therapists, physical therapists—are often independent contractors working with multiple agencies. Each agency has its own systems, its own documentation requirements, its own way of doing things.
-
-The result is chaos. A single therapist might:
-
-- Log sessions in three different portals
-- Track billing across multiple spreadsheets
-- Communicate with agencies via email, text, and phone
-- Store clinical notes in yet another system
-
-Fardin discovered this world through connections in the healthcare space. The more he learned, the more he recognized a classic software problem: fragmented workflows with no unified solution.
-
-## The Insight
-
-The insight that became VerseCraft was this: what if there was a single platform that handled everything a therapist needs?
-
-Not another portal to add to the collection. A replacement for all of them.
-
-- **Session documentation**: Clinical notes that meet regulatory requirements
-- **Scheduling**: Calendar management across multiple agencies and clients
-- **Billing**: Track services, generate invoices, reconcile payments
-- **Communication**: Unified messaging with agencies and families
-- **Compliance**: Built-in safeguards for HIPAA and state requirements
-
-One platform. One login. One source of truth.
-
-## The Architecture
-
-Building VerseCraft required decisions that would ripple through everything else.
-
-### The Monorepo Approach
-
-Fardin chose a monorepo structure with three main packages:
-
-```
-neo-provider/
-├── apps/
-│   ├── mobile/     # React Native (Expo)
-│   ├── api/        # tRPC backend
-│   └── admin/      # Web dashboard
-├── packages/
-│   ├── db/         # Drizzle ORM schemas
-│   └── shared/     # Types, utilities
-```
-
-The reasoning: therapists work in the field. They need mobile-first. But agencies need web dashboards for management. Both need to talk to the same API, share the same types, use the same database.
-
-A monorepo with shared packages makes this tractable.
-
-### Why tRPC
-
-The choice of tRPC over REST or GraphQL came down to developer experience. With a small team (currently, a team of one), the ability to share types end-to-end without manual synchronization is transformative.
-
-Define a procedure on the backend:
-
-```typescript
-export const sessionRouter = router({
-  create: protectedProcedure
-    .input(sessionSchema)
-    .mutation(async ({ input, ctx }) => {
-      return ctx.db.insert(sessions).values({
-        ...input,
-        therapistId: ctx.user.id,
-      });
-    }),
-});
-```
-
-And the frontend gets full type safety automatically. No codegen. No API documentation to maintain. The types are the documentation.
-
-### Why Drizzle
-
-For the ORM, Fardin chose Drizzle over Prisma. The reasoning:
-
-1. **SQL-like syntax**: Drizzle's query builder feels like writing SQL, which makes complex queries intuitive
-2. **Lightweight**: No heavy client, faster cold starts
-3. **Type inference**: Schemas define types that flow through the entire application
-
-The schema design itself required careful thought. Early Intervention has specific domain concepts:
-
-- **Therapists** work with multiple **agencies**
-- **Children** are assigned to therapists through **authorizations**
-- **Sessions** document clinical work and tie to billing
-- **Service codes** determine reimbursement rates
-
-Getting this domain model right was crucial. Fardin spent weeks talking to therapists, agencies, and billing specialists before writing the first line of schema code.
-
-### Why React Native + Expo
-
-Mobile was non-negotiable. Therapists work in homes, in cars, in schools—anywhere but an office. The app needed to work offline, sync when connected, and be fast enough that documentation doesn't interrupt the clinical work.
-
-React Native with Expo offered the fastest path to both iOS and Android with a shared codebase. Expo's managed workflow handles the complexity of native builds, freeing Fardin to focus on the application layer.
-
-## The Hardest Parts
-
-Building the technology was the easy part. The hard parts were everything else.
-
-### Understanding the Domain
-
-Healthcare has regulations. Early Intervention has more regulations on top of those. Each state has its own requirements. Understanding what therapists actually need—not what they say they need, but what would genuinely improve their work—required months of conversation.
-
-Fardin learned to ask different questions. Not "what features do you want?" but "walk me through your day." Not "what's your biggest problem?" but "show me the thing you dread doing."
-
-### Compliance as Architecture
-
-HIPAA compliance isn't a feature you add at the end. It's an architectural constraint that affects every decision.
-
-Data encryption at rest and in transit. Audit logging for every access. Role-based permissions that map to clinical relationships. The ability to produce records on demand for audits.
-
-These requirements shaped the database schema, the API design, the authentication system. Trying to bolt them on later would have been a nightmare.
-
-### The Cold Start Problem
-
-A platform is only valuable if both sides use it. Therapists won't use VerseCraft unless their agencies are on it. Agencies won't adopt unless therapists are asking for it.
-
-This chicken-and-egg problem requires creative go-to-market thinking. Fardin's current strategy focuses on therapist-first value—features that make a therapist's life better even if their agency never logs in. Once therapists love the product, they become advocates who pull agencies onto the platform.
-
-## What's Been Learned
-
-Six months into building VerseCraft, several lessons have crystallized:
-
-**Domain expertise is non-negotiable.** Building for a domain you don't understand is building blind. Every hour spent talking to therapists saves ten hours of building the wrong thing.
-
-**Constraints focus design.** HIPAA compliance, mobile-first requirements, offline support—these constraints eliminated options and made decisions easier. Embrace constraints.
-
-**Technical choices compound.** The monorepo, tRPC, Drizzle stack creates leverage. When everything shares types, adding features is fast. When the architecture fights you, everything slows down.
-
-**You're building two things.** The product and the company. Pitching agencies is as important as fixing bugs. Fardin is learning to split time between builder mode and founder mode—and to recognize that both are necessary.
-
-## The Road Ahead
-
-VerseCraft is still early. The mobile app is functional. The API handles the core workflows. The admin dashboard exists in prototype form.
-
-But the vision is larger: a platform that becomes the operating system for Early Intervention therapy. Session documentation that writes itself through AI transcription. Scheduling that optimizes routes and reduces windshield time. Billing that reconciles automatically and catches discrepancies.
-
-The therapists who use VerseCraft should spend less time on paperwork and more time with children. That's the north star.
-
-Whether the startup succeeds—raises funding, acquires customers, becomes sustainable—remains to be seen. But the problem is real, the solution is coherent, and the work is worth doing.
-
-That's enough to keep building.
+The question led to building. This essay describes what was built and why.
 
 ---
 
-*VerseCraft is currently in private development. Therapists and agencies interested in early access can reach out through Fardin's contact page.*
+## The Problem with Digital Poetry
+
+Poetry exists uneasily on the web. Most platforms that host poems treat them as content to be consumed—scrollable, searchable, optimizable. The interfaces are designed for efficiency: maximum poems per page, minimum friction to the next piece.
+
+This approach fundamentally misunderstands what poetry is.
+
+The literary critic Cleanth Brooks, in his influential work *The Well Wrought Urn*, argued that the form of a poem is inseparable from its meaning:[^1]
+
+> "The poem is an organism. The parts are not merely related to each other as parts of a machine are related: they are related to each other by being integral parts of a whole. One cannot simply remove a word or phrase from a poem and substitute another."
+
+If form and meaning are inseparable in the poem itself, why should the presentation of poetry be any different? The interface through which a poem is read becomes part of the reading experience. A poem displayed in a cluttered, ad-ridden interface is not the same poem displayed in a space of visual calm and intentional design.
+
+VerseCraft attempts to take this insight seriously.
+
+---
+
+## The Design Philosophy
+
+The guiding principle was restraint. Every element that does not serve the poetry must be eliminated. Every element that remains must be deliberately chosen.
+
+The design draws from two sources: the typographic tradition of fine book publishing, and the minimal aesthetic of publications like *The New Yorker*.
+
+**Typography first.** The selection of typeface, the setting of line height, the sizing of text—these decisions precede all others. I studied how traditional poetry books set their type. The generous margins. The careful leading. The way whitespace becomes part of the composition.
+
+The typographer Robert Bringhurst writes in *The Elements of Typographic Style*:[^2]
+
+> "Typography exists to honor content... Good typography is measured not by how much it catches the eye but by how readily it transmits its message."
+
+For poetry, the message includes not just the words but the silences between them—the line breaks, the stanza divisions, the white space that creates rhythm. The interface must preserve and honor these elements.
+
+**Immersion over efficiency.** Where typical platforms optimize for time-on-site through endless scroll and algorithmic feeds, VerseCraft presents one poem at a time. The reader is not encouraged to consume more; the reader is invited to linger.
+
+This approach has philosophical support. The philosopher Byung-Chul Han argues that the acceleration of digital culture threatens contemplative experience:[^3]
+
+> "The vita contemplativa presupposes a capacity to tarry with things, to pause. The temporal architecture of acceleration, in contrast, prevents any prolonged contemplation."
+
+A poetry platform that pushes users toward the next poem works against the contemplative mode that poetry requires. Better to create space for dwelling.
+
+---
+
+## The Technical Architecture
+
+The technical choices follow from the design philosophy.
+
+**Next.js with App Router** provides the foundation. The framework enables server-side rendering for fast initial loads and clean URLs. Each poem has its own page, its own shareable address, its own moment of attention.
+
+**Tailwind CSS** enables rapid iteration on design details. When the line height needs adjustment by two pixels, or the margin needs to respond differently at a breakpoint, the utility-first approach makes these changes trivial. The design can evolve continuously.
+
+**Framer Motion** powers animations that enhance rather than distract. The page transitions are gentle fades. Hover states lift elements subtly. Nothing bounces or zooms aggressively. The motion serves the content.
+
+**Supabase** handles authentication and data persistence. Poets can create accounts, submit work, build collections. The backend is invisible to readers—as it should be.
+
+The architecture follows what the computer scientist Richard Gabriel called "Worse is Better"—preferring simplicity and correctness over feature completeness:[^4]
+
+> "The design philosophy is to give correct results in the normal case, to avoid special cases where possible, and to make each part of the system as simple as possible."
+
+VerseCraft does not attempt to be everything. It attempts to be one thing well.
+
+---
+
+## The Reading Experience
+
+The core interaction is the reading of a single poem.
+
+When a reader navigates to a poem, they encounter it in isolation. The title. The author. The text. Nothing else competes for attention. The background is calm. The typography is considered. The poem has room to breathe.
+
+Navigation exists but does not intrude. Swipe gestures—borrowed from the mobile-native interaction patterns of social media—allow movement between poems. But unlike the infinite scroll of content platforms, each swipe is a discrete transition. One poem ends; another begins. The boundary is respected.
+
+Ambient audio is available but optional. Some readers appreciate gentle background sound; others prefer silence. The choice is theirs. When enabled, the soundscape is subtle—rain, wind, distant music—never competing with the words.
+
+The philosopher Gaston Bachelard wrote of the relationship between space and imagination:[^5]
+
+> "Inhabited space transcends geometrical space... Space that has been seized upon by the imagination cannot remain indifferent space."
+
+VerseCraft attempts to create inhabited digital space—space that has been shaped by intention, that invites imaginative engagement.
+
+---
+
+## The Submission System
+
+Poets can submit work through a system designed to be neither too easy nor too difficult.
+
+Too easy, and the platform drowns in low-effort content. Too difficult, and emerging voices are discouraged. The balance requires care.
+
+Submissions go through a review process. Not gatekeeping in the literary magazine sense—VerseCraft does not claim to judge artistic merit—but curation in the sense of ensuring that submitted work is actually poetry, that it is the submitter's own, that it does not violate community guidelines.
+
+The goal is to create a commons—a shared space where poetry of many kinds can coexist, where emerging and established voices appear together, where the platform itself does not impose a particular aesthetic.
+
+The economist Elinor Ostrom studied how communities manage shared resources without either privatization or centralized control. Her principles for successful commons include clear boundaries, locally adapted rules, and participatory decision-making:[^6]
+
+> "When the users of a resource design their own rules, which are enforced by users themselves or by accountable agents, the rules tend to be more effective than those externally imposed."
+
+VerseCraft experiments with these principles. The community of poets and readers shapes what the platform becomes.
+
+---
+
+## The Theme System
+
+The interface offers multiple visual themes—not merely light and dark mode, but a range of aesthetic options that allow readers to customize their experience.
+
+Some prefer stark black text on white backgrounds—the classic book aesthetic. Others prefer softer combinations—cream backgrounds, brown text, the warmth of aged paper. Still others prefer dark modes that reduce eye strain for evening reading.
+
+The themes are not arbitrary. Each is carefully designed to maintain readability, to preserve the typography, to create a coherent visual experience. The reader customizes; the designer ensures that every customization works.
+
+This approach respects reader autonomy while maintaining design quality. The interface is opinionated about what good reading looks like, but flexible about preferences within that opinion.
+
+---
+
+## What Was Learned
+
+Building VerseCraft clarified several principles:
+
+**Constraints enable creativity.** The decision to focus exclusively on poetry—not prose, not mixed media, not "content" generally—forced decisions that a broader platform would have avoided. The constraints shaped the design in productive ways.
+
+**Details compound.** The difference between a good reading experience and a great one is hundreds of small decisions: two pixels here, a slightly different transition curve there, a subtly adjusted shade of gray. No single decision matters much; together, they matter enormously.
+
+**Technical choices are design choices.** The decision to use swipe navigation rather than scroll, to present one poem per page rather than a feed, to offer ambient audio—these are both technical implementations and design statements. The architecture embodies values.
+
+**Art deserves thoughtful presentation.** Poetry has survived for millennia because it captures something essential about human experience. A platform that presents poetry has a responsibility to that tradition. The code itself becomes a form of curation.
+
+---
+
+## The Ongoing Project
+
+VerseCraft continues to evolve. Current development focuses on:
+
+- **Collections**: Allowing poets and readers to curate themed groupings
+- **Audio**: Native support for spoken-word recordings synchronized with text
+- **Community features**: Thoughtful social elements that enhance rather than distract
+
+The north star remains constant: honor the poetry. Every feature, every design decision, every line of code serves that purpose.
+
+Whether the project succeeds—attracts readers, sustains a community, becomes economically viable—remains to be seen. But the attempt itself feels worthwhile. Poetry deserves better than what digital platforms typically offer. VerseCraft is one attempt to provide it.
+
+The written word endures. The platform that presents it should be worthy of that endurance.
+
+---
+
+## Bibliography
+
+[^1]: Brooks, Cleanth. *The Well Wrought Urn: Studies in the Structure of Poetry*. Harcourt, Brace, 1947, p. 194.
+
+[^2]: Bringhurst, Robert. *The Elements of Typographic Style*. Hartley & Marks, 1992, p. 17.
+
+[^3]: Han, Byung-Chul. *The Burnout Society*. Stanford University Press, 2015, p. 33.
+
+[^4]: Gabriel, Richard P. "Worse is Better." *Lisp: Good News, Bad News, How to Win Big*, 1989.
+
+[^5]: Bachelard, Gaston. *The Poetics of Space*. Translated by Maria Jolas. Beacon Press, 1958, p. 47.
+
+[^6]: Ostrom, Elinor. *Governing the Commons: The Evolution of Institutions for Collective Action*. Cambridge University Press, 1990, p. 90.
