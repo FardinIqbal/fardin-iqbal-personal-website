@@ -4,9 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Command } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { AvailabilityStatus } from "@/components/ui/AvailabilityStatus";
 
 const navItems = [
   { label: "About", href: "/#about" },
@@ -99,14 +100,19 @@ export function Header() {
       >
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo - elegant display font */}
-            <Link
-              href="/"
-              onClick={handleLogoClick}
-              className="text-lg font-display font-semibold text-foreground hover:opacity-80 transition-opacity duration-300"
-            >
-              Fardin Iqbal
-            </Link>
+            {/* Logo + Status */}
+            <div className="flex items-center gap-4">
+              <Link
+                href="/"
+                onClick={handleLogoClick}
+                className="text-lg font-display font-semibold text-foreground hover:opacity-80 transition-opacity duration-300"
+              >
+                Fardin Iqbal
+              </Link>
+              <div className="hidden sm:block">
+                <AvailabilityStatus status="building" message="Building Neo Provider" />
+              </div>
+            </div>
 
             {/* Desktop Navigation - clean sans-serif */}
             <div className="hidden md:flex items-center gap-7">
@@ -136,6 +142,16 @@ export function Header() {
               >
                 Resume
               </Link>
+
+              {/* Command Palette Hint */}
+              <button
+                onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
+                className="hidden lg:flex items-center gap-1.5 px-2 py-1 text-xs text-foreground-subtle border border-border/50 rounded-md hover:border-border hover:text-foreground-muted transition-colors"
+                title="Open command palette"
+              >
+                <Command className="w-3 h-3" />
+                <span>K</span>
+              </button>
 
               <ThemeToggle />
             </div>

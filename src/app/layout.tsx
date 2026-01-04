@@ -8,6 +8,7 @@ import {
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ClerkWrapper } from "@/components/ClerkWrapper";
 import { MusicPlayer } from "@/components/MusicPlayer";
+import { PortfolioEnhancements } from "@/components/ui/PortfolioEnhancements";
 import "./globals.css";
 
 // Elegant display serif for headings
@@ -124,6 +125,7 @@ export default function RootLayout({
           <ThemeProvider defaultTheme="light">
             {children}
             <MusicPlayer />
+            <PortfolioEnhancements />
           </ThemeProvider>
         </ClerkWrapper>
       </body>
