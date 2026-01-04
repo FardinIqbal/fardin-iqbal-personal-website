@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, ChevronUp } from "lucide-react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ImmersiveBlogWrapper } from "./ImmersiveBlogWrapper";
 import { formatDate } from "@/lib/utils";
 import { Mood } from "./MoodSystem";
 import { CodeCopyButton } from "@/components/ui/CodeCopyButton";
+import { BlogScrollProgress } from "@/components/ui/ScrollProgress";
 
 interface ImmersiveBlogClientProps {
   title: string;
@@ -29,12 +30,6 @@ export function ImmersiveBlogClient({
   rawContent,
 }: ImmersiveBlogClientProps) {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,11 +57,8 @@ export function ImmersiveBlogClient({
       description={description}
       overrideMood={moodTag?.toLowerCase() as Mood | undefined}
     >
-      {/* Reading progress bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-0.5 bg-primary-500 origin-left z-50"
-        style={{ scaleX }}
-      />
+      {/* Ultra-minimal reading progress */}
+      <BlogScrollProgress />
 
       {/* Hero Section */}
       <header className="pt-32 pb-16 px-4 sm:px-6">

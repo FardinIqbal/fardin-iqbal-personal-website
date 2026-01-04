@@ -1,20 +1,117 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { useState, useEffect } from "react";
 
-interface ScrollProgressProps {
+/**
+ * Ultra-minimal scroll progress for blog posts only
+ * - Hair-thin line (1px)
+ * - No glow effects
+ * - Fades in after scrolling starts
+ * - Subtle opacity
+ */
+export function BlogScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Fade in after user starts scrolling
+  const opacity = useTransform(scrollYProgress, [0, 0.02, 0.98, 1], [0, 0.5, 0.5, 0]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100 && !hasScrolled) {
+        setHasScrolled(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasScrolled]);
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 right-0 h-px z-50 origin-left"
+      style={{
+        scaleX,
+        opacity,
+        background: "rgb(var(--color-foreground))",
+      }}
+    />
+  );
+}
+
+/**
+ * Reading progress with time estimate
+ * Shows "X min left" that counts down as you scroll
+ */
+export function ReadingProgress({ totalReadingTime }: { totalReadingTime: number }) {
+  const { scrollYProgress } = useScroll();
+  const [minutesLeft, setMinutesLeft] = useState(totalReadingTime);
+
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on("change", (progress) => {
+      const remaining = Math.ceil(totalReadingTime * (1 - progress));
+      setMinutesLeft(Math.max(0, remaining));
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress, totalReadingTime]);
+
+  if (minutesLeft === 0) return null;
+
+  return (
+    <motion.div
+      className="fixed top-4 right-4 z-50 px-3 py-1.5 text-xs font-mono text-foreground-subtle bg-background/80 backdrop-blur-sm border border-border/50 rounded-full"
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1 }}
+    >
+      {minutesLeft} min left
+    </motion.div>
+  );
+}
+
+/**
+ * Vertical edge progress indicator
+ * Thin line on the right edge, like a scrollbar highlight
+ */
+export function VerticalScrollProgress() {
+  const { scrollYProgress } = useScroll();
+
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  return (
+    <motion.div
+      className="fixed top-0 right-0 w-px h-full z-50 origin-top hidden md:block"
+      style={{
+        scaleY,
+        background: "linear-gradient(to bottom, rgb(var(--color-foreground) / 0.3), rgb(var(--color-foreground) / 0.1))",
+      }}
+    />
+  );
+}
+
+// Keep the old exports for backward compatibility but mark as deprecated
+/** @deprecated Use BlogScrollProgress instead */
+export function ScrollProgress({
+  position = "top",
+  height = 1,
+}: {
   position?: "top" | "bottom";
   color?: string;
   height?: number;
   showPercentage?: boolean;
-}
-
-export function ScrollProgress({
-  position = "top",
-  color = "rgb(var(--theme-accent))",
-  height = 3,
-  showPercentage = false,
-}: ScrollProgressProps) {
+}) {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -23,100 +120,19 @@ export function ScrollProgress({
   });
 
   return (
-    <>
-      {/* Progress bar */}
-      <motion.div
-        className="fixed left-0 right-0 z-50 origin-left"
-        style={{
-          [position]: 0,
-          height,
-          scaleX,
-          background: `linear-gradient(90deg, ${color}, ${color}dd)`,
-        }}
-      />
-
-      {/* Glow effect */}
-      <motion.div
-        className="fixed left-0 right-0 z-50 origin-left pointer-events-none"
-        style={{
-          [position]: 0,
-          height: height * 3,
-          scaleX,
-          background: `linear-gradient(90deg, ${color}40, ${color}20)`,
-          filter: "blur(8px)",
-        }}
-      />
-
-      {/* Optional percentage display */}
-      {showPercentage && (
-        <motion.div
-          className="fixed right-4 z-50 px-2 py-1 text-xs font-mono bg-background/80 backdrop-blur-sm border border-border rounded"
-          style={{
-            [position]: position === "top" ? height + 8 : height + 8,
-          }}
-        >
-          <motion.span>
-            {/* This will be updated by the scroll progress */}
-          </motion.span>
-        </motion.div>
-      )}
-    </>
+    <motion.div
+      className="fixed left-0 right-0 z-50 origin-left"
+      style={{
+        [position]: 0,
+        height,
+        scaleX,
+        background: "rgb(var(--color-foreground) / 0.3)",
+      }}
+    />
   );
 }
 
-// Circular scroll progress indicator
-export function CircularScrollProgress({
-  size = 48,
-  strokeWidth = 3,
-  color = "rgb(var(--theme-accent))",
-}: {
-  size?: number;
-  strokeWidth?: number;
-  color?: string;
-}) {
-  const { scrollYProgress } = useScroll();
-  const pathLength = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-
-  return (
-    <motion.div
-      className="fixed bottom-24 right-6 z-40"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.5 }}
-    >
-      <svg width={size} height={size} className="rotate-[-90deg]">
-        {/* Background circle */}
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke="rgb(var(--color-border))"
-          strokeWidth={strokeWidth}
-        />
-        {/* Progress circle */}
-        <motion.circle
-          cx={size / 2}
-          cy={size / 2}
-          r={radius}
-          fill="none"
-          stroke={color}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          style={{
-            pathLength,
-            strokeDasharray: circumference,
-            strokeDashoffset: 0,
-          }}
-        />
-      </svg>
-    </motion.div>
-  );
+/** @deprecated Use BlogScrollProgress instead */
+export function CircularScrollProgress() {
+  return null; // Removed - not used
 }
