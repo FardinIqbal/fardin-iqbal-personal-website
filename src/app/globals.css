@@ -579,28 +579,36 @@ svg .animate-rotate-slow {
 
 /* ============================================
    BLOG ARTICLE TYPOGRAPHY
-   Clean, readable, elegant
+   Premium publication-quality reading experience
+   Inspired by The New Yorker, Stripe, and Matter
    ============================================ */
 
 .prose-article {
   font-family: var(--font-serif);
-  font-size: 1.125rem;            /* 18px - comfortable reading */
-  line-height: 1.8;
-  color: rgb(var(--color-foreground));
-  max-width: 42rem;
+  font-size: 1.3125rem;           /* 21px - premium reading size */
+  line-height: 1.9;               /* Generous line height for flow */
+  color: rgba(var(--color-foreground), 0.88);
+  max-width: 38rem;               /* Optimal line length ~60-70 chars */
   margin-left: auto;
   margin-right: auto;
+  font-weight: 400;
+  letter-spacing: -0.011em;       /* Subtle tightening for elegance */
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1, "onum" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  word-spacing: 0.02em;
 }
 
 .prose-article > * + * {
-  margin-top: 1.5em;
+  margin-top: 1.65em;
 }
 
 /* ----------------------------------------
-   SECTION BREAKS
+   SECTION BREAKS - Editorial style
    ---------------------------------------- */
 .prose-article hr {
-  margin: 3rem auto;
+  margin: 4.5rem auto;
   border: none;
   height: auto;
   background: transparent;
@@ -608,68 +616,77 @@ svg .animate-rotate-slow {
 }
 
 .prose-article hr::before {
-  content: "···";
+  content: "* * *";
   display: block;
-  font-size: 1.5rem;
-  letter-spacing: 0.5em;
-  color: rgb(var(--color-foreground-subtle));
+  font-size: 0.875rem;
+  letter-spacing: 1.25em;
+  color: rgba(var(--color-foreground-subtle), 0.5);
+  font-weight: 400;
 }
 
-/* Headings - elegant display font */
+/* Headings - refined display typography */
 .prose-article h1,
 .prose-article h2,
 .prose-article h3,
 .prose-article h4 {
   font-family: var(--font-display);
   color: rgb(var(--color-foreground));
-  font-weight: 600;
-  letter-spacing: var(--tracking-tight);
-  line-height: var(--leading-snug);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  text-wrap: balance;
 }
 
 .prose-article h1 {
-  font-size: 2.75rem;
+  font-size: 2.625rem;
   margin-top: 0;
   margin-bottom: 1.5rem;
+  font-weight: 700;
 }
 
 .prose-article h2 {
-  font-size: 2rem;
-  margin-top: 4rem;
-  margin-bottom: 1.25rem;
+  font-size: 1.875rem;
+  margin-top: 5rem;
+  margin-bottom: 1.75rem;
   padding-bottom: 0;
-  border-bottom: none;            /* Clean, no underline */
+  border-bottom: none;
+  font-weight: 600;
 }
 
 .prose-article h3 {
   font-size: 1.5rem;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
 }
 
 .prose-article h4 {
   font-size: 1.25rem;
   margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
-/* Paragraphs */
+/* Paragraphs - refined spacing for flow */
 .prose-article p {
-  margin-top: 1.75em;
-  margin-bottom: 1.75em;
+  margin-top: 1.65em;
+  margin-bottom: 1.65em;
   orphans: 3;
   widows: 3;
+  hanging-punctuation: first last;
 }
 
 .prose-article p:first-child {
   margin-top: 0;
 }
 
-/* Lead paragraph - first p, larger and bolder */
+/* Lead paragraph - elegant opening */
 .prose-article > p:first-of-type {
-  font-size: 1.375rem;
-  line-height: 1.7;
-  color: rgb(var(--color-foreground));
+  font-size: 1.5rem;
+  line-height: 1.75;
+  color: rgba(var(--color-foreground), 0.92);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 
 /* Links - elegant underline animation */
@@ -694,11 +711,11 @@ svg .animate-rotate-slow {
   font-style: italic;
 }
 
-/* Blockquotes - elegant, indented */
+/* Blockquotes - editorial pull quote style */
 .prose-article blockquote {
-  margin: 2.5rem 0;
-  padding: 0 0 0 2rem;
-  border-left: 3px solid rgb(var(--color-border));
+  margin: 3.5rem 0;
+  padding: 0 0 0 2.5rem;
+  border-left: 2px solid rgba(var(--color-foreground), 0.15);
   background: transparent;
   border-radius: 0;
   font-style: italic;
@@ -706,13 +723,14 @@ svg .animate-rotate-slow {
 
 .prose-article blockquote p {
   margin: 0;
-  font-size: 1.25rem;
-  line-height: 1.75;
-  color: rgb(var(--color-foreground-muted));
+  font-size: 1.375rem;
+  line-height: 1.7;
+  color: rgba(var(--color-foreground), 0.75);
+  letter-spacing: -0.01em;
 }
 
 .prose-article blockquote p + p {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 /* Lists - clean and readable */
@@ -944,44 +962,46 @@ svg .animate-rotate-slow {
 }
 
 /* ----------------------------------------
-   MOBILE RESPONSIVE
+   MOBILE RESPONSIVE - Premium mobile reading
    ---------------------------------------- */
 @media (max-width: 640px) {
   .prose-article {
-    font-size: 1.0625rem;         /* 17px on mobile */
-    line-height: 1.8;
+    font-size: 1.125rem;          /* 18px on mobile - still readable */
+    line-height: 1.85;
+    letter-spacing: -0.008em;
   }
 
   .prose-article h1 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: 1.875rem;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
   }
 
   .prose-article h2 {
     font-size: 1.5rem;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin-top: 3.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .prose-article h3 {
     font-size: 1.25rem;
-    margin-top: 2.5rem;
+    margin-top: 2.75rem;
   }
 
-  /* Lead paragraph - slightly larger */
+  /* Lead paragraph - elegant on mobile too */
   .prose-article > p:first-of-type {
-    font-size: 1.1875rem;
+    font-size: 1.25rem;
     line-height: 1.75;
   }
 
   /* Blockquotes */
   .prose-article blockquote {
-    padding-left: 1.25rem;
-    margin: 2rem 0;
+    padding-left: 1.5rem;
+    margin: 2.5rem 0;
   }
 
   .prose-article blockquote p {
-    font-size: 1rem;
+    font-size: 1.125rem;
     line-height: 1.7;
   }
 
@@ -1001,17 +1021,17 @@ svg .animate-rotate-slow {
 
   /* Section breaks */
   .prose-article hr {
-    margin: 2.5rem auto;
+    margin: 3rem auto;
   }
 
   .prose-article hr::before {
-    font-size: 1rem;
-    letter-spacing: 0.4em;
+    font-size: 0.75rem;
+    letter-spacing: 1em;
   }
 
   /* Images */
   .prose-article img {
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     border-radius: 8px;
   }
 }
