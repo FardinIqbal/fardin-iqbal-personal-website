@@ -30,6 +30,7 @@ export function ImmersiveBlogClient({
   rawContent,
 }: ImmersiveBlogClientProps) {
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [mobileNavVisible, setMobileNavVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,6 +38,16 @@ export function ImmersiveBlogClient({
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Listen for mobile nav visibility changes
+  useEffect(() => {
+    const handleNavVisibility = (e: CustomEvent<{ visible: boolean }>) => {
+      setMobileNavVisible(e.detail.visible);
+    };
+
+    window.addEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+    return () => window.removeEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
   }, []);
 
   const scrollToTop = () => {
@@ -183,7 +194,42 @@ export function ImmersiveBlogClient({
         </div>
       </motion.footer>
 
-      {/* Scroll to top button - positioned above music player */}
+      {/* Scroll to top button - positioned above music player, syncs with mobile nav */}
+      <motion.div
+        className="fixed right-4 sm:right-6 z-40"
+        initial={false}
+        animate={{
+          // Mobile: 96px (nav) + 72px (music player) + 16px gap = 184px when nav visible, 88px when hidden
+          // Desktop: stays at 96px
+          bottom: mobileNavVisible ? 184 : 88,
+        }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        style={{ bottom: 88 }}
+      >
+        <motion.button
+          onClick={scrollToTop}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{
+            opacity: showScrollTop ? 1 : 0,
+            scale: showScrollTop ? 1 : 0.8,
+            pointerEvents: showScrollTop ? "auto" : "none",
+          }}
+          whileHover={{ scale: 1.1, y: -2 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.2 }}
+          className="p-3.5 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl md:hidden"
+          aria-label="Scroll to top"
+        >
+          <motion.div
+            animate={{ y: [0, -2, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            <ChevronUp className="w-5 h-5" />
+          </motion.div>
+        </motion.button>
+      </motion.div>
+
+      {/* Desktop scroll to top - static position */}
       <motion.button
         onClick={scrollToTop}
         initial={{ opacity: 0, scale: 0.8 }}
@@ -195,7 +241,7 @@ export function ImmersiveBlogClient({
         whileHover={{ scale: 1.1, y: -2 }}
         whileTap={{ scale: 0.9 }}
         transition={{ duration: 0.2 }}
-        className="fixed bottom-20 sm:bottom-24 right-4 sm:right-6 p-3.5 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl z-40"
+        className="fixed bottom-24 right-6 p-3.5 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl z-40 hidden md:block"
         aria-label="Scroll to top"
       >
         <motion.div
