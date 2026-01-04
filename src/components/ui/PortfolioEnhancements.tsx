@@ -6,10 +6,14 @@ import { ConsoleEasterEgg } from "./ConsoleEasterEgg";
 import { KonamiCode } from "./KonamiCode";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Guestbook } from "./Guestbook";
+import { SmoothScroll } from "./SmoothScroll";
 
 export function PortfolioEnhancements() {
   return (
     <>
+      {/* Smooth Scroll - Lenis */}
+      <SmoothScroll />
+
       {/* Command Palette - opens with Cmd+K */}
       <CommandPalette />
 
@@ -19,13 +23,13 @@ export function PortfolioEnhancements() {
       {/* Console Easter Egg - ASCII art and commands */}
       <ConsoleEasterEgg />
 
-      {/* Konami Code - Matrix rain effect */}
+      {/* Konami Code - elegant particle effect */}
       <KonamiCode />
 
       {/* Theme Switcher - code editor themes */}
       <ThemeSwitcher />
 
-      {/* Guestbook - visitor messages */}
+      {/* Guestbook - visitor messages with confetti */}
       <Guestbook />
     </>
   );

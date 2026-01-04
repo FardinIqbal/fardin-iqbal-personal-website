@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare, X, Send, User } from "lucide-react";
+import confetti from "canvas-confetti";
 import { cn } from "@/lib/utils";
 
 interface GuestbookEntry {
@@ -67,6 +68,35 @@ export function Guestbook() {
     if (savedName) setName(savedName);
   }, []);
 
+  const triggerConfetti = useCallback(() => {
+    const defaults = {
+      spread: 360,
+      ticks: 50,
+      gravity: 0.8,
+      decay: 0.94,
+      startVelocity: 20,
+      colors: ["#6366f1", "#8b5cf6", "#a855f7", "#3b82f6", "#22c55e"],
+    };
+
+    confetti({
+      ...defaults,
+      particleCount: 30,
+      scalar: 1.2,
+      shapes: ["circle", "square"],
+      origin: { x: 0.9, y: 0.9 },
+    });
+
+    setTimeout(() => {
+      confetti({
+        ...defaults,
+        particleCount: 20,
+        scalar: 0.8,
+        shapes: ["circle"],
+        origin: { x: 0.85, y: 0.85 },
+      });
+    }, 100);
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !message.trim()) return;
@@ -91,6 +121,9 @@ export function Guestbook() {
 
     setMessage("");
     setIsSubmitting(false);
+
+    // Celebrate!
+    triggerConfetti();
   };
 
   const formatTime = (timestamp: number) => {
