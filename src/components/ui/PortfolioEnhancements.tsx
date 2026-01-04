@@ -5,7 +5,6 @@ import { CursorSpotlight } from "./CursorSpotlight";
 import { ConsoleEasterEgg } from "./ConsoleEasterEgg";
 import { KonamiCode } from "./KonamiCode";
 import { ThemeSwitcher } from "./ThemeSwitcher";
-import { Guestbook } from "./Guestbook";
 import { SmoothScroll } from "./SmoothScroll";
 import { MobileBottomNav } from "./MobileBottomNav";
 import { ScrollProgress } from "./ScrollProgress";
@@ -33,9 +32,6 @@ export function PortfolioEnhancements() {
 
       {/* Theme Switcher - code editor themes */}
       <ThemeSwitcher />
-
-      {/* Guestbook - visitor messages with confetti */}
-      <Guestbook />
 
       {/* Mobile Bottom Navigation - thumb-friendly nav with haptics */}
       <MobileBottomNav />
