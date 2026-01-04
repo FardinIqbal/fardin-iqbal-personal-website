@@ -137,20 +137,67 @@ export const projects: Project[] = [
     category: "ml",
   },
   {
-    slug: "spectrum-analyzer",
-    title: "Exoplanet Spectrum Analyzer",
+    slug: "glimpse",
+    title: "Glimpse",
     description:
-      "3D visualization tool for James Webb Space Telescope FITS data. Interactive plots for analyzing spectral patterns in exoplanet observations.",
-    longDescription: "Processing real astronomical data from JWST to visualize what distant worlds might look like.",
-    image: "/images/projects/spectrum-analyzer.png",
-    tech: ["Python", "Flask", "Plotly", "Astropy", "NumPy"],
-    github: "https://github.com/FardinIqbal/spectrum_analyzer",
-    live: "https://spectrum-analyzer-55f97c211e3e.herokuapp.com/",
+      "James Webb Space Telescope data explorer. Real-time 3D visualization of exoplanet atmospheres with spectral analysis and cinematic presentation.",
+    longDescription:
+      "Built to make JWST data accessible and beautiful. What would other worlds look like if we could see them?",
+    image: "/images/projects/glimpse.png",
+    tech: ["Next.js", "Three.js", "TypeScript", "Astropy", "FITS"],
+    github: "https://github.com/FardinIqbal/GLIMPSE",
+    live: "https://glimpse-jwst.vercel.app",
     featured: true,
     category: "ml",
   },
 
   // === FULL-STACK WEB ===
+  {
+    slug: "neo-provider",
+    title: "Neo Provider",
+    description:
+      "Healthcare SaaS platform for Early Intervention therapists. Full EHR with scheduling, clinical notes, billing, and offline-first mobile app.",
+    longDescription:
+      "Built from scratch to solve the chaos of pediatric therapy clinics. Monorepo architecture with end-to-end type safety.",
+    image: "/images/projects/neo-provider.png",
+    tech: [
+      "TypeScript",
+      "React Native",
+      "tRPC",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Turborepo",
+    ],
+    github: "https://github.com/FardinIqbal/neo-provider",
+    featured: true,
+    category: "web",
+  },
+  {
+    slug: "localelo",
+    title: "LocalElo",
+    description:
+      "Multi-organization Elo ranking platform for competitive communities. Glicko-2 ratings, member management, and analytics for BJJ gyms, chess clubs, and esports teams.",
+    longDescription:
+      "Built for my BJJ gym to track sparring rankings. Now supports any competitive community that needs fair, transparent rankings.",
+    image: "/images/projects/localelo.png",
+    tech: ["Next.js 15", "TypeScript", "tRPC", "Drizzle ORM", "Clerk", "Tailwind"],
+    github: "https://github.com/FardinIqbal/localelo",
+    featured: true,
+    category: "web",
+  },
+  {
+    slug: "civica",
+    title: "Civica",
+    description:
+      "Your government, explained. Track legislation, find representatives, follow money in politics. Aggregates official government APIs into a single elegant interface.",
+    longDescription:
+      "Government data is scattered and incomprehensible. Civica makes it accessible for ordinary citizens.",
+    image: "/images/projects/civica.png",
+    tech: ["Next.js", "TypeScript", "Congress.gov API", "FEC API", "OpenSecrets"],
+    github: "https://github.com/FardinIqbal/civica",
+    featured: true,
+    category: "web",
+  },
   {
     slug: "fairshare",
     title: "FairShare",
@@ -161,7 +208,7 @@ export const projects: Project[] = [
     tech: ["Ruby on Rails", "PostgreSQL", "Tailwind", "AWS", "Devise"],
     github: "https://github.com/FardinIqbal/FairShare",
     live: "https://finshare-app-552abe51e905.herokuapp.com/",
-    featured: true,
+    featured: false,
     category: "web",
   },
   {
@@ -190,11 +237,13 @@ export const projects: Project[] = [
     slug: "versecraft",
     title: "VerseCraft",
     description:
-      "Poetry publishing platform with a minimalist New Yorker-inspired design. Real-time interactions powered by Hotwire/Turbo.",
-    image: "/images/projects/fairshare.jpg",
-    tech: ["Ruby on Rails", "Hotwire", "SCSS", "PostgreSQL"],
+      "TikTok-style poetry platform. Swipe through verses, ambient soundscapes, and immersive reading experiences. Like reels, but for poetry.",
+    longDescription:
+      "Reimagining how poetry is consumed in the social media age. Swipe navigation, ambient audio, and elegant typography.",
+    image: "/images/projects/versecraft.png",
+    tech: ["Next.js", "TypeScript", "Framer Motion", "Tailwind", "Supabase"],
     github: "https://github.com/FardinIqbal/VerseCraft",
-    featured: false,
+    featured: true,
     category: "web",
   },
   {
@@ -210,6 +259,25 @@ export const projects: Project[] = [
   },
 
   // === TOOLS & OTHER ===
+  {
+    slug: "prometheus-pai",
+    title: "Prometheus (PAI)",
+    description:
+      "Personal AI Infrastructure. Self-optimizing assistant with semantic memory, proactive behaviors, and continuous learning from every interaction.",
+    longDescription:
+      "My custom AI system that learns preferences, remembers context across sessions, and evolves its own capabilities.",
+    image: "/images/projects/prometheus.png",
+    tech: [
+      "Claude API",
+      "TypeScript",
+      "Vector Embeddings",
+      "Claude Code",
+      "Notion API",
+    ],
+    github: "https://github.com/FardinIqbal/prometheus",
+    featured: true,
+    category: "tools",
+  },
   {
     slug: "computational-geometry",
     title: "Computational Geometry Visualizer",
