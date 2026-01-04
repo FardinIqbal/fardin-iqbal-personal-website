@@ -270,7 +270,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
-            className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50"
+            className="fixed inset-0 bg-background/95 backdrop-blur-md z-50"
             onClick={() => setIsOpen(false)}
           />
 

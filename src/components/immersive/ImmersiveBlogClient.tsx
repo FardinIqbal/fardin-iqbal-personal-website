@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ImmersiveBlogWrapper } from "./ImmersiveBlogWrapper";
 import { formatDate } from "@/lib/utils";
 import { Mood } from "./MoodSystem";
+import { CodeCopyButton } from "@/components/ui/CodeCopyButton";
 
 interface ImmersiveBlogClientProps {
   title: string;
@@ -164,6 +165,7 @@ export function ImmersiveBlogClient({
           className="prose-article max-w-3xl mx-auto"
           dangerouslySetInnerHTML={{ __html: compiledContent }}
         />
+        <CodeCopyButton />
       </motion.article>
 
       {/* Footer divider */}

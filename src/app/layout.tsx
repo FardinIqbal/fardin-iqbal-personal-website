@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ClerkWrapper } from "@/components/ClerkWrapper";
 import { MusicPlayer } from "@/components/MusicPlayer";
 import { PortfolioEnhancements } from "@/components/ui/PortfolioEnhancements";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 // Elegant display serif for headings
@@ -168,6 +170,8 @@ export default function RootLayout({
             <PortfolioEnhancements />
           </ThemeProvider>
         </ClerkWrapper>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
