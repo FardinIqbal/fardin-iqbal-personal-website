@@ -254,8 +254,8 @@ export function MusicPlayer() {
     <>
       <audio ref={audioRef} src={station.url} preload="none" />
 
-      {/* Position above mobile bottom nav (bottom-20 = 80px) */}
-      <div className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50">
+      {/* Position above mobile bottom nav */}
+      <div className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50">
         <AnimatePresence>
           {isExpanded && (
             <>
@@ -264,7 +264,7 @@ export function MusicPlayer() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black/50 backdrop-blur-sm sm:hidden"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm md:hidden"
                 onClick={() => setIsExpanded(false)}
               />
 
@@ -274,20 +274,20 @@ export function MusicPlayer() {
                 initial={{ opacity: 0, y: 10, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                className="fixed bottom-0 left-0 right-0 p-4 pb-6 bg-background border-t border-border rounded-t-2xl
-                  sm:absolute sm:bottom-14 sm:left-auto sm:right-0 sm:p-4 sm:rounded-xl sm:border sm:shadow-2xl sm:w-[320px]"
+                className="fixed bottom-0 left-0 right-0 p-4 pb-8 bg-background border-t border-border rounded-t-2xl
+                  md:absolute md:bottom-14 md:left-auto md:right-0 md:p-4 md:rounded-xl md:border md:shadow-2xl md:w-[320px]"
               >
                 {/* Close button - mobile */}
                 <button
                   onClick={() => setIsExpanded(false)}
-                  className="absolute top-3 right-3 p-2 text-foreground-subtle hover:text-foreground sm:hidden"
+                  className="absolute top-3 right-3 p-2 text-foreground-subtle hover:text-foreground md:hidden"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
                 <div className="space-y-4">
                   {/* Header */}
-                  <div className="flex items-center justify-between pr-8 sm:pr-0">
+                  <div className="flex items-center justify-between pr-8 md:pr-0">
                     <div className="flex items-center gap-3">
                       <Radio className="w-4 h-4 text-emerald-500" />
                       <span className="text-sm font-medium text-foreground">SomaFM Radio</span>
