@@ -15,6 +15,9 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
   "Tools & Platforms": Wrench,
 };
 
+// Number of skills to show on mobile before "+N more"
+const MOBILE_SKILL_LIMIT = 5;
+
 function SkillCard({
   category,
   index,
@@ -23,6 +26,7 @@ function SkillCard({
   index: number;
 }) {
   const Icon = categoryIcons[category.title] || Code2;
+  const remainingCount = Math.max(0, category.skills.length - MOBILE_SKILL_LIMIT);
 
   return (
     <motion.div
@@ -31,30 +35,31 @@ function SkillCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
       whileHover={{ y: -4 }}
-      className="p-6 rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-all hover-lift group"
+      className="p-5 sm:p-6 rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-all hover-lift group"
     >
       {/* Header */}
-      <div className="flex items-center gap-3 mb-5">
+      <div className="flex items-center gap-3 mb-4 sm:mb-5">
         <motion.div
-          className="p-2.5 rounded-lg bg-background-tertiary"
+          className="p-2 sm:p-2.5 rounded-lg bg-background-tertiary"
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <Icon className="w-5 h-5 text-foreground-muted group-hover:text-foreground transition-colors" />
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-foreground-muted group-hover:text-foreground transition-colors" />
         </motion.div>
         <div>
-          <h3 className="text-base font-semibold text-foreground">
+          <h3 className="text-sm sm:text-base font-semibold text-foreground">
             {category.title}
           </h3>
-          <p className="text-sm text-foreground-subtle">
+          <p className="text-xs sm:text-sm text-foreground-subtle">
             {category.skills.length} technologies
           </p>
         </div>
       </div>
 
-      {/* Skills - staggered animation */}
-      <div className="flex flex-wrap gap-2">
-        {category.skills.map((skill, skillIndex) => (
+      {/* Skills - show all on desktop, limited on mobile */}
+      <div className="flex flex-wrap gap-1.5 sm:gap-2">
+        {/* Mobile: limited skills */}
+        {category.skills.slice(0, MOBILE_SKILL_LIMIT).map((skill, skillIndex) => (
           <motion.span
             key={skill}
             initial={{ opacity: 0, scale: 0.8 }}
@@ -68,11 +73,39 @@ function SkillCard({
               scale: 1.05,
               backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
             }}
-            className="px-2.5 py-1 text-sm rounded-md bg-background-tertiary text-foreground-muted cursor-default"
+            className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm rounded-md bg-background-tertiary text-foreground-muted cursor-default sm:inline"
           >
             {skill}
           </motion.span>
         ))}
+
+        {/* Desktop: remaining skills */}
+        {category.skills.slice(MOBILE_SKILL_LIMIT).map((skill, skillIndex) => (
+          <motion.span
+            key={skill}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.3,
+              delay: index * 0.1 + (MOBILE_SKILL_LIMIT + skillIndex) * 0.03
+            }}
+            whileHover={{
+              scale: 1.05,
+              backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
+            }}
+            className="hidden sm:inline px-2.5 py-1 text-sm rounded-md bg-background-tertiary text-foreground-muted cursor-default"
+          >
+            {skill}
+          </motion.span>
+        ))}
+
+        {/* Mobile: "+N more" indicator */}
+        {remainingCount > 0 && (
+          <span className="sm:hidden px-2 py-0.5 text-xs rounded-md bg-background-tertiary/50 text-foreground-subtle">
+            +{remainingCount} more
+          </span>
+        )}
       </div>
     </motion.div>
   );

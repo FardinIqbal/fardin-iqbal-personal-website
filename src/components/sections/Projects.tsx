@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
+import { ArrowUpRight, Github, ExternalLink, ChevronDown } from "lucide-react";
 import type { Project, ProjectCategory } from "@/lib/content";
 
 // Featured project IDs (flagship work)
@@ -37,12 +38,12 @@ function FeaturedCard({
           <div className={`absolute inset-0 bg-gradient-to-br ${gradients[project.category]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
           {/* Content */}
-          <div className="relative p-8 md:p-10">
+          <div className="relative p-5 sm:p-8 md:p-10">
             <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
               {/* Left side - text content */}
               <div className="flex-1 min-w-0">
                 {/* Category */}
-                <span className="inline-block text-xs font-medium tracking-widest uppercase text-foreground-subtle mb-4">
+                <span className="inline-block text-xs font-medium tracking-widest uppercase text-foreground-subtle mb-3 md:mb-4">
                   {project.category === "ai" && "AI Infrastructure"}
                   {project.category === "web" && "Full-Stack"}
                   {project.category === "systems" && "Systems"}
@@ -51,12 +52,12 @@ function FeaturedCard({
                 </span>
 
                 {/* Title */}
-                <h3 className="text-2xl md:text-3xl font-display font-medium text-foreground mb-4 tracking-tight group-hover:text-foreground transition-colors">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-medium text-foreground mb-3 md:mb-4 tracking-tight group-hover:text-foreground transition-colors">
                   {project.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-foreground-muted text-base md:text-lg leading-relaxed mb-6 max-w-2xl">
+                <p className="text-foreground-muted text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 max-w-2xl">
                   {project.narrative || project.description}
                 </p>
 
@@ -174,13 +175,23 @@ interface ProjectsSectionProps {
   categories: Record<string, ProjectCategory>;
 }
 
+// Number of archive projects to show initially on mobile
+const INITIAL_ARCHIVE_COUNT = 4;
+
 export function ProjectsSection({ projects }: ProjectsSectionProps) {
+  const [showAllArchive, setShowAllArchive] = useState(false);
+
   // Split into featured and archive
   const featured = projects.filter((p) => FEATURED_IDS.includes(p.id));
-  const archive = projects.filter((p) => !FEATURED_IDS.includes(p.id));
+  const archive = projects
+    .filter((p) => !FEATURED_IDS.includes(p.id))
+    .sort((a, b) => parseInt(b.year) - parseInt(a.year));
+
+  const visibleArchive = showAllArchive ? archive : archive.slice(0, INITIAL_ARCHIVE_COUNT);
+  const hiddenCount = archive.length - INITIAL_ARCHIVE_COUNT;
 
   return (
-    <section id="projects" className="relative py-32 md:py-40 bg-background">
+    <section id="projects" className="relative py-24 md:py-32 lg:py-40 bg-background">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -188,18 +199,18 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mb-20 md:mb-28"
+          className="mb-16 md:mb-24"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium text-foreground mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground mb-4 md:mb-6 tracking-tight">
             Selected Work
           </h2>
-          <p className="text-foreground-muted text-lg md:text-xl max-w-xl leading-relaxed">
+          <p className="text-foreground-muted text-base md:text-lg max-w-xl leading-relaxed">
             A curated collection of projects spanning systems programming, AI infrastructure, and full-stack development.
           </p>
         </motion.div>
 
         {/* Featured Projects */}
-        <div className="space-y-6 mb-32">
+        <div className="space-y-4 md:space-y-6 mb-20 md:mb-28">
           {featured.map((project, i) => (
             <FeaturedCard key={project.id} project={project} index={i} />
           ))}
@@ -217,12 +228,31 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           </h3>
 
           <div className="divide-y divide-border/30">
-            {archive
-              .sort((a, b) => parseInt(b.year) - parseInt(a.year))
-              .map((project, i) => (
+            <AnimatePresence mode="popLayout">
+              {visibleArchive.map((project, i) => (
                 <ArchiveCard key={project.id} project={project} index={i} />
               ))}
+            </AnimatePresence>
           </div>
+
+          {/* View More / View Less Button */}
+          {hiddenCount > 0 && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              onClick={() => setShowAllArchive(!showAllArchive)}
+              className="mt-6 flex items-center gap-2 text-sm font-medium text-foreground-subtle hover:text-foreground transition-colors group"
+            >
+              <span>{showAllArchive ? "Show less" : `View ${hiddenCount} more projects`}</span>
+              <motion.div
+                animate={{ rotate: showAllArchive ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <ChevronDown className="w-4 h-4" />
+              </motion.div>
+            </motion.button>
+          )}
         </motion.div>
       </div>
     </section>

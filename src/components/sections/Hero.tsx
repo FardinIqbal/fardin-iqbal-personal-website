@@ -130,26 +130,16 @@ export function Hero({ profile }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl sm:text-3xl text-foreground-muted font-serif font-light mb-8 max-w-2xl mx-auto leading-relaxed"
+          className="text-2xl sm:text-3xl text-foreground-muted font-serif font-light mb-12 max-w-2xl mx-auto leading-relaxed"
         >
           {profile.tagline}
-        </motion.p>
-
-        {/* Description - readable body text */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-foreground-muted text-lg sm:text-xl font-serif max-w-xl mx-auto mb-12 leading-relaxed"
-        >
-          {profile.bio[0]}
         </motion.p>
 
         {/* CTA Buttons - subtle, elegant hover */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
         >
           <motion.div
@@ -190,7 +180,7 @@ export function Hero({ profile }: HeroProps) {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="flex items-center justify-center gap-2"
         >
           {[
@@ -202,7 +192,7 @@ export function Hero({ profile }: HeroProps) {
               key={label}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
+              transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
               whileHover={{ scale: 1.1, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >

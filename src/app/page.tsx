@@ -5,6 +5,7 @@ import { About } from "@/components/sections/About";
 import { SkillsSection } from "@/components/sections/Skills";
 import { ExperienceSection } from "@/components/sections/Experience";
 import { ProjectsSection } from "@/components/sections/Projects";
+import { EssaysSection } from "@/components/sections/Essays";
 import { InterestsSection } from "@/components/sections/Interests";
 import { Contact } from "@/components/sections/Contact";
 import { GlobalEffects } from "@/components/effects/GlobalEffects";
@@ -20,8 +21,9 @@ import {
   getMedia,
   getCourses,
 } from "@/lib/content";
+import { getAllPosts } from "@/lib/mdx";
 
-export default function Home() {
+export default async function Home() {
   // All data loading happens at build time (static export)
   const profile = getProfile();
   const experience = getExperience();
@@ -31,6 +33,7 @@ export default function Home() {
   const books = getBooks();
   const media = getMedia();
   const courses = getCourses();
+  const posts = await getAllPosts();
 
   return (
     <>
@@ -45,6 +48,7 @@ export default function Home() {
           projects={projects}
           categories={projectCategories}
         />
+        <EssaysSection posts={posts} />
         <InterestsSection books={books} media={media} courses={courses} />
         <Contact profile={profile} />
       </main>
