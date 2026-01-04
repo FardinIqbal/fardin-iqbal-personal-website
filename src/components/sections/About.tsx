@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { GraduationCap, MapPin, Code2, Lightbulb } from "lucide-react";
 import type { Profile } from "@/lib/content";
-import { AnimatedProfilePicture } from "@/components/ui/AnimatedProfilePicture";
+import { NoiseOrb } from "@/components/ui/NoiseOrb";
 
 interface AboutProps {
   profile: Profile;
@@ -40,7 +40,7 @@ export function About({ profile }: AboutProps) {
           <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
             {/* Profile Picture - floats left on desktop */}
             <div className="flex-shrink-0 mx-auto md:mx-0">
-              <AnimatedProfilePicture size={200} />
+              <NoiseOrb size={200} />
             </div>
 
             {/* First two paragraphs beside the picture */}
