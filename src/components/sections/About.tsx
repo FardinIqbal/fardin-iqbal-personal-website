@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { GraduationCap, MapPin, Code2, Lightbulb } from "lucide-react";
+import { GraduationCap, MapPin, Code2, Lightbulb, ArrowUpRight } from "lucide-react";
 import type { Profile } from "@/lib/content";
 
 interface AboutProps {
@@ -9,72 +9,157 @@ interface AboutProps {
 }
 
 export function About({ profile }: AboutProps) {
+  const cards = [
+    {
+      Icon: GraduationCap,
+      title: "Education",
+      line1: `${profile.education.degree} ${profile.education.major}`,
+      line2: profile.education.school
+    },
+    {
+      Icon: MapPin,
+      title: "Location",
+      line1: profile.location,
+      line2: "Open to relocation"
+    },
+    {
+      Icon: Code2,
+      title: "Focus Areas",
+      line1: "Full-Stack Development",
+      line2: "Systems Programming"
+    },
+    {
+      Icon: Lightbulb,
+      title: "Interests",
+      line1: "AI/ML Applications",
+      line2: "Open Source"
+    },
+  ];
+
   return (
-    <section id="about" className="py-32 bg-background-secondary">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-6 tracking-tight">
-            About Me
-          </h2>
-          <p className="text-foreground-muted text-lg md:text-xl font-serif leading-relaxed">
-            Get to know me a little better
-          </p>
-        </motion.div>
+    <section id="about" className="py-32 bg-background-secondary relative overflow-hidden">
+      {/* Subtle background accent */}
+      <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.02] pointer-events-none">
+        <svg viewBox="0 0 400 400" className="w-full h-full">
+          <defs>
+            <pattern id="aboutGrid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="1" className="text-foreground" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#aboutGrid)" />
+        </svg>
+      </div>
 
-        {/* Bio paragraphs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="space-y-6 mb-12"
-        >
-          {profile.bio.map((paragraph, index) => (
-            <p key={index} className="text-foreground-muted font-serif text-lg leading-relaxed">
-              {paragraph}
-            </p>
-          ))}
-        </motion.div>
-
-        {/* Info cards - 4 columns on desktop, 2 on tablet, 1 on mobile */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-8 border-t border-border"
-        >
-          {[
-            { Icon: GraduationCap, title: "Education", line1: `${profile.education.degree} ${profile.education.major}`, line2: profile.education.school },
-            { Icon: MapPin, title: "Location", line1: profile.location, line2: "Open to relocation" },
-            { Icon: Code2, title: "Focus Areas", line1: "Full-Stack Development", line2: "Systems Programming" },
-            { Icon: Lightbulb, title: "Interests", line1: "AI/ML Applications", line2: "Open Source" },
-          ].map((card, i) => (
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Two column layout on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left column - Header + Cards */}
+          <div className="lg:col-span-4">
             <motion.div
-              key={card.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.05 }}
-              whileHover={{ y: -2 }}
-              className="flex items-start gap-3 p-4 rounded-lg bg-background border border-border hover:border-foreground/10 hover:shadow-lg hover:shadow-foreground/5 transition-all duration-300 group"
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="sticky top-32"
             >
-              <card.Icon className="w-5 h-5 text-foreground-subtle mt-0.5 group-hover:text-foreground transition-colors duration-300 flex-shrink-0" />
-              <div className="min-w-0">
-                <p className="font-sans font-medium text-foreground text-sm">{card.title}</p>
-                <p className="text-sm text-foreground-muted font-serif truncate">{card.line1}</p>
-                <p className="text-sm text-foreground-subtle font-serif truncate">{card.line2}</p>
+              {/* Section label */}
+              <span className="text-xs font-mono text-foreground-subtle uppercase tracking-widest mb-4 block">
+                About
+              </span>
+
+              <h2 className="text-4xl md:text-5xl font-display font-semibold text-foreground mb-8 tracking-tight leading-tight">
+                Building software that matters
+              </h2>
+
+              {/* Quick stats */}
+              <div className="space-y-4 mb-8">
+                {cards.map((card, i) => (
+                  <motion.div
+                    key={card.title}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 + i * 0.05 }}
+                    className="flex items-center gap-3 group"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-foreground/5 flex items-center justify-center group-hover:bg-foreground/10 transition-colors">
+                      <card.Icon className="w-4 h-4 text-foreground-subtle group-hover:text-foreground transition-colors" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm text-foreground font-medium">{card.line1}</p>
+                      <p className="text-xs text-foreground-subtle">{card.line2}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
+
+              {/* CTA */}
+              <motion.a
+                href="#contact"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground-muted transition-colors group"
+              >
+                Get in touch
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              </motion.a>
             </motion.div>
-          ))}
-        </motion.div>
+          </div>
+
+          {/* Right column - Bio */}
+          <div className="lg:col-span-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="space-y-8"
+            >
+              {/* First paragraph with drop cap */}
+              {profile.bio.length > 0 && (
+                <p className="text-foreground-muted font-serif text-lg md:text-xl leading-relaxed first-letter:text-5xl first-letter:font-display first-letter:font-semibold first-letter:text-foreground first-letter:mr-3 first-letter:float-left first-letter:leading-none">
+                  {profile.bio[0]}
+                </p>
+              )}
+
+              {/* Remaining paragraphs */}
+              {profile.bio.slice(1).map((paragraph, index) => (
+                <motion.p
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  className="text-foreground-muted font-serif text-lg leading-relaxed"
+                >
+                  {paragraph}
+                </motion.p>
+              ))}
+
+              {/* Decorative divider */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="w-16 h-px bg-border origin-left"
+              />
+
+              {/* Quote or tagline */}
+              <motion.blockquote
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-foreground-subtle font-serif italic text-base border-l-2 border-foreground/10 pl-4"
+              >
+                Focused on building products that solve real problems with clean, maintainable code.
+              </motion.blockquote>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );
