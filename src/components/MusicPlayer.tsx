@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Volume2, VolumeX, Play, Pause, Radio, X, SkipForward } from "lucide-react";
+import { haptic } from "@/lib/haptics";
 
 // All SomaFM streams - verified reliable, ad-free
 const RADIO_STATIONS = [
@@ -197,6 +198,7 @@ export function MusicPlayer() {
   }, [isLoading]);
 
   const changeStation = async (stationId: StationId) => {
+    haptic("selection");
     const wasPlaying = isPlaying;
     setHasError(false);
     setCurrentStation(stationId);
@@ -228,6 +230,7 @@ export function MusicPlayer() {
 
   const togglePlay = async () => {
     if (!audioRef.current) return;
+    haptic("medium");
     setHasError(false);
     setHasAttemptedPlay(true);
 
@@ -240,6 +243,7 @@ export function MusicPlayer() {
         await audioRef.current.play();
       } catch {
         console.log("Playback failed");
+        haptic("error");
         setHasError(true);
         setIsLoading(false);
       }
@@ -250,7 +254,8 @@ export function MusicPlayer() {
     <>
       <audio ref={audioRef} src={station.url} preload="none" />
 
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+      {/* Position above mobile bottom nav (bottom-20 = 80px) */}
+      <div className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-50">
         <AnimatePresence>
           {isExpanded && (
             <>
@@ -420,7 +425,10 @@ export function MusicPlayer() {
         {/* Floating button */}
         <motion.button
           ref={buttonRef}
-          onClick={() => setIsExpanded(!isExpanded)}
+          onClick={() => {
+            haptic("light");
+            setIsExpanded(!isExpanded);
+          }}
           className={`relative p-3.5 rounded-full border-2 transition-all ${
             isPlaying
               ? "bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-500/30"

@@ -3,11 +3,13 @@
 import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { haptic } from "@/lib/haptics";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
   const toggleTheme = () => {
+    haptic("selection");
     setTheme(theme === "dark" ? "light" : "dark");
   };
 

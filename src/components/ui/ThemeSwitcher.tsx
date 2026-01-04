@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Palette, Check, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { haptic } from "@/lib/haptics";
 
 interface ThemeColors {
   background: string;        // RGB triplet "R G B"
@@ -180,6 +181,7 @@ export function ThemeSwitcher() {
   };
 
   const selectTheme = (themeId: string) => {
+    haptic("selection");
     setCurrentTheme(themeId);
     applyTheme(themeId);
     localStorage.setItem("portfolio-theme", themeId);
@@ -189,7 +191,10 @@ export function ThemeSwitcher() {
     <>
       {/* Floating Button */}
       <motion.button
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          haptic("light");
+          setIsOpen(true);
+        }}
         className="fixed bottom-6 left-6 z-40 p-3 rounded-full bg-background-secondary border border-border shadow-lg hover:bg-background-tertiary transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}

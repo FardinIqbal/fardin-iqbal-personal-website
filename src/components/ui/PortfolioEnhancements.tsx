@@ -7,6 +7,7 @@ import { KonamiCode } from "./KonamiCode";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { Guestbook } from "./Guestbook";
 import { SmoothScroll } from "./SmoothScroll";
+import { MobileBottomNav } from "./MobileBottomNav";
 
 export function PortfolioEnhancements() {
   return (
@@ -31,6 +32,9 @@ export function PortfolioEnhancements() {
 
       {/* Guestbook - visitor messages with confetti */}
       <Guestbook />
+
+      {/* Mobile Bottom Navigation - thumb-friendly nav with haptics */}
+      <MobileBottomNav />
     </>
   );
 }

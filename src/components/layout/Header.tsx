@@ -8,6 +8,7 @@ import { Menu, X, Command } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { AvailabilityStatus } from "@/components/ui/AvailabilityStatus";
+import { haptic } from "@/lib/haptics";
 
 const navItems = [
   { label: "About", href: "/#about" },
@@ -160,7 +161,10 @@ export function Header() {
             <div className="flex md:hidden items-center gap-2">
               <ThemeToggle />
               <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                onClick={() => {
+                  haptic("light");
+                  setIsMobileMenuOpen(!isMobileMenuOpen);
+                }}
                 className="p-2 text-foreground-muted hover:text-foreground transition-colors"
                 aria-label="Toggle menu"
               >
@@ -204,7 +208,10 @@ export function Header() {
                   <Link
                     key={item.label}
                     href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => {
+                      haptic("selection");
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="py-3 font-sans text-foreground-muted hover:text-foreground transition-colors duration-200"
                   >
                     {item.label}
