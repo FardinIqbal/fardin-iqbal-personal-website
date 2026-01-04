@@ -579,21 +579,139 @@ svg .animate-rotate-slow {
 
 /* ============================================
    BLOG ARTICLE TYPOGRAPHY
-   NY Times-inspired, elegant reading experience
+   NY Times / Atlantic-inspired editorial experience
    ============================================ */
 
 .prose-article {
   font-family: var(--font-serif);
-  font-size: 1.1875rem;           /* 19px - slightly larger for comfort */
-  line-height: 1.85;              /* Very generous line height */
+  font-size: 1.25rem;             /* 20px - optimal for long-form */
+  line-height: 1.9;               /* Very generous for reading comfort */
   color: rgb(var(--color-foreground));
-  max-width: var(--measure-optimal);
+  max-width: 42rem;               /* ~672px - optimal measure */
   margin-left: auto;
   margin-right: auto;
+  letter-spacing: 0.01em;
 }
 
 .prose-article > * + * {
   margin-top: 1.75em;
+}
+
+/* ----------------------------------------
+   DROP CAP - Editorial opening
+   ---------------------------------------- */
+.prose-article > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 0.8;
+  padding-right: 0.15em;
+  padding-top: 0.1em;
+  color: rgb(var(--color-foreground));
+}
+
+/* ----------------------------------------
+   PULL QUOTES - Dramatic emphasis
+   ---------------------------------------- */
+.prose-article .pull-quote,
+.prose-article blockquote.large {
+  margin: 3.5rem -2rem;
+  padding: 2.5rem 3rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.5;
+  text-align: center;
+  color: rgb(var(--color-foreground));
+  border-left: none;
+  border-top: 1px solid rgb(var(--color-border));
+  border-bottom: 1px solid rgb(var(--color-border));
+  background: transparent;
+}
+
+.prose-article .pull-quote p,
+.prose-article blockquote.large p {
+  margin: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* ----------------------------------------
+   SECTION BREAKS - Elegant dividers
+   ---------------------------------------- */
+.prose-article hr {
+  margin: 4rem auto;
+  border: none;
+  height: auto;
+  background: transparent;
+  text-align: center;
+}
+
+.prose-article hr::before {
+  content: "* * *";
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  letter-spacing: 0.5em;
+  color: rgb(var(--color-foreground-subtle));
+}
+
+/* Alternate: simple line */
+.prose-article hr.line {
+  height: 1px;
+  background: rgb(var(--color-border));
+}
+
+.prose-article hr.line::before {
+  content: none;
+}
+
+/* ----------------------------------------
+   SMALL CAPS - For emphasis
+   ---------------------------------------- */
+.prose-article .small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+/* ----------------------------------------
+   LEDE / INTRO PARAGRAPH
+   ---------------------------------------- */
+.prose-article .lede,
+.prose-article > p:first-of-type {
+  font-size: 1.5rem;
+  line-height: 1.7;
+  color: rgb(var(--color-foreground));
+  margin-bottom: 2.5rem;
+}
+
+/* ----------------------------------------
+   BYLINE & META
+   ---------------------------------------- */
+.prose-article .byline {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgb(var(--color-foreground-subtle));
+  margin-bottom: 2rem;
+}
+
+/* ----------------------------------------
+   SIDENOTES (for asides)
+   ---------------------------------------- */
+.prose-article aside,
+.prose-article .sidenote {
+  font-size: 0.9rem;
+  color: rgb(var(--color-foreground-muted));
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  background: rgb(var(--color-background-secondary));
+  border-radius: 8px;
+  border-left: 3px solid rgb(var(--color-border));
 }
 
 /* Headings - elegant display font */
@@ -927,8 +1045,8 @@ svg .animate-rotate-slow {
 /* Responsive adjustments */
 @media (max-width: 640px) {
   .prose-article {
-    font-size: 1.0625rem;         /* 17px on mobile */
-    line-height: 1.75;
+    font-size: 1.125rem;          /* 18px on mobile */
+    line-height: 1.8;
   }
 
   .prose-article h1 {
@@ -944,8 +1062,22 @@ svg .animate-rotate-slow {
     font-size: 1.25rem;
   }
 
-  .prose-article > p:first-of-type {
-    font-size: 1.125rem;
+  /* Drop cap - smaller on mobile */
+  .prose-article > p:first-of-type::first-letter {
+    font-size: 3.5rem;
+  }
+
+  .prose-article > p:first-of-type,
+  .prose-article .lede {
+    font-size: 1.25rem;
+  }
+
+  /* Pull quotes - full width on mobile */
+  .prose-article .pull-quote,
+  .prose-article blockquote.large {
+    margin: 2.5rem -1rem;
+    padding: 1.5rem 1.5rem;
+    font-size: 1.35rem;
   }
 
   .prose-article blockquote {
@@ -957,6 +1089,10 @@ svg .animate-rotate-slow {
     padding: 1rem;
     border-radius: 8px;
     font-size: 0.85rem;
+  }
+
+  .prose-article hr {
+    margin: 3rem auto;
   }
 }
 
