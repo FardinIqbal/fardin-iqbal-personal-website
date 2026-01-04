@@ -29,16 +29,13 @@ export function CustomCursor() {
   const glowY = useSpring(mouseY, glowSpringConfig);
 
   useEffect(() => {
-    // Only show custom cursor on desktop
-    if (typeof window !== "undefined" && window.innerWidth < 768) {
-      return;
-    }
-
-    // Inject global CSS to hide ALL cursors
+    // Inject global CSS to hide cursors only on md+ screens
     const style = document.createElement("style");
     style.textContent = `
-      *, *::before, *::after {
-        cursor: none !important;
+      @media (min-width: 768px) {
+        *, *::before, *::after {
+          cursor: none !important;
+        }
       }
     `;
     document.head.appendChild(style);
