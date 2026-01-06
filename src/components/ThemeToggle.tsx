@@ -9,6 +9,17 @@ import { haptic } from "@/lib/haptics";
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mobileNavVisible, setMobileNavVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile vs desktop
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Listen for mobile nav visibility changes
   useEffect(() => {
@@ -36,10 +47,10 @@ export function ThemeToggle() {
 
   return (
     <motion.div
-      className="fixed left-4 md:left-6 z-40"
+      className="fixed left-4 md:left-6 z-40 bottom-6"
       initial={false}
       animate={{
-        bottom: mobileNavVisible ? 96 : 24,
+        bottom: isMobile ? (mobileNavVisible ? 96 : 24) : 24,
       }}
       transition={{ type: "spring", damping: 25, stiffness: 300 }}
     >

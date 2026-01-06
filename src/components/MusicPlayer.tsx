@@ -76,9 +76,20 @@ export function MusicPlayer() {
   const [hasAttemptedPlay, setHasAttemptedPlay] = useState(false);
   const [autoplayAttempted, setAutoplayAttempted] = useState(false);
   const [mobileNavVisible, setMobileNavVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   const station = RADIO_STATIONS.find((s) => s.id === currentStation)!;
   const stationsInGenre = RADIO_STATIONS.filter((s) => s.genre === selectedGenre);
+
+  // Detect mobile vs desktop
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Listen for mobile nav visibility changes
   useEffect(() => {
@@ -267,13 +278,12 @@ export function MusicPlayer() {
 
       {/* Position above mobile bottom nav - slides with nav visibility */}
       <motion.div
-        className="fixed right-4 md:right-6 z-50"
+        className="fixed right-4 md:right-6 z-50 bottom-6"
         initial={false}
         animate={{
-          bottom: mobileNavVisible ? 96 : 24, // bottom-24 vs bottom-6
+          bottom: isMobile ? (mobileNavVisible ? 96 : 24) : 24,
         }}
         transition={{ type: "spring", damping: 25, stiffness: 300 }}
-        style={{ bottom: 24 }} // md:bottom-6 fallback for SSR
       >
         <AnimatePresence>
           {isExpanded && (
@@ -320,7 +330,7 @@ export function MusicPlayer() {
                   </div>
 
                   {/* Genre tabs */}
-                  <div className="flex gap-1 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
+                  <div className="relative flex gap-1 overflow-x-auto pb-1 -mx-1 px-1 scrollbar-hide">
                     {GENRES.map((genre) => (
                       <button
                         key={genre}
@@ -331,13 +341,28 @@ export function MusicPlayer() {
                             changeStation(firstInGenre.id);
                           }
                         }}
-                        className={`px-3 py-1.5 rounded-full text-xs whitespace-nowrap transition-all ${
-                          selectedGenre === genre
-                            ? "bg-emerald-500 text-white font-medium"
-                            : "bg-background-tertiary text-foreground-muted hover:text-foreground"
-                        }`}
+                        className="relative px-3 py-1.5 rounded-full text-xs whitespace-nowrap z-10"
                       >
-                        {genre}
+                        {selectedGenre === genre && (
+                          <motion.div
+                            layoutId="activeGenreTab"
+                            className="absolute inset-0 bg-emerald-500 rounded-full"
+                            transition={{
+                              type: "spring",
+                              stiffness: 500,
+                              damping: 30,
+                            }}
+                          />
+                        )}
+                        <span
+                          className={`relative z-10 transition-colors ${
+                            selectedGenre === genre
+                              ? "text-white font-medium"
+                              : "text-foreground-muted hover:text-foreground"
+                          }`}
+                        >
+                          {genre}
+                        </span>
                       </button>
                     ))}
                   </div>

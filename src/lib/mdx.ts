@@ -13,6 +13,47 @@ import type { BlogPost } from "@/types";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
 
+// Rehype plugin to enhance code blocks with language labels
+function rehypeCodeBlockEnhancer() {
+  return (tree: any) => {
+    const visit = (node: any) => {
+      if (node.type === "element" && node.tagName === "pre") {
+        const codeElement = node.children?.find(
+          (child: any) => child.type === "element" && child.tagName === "code"
+        );
+        if (codeElement) {
+          const classNameArray = Array.isArray(codeElement.properties?.className)
+            ? codeElement.properties.className
+            : typeof codeElement.properties?.className === "string"
+            ? [codeElement.properties.className]
+            : [];
+          
+          const language = classNameArray
+            .find((cls: string) => cls.startsWith("language-"))
+            ?.replace("language-", "") || "text";
+          
+          // Add code-block class and data-lang attribute
+          const existingClasses = Array.isArray(node.properties?.className)
+            ? node.properties.className
+            : typeof node.properties?.className === "string"
+            ? [node.properties.className]
+            : [];
+          
+          node.properties = {
+            ...node.properties,
+            className: ["code-block", ...existingClasses],
+            "data-lang": language,
+          };
+        }
+      }
+      if (node.children) {
+        node.children.forEach(visit);
+      }
+    };
+    visit(tree);
+  };
+}
+
 async function compileMarkdown(content: string): Promise<string> {
   const result = await unified()
     .use(remarkParse)
@@ -23,6 +64,7 @@ async function compileMarkdown(content: string): Promise<string> {
       theme: "github-dark",
       keepBackground: true,
     })
+    .use(rehypeCodeBlockEnhancer)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);
 

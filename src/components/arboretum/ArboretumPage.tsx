@@ -81,28 +81,58 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
               </div>
 
               {/* Tab Navigation */}
-              <div className="flex items-center gap-1 bg-background-tertiary rounded-lg p-1">
+              <div className="relative flex items-center gap-1 bg-background-tertiary rounded-lg p-1">
                 <button
                   onClick={() => setActiveTab("insights")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                    activeTab === "insights"
-                      ? "bg-background text-foreground"
-                      : "text-foreground-subtle hover:text-foreground"
-                  }`}
+                  className="relative flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors z-10"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span className="hidden sm:inline">Insights</span>
+                  {activeTab === "insights" && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-background rounded-md"
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 flex items-center gap-2 transition-colors ${
+                      activeTab === "insights"
+                        ? "text-foreground"
+                        : "text-foreground-subtle hover:text-foreground"
+                    }`}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    <span className="hidden sm:inline">Insights</span>
+                  </span>
                 </button>
                 <button
                   onClick={() => setActiveTab("report")}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors ${
-                    activeTab === "report"
-                      ? "bg-background text-foreground"
-                      : "text-foreground-subtle hover:text-foreground"
-                  }`}
+                  className="relative flex items-center gap-2 px-3 py-1.5 rounded-md text-sm transition-colors z-10"
                 >
-                  <FileText className="w-4 h-4" />
-                  <span className="hidden sm:inline">Full Report</span>
+                  {activeTab === "report" && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute inset-0 bg-background rounded-md"
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                  <span
+                    className={`relative z-10 flex items-center gap-2 transition-colors ${
+                      activeTab === "report"
+                        ? "text-foreground"
+                        : "text-foreground-subtle hover:text-foreground"
+                    }`}
+                  >
+                    <FileText className="w-4 h-4" />
+                    <span className="hidden sm:inline">Full Report</span>
+                  </span>
                 </button>
               </div>
             </div>
@@ -113,9 +143,13 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
         {activeTab === "insights" ? (
           <motion.main
             key="insights"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{
+              duration: 0.3,
+              ease: [0.4, 0, 0.2, 1],
+            }}
             className="py-8"
           >
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,9 +218,13 @@ export function ArboretumPage({ data }: ArboretumPageProps) {
         ) : (
           <motion.main
             key="report"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{
+              duration: 0.3,
+              ease: [0.4, 0, 0.2, 1],
+            }}
             className="py-8"
           >
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

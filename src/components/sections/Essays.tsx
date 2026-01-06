@@ -60,6 +60,7 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
 const FEATURED_ESSAY_SLUGS = [
   "why-love-needs-no-reason",
   "building-prometheus",
+  "big-minds-case-manager",
   "grappler-to-engineer",
 ];
 

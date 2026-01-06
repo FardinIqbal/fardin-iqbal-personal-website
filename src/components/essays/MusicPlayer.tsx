@@ -184,19 +184,34 @@ export function MusicPlayer() {
 
               <div className="p-5 space-y-4">
                 {/* Genre Tabs */}
-                <div className="flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1">
+                <div className="relative flex gap-1.5 overflow-x-auto pb-1 -mx-1 px-1">
                   {GENRES.map((genre) => (
                     <button
                       key={genre}
                       onClick={() => handleGenreChange(genre)}
-                      className={cn(
-                        "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all",
-                        currentGenre === genre
-                          ? "bg-[rgb(var(--accent-red))] text-white"
-                          : "bg-foreground/5 text-foreground-muted hover:text-foreground"
-                      )}
+                      className="relative px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap z-10"
                     >
-                      {genre}
+                      {currentGenre === genre && (
+                        <motion.div
+                          layoutId="activeEssayGenreTab"
+                          className="absolute inset-0 bg-[rgb(var(--accent-red))] rounded-full"
+                          transition={{
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                      <span
+                        className={cn(
+                          "relative z-10 transition-colors",
+                          currentGenre === genre
+                            ? "text-white"
+                            : "text-foreground-muted hover:text-foreground"
+                        )}
+                      >
+                        {genre}
+                      </span>
                     </button>
                   ))}
                 </div>

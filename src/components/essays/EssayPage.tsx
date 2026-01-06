@@ -27,60 +27,50 @@ export function EssayPage({
       {/* Reading progress bar */}
       <ReadingProgress />
       
-      {/* Reading time indicator - refined New Yorker style */}
-      <div className="fixed top-6 right-8 z-40 font-inter text-[0.65rem] text-foreground-subtle uppercase tracking-[0.12em] opacity-50">
+      {/* Reading time indicator - positioned top-left like reference */}
+      <div className="reading-time">
         {readingTime}
       </div>
 
-      {/* Hero Section - Refined New Yorker style */}
-      <header className="essay-hero min-h-[85vh] flex flex-col justify-center py-32 relative border-b border-border/50">
-        <div className="editorial-container">
-          {/* Chapter marker - refined spacing */}
-          <div className="hero-chapter mb-12">Essay</div>
-          
-          {/* Title - elegant typography */}
-          <h1 className="essay-hero-title mb-10">
-            {title}
-          </h1>
-
-          {/* Subtitle - refined spacing */}
+      {/* Hero Section - Matching reference exactly */}
+      <header className="hero">
+        <div className="container">
+          <div className="hero-chapter">Essay</div>
+          <h1 dangerouslySetInnerHTML={{ __html: title }} />
           {description && (
-            <p className="essay-hero-subtitle mb-16 max-w-2xl">
-              {description}
-            </p>
+            <p className="hero-subtitle">{description}</p>
           )}
-
-          {/* Meta - refined spacing */}
-          <div className="essay-hero-meta">
+          <div className="hero-meta">
             <span>By Fardin Iqbal</span>
-            <span className="text-foreground-subtle/60">·</span>
             <span>{formatDate(date)}</span>
-            {tags.length > 0 && (
-              <>
-                <span className="text-foreground-subtle/60">·</span>
-                <span>{tags[0]}</span>
-              </>
-            )}
+            {tags.length > 0 && <span>{tags[0]}</span>}
           </div>
         </div>
-
+        <div className="scroll-indicator">
+          <span>Begin reading</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </div>
       </header>
 
-      {/* Article Content - Refined New Yorker sections */}
-      <main className="py-20">
-        <article
-          className="essay-article-content prose-article"
-          dangerouslySetInnerHTML={{ __html: compiledContent }}
-        />
+      {/* Article Content - Wrapped in main with sections */}
+      <main>
+        <div className="container">
+          <article
+            className="prose-article"
+            dangerouslySetInnerHTML={{ __html: compiledContent }}
+          />
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="essay-footer py-20 text-center text-foreground-subtle font-inter text-xs tracking-[0.02em] leading-[2]">
-        <div className="editorial-container">
+      <footer>
+        <div className="container">
           <p><strong>Built by Fardin Iqbal</strong></p>
           <p>Software Engineer & Writer</p>
-          <p className="mt-6">
-            <Link href="/essays" className="text-[rgb(var(--accent-red))] no-underline hover:underline">
+          <p style={{ marginTop: '1.5rem' }}>
+            <Link href="/essays" className="footer-link">
               Back to Essays
             </Link>
           </p>
@@ -103,16 +93,17 @@ function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[1px] z-[1000]"
-      style={{ opacity: 0.6 }}
+      className="fixed top-0 left-0 right-0 h-[2px] z-[1000]"
     >
       <motion.div
-        className="h-full origin-left"
+        className="h-full origin-left transition-all"
         style={{ 
           scaleX,
-          background: "rgb(var(--accent-red))"
+          background: "linear-gradient(90deg, rgb(var(--accent-red)), rgb(96 165 250))",
+          opacity: 0.6
         }}
       />
     </motion.div>
   );
 }
+

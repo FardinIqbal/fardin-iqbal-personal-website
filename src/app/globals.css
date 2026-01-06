@@ -837,13 +837,63 @@ main {
   letter-spacing: 0.05em !important;
 }
 
-/* Paragraphs - Refined New Yorker style */
+/* Paragraphs - Match reference exactly */
+.essay-wrapper .prose-article p,
 .prose-article p {
   color: rgb(var(--color-foreground-muted)) !important;
-  margin-bottom: 2rem !important;
+  margin-bottom: 1.75rem !important;
   font-weight: 400 !important;
   font-size: 19px !important;
+  line-height: 1.9 !important;
+}
+
+/* Lead Paragraph with Drop Cap */
+.prose-article .lead,
+.prose-article p.lead,
+.prose-article > p:first-of-type {
+  font-size: 1.15rem !important;
   line-height: 1.85 !important;
+  color: rgb(var(--color-foreground)) !important;
+  margin-bottom: 2rem !important;
+}
+
+.prose-article .lead::first-letter,
+.prose-article > p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.75;
+  padding-right: 0.6rem;
+  padding-top: 0.3rem;
+  font-weight: 600;
+  color: rgb(var(--accent-red));
+  font-family: var(--font-source-serif), Georgia, serif;
+}
+
+@media (max-width: 640px) {
+  .prose-article .lead::first-letter,
+  .prose-article > p:first-of-type::first-letter {
+    font-size: 3.5rem;
+  }
+}
+
+/* Text style utilities */
+.prose-article .highlight {
+  color: rgb(var(--color-foreground));
+  font-weight: 500;
+}
+
+.prose-article .pop {
+  color: rgb(var(--accent-red));
+  font-weight: 500;
+}
+
+.prose-article .blue {
+  color: rgb(37 99 235);
+  font-weight: 500;
+}
+
+.dark .prose-article .blue {
+  color: rgb(96 165 250);
 }
 
 /* Links - subtle underline with accent color */
@@ -870,7 +920,8 @@ main {
 }
 
 /* Blockquotes - Refined New Yorker pull quote style */
-.prose-article blockquote {
+.prose-article blockquote,
+.prose-article .pull-quote {
   font-family: var(--font-source-serif), Georgia, serif !important;
   font-size: 1.7rem !important;
   font-style: italic !important;
@@ -885,7 +936,8 @@ main {
   border-left: none !important;
 }
 
-.prose-article blockquote::before {
+.prose-article blockquote::before,
+.prose-article .pull-quote::before {
   content: '"' !important;
   position: absolute !important;
   top: 1.5rem !important;
@@ -897,7 +949,8 @@ main {
   font-family: Georgia, serif !important;
 }
 
-.prose-article blockquote p {
+.prose-article blockquote p,
+.prose-article .pull-quote p {
   font-size: 1.6rem !important;
   line-height: 1.6 !important;
   color: rgb(var(--color-foreground)) !important;
@@ -980,6 +1033,7 @@ main {
 
 .prose-article .stat {
   text-align: center;
+  flex: 1;
 }
 
 .prose-article .stat-value {
@@ -1021,6 +1075,46 @@ main {
 .prose-article .callout p {
   margin: 0;
   font-size: 0.95rem;
+}
+
+.prose-article .callout.success {
+  border-left-color: rgb(22 163 74);
+}
+
+.prose-article .callout.success .callout-title {
+  color: rgb(22 163 74);
+}
+
+.light .prose-article .callout.success {
+  border-left-color: rgb(22 163 74);
+}
+
+.dark .prose-article .callout.success {
+  border-left-color: rgb(74 222 128);
+}
+
+.dark .prose-article .callout.success .callout-title {
+  color: rgb(74 222 128);
+}
+
+.prose-article .callout.warning {
+  border-left-color: rgb(202 138 4);
+}
+
+.prose-article .callout.warning .callout-title {
+  color: rgb(202 138 4);
+}
+
+.light .prose-article .callout.warning {
+  border-left-color: rgb(202 138 4);
+}
+
+.dark .prose-article .callout.warning {
+  border-left-color: rgb(251 191 36);
+}
+
+.dark .prose-article .callout.warning .callout-title {
+  color: rgb(251 191 36);
 }
 
 /* Problem Cards - New Yorker style */
@@ -1134,11 +1228,180 @@ main {
   border-bottom: none;
 }
 
+/* Architecture Flow Diagrams */
+.prose-article .architecture {
+  padding: 2.5rem 0;
+  margin: 2.5rem 0;
+  text-align: center;
+  border-top: 1px solid rgb(var(--color-border));
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.prose-article .arch-title {
+  font-family: var(--font-inter);
+  font-size: 0.55rem;
+  color: rgb(var(--color-foreground-subtle));
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1.5rem;
+}
+
+.prose-article .arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: var(--font-inter);
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.prose-article .arch-node {
+  padding: 0.5rem 1rem;
+  color: rgb(var(--color-foreground));
+  background: rgb(var(--color-background-secondary));
+  border-radius: 4px;
+  border: 1px solid rgb(var(--color-border));
+}
+
+.prose-article .arch-arrow {
+  color: rgb(var(--color-foreground-subtle));
+  font-size: 0.8rem;
+}
+
+/* Log Block - Terminal Style */
+.prose-article .log-block {
+  background: rgb(26 26 26);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.7rem;
+  line-height: 1.8;
+}
+
+.dark .prose-article .log-block {
+  background: rgb(10 10 10);
+  border: 1px solid rgb(var(--color-border));
+}
+
+.prose-article .log-block .log-process {
+  color: rgb(96 165 250);
+}
+
+.prose-article .log-block .log-email {
+  color: rgb(167 139 250);
+}
+
+.prose-article .log-block .log-ai {
+  color: rgb(52 211 153);
+}
+
+.prose-article .log-block .log-case {
+  color: rgb(251 191 36);
+}
+
+.prose-article .log-block .log-sheet {
+  color: rgb(244 114 182);
+}
+
+.prose-article .log-block .log-error {
+  color: rgb(248 113 113);
+}
+
+.prose-article .log-block .log-success {
+  color: rgb(74 222 128);
+}
+
+.prose-article .log-block .log-dim {
+  color: rgb(107 114 128);
+}
+
+.dark .prose-article .log-block .log-dim {
+  color: rgb(75 85 99);
+}
+
+/* Garbage Example */
+.prose-article .garbage-example {
+  background: rgb(var(--color-background-tertiary));
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0.5rem;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.8rem;
+}
+
+.prose-article .garbage-example .bad {
+  color: rgb(var(--accent-red));
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.prose-article .garbage-example .good {
+  color: rgb(22 163 74);
+}
+
+.dark .prose-article .garbage-example .good {
+  color: rgb(74 222 128);
+}
+
+/* Chapter Markers */
+.prose-article .chapter-marker {
+  font-family: var(--font-inter);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: rgb(var(--accent-red));
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+
+/* Lists - Enhanced */
+.prose-article ul {
+  list-style: none;
+  margin: 2rem 0;
+}
+
+.prose-article ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: rgb(var(--color-foreground-muted));
+  font-size: 0.95rem;
+}
+
+.prose-article ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  background: rgb(var(--accent-red));
+  border-radius: 50%;
+}
+
+.prose-article ol {
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose-article ol li {
+  margin-bottom: 1rem;
+  color: rgb(var(--color-foreground-muted));
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .prose-article .stats-row {
     flex-direction: column;
     gap: 2rem;
+  }
+  
+  .prose-article .arch-flow {
+    flex-direction: column;
   }
 }
 
@@ -1509,12 +1772,50 @@ main {
   align-items: center;
 }
 
-/* Essay Article Content - Refined New Yorker sections */
+/* Essay Article Content - Match reference structure */
+.essay-wrapper main {
+  padding: 0;
+}
+
+.essay-wrapper main .container {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.essay-wrapper main section {
+  padding: 5rem 0;
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.essay-wrapper main section:last-of-type {
+  border-bottom: none;
+}
+
+/* Footer - Match reference */
+.essay-wrapper footer {
+  padding: 5rem 0;
+  text-align: center;
+  color: rgb(var(--color-foreground-subtle));
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  line-height: 2;
+}
+
+.essay-wrapper footer a {
+  color: rgb(var(--accent-red));
+  text-decoration: none;
+}
+
+.essay-wrapper footer a:hover {
+  text-decoration: underline;
+}
+
+/* Legacy support */
 .essay-article-content {
   max-width: 680px;
   margin: 0 auto;
   padding: 0 2rem;
-  padding-top: 4rem;
 }
 
 .essay-article-content section,
@@ -1538,15 +1839,21 @@ main {
   margin-bottom: 1rem;
 }
 
+/* Headings - Match reference exactly */
+.essay-wrapper .prose-article h2,
 .essay-article-content h2 {
   font-family: var(--font-source-serif), Georgia, serif !important;
-  font-size: 2rem !important;
+  font-size: 1.85rem !important;
   font-weight: 600 !important;
-  letter-spacing: -0.015em !important;
-  margin-top: 3.5rem !important;
-  margin-bottom: 2.5rem !important;
-  line-height: 1.2 !important;
+  letter-spacing: -0.01em !important;
+  margin-top: 0 !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.25 !important;
   color: rgb(var(--color-foreground)) !important;
+}
+
+.essay-wrapper .prose-article h2:first-of-type {
+  margin-top: 0 !important;
 }
 
 /* Ensure first h2 has same font-size as all other h2s */
@@ -1555,25 +1862,27 @@ main {
   font-size: 2rem !important;
 }
 
+.essay-wrapper .prose-article h3,
 .essay-article-content h3 {
   font-family: var(--font-source-serif), Georgia, serif !important;
-  font-size: 1.35rem !important;
+  font-size: 1.2rem !important;
   font-weight: 600 !important;
-  margin-top: 3.5rem !important;
-  margin-bottom: 1.5rem !important;
+  margin-top: 3rem !important;
+  margin-bottom: 1rem !important;
   color: rgb(var(--color-foreground)) !important;
   line-height: 1.3 !important;
 }
 
+.essay-wrapper .prose-article h4,
 .essay-article-content h4 {
-  font-family: var(--font-inter);
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-top: 2rem;
-  margin-bottom: 0.75rem;
-  color: rgb(var(--color-foreground));
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-family: var(--font-inter), sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  margin-top: 2rem !important;
+  margin-bottom: 0.75rem !important;
+  color: rgb(var(--color-foreground)) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
 }
 
 .essay-article-content p {
