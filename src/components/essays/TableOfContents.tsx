@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { List, X } from "lucide-react";
 import { slugify } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
@@ -16,6 +16,28 @@ export function TableOfContents() {
   const [headings, setHeadings] = useState<Heading[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileNavVisible, setMobileNavVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile vs desktop
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Listen for mobile nav visibility changes
+  useEffect(() => {
+    const handleNavVisibility = (e: CustomEvent<{ visible: boolean }>) => {
+      setMobileNavVisible(e.detail.visible);
+    };
+
+    window.addEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+    return () => window.removeEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+  }, []);
 
   // Extract headings from the article
   useEffect(() => {
@@ -69,7 +91,7 @@ export function TableOfContents() {
     const headingIds = headings.map((h) => h.id);
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200; // Offset for better detection
+      const scrollPosition = window.scrollY + 100; // Offset to match scroll-to offset
       let currentActive = "";
 
       // Find the heading that's currently in view
