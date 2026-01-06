@@ -20,3 +20,4 @@ export function Journey({ children }: { children: ReactNode }) {
   return <div className="journey">{children}</div>;
 }
 
+

@@ -21,6 +21,10 @@ export function EssaysList({ posts, allTags }: EssaysListProps) {
       )
     : posts;
 
+  // Separate featured and regular posts
+  const featuredPosts = filteredPosts.filter((post) => post.featured);
+  const regularPosts = filteredPosts.filter((post) => !post.featured);
+
   return (
     <div>
       {/* Editorial Tag Filter */}
@@ -56,14 +60,28 @@ export function EssaysList({ posts, allTags }: EssaysListProps) {
         </div>
       )}
 
-      {/* Essays List */}
-      {filteredPosts.length > 0 ? (
-        <div>
-          {filteredPosts.map((post, index) => (
-            <EssayItem key={post.slug} post={post} index={index} />
+      {/* Featured Essays Section */}
+      {featuredPosts.length > 0 && (
+        <div className="mb-12">
+          <div className="mb-6">
+            <span className="text-xs font-sans font-semibold text-accent-red uppercase tracking-wider">
+              Featured
+            </span>
+          </div>
+          {featuredPosts.map((post, index) => (
+            <EssayItem key={post.slug} post={post} index={index} isFeatured={true} />
           ))}
         </div>
-      ) : (
+      )}
+
+      {/* Regular Essays List */}
+      {regularPosts.length > 0 ? (
+        <div>
+          {regularPosts.map((post, index) => (
+            <EssayItem key={post.slug} post={post} index={index + featuredPosts.length} isFeatured={false} />
+          ))}
+        </div>
+      ) : filteredPosts.length === 0 ? (
         <div className="text-center py-20">
           <p className="text-foreground-muted font-serif text-lg mb-4">No essays found.</p>
           <button
@@ -73,12 +91,12 @@ export function EssaysList({ posts, allTags }: EssaysListProps) {
             Clear filter
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }
 
-function EssayItem({ post, index }: { post: BlogPost; index: number }) {
+function EssayItem({ post, index, isFeatured }: { post: BlogPost; index: number; isFeatured: boolean }) {
   const isExternal = !!post.externalUrl;
   const href = isExternal ? post.externalUrl! : `/essays/${post.slug}`;
   
@@ -98,13 +116,21 @@ function EssayItem({ post, index }: { post: BlogPost; index: number }) {
         delay: index * 0.02,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="group py-10 border-b border-border last:border-b-0 hover:bg-background-secondary/30 transition-colors duration-300 rounded-lg px-2 -mx-2"
+      className={cn(
+        "group py-10 border-b border-border last:border-b-0 hover:bg-background-secondary/30 transition-colors duration-300 rounded-lg px-2 -mx-2",
+        isFeatured && "bg-accent-red/5 border-accent-red/20"
+      )}
     >
       <LinkComponent {...linkProps} className="block">
         <div className="flex items-start gap-6">
           {/* Editorial accent line - more visible */}
           <div className="flex-shrink-0 pt-1 relative">
-            <div className="w-1 h-16 bg-accent-red/20 group-hover:bg-accent-red transition-all duration-300 rounded-full"></div>
+            <div className={cn(
+              "w-1 h-16 rounded-full transition-all duration-300",
+              isFeatured 
+                ? "bg-accent-red group-hover:bg-accent-red" 
+                : "bg-accent-red/20 group-hover:bg-accent-red"
+            )}></div>
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-accent-red rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </div>
           
