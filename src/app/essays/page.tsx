@@ -31,7 +31,7 @@ export default async function EssaysPage() {
               Reflections on technology, philosophy, and the craft of building software.
             </p>
             <div className="relative h-px bg-border">
-              <div className="absolute left-0 top-0 w-24 h-px bg-accent-red"></div>
+              <div className="absolute left-0 top-0 w-24 h-px bg-[rgb(var(--accent-red))]"></div>
             </div>
           </div>
 

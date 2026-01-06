@@ -23,13 +23,9 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
           <div className="chapter-marker mb-6">Experience</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15] relative">
             Experience
-            {/* Subtle accent red line above title */}
+            {/* Accent red line above title - matching navbar style */}
             <span 
-              className="absolute -top-4 left-0 w-16 h-px block"
-              style={{
-                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
-                opacity: 0.5
-              }}
+              className="absolute -top-4 left-0 w-16 h-px block bg-[rgb(var(--accent-red))]"
             />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl font-serif leading-[1.75]">

@@ -194,7 +194,7 @@ nav, button, .label, .meta, .badge, .btn {
   font-family: var(--font-inter);
 }
 
-/* Clean scrollbar */
+/* Clean scrollbar - accent red */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -205,12 +205,20 @@ nav, button, .label, .meta, .badge, .btn {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-border));
+  background: rgb(var(--accent-red));
   border-radius: 4px;
+  opacity: 0.7;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--color-foreground-subtle));
+  background: rgb(var(--accent-red));
+  opacity: 1;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--accent-red) / 0.7) transparent;
 }
 
 /* Selection - elegant and visible with proper contrast */
@@ -1792,13 +1800,8 @@ main {
   bottom: 0;
   left: 1.5rem;
   width: 3rem;
-  height: 2px;
-  background: linear-gradient(
-    to right,
-    rgb(var(--accent-red)),
-    rgb(var(--accent-red)/0.3)
-  );
-  opacity: 0.8;
+  height: 1px;
+  background: rgb(var(--accent-red));
 }
 
 .essay-hero-title,
@@ -1823,12 +1826,7 @@ main {
   left: 0;
   width: 4rem;
   height: 1px;
-  background: linear-gradient(
-    to right,
-    rgb(var(--accent-red)),
-    transparent
-  );
-  opacity: 0.5;
+  background: rgb(var(--accent-red));
 }
 
 .essay-hero-title em,
@@ -1902,7 +1900,6 @@ main {
   width: 3rem;
   height: 1px;
   background: rgb(var(--accent-red));
-  opacity: 0.5;
 }
 
 .essay-hero-meta span,

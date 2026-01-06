@@ -65,7 +65,7 @@ export function ThemeToggle() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
       >
-        <Icon className="w-5 h-5" />
+        <Icon className="w-5 h-5 text-accent" />
       </motion.button>
     </motion.div>
   );

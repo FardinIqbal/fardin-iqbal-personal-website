@@ -39,7 +39,7 @@ function SkillCard({
       {/* Header */}
       <div className="flex items-center gap-3 mb-4 sm:mb-5">
         <div className="p-2 sm:p-2.5 rounded-lg bg-background-tertiary">
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-foreground-muted group-hover:text-accent transition-colors" />
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-accent transition-colors" />
         </div>
         <div>
           <h3 className="text-sm sm:text-base font-semibold text-foreground">
@@ -99,13 +99,9 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
           <div className="chapter-marker mb-6">Skills</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15] relative">
             Skills
-            {/* Subtle accent red line above title */}
+            {/* Accent red line above title - matching navbar style */}
             <span 
-              className="absolute -top-4 left-0 w-16 h-px block"
-              style={{
-                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
-                opacity: 0.5
-              }}
+              className="absolute -top-4 left-0 w-16 h-px block bg-[rgb(var(--accent-red))]"
             />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">

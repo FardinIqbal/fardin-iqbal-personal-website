@@ -162,6 +162,23 @@ export function MusicPlayer() {
     localStorage.setItem("radio_station", currentStation);
   }, [volume, isMuted, currentStation]);
 
+  // Initialize audio element
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.crossOrigin = "anonymous";
+      audioRef.current.volume = isMuted ? 0 : volume;
+      audioRef.current.src = station.url;
+    }
+  }, []);
+
+  // Update audio source when station changes (but don't auto-play)
+  useEffect(() => {
+    if (audioRef.current && !isPlaying && audioRef.current.src !== station.url) {
+      audioRef.current.src = station.url;
+      audioRef.current.load();
+    }
+  }, [currentStation, station.url, isPlaying]);
+
   // Update volume
   useEffect(() => {
     if (audioRef.current) {
@@ -176,15 +193,19 @@ export function MusicPlayer() {
 
     let errorTimeout: NodeJS.Timeout;
 
-    const handleError = () => {
+    const handleError = (e: Event) => {
       // Only show error if we were actually trying to play
-      // Give stream 3 seconds to connect before showing error
+      // Give stream 5 seconds to connect before showing error
       if (isLoading) {
         errorTimeout = setTimeout(() => {
-          setHasError(true);
-          setIsPlaying(false);
-          setIsLoading(false);
-        }, 3000);
+          const audioError = audio.error;
+          if (audioError) {
+            console.error("Audio error:", audioError.code, audioError.message);
+            setHasError(true);
+            setIsPlaying(false);
+            setIsLoading(false);
+          }
+        }, 5000);
       }
     };
 
@@ -252,6 +273,8 @@ export function MusicPlayer() {
 
   const togglePlay = async () => {
     if (!audioRef.current) return;
+    
+    const wasError = hasError;
     haptic("medium");
     setHasError(false);
     setHasAttemptedPlay(true);
@@ -261,10 +284,60 @@ export function MusicPlayer() {
       setIsPlaying(false);
     } else {
       setIsLoading(true);
+      const audio = audioRef.current;
+      
       try {
-        await audioRef.current.play();
-      } catch {
-        console.log("Playback failed");
+        // If retrying after error, completely reset the audio element
+        if (wasError) {
+          audio.pause();
+          audio.src = "";
+          audio.load();
+          // Small delay to ensure cleanup
+          await new Promise((resolve) => setTimeout(resolve, 200));
+        }
+
+        // Set the source and ensure crossOrigin is set
+        if (audio.src !== station.url || wasError) {
+          audio.src = station.url;
+          audio.crossOrigin = "anonymous";
+          audio.volume = isMuted ? 0 : volume;
+          audio.load();
+        }
+
+        // Wait for audio to be ready to play
+        if (audio.readyState < 2) {
+          await new Promise<void>((resolve, reject) => {
+            const timeout = setTimeout(() => {
+              cleanup();
+              reject(new Error("Audio load timeout"));
+            }, 8000);
+
+            const cleanup = () => {
+              clearTimeout(timeout);
+              audio.removeEventListener("canplay", onCanPlay);
+              audio.removeEventListener("canplaythrough", onCanPlay);
+              audio.removeEventListener("error", onError);
+            };
+
+            const onCanPlay = () => {
+              cleanup();
+              resolve();
+            };
+
+            const onError = (e: Event) => {
+              cleanup();
+              reject(e);
+            };
+
+            audio.addEventListener("canplay", onCanPlay, { once: true });
+            audio.addEventListener("canplaythrough", onCanPlay, { once: true });
+            audio.addEventListener("error", onError, { once: true });
+          });
+        }
+
+        await audio.play();
+      } catch (error) {
+        console.error("Playback failed:", error);
         haptic("error");
         setHasError(true);
         setIsLoading(false);
@@ -274,7 +347,7 @@ export function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} src={station.url} preload="none" />
+      <audio ref={audioRef} preload="none" crossOrigin="anonymous" />
 
       {/* Position above mobile bottom nav - slides with nav visibility */}
       <motion.div

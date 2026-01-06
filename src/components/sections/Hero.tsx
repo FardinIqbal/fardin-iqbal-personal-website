@@ -49,13 +49,9 @@ export function Hero({ profile }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-foreground tracking-tight leading-[1.08] mb-10 relative"
         >
-          {/* Accent red line above name - like essay hero title */}
+          {/* Accent red line above name - matching navbar style */}
           <span 
-            className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-px block"
-            style={{
-              background: "linear-gradient(to right, transparent, rgb(var(--accent-red)), transparent)",
-              opacity: 0.5
-            }}
+            className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-px block bg-[rgb(var(--accent-red))]"
           />
           {profile.name}
         </motion.h1>

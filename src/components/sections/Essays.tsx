@@ -41,14 +41,14 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
             </span>
             <span className="text-foreground-subtle/40">·</span>
             <span className="flex items-center gap-1.5 text-xs text-foreground-subtle font-inter">
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-3.5 h-3.5 text-accent" />
               {post.readingTime}
             </span>
             {isExternal && (
               <>
                 <span className="text-foreground-subtle/40">·</span>
                 <span className="flex items-center gap-1.5 text-xs text-foreground-subtle font-inter">
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3.5 h-3.5 text-accent" />
                   <span>External</span>
                 </span>
               </>

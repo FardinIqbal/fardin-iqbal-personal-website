@@ -178,70 +178,100 @@ export function TableOfContents() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [headings]);
 
-  // Auto-scroll active item into view
+  // Auto-scroll active item into view - keeps bookmark visible as you scroll
   useEffect(() => {
     if (!activeId || !activeItemRef.current || !scrollContainerRef.current) return;
 
     const container = scrollContainerRef.current;
     const activeItem = activeItemRef.current;
 
-    // Calculate positions
-    const containerRect = container.getBoundingClientRect();
-    const itemRect = activeItem.getBoundingClientRect();
-    const containerScrollTop = container.scrollTop;
-    const itemOffsetTop = activeItem.offsetTop;
-    const containerHeight = container.clientHeight;
-    const itemHeight = activeItem.offsetHeight;
+    const scrollToActiveItem = () => {
+      // Get the nav element (direct parent of list)
+      const nav = container.querySelector('.toc-nav') as HTMLElement;
+      if (!nav) return;
 
-    // Check if item is outside visible area
-    const itemTop = itemOffsetTop - containerScrollTop;
-    const itemBottom = itemTop + itemHeight;
-
-    if (itemTop < 0 || itemBottom > containerHeight) {
-      // Smoothly scroll to center the active item
-      const targetScroll = itemOffsetTop - containerHeight / 2 + itemHeight / 2;
+      // Calculate position by summing offsets from nav
+      let itemOffsetTop = 0;
+      let current: HTMLElement | null = activeItem;
       
-      container.scrollTo({
-        top: Math.max(0, targetScroll),
-        behavior: "smooth",
-      });
-    }
-  }, [activeId]);
+      // Sum all offsetTop values until we reach nav
+      while (current && current !== nav) {
+        itemOffsetTop += current.offsetTop;
+        current = current.parentElement;
+      }
 
-  // Handle wheel events to scroll TOC instead of page when hovering
-  useEffect(() => {
-    const wrapper = tocWrapperRef.current;
-    if (!wrapper) return;
+      const containerHeight = container.clientHeight;
+      const containerScrollTop = container.scrollTop;
+      const itemHeight = activeItem.offsetHeight;
+      
+      // Current position in viewport
+      const itemTopInView = itemOffsetTop - containerScrollTop;
+      const itemBottomInView = itemTopInView + itemHeight;
+      
+      // Padding from edges (30% of container height)
+      const padding = containerHeight * 0.3;
+      
+      let targetScroll = containerScrollTop;
+      let needsScroll = false;
 
-    const handleWheel = (e: WheelEvent) => {
-      const container = scrollContainerRef.current;
-      if (!container) return;
+      if (itemTopInView < padding) {
+        // Scroll up to show item with padding
+        targetScroll = itemOffsetTop - padding;
+        needsScroll = true;
+      } else if (itemBottomInView > containerHeight - padding) {
+        // Scroll down to show item with padding
+        targetScroll = itemOffsetTop - containerHeight + itemHeight + padding;
+        needsScroll = true;
+      }
 
-      // Check if mouse is over the TOC
-      const rect = wrapper.getBoundingClientRect();
-      const isOverTOC = 
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom;
-
-      if (isOverTOC) {
-        // Check if we can scroll in the direction of the wheel
-        const { scrollTop, scrollHeight, clientHeight } = container;
-        const canScrollUp = scrollTop > 0;
-        const canScrollDown = scrollTop < scrollHeight - clientHeight;
-
-        if ((e.deltaY < 0 && canScrollUp) || (e.deltaY > 0 && canScrollDown)) {
-          e.preventDefault();
-          e.stopPropagation();
-          container.scrollTop += e.deltaY;
+      if (needsScroll) {
+        const maxScroll = Math.max(0, container.scrollHeight - containerHeight);
+        const finalScroll = Math.max(0, Math.min(targetScroll, maxScroll));
+        
+        if (Math.abs(finalScroll - containerScrollTop) > 2) {
+          container.scrollTo({
+            top: finalScroll,
+            behavior: "smooth",
+          });
         }
       }
     };
 
-    wrapper.addEventListener("wheel", handleWheel, { passive: false });
-    return () => wrapper.removeEventListener("wheel", handleWheel);
-  }, []);
+    // Delay to ensure DOM is ready, then use RAF
+    const timeoutId = setTimeout(() => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(scrollToActiveItem);
+      });
+    }, 50);
+
+    return () => clearTimeout(timeoutId);
+  }, [activeId]);
+
+  // Handle wheel events to scroll TOC instead of page when hovering
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      const isAtTop = scrollTop <= 0;
+      const isAtBottom = scrollTop >= scrollHeight - clientHeight - 1; // Small buffer for rounding
+      const canScroll = scrollHeight > clientHeight;
+      
+      // Only handle if container is actually scrollable
+      if (!canScroll) return;
+      
+      // If we can scroll in the direction of the wheel, prevent page scroll
+      if ((e.deltaY < 0 && !isAtTop) || (e.deltaY > 0 && !isAtBottom)) {
+        e.preventDefault();
+        e.stopPropagation();
+        container.scrollTop += e.deltaY;
+      }
+    };
+
+    container.addEventListener("wheel", handleWheel, { passive: false });
+    return () => container.removeEventListener("wheel", handleWheel);
+  }, [headings]); // Re-run when headings change to ensure container is ready
 
   // Close sidebar and reset drag state
   const closeSidebar = useCallback(() => {
@@ -319,9 +349,6 @@ export function TableOfContents() {
                       `toc-level-${heading.level}`,
                       isActive && "toc-active"
                     )}
-                    style={{
-                      paddingLeft: `${paddingValue}rem`,
-                    }}
                     variants={{
                       hidden: { opacity: 0, y: 10 },
                       visible: {
@@ -341,6 +368,9 @@ export function TableOfContents() {
                         isActive && "toc-link-active"
                       )}
                       aria-current={isActive ? "true" : undefined}
+                      style={{
+                        paddingLeft: `${1.5 + paddingValue}rem`,
+                      }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       transition={{
@@ -435,7 +465,7 @@ export function TableOfContents() {
                     className="p-1 hover:bg-background-secondary rounded transition-colors"
                     aria-label="Close menu"
                   >
-                    <X className="w-5 h-5 text-foreground-muted" />
+                    <X className="w-5 h-5 text-accent" />
                   </button>
                 </div>
 

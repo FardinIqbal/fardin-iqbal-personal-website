@@ -15,11 +15,11 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { icon: <Home className="w-5 h-5" />, label: "Home", href: "/", isSection: false },
-  { icon: <Briefcase className="w-5 h-5" />, label: "Experience", href: "#experience", isSection: true },
-  { icon: <FolderOpen className="w-5 h-5" />, label: "Projects", href: "#projects", isSection: true },
-  { icon: <BookOpen className="w-5 h-5" />, label: "Essays", href: "/essays", isSection: false },
-  { icon: <Mail className="w-5 h-5" />, label: "Contact", href: "#contact", isSection: true },
+  { icon: <Home className="w-5 h-5 text-accent" />, label: "Home", href: "/", isSection: false },
+  { icon: <Briefcase className="w-5 h-5 text-accent" />, label: "Experience", href: "#experience", isSection: true },
+  { icon: <FolderOpen className="w-5 h-5 text-accent" />, label: "Projects", href: "#projects", isSection: true },
+  { icon: <BookOpen className="w-5 h-5 text-accent" />, label: "Essays", href: "/essays", isSection: false },
+  { icon: <Mail className="w-5 h-5 text-accent" />, label: "Contact", href: "#contact", isSection: true },
 ];
 
 export function MobileBottomNav() {
@@ -172,10 +172,7 @@ function NavButton({ item, isActive, onClick }: NavButtonProps) {
       <motion.div
         animate={{ scale: isPressed ? 0.85 : 1 }}
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        className={cn(
-          "transition-colors duration-300",
-          isActive && "text-[rgb(var(--accent-red))]"
-        )}
+        className="transition-colors duration-300"
       >
         {item.icon}
       </motion.div>

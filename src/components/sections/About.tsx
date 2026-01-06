@@ -30,13 +30,9 @@ export function About({ profile }: AboutProps) {
           <div className="chapter-marker mb-6">About</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-8 tracking-tight leading-[1.15] relative">
             Building software that matters
-            {/* Subtle accent red line above title - like essay hero */}
+            {/* Accent red line above title - matching navbar style */}
             <span 
-              className="absolute -top-4 left-0 w-16 h-px block"
-              style={{
-                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
-                opacity: 0.5
-              }}
+              className="absolute -top-4 left-0 w-16 h-px block bg-[rgb(var(--accent-red))]"
             />
           </h2>
         </motion.div>

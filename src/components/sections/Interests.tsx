@@ -33,13 +33,9 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
           <div className="chapter-marker mb-6">Interests</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground tracking-tight leading-[1.15] mb-6 relative">
             Beyond Code
-            {/* Subtle accent red line above title */}
+            {/* Accent red line above title - matching navbar style */}
             <span 
-              className="absolute -top-4 left-0 w-16 h-px block"
-              style={{
-                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
-                opacity: 0.5
-              }}
+              className="absolute -top-4 left-0 w-16 h-px block bg-[rgb(var(--accent-red))]"
             />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
@@ -177,7 +173,7 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
                         rel="noopener noreferrer"
                         className="text-foreground-subtle hover:text-accent transition-colors opacity-0 group-hover:opacity-100"
                       >
-                        <ArrowUpRight className="w-3.5 h-3.5" />
+                        <ArrowUpRight className="w-3.5 h-3.5 text-accent" />
                       </a>
                     )}
                   </div>

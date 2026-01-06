@@ -69,13 +69,9 @@ export function Contact({ profile }: ContactProps) {
           <div className="chapter-marker mb-6">Contact</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15] relative inline-block">
             Get In Touch
-            {/* Subtle accent red line above title */}
+            {/* Accent red line above title - matching navbar style */}
             <span 
-              className="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-px block"
-              style={{
-                background: "linear-gradient(to right, transparent, rgb(var(--accent-red)), transparent)",
-                opacity: 0.5
-              }}
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-px block bg-[rgb(var(--accent-red))]"
             />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl mx-auto leading-[1.75] font-serif">
@@ -160,7 +156,7 @@ export function Contact({ profile }: ContactProps) {
               >
                 {status === "loading" ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                     Sending...
                   </>
                 ) : status === "success" ? (
@@ -170,18 +166,18 @@ export function Contact({ profile }: ContactProps) {
                       animate={{ scale: 1 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <CheckCircle className="w-4 h-4" />
+                      <CheckCircle className="w-4 h-4 text-white" />
                     </motion.span>
                     Message Sent!
                   </>
                 ) : status === "error" ? (
                   <>
-                    <XCircle className="w-4 h-4" />
+                    <XCircle className="w-4 h-4 text-white" />
                     Try Again
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4 text-white" />
                     Send Message
                   </>
                 )}
@@ -214,7 +210,7 @@ export function Contact({ profile }: ContactProps) {
                   href={`mailto:${profile.email}`}
                   className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors"
                 >
-                  <Mail className="w-4 h-4" />
+                  <Mail className="w-4 h-4 text-accent" />
                   {profile.email}
                 </a>
               </div>
@@ -234,7 +230,7 @@ export function Contact({ profile }: ContactProps) {
                       className="p-3 rounded-lg border border-border text-foreground-muted hover:text-foreground hover:bg-background-tertiary transition-colors block"
                       aria-label={label}
                     >
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-5 h-5 text-accent" />
                     </Link>
                   ))}
                 </div>

@@ -51,7 +51,7 @@ export function InsightCard({
           </span>
         </div>
         <div className="flex items-center gap-1 text-xs text-foreground-subtle">
-          <Calendar className="w-3 h-3" />
+          <Calendar className="w-3 h-3 text-accent" />
           {insight.temporal.year}
         </div>
       </div>
@@ -78,14 +78,14 @@ export function InsightCard({
             color: emotionColor,
           }}
         >
-          <Sparkles className="w-3 h-3" />
+          <Sparkles className="w-3 h-3 text-accent" />
           {insight.emotion.tone}
         </span>
 
         {/* Connection count */}
         {connections.length > 0 && (
           <span className="flex items-center gap-1 text-xs text-foreground-subtle">
-            <Link2 className="w-3 h-3" />
+            <Link2 className="w-3 h-3 text-accent" />
             {connections.length}
           </span>
         )}

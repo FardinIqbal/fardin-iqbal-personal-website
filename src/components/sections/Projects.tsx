@@ -77,7 +77,7 @@ function FeaturedCard({
               {/* Right side - arrow indicator */}
               <div className="flex-shrink-0">
                 <div className="w-14 h-14 rounded-full border border-border/50 flex items-center justify-center group-hover:border-accent/40 group-hover:bg-accent/5 transition-all duration-500">
-                  <ArrowUpRight className="w-5 h-5 text-foreground-subtle group-hover:text-accent transition-colors" />
+                  <ArrowUpRight className="w-5 h-5 text-accent transition-colors" />
                 </div>
               </div>
             </div>
@@ -146,7 +146,7 @@ function ArchiveCard({
               className="text-foreground-subtle hover:text-accent transition-colors"
               aria-label="View source code"
             >
-              <Github className="w-4 h-4" />
+              <Github className="w-4 h-4 text-accent" />
             </a>
           )}
           {project.live && (
@@ -157,7 +157,7 @@ function ArchiveCard({
               className="text-foreground-subtle hover:text-accent transition-colors"
               aria-label="View live demo"
             >
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4 text-accent" />
             </a>
           )}
         </div>
@@ -200,13 +200,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           <div className="chapter-marker mb-6">Work</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 md:mb-8 tracking-tight leading-[1.15] relative">
             Selected Work
-            {/* Subtle accent red line above title */}
+            {/* Accent red line above title - matching navbar style */}
             <span 
-              className="absolute -top-4 left-0 w-16 h-px block"
-              style={{
-                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
-                opacity: 0.5
-              }}
+              className="absolute -top-4 left-0 w-16 h-px block bg-[rgb(var(--accent-red))]"
             />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
@@ -248,7 +244,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             >
               <span>{showAllArchive ? "Show less" : `View ${hiddenCount} more projects`}</span>
               <ChevronDown 
-                className={`w-4 h-4 transition-transform duration-200 ${showAllArchive ? 'rotate-180' : ''}`}
+                className={`w-4 h-4 text-accent transition-transform duration-200 ${showAllArchive ? 'rotate-180' : ''}`}
               />
             </button>
           )}

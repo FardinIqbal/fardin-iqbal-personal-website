@@ -50,7 +50,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "home",
       label: "Go to Home",
-      icon: <Home className="w-4 h-4" />,
+      icon: <Home className="w-4 h-4 text-accent" />,
       action: () => { router.push("/"); setIsOpen(false); },
       keywords: ["home", "start", "main"],
       category: "navigation",
@@ -58,7 +58,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "projects",
       label: "Go to Projects",
-      icon: <FolderOpen className="w-4 h-4" />,
+      icon: <FolderOpen className="w-4 h-4 text-accent" />,
       action: () => { document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" }); setIsOpen(false); },
       keywords: ["projects", "work", "portfolio"],
       category: "navigation",
@@ -66,7 +66,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "experience",
       label: "Go to Experience",
-      icon: <Briefcase className="w-4 h-4" />,
+      icon: <Briefcase className="w-4 h-4 text-accent" />,
       action: () => { document.getElementById("experience")?.scrollIntoView({ behavior: "smooth" }); setIsOpen(false); },
       keywords: ["experience", "work", "jobs", "career"],
       category: "navigation",
@@ -74,7 +74,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "essays",
       label: "Go to Essays",
-      icon: <BookOpen className="w-4 h-4" />,
+      icon: <BookOpen className="w-4 h-4 text-accent" />,
       action: () => { router.push("/essays"); setIsOpen(false); },
       keywords: ["essays", "blog", "writing", "articles", "posts"],
       category: "navigation",
@@ -82,7 +82,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "now",
       label: "Go to Now",
-      icon: <Compass className="w-4 h-4" />,
+      icon: <Compass className="w-4 h-4 text-accent" />,
       action: () => { router.push("/now"); setIsOpen(false); },
       keywords: ["now", "currently", "reading", "watching"],
       category: "navigation",
@@ -90,7 +90,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "uses",
       label: "Go to Uses",
-      icon: <Terminal className="w-4 h-4" />,
+      icon: <Terminal className="w-4 h-4 text-accent" />,
       action: () => { router.push("/uses"); setIsOpen(false); },
       keywords: ["uses", "setup", "tools", "gear", "stack"],
       category: "navigation",
@@ -98,7 +98,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "about",
       label: "Go to About",
-      icon: <User className="w-4 h-4" />,
+      icon: <User className="w-4 h-4 text-accent" />,
       action: () => { document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); setIsOpen(false); },
       keywords: ["about", "bio", "me"],
       category: "navigation",
@@ -109,7 +109,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       id: `project-${project.id}`,
       label: project.title,
       description: "View project",
-      icon: <FolderOpen className="w-4 h-4" />,
+      icon: <FolderOpen className="w-4 h-4 text-accent" />,
       action: () => { router.push(`/projects/${project.id}`); setIsOpen(false); },
       keywords: [project.title.toLowerCase(), "project"],
       category: "projects" as const,
@@ -120,7 +120,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       id: "github",
       label: "GitHub",
       description: "View my code",
-      icon: <Github className="w-4 h-4" />,
+      icon: <Github className="w-4 h-4 text-accent" />,
       action: () => { window.open("https://github.com/FardinIqbal", "_blank"); setIsOpen(false); },
       keywords: ["github", "code", "repos"],
       category: "social",
@@ -129,7 +129,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       id: "linkedin",
       label: "LinkedIn",
       description: "Connect with me",
-      icon: <Linkedin className="w-4 h-4" />,
+      icon: <Linkedin className="w-4 h-4 text-accent" />,
       action: () => { window.open("https://linkedin.com/in/fardiniqbal", "_blank"); setIsOpen(false); },
       keywords: ["linkedin", "connect", "network"],
       category: "social",
@@ -138,7 +138,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       id: "email",
       label: "Send Email",
       description: "fardin.iqbal@stonybrook.edu",
-      icon: <Mail className="w-4 h-4" />,
+      icon: <Mail className="w-4 h-4 text-accent" />,
       action: () => { window.location.href = "mailto:fardin.iqbal@stonybrook.edu"; setIsOpen(false); },
       keywords: ["email", "contact", "message"],
       category: "social",
@@ -146,7 +146,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "resume",
       label: "Download Resume",
-      icon: <FileText className="w-4 h-4" />,
+      icon: <FileText className="w-4 h-4 text-accent" />,
       action: () => { window.open("/resume.pdf", "_blank"); setIsOpen(false); },
       keywords: ["resume", "cv", "download"],
       category: "social",
@@ -157,7 +157,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       id: "theme-toggle",
       label: "Toggle Theme",
       description: "Switch dark/light mode",
-      icon: <Moon className="w-4 h-4" />,
+      icon: <Moon className="w-4 h-4 text-accent" />,
       action: () => {
         document.documentElement.classList.toggle("light");
         setIsOpen(false);
@@ -169,7 +169,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
       id: "theme-switcher",
       label: "Open Theme Switcher",
       description: "Choose a color theme",
-      icon: <Palette className="w-4 h-4" />,
+      icon: <Palette className="w-4 h-4 text-accent" />,
       action: () => {
         window.dispatchEvent(new CustomEvent("open-theme-switcher"));
         setIsOpen(false);
@@ -182,7 +182,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
     {
       id: "matrix",
       label: "Enter the Matrix",
-      icon: <Sparkles className="w-4 h-4" />,
+      icon: <Sparkles className="w-4 h-4 text-accent" />,
       action: () => {
         window.dispatchEvent(new CustomEvent("trigger-matrix"));
         setIsOpen(false);
@@ -285,7 +285,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
             <div className="bg-background border border-border rounded-xl shadow-2xl overflow-hidden">
               {/* Search Input */}
               <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
-                <Search className="w-5 h-5 text-foreground-subtle" />
+                <Search className="w-5 h-5 text-accent" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -326,7 +326,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
                                   : "text-foreground-muted hover:bg-foreground/[0.02]"
                               )}
                             >
-                              <span className="flex-shrink-0 text-foreground-subtle">
+                              <span className="flex-shrink-0 text-accent">
                                 {cmd.icon}
                               </span>
                               <div className="flex-1 min-w-0">
@@ -338,7 +338,7 @@ export function CommandPalette({ projects = [] }: CommandPaletteProps) {
                                 )}
                               </div>
                               {cmd.category === "social" && (
-                                <ExternalLink className="w-3 h-3 text-foreground-subtle" />
+                                <ExternalLink className="w-3 h-3 text-accent" />
                               )}
                             </button>
                           );
@@ -382,7 +382,7 @@ export function CommandPaletteHint() {
       onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
       className="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs text-foreground-subtle bg-background-tertiary/50 border border-border/50 rounded-lg hover:bg-background-tertiary hover:border-border transition-colors"
     >
-      <Search className="w-3 h-3" />
+      <Search className="w-3 h-3 text-accent" />
       <span>Search</span>
       <kbd className="ml-2 px-1.5 py-0.5 text-[10px] bg-background rounded border border-border">⌘K</kbd>
     </button>
