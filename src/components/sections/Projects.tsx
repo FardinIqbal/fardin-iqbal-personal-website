@@ -18,7 +18,7 @@ function FeaturedCard({
 }) {
   const gradients: Record<string, string> = {
     ai: "from-violet-500/10 to-indigo-500/5",
-    web: "from-blue-500/10 to-cyan-500/5",
+    web: "from-[rgb(var(--accent-red))]/10 to-[rgb(var(--accent-red))]/5",
     systems: "from-orange-500/10 to-red-500/5",
     ml: "from-pink-500/10 to-purple-500/5",
     tools: "from-emerald-500/10 to-green-500/5",
@@ -187,8 +187,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   const hiddenCount = archive.length - INITIAL_ARCHIVE_COUNT;
 
   return (
-    <section id="projects" className="relative py-24 md:py-32 lg:py-40 bg-background">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="editorial-section bg-background">
+      <div className="editorial-container">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -197,7 +197,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-16 md:mb-24"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground mb-4 md:mb-6 tracking-tight">
+          <div className="chapter-marker mb-4">Work</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4 md:mb-6 tracking-tight">
             Selected Work
           </h2>
           <p className="text-foreground-muted text-base md:text-lg max-w-xl leading-relaxed">

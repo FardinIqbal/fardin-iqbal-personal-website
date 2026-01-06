@@ -20,7 +20,7 @@ export const projectCategories = [
     id: "web",
     title: "Full-Stack Applications",
     description: "End-to-end products - from database to deployment",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-red-600 to-red-500",
   },
   {
     id: "tools",

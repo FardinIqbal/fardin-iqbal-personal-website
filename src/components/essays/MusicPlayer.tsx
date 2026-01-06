@@ -137,7 +137,7 @@ export function MusicPlayer() {
           "flex items-center justify-center",
           "shadow-lg hover:shadow-xl",
           isPlaying
-            ? "bg-blue-500 border-blue-500 text-white hover:bg-blue-600"
+            ? "bg-[rgb(var(--accent-red))] border-[rgb(var(--accent-red))] text-white hover:opacity-90"
             : "bg-background-tertiary border-border text-foreground hover:border-foreground/20 hover:scale-105"
         )}
         aria-label="Music player"
@@ -149,7 +149,7 @@ export function MusicPlayer() {
         )}
         {isPlaying && (
           <motion.div
-            className="absolute inset-[-4px] rounded-full border-2 border-blue-500"
+            className="absolute inset-[-4px] rounded-full border-2 border-[rgb(var(--accent-red))]"
             initial={{ scale: 1, opacity: 0.6 }}
             animate={{ scale: 1.4, opacity: 0 }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -171,7 +171,7 @@ export function MusicPlayer() {
               {/* Header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-border">
                 <div className="flex items-center gap-2">
-                  <Music className="w-4 h-4 text-blue-500" />
+                  <Music className="w-4 h-4 text-[rgb(var(--accent-red))]" />
                   <h3 className="text-sm font-medium text-foreground">SomaFM Radio</h3>
                 </div>
                 <button
@@ -192,7 +192,7 @@ export function MusicPlayer() {
                       className={cn(
                         "px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-all",
                         currentGenre === genre
-                          ? "bg-blue-500 text-white"
+                          ? "bg-[rgb(var(--accent-red))] text-white"
                           : "bg-foreground/5 text-foreground-muted hover:text-foreground"
                       )}
                     >
@@ -243,7 +243,7 @@ export function MusicPlayer() {
                     className={cn(
                       "flex-1 py-3 rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all",
                       isPlaying
-                        ? "bg-blue-500 text-white"
+                        ? "bg-[rgb(var(--accent-red))] text-white"
                         : "bg-foreground text-background"
                     )}
                   >
@@ -314,7 +314,7 @@ function MiniVisualizer() {
       {[0, 0.1, 0.2].map((delay, i) => (
         <motion.div
           key={i}
-          className="w-0.5 bg-blue-500 rounded-full"
+          className="w-0.5 bg-[rgb(var(--accent-red))] rounded-full"
           animate={{
             height: ["3px", "12px", "6px", "10px", "3px"],
           }}

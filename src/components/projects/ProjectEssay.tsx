@@ -974,45 +974,74 @@ const projectEssays: Record<string, {
     ]
   },
   "bigminds-email-scraper": {
-    overline: "Automation",
-    subtitle: "AI-powered email parsing that extracts structured child and case data for healthcare workflows",
-    readTime: "4 min read",
-    lastUpdated: "December 2025",
+    overline: "Freelance Project",
+    subtitle: "From email chaos to AI-powered automation—turning a 4-hour daily copy-paste nightmare into a system that processes emails while everyone sleeps",
+    readTime: "20 min read",
+    lastUpdated: "January 2026",
     sections: [
       {
         type: 'lead',
-        content: "Healthcare administrative staff spend hours copying data from referral emails into Excel spreadsheets. Child's name, date of birth, diagnosis, insurance information - all buried in unstructured email text. This tool uses Google's Gemini API to extract structured data automatically, feeding directly into existing SharePoint workflows."
+        content: "It started with a simple observation: Sarah, the operations manager at a pediatric therapy staffing agency, was spending 4-6 hours every single day copying and pasting data from emails into spreadsheets. Let that sink in. Half a workday. Every day. Forever."
       },
       {
         type: 'paragraph',
-        content: "Built for Big Minds Tiny Hands, an Early Intervention agency, this processor handles the intake workflow. Referral emails arrive with child information in various formats - some structured, some prose paragraphs. The AI parses it all into consistent fields."
+        content: "Her inbox was drowning in referral emails from Service Coordinators across New York City, each containing case information for children needing early intervention services. Speech therapy. Occupational therapy. Physical therapy. Specialized instruction. Real kids, real families, real urgency."
       },
       {
-        title: "The Extraction Pipeline",
+        title: "The Problem",
+        type: 'heading',
+        content: ""
+      },
+      {
+        type: 'list',
+        content: [
+          "4-6 hours daily spent on manual data entry",
+          "Inconsistent email formats from different Service Coordinators",
+          "Human error leading to typos and missed fields",
+          "No audit trail to trace data back to source emails",
+          "Cases could contain 1-15 children, each needing 26 columns of data"
+        ]
+      },
+      {
+        title: "The Solution",
         type: 'heading',
         content: ""
       },
       {
         type: 'paragraph',
-        content: "The Gmail API fetches unprocessed referral emails. Each email body is sent to Gemini with a prompt that specifies the expected fields: child name, DOB, parent names, address, insurance, diagnosis codes. Gemini returns structured JSON that maps directly to spreadsheet columns."
+        content: "Built a complete automation system using Express.js, Google Gemini AI, Microsoft Graph API (for Outlook), and Google Sheets API. The system runs on Render.com with an internal cron job that processes emails every 5 minutes, extracting case data with AI, detecting duplicates, filtering garbage data, and appending directly to the client's Google Sheet."
       },
       {
-        type: 'list',
-        content: [
-          "Gmail API integration with OAuth authentication",
-          "Gemini API for intelligent field extraction",
-          "Fuzzy matching for inconsistent field names",
-          "Confidence scoring for uncertain extractions",
-          "Batch processing with rate limiting"
-        ]
-      },
-      {
-        title: "SharePoint Integration",
+        title: "Key Features",
         type: 'subheading',
         content: ""
       },
       {
+        type: 'list',
+        content: [
+          "AI-powered extraction using Gemini 2.5 Flash for structured data parsing",
+          "Two-tier duplicate detection (case_id + service_type, fallback to name + service + borough)",
+          "Multi-layer garbage filtering to catch invalid data before it reaches production",
+          "Append-only architecture—never overwrites existing sheet data",
+          "Comprehensive logging for debugging and audit trails",
+          "Automatic processing every 5 minutes with redundant cron jobs"
+        ]
+      },
+      {
+        title: "Results",
+        type: 'heading',
+        content: ""
+      },
+      {
         type: 'paragraph',
+        content: "The system saves 4 hours of daily manual work, processes emails in 3-5 seconds (vs 15-20 minutes manually), and achieves ~98% extraction accuracy. Most importantly, it removes a soul-crushing task that made people dread Monday mornings."
+      },
+      {
+        type: 'tech-grid',
+        content: ["Express.js", "Google Gemini AI", "Microsoft Graph API", "Google Sheets API", "PostgreSQL", "Render.com", "node-cron"]
+      }
+    ]
+  },
         content: "Extracted data syncs to SharePoint Excel files - the format the agency already uses. No workflow changes required; the tool just eliminates the manual data entry step. Statistics tracking shows extraction accuracy and processing volume."
       },
       {

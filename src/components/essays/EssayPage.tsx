@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Calendar, Clock } from "lucide-react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { formatDate } from "@/lib/utils";
 import { ReadingControls } from "./ReadingControls";
@@ -30,123 +28,69 @@ export function EssayPage({
       {/* Reading progress bar */}
       <ReadingProgress />
       
-      {/* Reading time indicator - New Yorker style */}
-      <div className="fixed top-8 left-8 z-40 font-inter text-[0.65rem] text-foreground-subtle uppercase tracking-[0.1em] opacity-60 hidden sm:block">
+      {/* Reading time indicator - exact New Yorker style */}
+      <div className="fixed top-8 left-8 z-40 font-inter text-[0.65rem] text-foreground-subtle uppercase tracking-[0.1em] opacity-60">
         {readingTime}
       </div>
 
-      {/* Header */}
-      <header className="pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-6">
-        <div className="max-w-2xl mx-auto" style={{ maxWidth: "var(--essay-content-width, 680px)" }}>
-          {/* Back link */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Link
-              href="/essays"
-              className="inline-flex items-center gap-2 text-sm text-foreground-subtle hover:text-foreground transition-colors group mb-8"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              Essays
-            </Link>
-          </motion.div>
-
-          {/* Meta - date and reading time */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.05 }}
-            className="flex items-center gap-4 text-sm text-foreground-subtle mb-6"
-          >
-            <span className="flex items-center gap-1.5">
-              <Calendar className="w-3.5 h-3.5" />
-              {formatDate(date)}
-            </span>
-            <span className="text-foreground-subtle/30">|</span>
-            <span className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5" />
-              {readingTime}
-            </span>
-          </motion.div>
-
+      {/* Hero Section - New Yorker style */}
+      <header className="essay-hero min-h-[90vh] flex flex-col justify-center py-24 relative border-b border-border">
+        <div className="editorial-container">
+          {/* Chapter marker */}
+          <div className="hero-chapter mb-10">Essay</div>
+          
           {/* Title */}
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-display font-semibold text-foreground tracking-tight leading-[1.15] mb-6"
-          >
+          <h1 className="essay-hero-title mb-8">
             {title}
-          </motion.h1>
+          </h1>
 
-          {/* Description */}
+          {/* Subtitle */}
           {description && (
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="text-lg sm:text-xl text-foreground-muted leading-relaxed font-serif"
-            >
+            <p className="essay-hero-subtitle mb-12">
               {description}
-            </motion.p>
+            </p>
           )}
 
-          {/* Tags */}
-          {tags.length > 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="flex flex-wrap gap-2 mt-8"
-            >
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-3 py-1 text-xs font-medium rounded-full bg-background-tertiary text-foreground-subtle"
-                >
-                  {tag}
-                </span>
-              ))}
-            </motion.div>
-          )}
+          {/* Meta */}
+          <div className="essay-hero-meta">
+            <span>By Fardin Iqbal</span>
+            <span>{formatDate(date)}</span>
+            {tags.length > 0 && <span>{tags[0]}</span>}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-foreground-subtle">
+          <span className="text-[0.65rem] font-inter uppercase tracking-[0.1em]">Begin the journey</span>
+          <motion.div
+            animate={{ y: [0, 4, 0] }}
+            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-50">
+              <path d="M12 5v14M5 12l7 7 7-7"/>
+            </svg>
+          </motion.div>
         </div>
       </header>
 
-      {/* Divider */}
-      <div className="px-4 sm:px-6" style={{ maxWidth: "var(--essay-content-width, 680px)", margin: "0 auto" }}>
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.6, delay: 0.25 }}
-          className="h-px bg-border origin-left"
-        />
-      </div>
-
-      {/* Article Content */}
-      <motion.article
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="py-12 sm:py-16 px-4 sm:px-6"
-      >
-        <div
-          className="essay-content prose-article"
+      {/* Article Content - New Yorker sections */}
+      <main>
+        <article
+          className="essay-article-content prose-article"
           dangerouslySetInnerHTML={{ __html: compiledContent }}
         />
-      </motion.article>
+      </main>
 
       {/* Footer */}
-      <footer className="py-16 px-4 sm:px-6 border-t border-border">
-        <div className="max-w-2xl mx-auto" style={{ maxWidth: "var(--essay-content-width, 680px)" }}>
-          <Link
-            href="/essays"
-            className="inline-flex items-center gap-2 text-sm text-foreground-subtle hover:text-foreground transition-colors group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Back to all essays
-          </Link>
+      <footer className="essay-footer py-20 text-center text-foreground-subtle font-inter text-xs tracking-[0.02em] leading-[2]">
+        <div className="editorial-container">
+          <p><strong>Built by Fardin Iqbal</strong></p>
+          <p>Software Engineer & Writer</p>
+          <p className="mt-6">
+            <Link href="/essays" className="text-[rgb(var(--accent-red))] no-underline hover:underline">
+              Back to Essays
+            </Link>
+          </p>
         </div>
       </footer>
 
@@ -167,16 +111,14 @@ function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] z-50"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.5 }}
+      className="fixed top-0 left-0 right-0 h-[1px] z-[1000]"
+      style={{ opacity: 0.6 }}
     >
       <motion.div
         className="h-full origin-left"
         style={{ 
           scaleX,
-          background: "linear-gradient(90deg, rgb(var(--theme-accent)), rgb(var(--theme-accent-secondary)))"
+          background: "rgb(var(--accent-red))"
         }}
       />
     </motion.div>

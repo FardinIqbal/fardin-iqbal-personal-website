@@ -10,7 +10,7 @@ interface ReadingSettings {
   lineHeight: number;
   contentWidth: number;
   fontFamily: "serif" | "sans" | "classic";
-  theme: "default" | "sepia" | "midnight" | "forest" | "rose";
+  theme: "default" | "sepia";
 }
 
 const DEFAULT_SETTINGS: ReadingSettings = {
@@ -22,11 +22,8 @@ const DEFAULT_SETTINGS: ReadingSettings = {
 };
 
 const THEMES = [
-  { id: "default", name: "Default", bg: "bg-background", preview: "bg-[#0a0a0a]" },
+  { id: "default", name: "Default", bg: "bg-background", preview: "bg-background" },
   { id: "sepia", name: "Sepia", bg: "bg-[#f4f1ea]", preview: "bg-[#f4f1ea]" },
-  { id: "midnight", name: "Midnight", bg: "bg-[#0f172a]", preview: "bg-[#0f172a]" },
-  { id: "forest", name: "Forest", bg: "bg-[#0c1a14]", preview: "bg-[#0c1a14]" },
-  { id: "rose", name: "Rose", bg: "bg-[#1a0a10]", preview: "bg-[#1a0a10]" },
 ] as const;
 
 const FONTS = [
@@ -69,8 +66,12 @@ export function ReadingControls() {
       );
     }
 
-    // Apply theme
-    document.body.setAttribute("data-essay-theme", settings.theme);
+    // Apply theme - default uses main site theme, sepia uses sepia
+    if (settings.theme === "default") {
+      document.body.removeAttribute("data-essay-theme");
+    } else {
+      document.body.setAttribute("data-essay-theme", settings.theme);
+    }
   }, [settings]);
 
   // Save settings to localStorage
@@ -129,7 +130,7 @@ export function ReadingControls() {
                   <p className="text-[11px] font-medium uppercase tracking-wider text-foreground-subtle mb-3">
                     Theme
                   </p>
-                  <div className="grid grid-cols-5 gap-2">
+                  <div className="grid grid-cols-2 gap-2">
                     {THEMES.map((theme) => (
                       <button
                         key={theme.id}
@@ -138,7 +139,7 @@ export function ReadingControls() {
                           "aspect-square rounded-lg border-2 transition-all",
                           theme.preview,
                           settings.theme === theme.id
-                            ? "border-blue-500 ring-2 ring-blue-500/20"
+                            ? "border-[rgb(var(--accent-red))] ring-2 ring-[rgb(var(--accent-red))]/20"
                             : "border-border hover:border-foreground/20"
                         )}
                         title={theme.name}
@@ -160,7 +161,7 @@ export function ReadingControls() {
                         className={cn(
                           "flex-1 py-3 px-2 rounded-lg border transition-all text-center",
                           settings.fontFamily === font.id
-                            ? "border-blue-500 bg-blue-500/10 text-foreground"
+                            ? "border-[rgb(var(--accent-red))] bg-[rgb(var(--accent-red))]/10 text-foreground"
                             : "border-border text-foreground-muted hover:border-foreground/20"
                         )}
                       >

@@ -56,9 +56,9 @@ export function Contact({ profile }: ContactProps) {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-background-secondary">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header - clean */}
+    <section id="contact" className="editorial-section bg-background">
+      <div className="editorial-container">
+        {/* Section Header - editorial */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,7 +66,8 @@ export function Contact({ profile }: ContactProps) {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <div className="chapter-marker mb-4">Contact</div>
+          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-4">
             Get In Touch
           </h2>
           <p className="text-foreground-muted text-lg max-w-xl mx-auto">

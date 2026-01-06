@@ -10,8 +10,8 @@ interface ExperienceSectionProps {
 
 export function ExperienceSection({ experience }: ExperienceSectionProps) {
   return (
-    <section id="experience" className="py-32 bg-background-secondary">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="experience" className="editorial-section bg-background">
+      <div className="editorial-container">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -20,7 +20,8 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-semibold text-foreground mb-4 tracking-tight">
+          <div className="chapter-marker mb-4">Experience</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4 tracking-tight">
             Experience
           </h2>
           <p className="text-foreground-muted text-lg font-serif leading-relaxed">

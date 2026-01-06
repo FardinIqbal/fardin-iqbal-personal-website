@@ -3,38 +3,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
-import { Menu, X, Command } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { ThemeToggle } from "@/components/ThemeToggle";
-import { AvailabilityStatus } from "@/components/ui/AvailabilityStatus";
 import { haptic } from "@/lib/haptics";
 
 const navItems = [
   { label: "About", href: "/#about" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Experience", href: "/#experience" },
-  { label: "Projects", href: "/#projects" },
+  { label: "Work", href: "/#projects" },
   { label: "Essays", href: "/essays" },
-  { label: "Arboretum", href: "/arboretum" },
   { label: "Contact", href: "/#contact" },
 ];
-
-function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  return (
-    <motion.div
-      className="fixed top-0 left-0 right-0 h-[1px] bg-primary-500 origin-left z-[60]"
-      style={{ scaleX }}
-    />
-  );
-}
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -88,87 +67,60 @@ export function Header() {
 
   return (
     <>
-      {/* Scroll Progress Bar */}
-      <ScrollProgress />
-
       <header
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-200",
           isScrolled
-            ? "bg-background/95 backdrop-blur-sm border-b border-border"
+            ? "bg-background/98 backdrop-blur-sm border-b border-border/50"
             : "bg-transparent"
         )}
       >
-        <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo - Editorial style */}
-            <div className="flex items-center gap-4">
-              <Link
-                href="/"
-                onClick={handleLogoClick}
-                className="text-base font-serif font-normal text-foreground hover:opacity-80 transition-opacity duration-300 tracking-tight"
-              >
-                Fardin Iqbal
-              </Link>
-            </div>
+        <nav className="editorial-container">
+          <div className="flex items-center justify-between h-14">
+            {/* Logo - Minimal New Yorker style */}
+            <Link
+              href="/"
+              onClick={handleLogoClick}
+              className="text-sm font-serif font-normal text-foreground hover:opacity-70 transition-opacity duration-200"
+            >
+              Fardin Iqbal
+            </Link>
 
-            {/* Desktop Navigation - Inter font, editorial style */}
-            <div className="hidden md:flex items-center gap-6">
+            {/* Desktop Navigation - Minimal, New Yorker style */}
+            <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => {
-                const isActive = activeSection === item.href.replace("/#", "");
+                const isActive = activeSection === item.href.replace("/#", "") || pathname === item.href;
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-xs font-inter font-medium uppercase tracking-wider transition-colors duration-200",
+                      "text-[0.65rem] font-inter font-medium uppercase tracking-[0.15em] transition-colors duration-200",
                       isActive
                         ? "text-foreground"
-                        : "text-foreground-muted hover:text-foreground"
+                        : "text-foreground-subtle hover:text-foreground"
                     )}
                   >
                     {item.label}
                   </Link>
                 );
               })}
-
-              {/* Resume Button - editorial style */}
-              <Link
-                href="/resume/Fardin_Iqbal_Resume.pdf"
-                target="_blank"
-                className="px-3 py-1.5 text-xs font-inter font-medium uppercase tracking-wider border border-border text-foreground hover:bg-background-tertiary hover:border-foreground-subtle transition-all duration-300"
-              >
-                Resume
-              </Link>
-
-              {/* Command Palette Hint - minimal */}
-              <button
-                onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
-                className="hidden lg:flex items-center gap-1.5 px-2 py-1 text-xs text-foreground-subtle border border-border/50 hover:border-border hover:text-foreground-muted transition-colors"
-                title="Open command palette"
-              >
-                <Command className="w-3 h-3" />
-                <span className="font-inter">K</span>
-              </button>
-
-              <ThemeToggle />
             </div>
 
-            {/* Mobile: Theme Toggle + Menu Button */}
-            <div className="flex md:hidden items-center gap-2">
-              <ThemeToggle />
+            {/* Mobile: Menu Button */}
+            <div className="flex md:hidden items-center">
               <button
                 onClick={() => {
                   haptic("light");
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
-                className="p-2 text-foreground-muted hover:text-foreground transition-colors"
+                className="p-2 text-foreground-subtle hover:text-foreground transition-colors"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4" />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-4 h-4" />
                 )}
               </button>
             </div>

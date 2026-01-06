@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import Link from "next/link";
 import type { Profile } from "@/lib/content";
 
@@ -32,21 +32,6 @@ function AnimatedText({ text, className }: { text: string; className?: string })
   );
 }
 
-// Simple grid pattern - Vercel style
-function GridPattern() {
-  return (
-    <div className="absolute inset-0 overflow-hidden">
-      <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
-        <defs>
-          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="1" />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
-      </svg>
-    </div>
-  );
-}
 
 interface HeroProps {
   profile: Profile;
@@ -107,109 +92,39 @@ export function Hero({ profile }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="editorial-hero-subtitle mb-12 mx-auto"
+          className="text-xl text-foreground-muted leading-[1.7] max-w-[520px] mx-auto font-light mb-12"
         >
           {profile.tagline}
         </motion.p>
 
-        {/* CTA Buttons - subtle, elegant hover */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
-        >
-          <motion.div
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.25 }}
-          >
-            <Link
-              href="#projects"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-foreground text-background font-sans font-medium hover:opacity-90 transition-opacity"
-            >
-              View My Work
-              <motion.span
-                animate={{ y: [0, 3, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              >
-                <ArrowDown className="w-4 h-4" />
-              </motion.span>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            whileHover={{ y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.25 }}
-          >
-            <Link
-              href={profile.resumeUrl}
-              target="_blank"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg border border-border text-foreground font-sans font-medium hover:bg-background-tertiary hover:border-foreground-subtle transition-all duration-300"
-            >
-              Download Resume
-            </Link>
-          </motion.div>
-        </motion.div>
-
-        {/* Social Links - with staggered animation */}
+        {/* Hero Meta - New Yorker style */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="flex items-center justify-center gap-2"
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="editorial-meta justify-center"
         >
-          {[
-            { icon: Github, href: profile.social.github, label: "GitHub" },
-            { icon: Linkedin, href: profile.social.linkedin, label: "LinkedIn" },
-            { icon: Mail, href: `mailto:${profile.email}`, label: "Email" },
-          ].map(({ icon: Icon, href, label }, index) => (
-            <motion.div
-              key={label}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="p-3 rounded-lg text-foreground-muted hover:text-foreground hover:bg-background-tertiary transition-all block"
-                aria-label={label}
-              >
-                <Icon className="w-5 h-5" />
-              </Link>
-            </motion.div>
-          ))}
+          <span>Software Engineer</span>
+          <span>Stony Brook University</span>
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator - clean */}
+      {/* Scroll indicator - New Yorker style */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-foreground-subtle"
       >
-        <Link
-          href="#about"
-          className="flex flex-col items-center gap-2 text-foreground-subtle hover:text-foreground transition-colors"
+        <span className="text-[0.65rem] font-inter uppercase tracking-[0.1em]">Begin the journey</span>
+        <motion.div
+          animate={{ y: [0, 4, 0] }}
+          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          >
-            <ArrowDown className="w-4 h-4" />
-          </motion.div>
-        </Link>
+          <ArrowDown className="w-5 h-5" />
+        </motion.div>
       </motion.div>
 
-      {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 }

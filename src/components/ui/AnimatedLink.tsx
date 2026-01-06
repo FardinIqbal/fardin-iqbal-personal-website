@@ -171,7 +171,7 @@ export function GlitchText({
             {children}
           </motion.span>
           <motion.span
-            className="absolute inset-0 text-blue-500/50"
+            className="absolute inset-0 text-[rgb(var(--accent-red))]/50"
             animate={{ x: [2, -2, 2], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 0.1, repeat: Infinity }}
           >

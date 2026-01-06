@@ -71,17 +71,6 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
 
   return (
     <section id="essays" className="editorial-section bg-background relative overflow-hidden">
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
-        <svg className="w-full h-full">
-          <defs>
-            <pattern id="essayGrid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-foreground" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#essayGrid)" />
-        </svg>
-      </div>
 
       <div className="editorial-container relative">
         {/* Section Header */}
