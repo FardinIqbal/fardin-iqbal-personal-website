@@ -165,7 +165,11 @@ export function MusicPlayer() {
   // Initialize audio element
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.crossOrigin = "anonymous";
+      try {
+        audioRef.current.crossOrigin = "anonymous";
+      } catch {
+        // CORS not supported, continue without it
+      }
       audioRef.current.volume = isMuted ? 0 : volume;
       audioRef.current.src = station.url;
     }
@@ -175,7 +179,7 @@ export function MusicPlayer() {
   useEffect(() => {
     if (audioRef.current && !isPlaying && audioRef.current.src !== station.url) {
       audioRef.current.src = station.url;
-      audioRef.current.load();
+      // Don't call load() for streaming audio
     }
   }, [currentStation, station.url, isPlaying]);
 
@@ -192,6 +196,7 @@ export function MusicPlayer() {
     if (!audio) return;
 
     let errorTimeout: NodeJS.Timeout;
+    let loadingTimeout: NodeJS.Timeout;
 
     const handleError = (e: Event) => {
       // Only show error if we were actually trying to play
@@ -211,11 +216,13 @@ export function MusicPlayer() {
 
     const handleCanPlay = () => {
       clearTimeout(errorTimeout);
+      clearTimeout(loadingTimeout);
       setHasError(false);
     };
 
     const handlePlaying = () => {
       clearTimeout(errorTimeout);
+      clearTimeout(loadingTimeout);
       setHasError(false);
       setIsLoading(false);
       setIsPlaying(true);
@@ -226,6 +233,27 @@ export function MusicPlayer() {
       clearTimeout(errorTimeout);
     };
 
+    // If we're loading, set a timeout to prevent infinite "Connecting..." state
+    // This handles cases where play() succeeds but the stream never actually starts
+    if (isLoading) {
+      loadingTimeout = setTimeout(() => {
+        // Check audio element state directly to avoid stale closure
+        if (audio.paused || audio.readyState === 0) {
+          console.warn("Stream did not start playing within timeout");
+          const audioError = audio.error;
+          if (audioError) {
+            console.error("Audio error after timeout:", audioError.code, audioError.message);
+            setHasError(true);
+          } else {
+            // No error but didn't play - might be network issue
+            setHasError(true);
+          }
+          setIsLoading(false);
+          setIsPlaying(false);
+        }
+      }, 10000); // 10 second timeout
+    }
+
     audio.addEventListener("error", handleError);
     audio.addEventListener("canplay", handleCanPlay);
     audio.addEventListener("playing", handlePlaying);
@@ -233,12 +261,13 @@ export function MusicPlayer() {
 
     return () => {
       clearTimeout(errorTimeout);
+      clearTimeout(loadingTimeout);
       audio.removeEventListener("error", handleError);
       audio.removeEventListener("canplay", handleCanPlay);
       audio.removeEventListener("playing", handlePlaying);
       audio.removeEventListener("waiting", handleWaiting);
     };
-  }, [isLoading]);
+  }, [isLoading, isPlaying]);
 
   const changeStation = async (stationId: StationId) => {
     haptic("selection");
@@ -253,11 +282,26 @@ export function MusicPlayer() {
       if (wasPlaying) {
         setIsLoading(true);
         audioRef.current.src = RADIO_STATIONS.find((s) => s.id === stationId)!.url;
-        audioRef.current.load();
+        // Don't call load() for streaming audio
         try {
           await audioRef.current.play();
-        } catch {
-          console.log("Playback failed");
+        } catch (error) {
+          const errorInfo: Record<string, unknown> = {
+            message: error instanceof Error ? error.message : String(error),
+            name: error instanceof Error ? error.name : typeof error,
+          };
+          
+          if (error instanceof DOMException) {
+            errorInfo.code = error.code;
+            errorInfo.codeName = error.codeName;
+          }
+          
+          if (audioRef.current?.error) {
+            errorInfo.audioErrorCode = audioRef.current.error.code;
+            errorInfo.audioErrorMessage = audioRef.current.error.message;
+          }
+          
+          console.error("Playback failed (station change):", errorInfo, error);
           setHasError(true);
           setIsLoading(false);
         }
@@ -299,45 +343,41 @@ export function MusicPlayer() {
         // Set the source and ensure crossOrigin is set
         if (audio.src !== station.url || wasError) {
           audio.src = station.url;
-          audio.crossOrigin = "anonymous";
+          // Try with CORS, but don't fail if not supported
+          try {
+            audio.crossOrigin = "anonymous";
+          } catch {
+            // CORS not supported, continue without it
+          }
           audio.volume = isMuted ? 0 : volume;
-          audio.load();
+          // Don't call load() for streaming audio - just set src and play
+          // load() is for preloading static files, not live streams
         }
 
-        // Wait for audio to be ready to play
-        if (audio.readyState < 2) {
-          await new Promise<void>((resolve, reject) => {
-            const timeout = setTimeout(() => {
-              cleanup();
-              reject(new Error("Audio load timeout"));
-            }, 8000);
-
-            const cleanup = () => {
-              clearTimeout(timeout);
-              audio.removeEventListener("canplay", onCanPlay);
-              audio.removeEventListener("canplaythrough", onCanPlay);
-              audio.removeEventListener("error", onError);
-            };
-
-            const onCanPlay = () => {
-              cleanup();
-              resolve();
-            };
-
-            const onError = (e: Event) => {
-              cleanup();
-              reject(e);
-            };
-
-            audio.addEventListener("canplay", onCanPlay, { once: true });
-            audio.addEventListener("canplaythrough", onCanPlay, { once: true });
-            audio.addEventListener("error", onError, { once: true });
-          });
-        }
-
+        // For streaming audio, try to play immediately
+        // The browser will buffer and the 'playing' event will fire when ready
+        // Don't wait for canplay/canplaythrough as they may not fire for live streams
         await audio.play();
       } catch (error) {
-        console.error("Playback failed:", error);
+        // Extract detailed error information
+        const errorInfo: Record<string, unknown> = {
+          message: error instanceof Error ? error.message : String(error),
+          name: error instanceof Error ? error.name : typeof error,
+        };
+        
+        // Add DOMException-specific properties if available
+        if (error instanceof DOMException) {
+          errorInfo.code = error.code;
+          errorInfo.codeName = error.codeName;
+        }
+        
+        // Check audio element error state
+        if (audio.error) {
+          errorInfo.audioErrorCode = audio.error.code;
+          errorInfo.audioErrorMessage = audio.error.message;
+        }
+        
+        console.error("Playback failed:", errorInfo, error);
         haptic("error");
         setHasError(true);
         setIsLoading(false);
@@ -347,7 +387,7 @@ export function MusicPlayer() {
 
   return (
     <>
-      <audio ref={audioRef} preload="none" crossOrigin="anonymous" />
+      <audio ref={audioRef} preload="none" />
 
       {/* Position above mobile bottom nav - slides with nav visibility */}
       <motion.div
@@ -546,10 +586,10 @@ export function MusicPlayer() {
             haptic("light");
             setIsExpanded(!isExpanded);
           }}
-          className={`relative p-3.5 rounded-full border-2 transition-all ${
+          className={`relative p-3.5 rounded-full border-2 transition-all backdrop-blur-sm ${
             isPlaying
               ? "bg-accent-red border-accent-red/80 text-white shadow-lg shadow-accent-red/30"
-              : "bg-foreground text-background border-foreground shadow-xl hover:scale-105"
+              : "bg-background border-accent-red/40 text-accent-red shadow-lg shadow-accent-red/10 hover:border-accent-red/60 hover:bg-accent-red/5"
           }`}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
@@ -559,7 +599,7 @@ export function MusicPlayer() {
               <AudioVisualizer isPlaying={true} light={true} />
             </div>
           ) : (
-            <Radio className="w-5 h-5" />
+            <Radio className="w-5 h-5 text-accent-red" />
           )}
 
           {isPlaying && (

@@ -56,7 +56,7 @@ export function ThemeToggle() {
     >
       <motion.button
         onClick={handleClick}
-        className="p-3 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl hover:opacity-90 transition-opacity"
+        className="p-3 rounded-full bg-background border-2 border-accent-red/40 text-accent-red shadow-lg shadow-accent-red/10 hover:border-accent-red/60 hover:bg-accent-red/5 transition-all backdrop-blur-sm"
         aria-label={`Switch to ${nextTheme.label} theme`}
         title={`Current: ${themes[currentIndex].label} - Click for ${nextTheme.label}`}
         whileHover={{ scale: 1.05 }}
@@ -65,7 +65,7 @@ export function ThemeToggle() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
       >
-        <Icon className="w-5 h-5 text-accent" />
+        <Icon className="w-5 h-5 text-accent-red" />
       </motion.button>
     </motion.div>
   );
