@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Briefcase, FolderOpen, BookOpen, Mail, Command } from "lucide-react";
+import { Home, Briefcase, FolderOpen, BookOpen, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { haptic } from "@/lib/haptics";
 
@@ -103,11 +103,6 @@ export function MobileBottomNav() {
     }
   };
 
-  const openCommandPalette = () => {
-    haptic("medium");
-    window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }));
-  };
-
   if (!showNav) return null;
 
   return (
@@ -120,9 +115,9 @@ export function MobileBottomNav() {
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
           className="fixed bottom-0 left-0 right-0 z-40 md:hidden"
         >
-          {/* Glass background */}
-          <div className="mx-3 mb-3 rounded-2xl bg-background/90 backdrop-blur-xl border border-border shadow-2xl">
-            <div className="flex items-center justify-around px-2 py-2">
+          {/* Glass background - matching header aesthetic */}
+          <div className="mx-3 mb-3 rounded-2xl bg-background/95 backdrop-blur-xl border border-border/30 shadow-2xl">
+            <div className="flex items-center justify-around px-2 py-2.5">
               {navItems.map((item) => {
                 const isActive =
                   (item.href === "/" && isHomePage && !activeSection) ||
@@ -138,20 +133,11 @@ export function MobileBottomNav() {
                   />
                 );
               })}
-
-              {/* Command Palette Button */}
-              <button
-                onClick={openCommandPalette}
-                className="flex flex-col items-center justify-center w-14 h-14 rounded-xl text-foreground-subtle active:scale-95 transition-transform"
-              >
-                <Command className="w-5 h-5" />
-                <span className="text-[10px] mt-1 font-medium">Search</span>
-              </button>
             </div>
           </div>
 
           {/* Safe area padding for notched phones */}
-          <div className="h-safe-area-inset-bottom bg-background/90" />
+          <div className="h-safe-area-inset-bottom bg-background/95 backdrop-blur-xl" />
         </motion.nav>
       )}
     </AnimatePresence>
@@ -177,20 +163,24 @@ function NavButton({ item, isActive, onClick }: NavButtonProps) {
     <button
       onClick={handlePress}
       className={cn(
-        "relative flex flex-col items-center justify-center w-14 h-14 rounded-xl transition-all",
+        "relative flex flex-col items-center justify-center w-14 h-14 rounded-xl transition-all duration-300 font-inter group",
         isActive
-          ? "text-foreground bg-foreground/5"
-          : "text-foreground-subtle active:scale-95"
+          ? "text-foreground"
+          : "text-foreground-subtle hover:text-foreground active:scale-95"
       )}
     >
       <motion.div
         animate={{ scale: isPressed ? 0.85 : 1 }}
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        className={cn(
+          "transition-colors duration-300",
+          isActive && "text-[rgb(var(--accent-red))]"
+        )}
       >
         {item.icon}
       </motion.div>
       <span className={cn(
-        "text-[10px] mt-1 font-medium",
+        "text-[10px] mt-1 font-medium transition-colors duration-300",
         isActive && "text-foreground"
       )}>
         {item.label}
@@ -198,9 +188,12 @@ function NavButton({ item, isActive, onClick }: NavButtonProps) {
       {isActive && (
         <motion.div
           layoutId="activeTab"
-          className="absolute -bottom-1 w-1 h-1 rounded-full bg-foreground"
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full bg-[rgb(var(--accent-red))]"
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
         />
+      )}
+      {!isActive && (
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-[rgb(var(--accent-red))] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center rounded-full" />
       )}
     </button>
   );

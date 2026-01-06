@@ -105,17 +105,13 @@ function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] z-[1000]"
-    >
-      <motion.div
-        className="h-full origin-left transition-all"
-        style={{ 
-          scaleX,
-          background: "linear-gradient(90deg, rgb(var(--accent-red)), rgb(96 165 250))",
-          opacity: 0.6
-        }}
-      />
-    </motion.div>
+      className="fixed top-0 left-0 right-0 h-[3px] origin-left z-[100]"
+      style={{ 
+        scaleX,
+        background: "rgb(var(--accent-red))",
+        opacity: 0.8,
+      }}
+    />
   );
 }
 

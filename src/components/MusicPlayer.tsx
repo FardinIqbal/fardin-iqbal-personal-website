@@ -43,7 +43,7 @@ function AudioVisualizer({ isPlaying, light = false }: { isPlaying: boolean; lig
       {[0, 1, 2, 3, 4].map((i) => (
         <motion.div
           key={i}
-          className={`w-1 rounded-full ${light ? "bg-white" : "bg-emerald-500"}`}
+          className={`w-1 rounded-full ${light ? "bg-white" : "bg-accent-red"}`}
           animate={
             isPlaying
               ? { height: [4, 16, 6, 14, 8, 4] }
@@ -318,7 +318,7 @@ export function MusicPlayer() {
                   {/* Header */}
                   <div className="flex items-center justify-between pr-8 md:pr-0">
                     <div className="flex items-center gap-3">
-                      <Radio className="w-4 h-4 text-emerald-500" />
+                      <Radio className="w-4 h-4 text-accent-red" />
                       <span className="text-sm font-medium text-foreground">SomaFM Radio</span>
                     </div>
                     <button
@@ -346,7 +346,7 @@ export function MusicPlayer() {
                         {selectedGenre === genre && (
                           <motion.div
                             layoutId="activeGenreTab"
-                            className="absolute inset-0 bg-emerald-500 rounded-full"
+                            className="absolute inset-0 bg-accent-red rounded-full"
                             transition={{
                               type: "spring",
                               stiffness: 500,
@@ -416,7 +416,7 @@ export function MusicPlayer() {
                       disabled={isLoading}
                       className={`flex-1 py-3 rounded-xl font-medium transition-all flex items-center justify-center gap-2 ${
                         isPlaying
-                          ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/30"
+                          ? "bg-accent-red/10 text-accent-red border border-accent-red/30"
                           : hasAttemptedPlay && hasError
                           ? "bg-red-500/10 text-red-400 border border-red-500/30"
                           : "bg-foreground text-background hover:opacity-90"
@@ -475,7 +475,7 @@ export function MusicPlayer() {
           }}
           className={`relative p-3.5 rounded-full border-2 transition-all ${
             isPlaying
-              ? "bg-emerald-500 border-emerald-400 text-white shadow-lg shadow-emerald-500/30"
+              ? "bg-accent-red border-accent-red/80 text-white shadow-lg shadow-accent-red/30"
               : "bg-foreground text-background border-foreground shadow-xl hover:scale-105"
           }`}
           whileHover={{ scale: 1.08 }}
@@ -491,7 +491,7 @@ export function MusicPlayer() {
 
           {isPlaying && (
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-emerald-300"
+              className="absolute inset-0 rounded-full border-2 border-accent-red/60"
               animate={{ scale: [1, 1.4, 1], opacity: [0.6, 0, 0.6] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
