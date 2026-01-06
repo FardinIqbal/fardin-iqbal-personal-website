@@ -213,10 +213,37 @@ nav, button, .label, .meta, .badge, .btn {
   background: rgb(var(--color-foreground-subtle));
 }
 
-/* Selection - accent color */
+/* Selection - elegant and visible with proper contrast */
+::-moz-selection {
+  background-color: rgba(232, 93, 117, 0.35);
+  color: rgb(245, 243, 238);
+}
+
 ::selection {
-  background-color: rgba(var(--accent-red), 0.2);
-  color: rgb(var(--color-foreground));
+  background-color: rgba(232, 93, 117, 0.35);
+  color: rgb(245, 243, 238);
+}
+
+/* Dark mode selection - visible red highlight */
+.dark ::-moz-selection {
+  background-color: rgba(232, 93, 117, 0.35);
+  color: rgb(245, 243, 238);
+}
+
+.dark ::selection {
+  background-color: rgba(232, 93, 117, 0.35);
+  color: rgb(245, 243, 238);
+}
+
+/* Light mode selection - elegant New Yorker red */
+.light ::-moz-selection {
+  background-color: rgba(196, 30, 58, 0.18);
+  color: rgb(26, 26, 26);
+}
+
+.light ::selection {
+  background-color: rgba(196, 30, 58, 0.18);
+  color: rgb(26, 26, 26);
 }
 
 /* Focus styles - accent color */
@@ -1512,22 +1539,30 @@ main {
 }
 
 .essay-article-content h2 {
-  font-family: var(--font-source-serif), Georgia, serif;
-  font-size: 1.85rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  margin-bottom: 2rem;
-  line-height: 1.25;
-  color: rgb(var(--color-foreground));
+  font-family: var(--font-source-serif), Georgia, serif !important;
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+  margin-top: 3.5rem !important;
+  margin-bottom: 2.5rem !important;
+  line-height: 1.2 !important;
+  color: rgb(var(--color-foreground)) !important;
+}
+
+/* Ensure first h2 has same font-size as all other h2s */
+.essay-article-content h2:first-of-type,
+.prose-article h2:first-of-type {
+  font-size: 2rem !important;
 }
 
 .essay-article-content h3 {
-  font-family: var(--font-source-serif), Georgia, serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  color: rgb(var(--color-foreground));
+  font-family: var(--font-source-serif), Georgia, serif !important;
+  font-size: 1.35rem !important;
+  font-weight: 600 !important;
+  margin-top: 3.5rem !important;
+  margin-bottom: 1.5rem !important;
+  color: rgb(var(--color-foreground)) !important;
+  line-height: 1.3 !important;
 }
 
 .essay-article-content h4 {

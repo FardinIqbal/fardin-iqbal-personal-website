@@ -69,25 +69,25 @@ export function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-200",
+          "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
           isScrolled
-            ? "bg-background/98 backdrop-blur-sm border-b border-border/50"
+            ? "bg-background/95 backdrop-blur-md border-b border-border/30"
             : "bg-transparent"
         )}
       >
         <nav className="editorial-container">
-          <div className="flex items-center justify-between h-14">
-            {/* Logo - Minimal New Yorker style */}
+          <div className="flex items-center justify-between h-16">
+            {/* Logo - Refined New Yorker style */}
             <Link
               href="/"
               onClick={handleLogoClick}
-              className="text-sm font-serif font-normal text-foreground hover:opacity-70 transition-opacity duration-200"
+              className="text-base font-serif font-normal text-foreground hover:opacity-70 transition-opacity duration-300 tracking-tight"
             >
               Fardin Iqbal
             </Link>
 
-            {/* Desktop Navigation - Minimal, New Yorker style */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation - Elegant New Yorker style */}
+            <div className="hidden md:flex items-center gap-10">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("/#", "") || pathname === item.href;
                 return (
@@ -95,13 +95,16 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-[0.65rem] font-inter font-medium uppercase tracking-[0.15em] transition-colors duration-200",
+                      "text-[0.7rem] font-inter font-medium uppercase tracking-[0.12em] transition-all duration-300 relative",
                       isActive
                         ? "text-foreground"
                         : "text-foreground-subtle hover:text-foreground"
                     )}
                   >
                     {item.label}
+                    {isActive && (
+                      <span className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[rgb(var(--accent-red))] opacity-60" />
+                    )}
                   </Link>
                 );
               })}
@@ -114,13 +117,13 @@ export function Header() {
                   haptic("light");
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
-                className="p-2 text-foreground-subtle hover:text-foreground transition-colors"
+                className="p-2.5 text-foreground-subtle hover:text-foreground transition-colors duration-300"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 ) : (
-                  <Menu className="w-4 h-4" />
+                  <Menu className="w-5 h-5" />
                 )}
               </button>
             </div>
@@ -150,9 +153,9 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-background border-l border-border p-6 pt-20"
+              className="absolute right-0 top-0 bottom-0 w-72 bg-background border-l border-border/50 p-8 pt-24"
             >
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 {navItems.map((item) => (
                   <Link
                     key={item.label}
@@ -161,18 +164,18 @@ export function Header() {
                       haptic("selection");
                       setIsMobileMenuOpen(false);
                     }}
-                    className="py-3 font-inter text-xs uppercase tracking-wider text-foreground-muted hover:text-foreground transition-colors duration-200"
+                    className="py-3.5 font-inter text-xs uppercase tracking-[0.12em] text-foreground-muted hover:text-foreground transition-colors duration-300 border-b border-border/30 last:border-0"
                   >
                     {item.label}
                   </Link>
                 ))}
 
-                <div className="pt-4 mt-4 border-t border-border">
+                <div className="pt-6 mt-4 border-t border-border/50">
                   <Link
                     href="/resume/Fardin_Iqbal_Resume.pdf"
                     target="_blank"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center px-4 py-2 text-xs font-inter font-medium uppercase tracking-wider border border-border hover:bg-background-tertiary transition-all duration-300"
+                    className="inline-flex items-center px-5 py-2.5 text-xs font-inter font-medium uppercase tracking-[0.12em] border border-border/50 hover:border-foreground-subtle hover:bg-background-tertiary transition-all duration-300"
                   >
                     Resume
                   </Link>

@@ -1,7 +1,6 @@
 "use client";
 
 import { CommandPalette } from "./CommandPalette";
-import { CursorSpotlight } from "./CursorSpotlight";
 import { ConsoleEasterEgg } from "./ConsoleEasterEgg";
 import { KonamiCode } from "./KonamiCode";
 import { ThemeToggle } from "../ThemeToggle";
@@ -17,8 +16,6 @@ export function PortfolioEnhancements() {
       {/* Command Palette - opens with Cmd+K */}
       <CommandPalette />
 
-      {/* Cursor Spotlight - subtle glow following mouse */}
-      <CursorSpotlight />
 
       {/* Console Easter Egg - ASCII art and commands */}
       <ConsoleEasterEgg />

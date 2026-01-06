@@ -81,8 +81,12 @@ export function ScrollProgress({ className = "" }: ScrollProgressProps) {
 
   return (
     <motion.div
-      className={`fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary-500 via-purple-500 to-pink-500 origin-left z-[100] ${className}`}
-      style={{ scaleX }}
+      className={`fixed top-0 left-0 right-0 h-[1px] origin-left z-[100] ${className}`}
+      style={{ 
+        scaleX,
+        background: "rgb(var(--accent-red))",
+        opacity: 0.8,
+      }}
     />
   );
 }

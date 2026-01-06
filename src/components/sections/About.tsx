@@ -25,52 +25,6 @@ export function About({ profile }: AboutProps) {
           </h2>
         </motion.div>
 
-        {/* Info - Elegant editorial layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.65, 0.3, 0.9] }}
-          className="mb-16"
-        >
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 pb-8 border-b border-border/30">
-            {/* Left Column */}
-            <div className="space-y-6">
-              {/* Education */}
-              <div>
-                <p className="text-xs font-inter uppercase tracking-[0.12em] text-foreground-subtle mb-3">Education</p>
-                <p className="font-serif text-base text-foreground mb-1">
-                  {profile.education.degree} {profile.education.major}
-                </p>
-                <p className="font-serif text-base text-foreground-muted">
-                  {profile.education.school}
-                </p>
-              </div>
-
-              {/* Location */}
-              <div>
-                <p className="text-xs font-inter uppercase tracking-[0.12em] text-foreground-subtle mb-3">Location</p>
-                <p className="font-serif text-base text-foreground-muted mb-1">
-                  {profile.location}
-                </p>
-                <p className="font-serif text-sm text-foreground-subtle">
-                  Open to relocation
-                </p>
-              </div>
-            </div>
-
-            {/* Right Column */}
-            <div>
-              <p className="text-xs font-inter uppercase tracking-[0.12em] text-foreground-subtle mb-3">Focus Areas</p>
-              <ul className="space-y-2.5">
-                <li className="font-serif text-base text-foreground-muted">Full-Stack Development</li>
-                <li className="font-serif text-base text-foreground-muted">Systems Programming</li>
-                <li className="font-serif text-base text-foreground-muted">AI/ML Applications</li>
-                <li className="font-serif text-base text-foreground-muted">Open Source</li>
-              </ul>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Bio - Refined editorial style */}
         <motion.div
