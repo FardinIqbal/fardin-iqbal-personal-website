@@ -34,8 +34,8 @@ function SkillCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
-      whileHover={{ y: -4 }}
-      className="p-5 sm:p-6 rounded-xl bg-background-secondary border border-border hover:border-foreground-subtle transition-all hover-lift group"
+      whileHover={{ y: -2 }}
+      className="p-6 sm:p-7 rounded-lg bg-background-secondary border border-border/50 hover:border-foreground-subtle/60 transition-all duration-500 hover-lift group"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4 sm:mb-5">
@@ -73,7 +73,7 @@ function SkillCard({
               scale: 1.05,
               backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
             }}
-            className="px-2 py-0.5 sm:px-2.5 sm:py-1 text-xs sm:text-sm rounded-md bg-background-tertiary text-foreground-muted cursor-default sm:inline"
+            className="px-3 py-1.5 text-xs rounded-full bg-background-tertiary/60 text-foreground-subtle border border-border/40 cursor-default sm:inline font-inter"
           >
             {skill}
           </motion.span>
@@ -94,7 +94,7 @@ function SkillCard({
               scale: 1.05,
               backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
             }}
-            className="hidden sm:inline px-2.5 py-1 text-sm rounded-md bg-background-tertiary text-foreground-muted cursor-default"
+            className="hidden sm:inline px-3 py-1.5 text-xs rounded-full bg-background-tertiary/60 text-foreground-subtle border border-border/40 cursor-default font-inter"
           >
             {skill}
           </motion.span>
@@ -120,14 +120,14 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12"
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mb-16"
         >
-          <div className="chapter-marker mb-4">Skills</div>
-          <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
+          <div className="chapter-marker mb-6">Skills</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
             Skills
           </h2>
-          <p className="text-foreground-muted text-lg max-w-2xl">
+          <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
             The tools and technologies I use to bring ideas to life
           </p>
         </motion.div>

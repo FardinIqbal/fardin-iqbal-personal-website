@@ -1042,14 +1042,6 @@ const projectEssays: Record<string, {
       }
     ]
   },
-        content: "Extracted data syncs to SharePoint Excel files - the format the agency already uses. No workflow changes required; the tool just eliminates the manual data entry step. Statistics tracking shows extraction accuracy and processing volume."
-      },
-      {
-        type: 'tech-grid',
-        content: ["Python", "Google Gemini API", "Gmail API", "SharePoint", "Excel", "OAuth"]
-      }
-    ]
-  },
   "reddit-clone": {
     overline: "Full-Stack Web",
     subtitle: "A full-featured social platform with real-time updates, nested threading, and karma mechanics",

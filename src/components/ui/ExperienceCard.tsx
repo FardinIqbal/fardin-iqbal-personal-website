@@ -50,15 +50,15 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
         aria-controls={`experience-details-${experience.id}`}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        className="cursor-pointer rounded-lg bg-background border border-border p-5 transition-all duration-300 hover:border-foreground/20 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
+        className="cursor-pointer rounded-lg bg-background border border-border/50 p-6 transition-all duration-500 hover:border-foreground/30 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
         layout
         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
         {/* Header - Always visible */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 mb-1.5">
-              <h3 className="text-base font-display font-semibold text-foreground">
+            <div className="flex items-center gap-3 mb-2">
+              <h3 className="text-lg font-serif font-semibold text-foreground">
                 {experience.role}
               </h3>
               <motion.div
@@ -108,7 +108,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
 
                 {/* Description */}
                 {experience.description && (
-                  <p className="text-foreground-muted font-serif text-sm mb-4 leading-relaxed">
+                  <p className="text-foreground-muted font-serif text-base mb-5 leading-[1.75]">
                     {experience.description}
                   </p>
                 )}
@@ -122,7 +122,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
                         initial={{ opacity: 0, x: -8 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.03, duration: 0.3 }}
-                        className="text-foreground-muted text-sm pl-4 relative before:content-['·'] before:absolute before:left-0 before:text-foreground-subtle before:font-bold font-serif leading-relaxed"
+                        className="text-foreground-muted text-base pl-5 relative before:content-['·'] before:absolute before:left-1 before:text-foreground-subtle before:font-bold font-serif leading-[1.75]"
                       >
                         {item}
                       </motion.li>

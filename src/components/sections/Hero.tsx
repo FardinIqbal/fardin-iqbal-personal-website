@@ -67,61 +67,64 @@ export function Hero({ profile }: HeroProps) {
         className="relative z-10 editorial-container text-center"
       >
 
-        {/* Name - elegant serif with staggered animation */}
+        {/* Chapter marker */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="chapter-marker mb-12"
+        >
+          Introduction
+        </motion.div>
+
+        {/* Name - elegant serif with refined typography */}
         <motion.h1
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="mb-8"
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mb-10"
         >
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="chapter-marker mb-10"
-          >
-            Introduction
-          </motion.div>
-          <h1 className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-foreground tracking-tight leading-[1.1] mb-8">
+          <h1 className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-foreground tracking-tight leading-[1.08] mb-10">
             <AnimatedText text={profile.name} />
           </h1>
         </motion.h1>
 
-        {/* Tagline - elegant serif */}
+        {/* Tagline - refined editorial style */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl text-foreground-muted leading-[1.7] max-w-[520px] mx-auto font-light mb-12"
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="text-xl md:text-2xl text-foreground-muted leading-[1.75] max-w-[600px] mx-auto font-serif font-light mb-16"
         >
           {profile.tagline}
         </motion.p>
 
-        {/* Hero Meta - New Yorker style */}
+        {/* Hero Meta - refined New Yorker style */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.2, 0.65, 0.3, 0.9] }}
           className="editorial-meta justify-center"
         >
           <span>Software Engineer</span>
+          <span className="text-foreground-subtle/60">·</span>
           <span>Stony Brook University</span>
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator - New Yorker style */}
+      {/* Scroll indicator - refined New Yorker style */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.5 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-foreground-subtle"
+        transition={{ delay: 1.2, duration: 0.6, ease: [0.2, 0.65, 0.3, 0.9] }}
+        className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-foreground-subtle"
       >
-        <span className="text-[0.65rem] font-inter uppercase tracking-[0.1em]">Begin the journey</span>
+        <span className="text-[0.65rem] font-inter uppercase tracking-[0.12em] font-medium">Begin the journey</span>
         <motion.div
-          animate={{ y: [0, 4, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+          animate={{ y: [0, 6, 0] }}
+          transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
         >
-          <ArrowDown className="w-5 h-5" />
+          <ArrowDown className="w-4 h-4 opacity-60" />
         </motion.div>
       </motion.div>
 

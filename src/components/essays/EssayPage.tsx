@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { formatDate } from "@/lib/utils";
-import { ReadingControls } from "./ReadingControls";
 import { MusicPlayer } from "./MusicPlayer";
 
 interface EssayPageProps {
@@ -28,53 +27,47 @@ export function EssayPage({
       {/* Reading progress bar */}
       <ReadingProgress />
       
-      {/* Reading time indicator - exact New Yorker style */}
-      <div className="fixed top-8 left-8 z-40 font-inter text-[0.65rem] text-foreground-subtle uppercase tracking-[0.1em] opacity-60">
+      {/* Reading time indicator - refined New Yorker style */}
+      <div className="fixed top-6 right-8 z-40 font-inter text-[0.65rem] text-foreground-subtle uppercase tracking-[0.12em] opacity-50">
         {readingTime}
       </div>
 
-      {/* Hero Section - New Yorker style */}
-      <header className="essay-hero min-h-[90vh] flex flex-col justify-center py-24 relative border-b border-border">
+      {/* Hero Section - Refined New Yorker style */}
+      <header className="essay-hero min-h-[85vh] flex flex-col justify-center py-32 relative border-b border-border/50">
         <div className="editorial-container">
-          {/* Chapter marker */}
-          <div className="hero-chapter mb-10">Essay</div>
+          {/* Chapter marker - refined spacing */}
+          <div className="hero-chapter mb-12">Essay</div>
           
-          {/* Title */}
-          <h1 className="essay-hero-title mb-8">
+          {/* Title - elegant typography */}
+          <h1 className="essay-hero-title mb-10">
             {title}
           </h1>
 
-          {/* Subtitle */}
+          {/* Subtitle - refined spacing */}
           {description && (
-            <p className="essay-hero-subtitle mb-12">
+            <p className="essay-hero-subtitle mb-16 max-w-2xl">
               {description}
             </p>
           )}
 
-          {/* Meta */}
+          {/* Meta - refined spacing */}
           <div className="essay-hero-meta">
             <span>By Fardin Iqbal</span>
+            <span className="text-foreground-subtle/60">·</span>
             <span>{formatDate(date)}</span>
-            {tags.length > 0 && <span>{tags[0]}</span>}
+            {tags.length > 0 && (
+              <>
+                <span className="text-foreground-subtle/60">·</span>
+                <span>{tags[0]}</span>
+              </>
+            )}
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-foreground-subtle">
-          <span className="text-[0.65rem] font-inter uppercase tracking-[0.1em]">Begin the journey</span>
-          <motion.div
-            animate={{ y: [0, 4, 0] }}
-            transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="opacity-50">
-              <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
-          </motion.div>
-        </div>
       </header>
 
-      {/* Article Content - New Yorker sections */}
-      <main>
+      {/* Article Content - Refined New Yorker sections */}
+      <main className="py-20">
         <article
           className="essay-article-content prose-article"
           dangerouslySetInnerHTML={{ __html: compiledContent }}
@@ -94,8 +87,7 @@ export function EssayPage({
         </div>
       </footer>
 
-      {/* Reading Controls & Music Player */}
-      <ReadingControls />
+      {/* Music Player */}
       <MusicPlayer />
     </div>
   );

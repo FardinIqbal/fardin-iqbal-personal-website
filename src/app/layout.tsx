@@ -152,7 +152,7 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme = localStorage.getItem('theme') || 'light';
-                  if (theme === 'light' || theme === 'dark' || theme === 'sepia') {
+                  if (theme === 'light' || theme === 'dark') {
                     document.documentElement.classList.add(theme);
                   } else {
                     document.documentElement.classList.add('light');

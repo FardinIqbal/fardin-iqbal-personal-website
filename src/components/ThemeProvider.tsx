@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type Theme = "light" | "dark" | "sepia";
+export type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
@@ -33,17 +33,17 @@ export function ThemeProvider({ children, defaultTheme = "dark" }: ThemeProvider
 
   const applyTheme = (t: Theme) => {
     const root = document.documentElement;
-    root.classList.remove("light", "dark", "sepia");
+    root.classList.remove("light", "dark");
     root.classList.add(t);
 
-    // Dispatch custom event for theme change (used by ThemeSwitcher)
+    // Dispatch custom event for theme change
     window.dispatchEvent(new CustomEvent("theme-mode-change", { detail: { theme: t } }));
   };
 
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem("theme") as Theme | null;
-    const initialTheme = stored === "light" || stored === "dark" || stored === "sepia" ? stored : defaultTheme;
+    const initialTheme = stored === "light" || stored === "dark" ? stored : defaultTheme;
     setThemeState(initialTheme);
     applyTheme(initialTheme);
   }, [defaultTheme]);

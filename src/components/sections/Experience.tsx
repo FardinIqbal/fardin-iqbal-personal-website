@@ -17,14 +17,14 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mb-12"
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mb-16"
         >
-          <div className="chapter-marker mb-4">Experience</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4 tracking-tight">
+          <div className="chapter-marker mb-6">Experience</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
             Experience
           </h2>
-          <p className="text-foreground-muted text-lg font-serif leading-relaxed">
+          <p className="text-foreground-muted text-lg md:text-xl font-serif leading-[1.75]">
             Click any role to see details
           </p>
         </motion.div>

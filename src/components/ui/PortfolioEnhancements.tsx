@@ -4,7 +4,7 @@ import { CommandPalette } from "./CommandPalette";
 import { CursorSpotlight } from "./CursorSpotlight";
 import { ConsoleEasterEgg } from "./ConsoleEasterEgg";
 import { KonamiCode } from "./KonamiCode";
-import { ThemeSwitcher } from "./ThemeSwitcher";
+import { ThemeToggle } from "../ThemeToggle";
 import { SmoothScroll } from "./SmoothScroll";
 import { MobileBottomNav } from "./MobileBottomNav";
 
@@ -26,8 +26,8 @@ export function PortfolioEnhancements() {
       {/* Konami Code - elegant particle effect */}
       <KonamiCode />
 
-      {/* Theme Switcher - code editor themes */}
-      <ThemeSwitcher />
+      {/* Theme Toggle - light/dark mode switcher */}
+      <ThemeToggle />
 
       {/* Mobile Bottom Navigation - thumb-friendly nav with haptics */}
       <MobileBottomNav />

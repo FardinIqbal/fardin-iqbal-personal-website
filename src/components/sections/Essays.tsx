@@ -19,30 +19,30 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
       className="group"
     >
       <Link href={`/essays/${post.slug}`} className="block">
-        <div className="relative py-8 border-b border-border/30 hover:border-border/60 transition-colors">
+        <div className="relative py-10 border-b border-border/30 hover:border-border/60 transition-colors duration-500">
           {/* Date and reading time */}
-          <div className="flex items-center gap-4 mb-4">
-            <span className="text-xs font-mono text-foreground-subtle uppercase tracking-wider">
+          <div className="flex items-center gap-4 mb-5">
+            <span className="text-xs font-inter text-foreground-subtle uppercase tracking-[0.1em]">
               {new Date(post.date).toLocaleDateString("en-US", {
                 month: "short",
                 day: "numeric",
                 year: "numeric",
               })}
             </span>
-            <span className="text-foreground-subtle/50">|</span>
-            <span className="flex items-center gap-1.5 text-xs text-foreground-subtle">
-              <Clock className="w-3 h-3" />
+            <span className="text-foreground-subtle/40">·</span>
+            <span className="flex items-center gap-1.5 text-xs text-foreground-subtle font-inter">
+              <Clock className="w-3.5 h-3.5" />
               {post.readingTime}
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="text-xl md:text-2xl font-display font-medium text-foreground mb-3 tracking-tight group-hover:text-foreground-muted transition-colors pr-12">
+          <h3 className="text-2xl md:text-3xl font-serif font-semibold text-foreground mb-4 tracking-tight leading-[1.2] group-hover:text-foreground-muted transition-colors pr-12">
             {post.title}
           </h3>
 
           {/* Description */}
-          <p className="text-foreground-muted font-serif text-base leading-relaxed max-w-2xl">
+          <p className="text-foreground-muted font-serif text-lg md:text-xl leading-[1.75] max-w-2xl">
             {post.description}
           </p>
 
@@ -78,14 +78,14 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mb-16"
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mb-20"
         >
-          <div className="chapter-marker mb-4">Writing</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground mb-4 tracking-tight">
+          <div className="chapter-marker mb-6">Writing</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
             Essays
           </h2>
-          <p className="text-foreground-muted text-lg max-w-xl leading-relaxed font-serif">
+          <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
             Reflections on technology, philosophy, and the craft of building software.
           </p>
         </motion.div>

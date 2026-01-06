@@ -1,18 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Sun, Moon, BookOpen } from "lucide-react";
+import { Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { haptic } from "@/lib/haptics";
-import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const [mobileNavVisible, setMobileNavVisible] = useState(true);
 
-  const themes: Array<{ id: "light" | "dark" | "sepia"; label: string; icon: typeof Sun }> = [
+  // Listen for mobile nav visibility changes
+  useEffect(() => {
+    const handleNavVisibility = (e: CustomEvent<{ visible: boolean }>) => {
+      setMobileNavVisible(e.detail.visible);
+    };
+
+    window.addEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+    return () => window.removeEventListener("mobileNavVisibility", handleNavVisibility as EventListener);
+  }, []);
+
+  const themes: Array<{ id: "light" | "dark"; label: string; icon: typeof Sun | typeof Moon }> = [
     { id: "light", label: "Light", icon: Sun },
     { id: "dark", label: "Dark", icon: Moon },
-    { id: "sepia", label: "Sepia", icon: BookOpen },
   ];
 
   const currentIndex = themes.findIndex((t) => t.id === theme);
@@ -25,21 +35,27 @@ export function ThemeToggle() {
   };
 
   return (
-    <motion.button
-      onClick={handleClick}
-      className={cn(
-        "fixed top-8 right-8 z-50 w-10 h-10 rounded-full",
-        "bg-background-tertiary border border-border",
-        "flex items-center justify-center",
-        "opacity-60 hover:opacity-100 transition-opacity",
-        "hover:border-foreground/20"
-      )}
-      aria-label={`Switch to ${nextTheme.label} theme`}
-      title={`Current: ${themes[currentIndex].label} - Click for ${nextTheme.label}`}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+    <motion.div
+      className="fixed left-4 md:left-6 z-40"
+      initial={false}
+      animate={{
+        bottom: mobileNavVisible ? 96 : 24,
+      }}
+      transition={{ type: "spring", damping: 25, stiffness: 300 }}
     >
-      <Icon className="w-4 h-4 text-foreground" />
-    </motion.button>
+      <motion.button
+        onClick={handleClick}
+        className="p-3 rounded-full bg-foreground text-background border-2 border-foreground shadow-xl hover:opacity-90 transition-opacity"
+        aria-label={`Switch to ${nextTheme.label} theme`}
+        title={`Current: ${themes[currentIndex].label} - Click for ${nextTheme.label}`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+      >
+        <Icon className="w-5 h-5" />
+      </motion.button>
+    </motion.div>
   );
 }

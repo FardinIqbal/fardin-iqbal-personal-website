@@ -33,17 +33,17 @@ function FeaturedCard({
       className="group"
     >
       <Link href={`/projects/${project.id}`} className="block">
-        <div className="relative overflow-hidden rounded-2xl border border-border/50 hover:border-border transition-all duration-500">
+        <div className="relative overflow-hidden rounded-lg border border-border/40 hover:border-border/60 transition-all duration-500">
           {/* Gradient background */}
           <div className={`absolute inset-0 bg-gradient-to-br ${gradients[project.category]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
           {/* Content */}
-          <div className="relative p-5 sm:p-8 md:p-10">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+          <div className="relative p-6 sm:p-10 md:p-12">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
               {/* Left side - text content */}
               <div className="flex-1 min-w-0">
                 {/* Category */}
-                <span className="inline-block text-xs font-medium tracking-widest uppercase text-foreground-subtle mb-3 md:mb-4">
+                <span className="inline-block text-xs font-inter font-medium tracking-[0.12em] uppercase text-foreground-subtle mb-4 md:mb-5">
                   {project.category === "ai" && "AI Infrastructure"}
                   {project.category === "web" && "Full-Stack"}
                   {project.category === "systems" && "Systems"}
@@ -52,21 +52,21 @@ function FeaturedCard({
                 </span>
 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-medium text-foreground mb-3 md:mb-4 tracking-tight group-hover:text-foreground transition-colors">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-foreground mb-4 md:mb-5 tracking-tight leading-[1.2] group-hover:text-foreground transition-colors">
                   {project.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-foreground-muted text-sm sm:text-base md:text-lg leading-relaxed mb-4 md:mb-6 max-w-2xl">
+                <p className="text-foreground-muted text-base sm:text-lg md:text-xl leading-[1.75] mb-6 md:mb-8 max-w-2xl font-serif">
                   {project.narrative || project.description}
                 </p>
 
                 {/* Tech tags */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2.5">
                   {project.tech.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
-                      className="px-3 py-1 text-sm rounded-full bg-background-tertiary/50 text-foreground-subtle border border-border/30"
+                      className="px-3 py-1.5 text-xs font-inter uppercase tracking-wide rounded-full bg-background-tertiary/60 text-foreground-subtle border border-border/40"
                     >
                       {tech}
                     </span>
@@ -76,7 +76,7 @@ function FeaturedCard({
 
               {/* Right side - arrow indicator */}
               <div className="flex-shrink-0">
-                <div className="w-12 h-12 rounded-full border border-border/50 flex items-center justify-center group-hover:border-foreground/20 group-hover:bg-foreground/5 transition-all duration-300">
+                <div className="w-14 h-14 rounded-full border border-border/50 flex items-center justify-center group-hover:border-foreground/30 group-hover:bg-foreground/5 transition-all duration-500">
                   <ArrowUpRight className="w-5 h-5 text-foreground-subtle group-hover:text-foreground transition-colors" />
                 </div>
               </div>
@@ -111,26 +111,26 @@ function ArchiveCard({
       transition={{ duration: 0.3, delay: index * 0.03 }}
       className="group"
     >
-      <div className="flex items-start gap-4 py-4 px-4 -mx-4 rounded-lg hover:bg-foreground/[0.02] transition-colors">
-        {/* Year badge */}
-        <span className="flex-shrink-0 text-xs font-mono text-foreground-subtle bg-background-tertiary/50 px-2 py-1 rounded">
-          {project.year}
-        </span>
+          <div className="flex items-start gap-5 py-5 px-5 -mx-5 rounded-lg hover:bg-foreground/[0.02] transition-colors">
+            {/* Year badge */}
+            <span className="flex-shrink-0 text-xs font-inter font-medium tracking-wide text-foreground-subtle bg-background-tertiary/60 px-3 py-1.5 rounded-full border border-border/40">
+              {project.year}
+            </span>
 
-        {/* Main content - clickable link */}
-        <Link href={`/projects/${project.id}`} className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <h4 className="text-foreground font-medium truncate group-hover:text-foreground-muted transition-colors">
-              {project.title}
-            </h4>
-            <ArrowUpRight className="w-3 h-3 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-foreground-subtle" />
-          </div>
+            {/* Main content - clickable link */}
+            <Link href={`/projects/${project.id}`} className="flex-1 min-w-0">
+              <div className="flex items-center gap-2.5 mb-2">
+                <h4 className="text-foreground font-serif font-medium text-base truncate group-hover:text-foreground-muted transition-colors">
+                  {project.title}
+                </h4>
+                <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-foreground-subtle" />
+              </div>
 
-          {/* Tech stack - visible on all screens */}
-          <p className="text-sm text-foreground-subtle truncate">
-            {project.tech.slice(0, 3).join(" · ")}
-          </p>
-        </Link>
+              {/* Tech stack - visible on all screens */}
+              <p className="text-sm text-foreground-subtle truncate font-inter">
+                {project.tech.slice(0, 3).join(" · ")}
+              </p>
+            </Link>
 
         {/* Category + Links - separate from main link */}
         <div className="flex items-center gap-3 flex-shrink-0">
@@ -194,14 +194,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="mb-16 md:mb-24"
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="mb-20 md:mb-28"
         >
-          <div className="chapter-marker mb-4">Work</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-4 md:mb-6 tracking-tight">
+          <div className="chapter-marker mb-6">Work</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 md:mb-8 tracking-tight leading-[1.15]">
             Selected Work
           </h2>
-          <p className="text-foreground-muted text-base md:text-lg max-w-xl leading-relaxed">
+          <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
             A curated collection of projects spanning systems programming, AI infrastructure, and full-stack development.
           </p>
         </motion.div>
@@ -213,14 +213,14 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           ))}
         </div>
 
-        {/* Archive Section */}
+          {/* Archive Section */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
         >
-          <h3 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle mb-6">
+          <h3 className="text-xs font-inter font-medium tracking-[0.12em] uppercase text-foreground-subtle mb-8">
             Archive
           </h3>
 

@@ -63,14 +63,14 @@ export function Contact({ profile }: ContactProps) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          className="text-center mb-16"
         >
-          <div className="chapter-marker mb-4">Contact</div>
-          <h2 className="text-3xl md:text-4xl font-serif font-semibold text-foreground mb-4">
+          <div className="chapter-marker mb-6">Contact</div>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
             Get In Touch
           </h2>
-          <p className="text-foreground-muted text-lg max-w-xl mx-auto">
+          <p className="text-foreground-muted text-lg md:text-xl max-w-2xl mx-auto leading-[1.75] font-serif">
             I&apos;m currently looking for new opportunities. Whether you have a
             question or just want to say hi, I&apos;ll do my best to get back to you!
           </p>
@@ -100,7 +100,7 @@ export function Contact({ profile }: ContactProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle transition-colors"
+                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle/60 transition-colors duration-300 font-serif"
                   placeholder="Your name"
                 />
               </div>
@@ -120,7 +120,7 @@ export function Contact({ profile }: ContactProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle transition-colors"
+                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle/60 transition-colors duration-300 font-serif"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -140,7 +140,7 @@ export function Contact({ profile }: ContactProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="w-full px-4 py-3 rounded-lg bg-background border border-border text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle transition-colors resize-none"
+                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle/60 transition-colors resize-none duration-300 font-serif"
                   placeholder="Your message..."
                 />
               </div>
@@ -150,7 +150,7 @@ export function Contact({ profile }: ContactProps) {
                 disabled={status === "loading"}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className="w-full px-6 py-3 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full px-6 py-4 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-inter"
               >
                 {status === "loading" ? (
                   <>
@@ -198,7 +198,7 @@ export function Contact({ profile }: ContactProps) {
             <div className="space-y-6">
               {/* Email - with hover animation */}
               <motion.div
-                className="p-5 rounded-xl bg-background border border-border hover:border-foreground-subtle transition-colors"
+                className="p-6 rounded-lg bg-background border border-border/50 hover:border-foreground-subtle/60 transition-colors duration-500"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
