@@ -60,15 +60,23 @@ export function Contact({ profile }: ContactProps) {
       <div className="editorial-container">
         {/* Section Header - editorial */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
           <div className="chapter-marker mb-6">Contact</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15] relative inline-block">
             Get In Touch
+            {/* Subtle accent red line above title */}
+            <span 
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-16 h-px block"
+              style={{
+                background: "linear-gradient(to right, transparent, rgb(var(--accent-red)), transparent)",
+                opacity: 0.5
+              }}
+            />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl mx-auto leading-[1.75] font-serif">
             I&apos;m currently looking for new opportunities. Whether you have a
@@ -79,10 +87,10 @@ export function Contact({ profile }: ContactProps) {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5 }}
           >
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
@@ -148,8 +156,6 @@ export function Contact({ profile }: ContactProps) {
               <motion.button
                 type="submit"
                 disabled={status === "loading"}
-                whileHover={{ scale: 1.01 }}
-                whileTap={{ scale: 0.99 }}
                 className="w-full px-6 py-4 rounded-lg bg-accent text-white font-medium hover:bg-accent/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-inter"
               >
                 {status === "loading" ? (
@@ -189,37 +195,29 @@ export function Contact({ profile }: ContactProps) {
 
           {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="flex flex-col justify-center"
           >
             <div className="space-y-6">
-              {/* Email - with hover animation */}
-              <motion.div
-                className="p-6 rounded-lg bg-background border border-border/50 hover:border-foreground-subtle/60 transition-colors duration-500"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.2 }}
-                whileHover={{ y: -2 }}
-              >
+              {/* Email */}
+              <div className="p-6 rounded-lg bg-background border border-border/50 hover:border-foreground-subtle/60 transition-colors duration-300">
                 <h3 className="text-base font-semibold text-foreground mb-2">
                   Prefer email?
                 </h3>
                 <p className="text-foreground-muted text-sm mb-3">
                   Feel free to reach out directly at:
                 </p>
-                <motion.a
+                <a
                   href={`mailto:${profile.email}`}
                   className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors"
-                  whileHover={{ x: 2 }}
                 >
                   <Mail className="w-4 h-4" />
                   {profile.email}
-                </motion.a>
-              </motion.div>
+                </a>
+              </div>
 
               {/* Social links - staggered animation */}
               <div>
@@ -227,39 +225,23 @@ export function Contact({ profile }: ContactProps) {
                   Connect with me
                 </h3>
                 <div className="flex items-center gap-3">
-                  {socialLinks.map(({ icon: Icon, href, label }, index) => (
-                    <motion.div
+                  {socialLinks.map(({ icon: Icon, href, label }) => (
+                    <Link
                       key={label}
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: 0.3 + index * 0.1 }}
-                      whileHover={{ scale: 1.1, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
+                      href={href}
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="p-3 rounded-lg border border-border text-foreground-muted hover:text-foreground hover:bg-background-tertiary transition-colors block"
+                      aria-label={label}
                     >
-                      <Link
-                        href={href}
-                        target={href.startsWith("http") ? "_blank" : undefined}
-                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="p-3 rounded-lg border border-border text-foreground-muted hover:text-foreground hover:bg-background-tertiary transition-all block"
-                        aria-label={label}
-                      >
-                        <Icon className="w-5 h-5" />
-                      </Link>
-                    </motion.div>
+                      <Icon className="w-5 h-5" />
+                    </Link>
                   ))}
                 </div>
               </div>
 
-              {/* Availability - with animation */}
-              <motion.div
-                className="flex items-center gap-3 p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.5 }}
-                whileHover={{ scale: 1.02 }}
-              >
+              {/* Availability */}
+              <div className="flex items-center gap-3 p-4 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
@@ -267,7 +249,7 @@ export function Contact({ profile }: ContactProps) {
                 <span className="text-sm text-emerald-600 dark:text-emerald-400 font-medium">
                   Available for opportunities
                 </span>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         </div>

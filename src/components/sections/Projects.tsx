@@ -26,10 +26,10 @@ function FeaturedCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.05 }}
       className="group"
     >
       <Link href={`/projects/${project.id}`} className="block">
@@ -105,10 +105,10 @@ function ArchiveCard({
 
   return (
     <motion.article
-      initial={{ opacity: 0, y: 10 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.3, delay: index * 0.03 }}
+      transition={{ duration: 0.4 }}
       className="group"
     >
           <div className="flex items-start gap-5 py-5 px-5 -mx-5 rounded-lg hover:bg-foreground/[0.02] transition-colors">
@@ -191,15 +191,23 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
       <div className="editorial-container">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          transition={{ duration: 0.6 }}
           className="mb-20 md:mb-28"
         >
           <div className="chapter-marker mb-6">Work</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 md:mb-8 tracking-tight leading-[1.15]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 md:mb-8 tracking-tight leading-[1.15] relative">
             Selected Work
+            {/* Subtle accent red line above title */}
+            <span 
+              className="absolute -top-4 left-0 w-16 h-px block"
+              style={{
+                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
+                opacity: 0.5
+              }}
+            />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
             A curated collection of projects spanning systems programming, AI infrastructure, and full-stack development.
@@ -218,7 +226,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          transition={{ duration: 0.6 }}
         >
           <h3 className="text-xs font-inter font-medium tracking-[0.12em] uppercase text-foreground-subtle mb-8">
             Archive
@@ -234,21 +242,15 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
           {/* View More / View Less Button */}
           {hiddenCount > 0 && (
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
+            <button
               onClick={() => setShowAllArchive(!showAllArchive)}
               className="mt-6 flex items-center gap-2 text-sm font-medium text-foreground-subtle hover:text-accent transition-colors group"
             >
               <span>{showAllArchive ? "Show less" : `View ${hiddenCount} more projects`}</span>
-              <motion.div
-                animate={{ rotate: showAllArchive ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ChevronDown className="w-4 h-4" />
-              </motion.div>
-            </motion.button>
+              <ChevronDown 
+                className={`w-4 h-4 transition-transform duration-200 ${showAllArchive ? 'rotate-180' : ''}`}
+              />
+            </button>
           )}
         </motion.div>
       </div>

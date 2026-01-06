@@ -2693,155 +2693,51 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* ============================================
-   ESSAYS PAGE - NEW YORKER STYLE ENHANCEMENTS
+   ESSAYS PAGE - EDITORIAL NEW YORKER STYLE
    ============================================ */
 
-/* Smooth, fluid animations for essays page */
-main[class*="min-h-screen"] {
-  animation: fadeIn 0.6s ease-out;
+/* Ensure accent red is visible */
+.bg-accent-red {
+  background-color: rgb(var(--accent-red)) !important;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.text-accent-red {
+  color: rgb(var(--accent-red)) !important;
 }
 
-/* Elegant essay cards with sophisticated hover effects */
+.border-accent-red {
+  border-color: rgb(var(--accent-red)) !important;
+}
+
+/* Smooth, subtle animations for essays page */
 main[class*="min-h-screen"] article {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.3s ease;
 }
 
-/* Accent red glow effect on hover */
-main[class*="min-h-screen"] article::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: rgb(var(--accent-red));
-  opacity: 0;
-  box-shadow: 0 0 12px rgb(var(--accent-red)/0.5);
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+/* Editorial accent line - more visible */
+main[class*="min-h-screen"] article .group:hover .bg-accent-red\/20 {
+  background-color: rgb(var(--accent-red)) !important;
 }
 
-main[class*="min-h-screen"] article:hover::after {
-  opacity: 1;
+/* Tag filter buttons - editorial style with better visibility */
+button[class*="px-4"][class*="py-1.5"] {
+  transition: all 0.2s ease;
 }
 
-/* Tag filter buttons - enhanced hover states with ripple effect */
-button[class*="rounded-sm"][class*="px-4"] {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-button[class*="rounded-sm"][class*="px-4"]::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: translate(-50%, -50%);
-  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1), height 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-button[class*="rounded-sm"][class*="px-4"]:hover::before {
-  width: 200%;
-  height: 200%;
-}
-
-/* Accent red pulse animation for active tags */
-button[class*="rounded-sm"][class*="bg-accent-red"] {
-  animation: accentPulse 2s ease-in-out infinite;
-}
-
-@keyframes accentPulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgb(var(--accent-red)/0.4);
-  }
-  50% {
-    box-shadow: 0 0 0 4px rgb(var(--accent-red)/0);
-  }
-}
-
-/* Smooth accent line animation */
-@keyframes accentLineGrow {
-  from {
-    transform: scaleY(0);
-    transform-origin: top;
-    opacity: 0;
-  }
-  to {
-    transform: scaleY(1);
-    transform-origin: top;
-    opacity: 1;
-  }
-}
-
-/* Enhanced tag hover with accent red */
-span[class*="rounded-sm"][class*="border"] {
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  position: relative;
-}
-
-span[class*="rounded-sm"][class*="border"]:hover {
+button[class*="px-4"][class*="py-1.5"]:hover {
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgb(var(--accent-red)/0.2);
 }
 
-/* Smooth transitions for all interactive elements in essays */
+/* Smooth transitions for all interactive elements */
 main[class*="min-h-screen"] * {
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  transition-timing-function: ease;
 }
 
-/* Accent red gradient text effect */
-main[class*="min-h-screen"] h2:hover {
-  background: linear-gradient(135deg, rgb(var(--color-foreground)), rgb(var(--accent-red)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+/* Ensure hover states are visible */
+.group:hover .text-accent-red {
+  color: rgb(var(--accent-red)) !important;
 }
 
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Enhanced accent red visibility */
-main[class*="min-h-screen"] .text-accent-red {
-  color: rgb(var(--accent-red));
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-main[class*="min-h-screen"] .bg-accent-red {
-  background: rgb(var(--accent-red));
-  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Elegant divider with accent red */
-main[class*="min-h-screen"] .border-b::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: rgb(var(--accent-red));
-  transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-main[class*="min-h-screen"] .border-b:hover::before {
-  width: 100%;
+.group:hover .border-accent-red\/60 {
+  border-color: rgb(var(--accent-red) / 0.6) !important;
 }

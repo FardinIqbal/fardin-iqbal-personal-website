@@ -24,13 +24,15 @@ export default async function EssaysPage() {
             <div className="mb-6">
               <span className="chapter-marker">Essays</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-foreground tracking-tight mb-4 leading-tight">
+            <h1 className="text-4xl sm:text-5xl font-serif font-semibold text-foreground tracking-tight mb-5 leading-tight">
               Essays
             </h1>
-            <p className="text-foreground-muted font-serif text-lg leading-relaxed max-w-2xl">
+            <p className="text-foreground-muted font-serif text-lg sm:text-xl leading-relaxed max-w-2xl mb-8">
               Reflections on technology, philosophy, and the craft of building software.
             </p>
-            <div className="h-px bg-border mt-8"></div>
+            <div className="relative h-px bg-border">
+              <div className="absolute left-0 top-0 w-24 h-px bg-accent-red"></div>
+            </div>
           </div>
 
           <EssaysList posts={posts} allTags={allTags} />

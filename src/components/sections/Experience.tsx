@@ -14,15 +14,23 @@ export function ExperienceSection({ experience }: ExperienceSectionProps) {
       <div className="editorial-container">
         {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          transition={{ duration: 0.6 }}
           className="mb-16"
         >
           <div className="chapter-marker mb-6">Experience</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15] relative">
             Experience
+            {/* Subtle accent red line above title */}
+            <span 
+              className="absolute -top-4 left-0 w-16 h-px block"
+              style={{
+                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
+                opacity: 0.5
+              }}
+            />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl font-serif leading-[1.75]">
             Click any role to see details

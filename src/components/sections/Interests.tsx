@@ -24,15 +24,23 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
       <div className="editorial-container">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          transition={{ duration: 0.6 }}
           className="mb-20"
         >
           <div className="chapter-marker mb-6">Interests</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground tracking-tight leading-[1.15] mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground tracking-tight leading-[1.15] mb-6 relative">
             Beyond Code
+            {/* Subtle accent red line above title */}
+            <span 
+              className="absolute -top-4 left-0 w-16 h-px block"
+              style={{
+                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
+                opacity: 0.5
+              }}
+            />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
             What I read, watch, and learn when I&apos;m not building.
@@ -43,10 +51,10 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
         <div className="grid md:grid-cols-3 gap-12 md:gap-8">
           {/* Reading Column */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <div className="flex items-baseline justify-between mb-8">
               <h3 className="text-xs font-inter font-medium tracking-[0.12em] uppercase text-foreground-subtle">
@@ -82,10 +90,10 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
 
           {/* Watching Column */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
           >
             <div className="flex items-baseline justify-between mb-8">
               <h3 className="text-xs font-inter font-medium tracking-[0.12em] uppercase text-foreground-subtle">
@@ -124,10 +132,10 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
 
           {/* Learning Column */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
             <div className="flex items-baseline justify-between mb-8">
               <h3 className="text-xs font-inter font-medium tracking-[0.12em] uppercase text-foreground-subtle">
@@ -184,7 +192,7 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
+          transition={{ duration: 0.6 }}
           className="mt-20 pt-10 border-t border-border/30"
         >
           <Link

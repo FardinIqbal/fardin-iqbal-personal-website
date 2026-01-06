@@ -35,7 +35,8 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
 
       {/* Timeline dot */}
       <motion.div
-        className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-accent-red"
+        className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full"
+        style={{ backgroundColor: 'rgb(var(--accent-red))' }}
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}

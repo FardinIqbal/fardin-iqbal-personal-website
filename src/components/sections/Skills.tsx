@@ -30,22 +30,17 @@ function SkillCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.4, delay: index * 0.1 }}
-      whileHover={{ y: -2 }}
-      className="p-6 sm:p-7 rounded-lg bg-background-secondary border border-border/50 hover:border-accent/40 transition-all duration-500 hover-lift group"
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="p-6 sm:p-7 rounded-lg bg-background-secondary border border-border/50 hover:border-accent/40 transition-colors duration-300 group"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4 sm:mb-5">
-        <motion.div
-          className="p-2 sm:p-2.5 rounded-lg bg-background-tertiary"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
+        <div className="p-2 sm:p-2.5 rounded-lg bg-background-tertiary">
           <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-foreground-muted group-hover:text-accent transition-colors" />
-        </motion.div>
+        </div>
         <div>
           <h3 className="text-sm sm:text-base font-semibold text-foreground">
             {category.title}
@@ -59,45 +54,23 @@ function SkillCard({
       {/* Skills - show all on desktop, limited on mobile */}
       <div className="flex flex-wrap gap-1.5 sm:gap-2">
         {/* Mobile: limited skills */}
-        {category.skills.slice(0, MOBILE_SKILL_LIMIT).map((skill, skillIndex) => (
-          <motion.span
+        {category.skills.slice(0, MOBILE_SKILL_LIMIT).map((skill) => (
+          <span
             key={skill}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.3,
-              delay: index * 0.1 + skillIndex * 0.03
-            }}
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
-            }}
             className="px-3 py-1.5 text-xs rounded-full bg-background-tertiary/60 text-foreground-subtle border border-border/40 cursor-default sm:inline font-inter"
           >
             {skill}
-          </motion.span>
+          </span>
         ))}
 
         {/* Desktop: remaining skills */}
-        {category.skills.slice(MOBILE_SKILL_LIMIT).map((skill, skillIndex) => (
-          <motion.span
+        {category.skills.slice(MOBILE_SKILL_LIMIT).map((skill) => (
+          <span
             key={skill}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{
-              duration: 0.3,
-              delay: index * 0.1 + (MOBILE_SKILL_LIMIT + skillIndex) * 0.03
-            }}
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "rgba(var(--color-foreground-subtle), 0.2)"
-            }}
             className="hidden sm:inline px-3 py-1.5 text-xs rounded-full bg-background-tertiary/60 text-foreground-subtle border border-border/40 cursor-default font-inter"
           >
             {skill}
-          </motion.span>
+          </span>
         ))}
 
         {/* Mobile: "+N more" indicator */}
@@ -117,15 +90,23 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
       <div className="editorial-container">
         {/* Section header - editorial */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] }}
+          transition={{ duration: 0.6 }}
           className="mb-16"
         >
           <div className="chapter-marker mb-6">Skills</div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15]">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-semibold text-foreground mb-6 tracking-tight leading-[1.15] relative">
             Skills
+            {/* Subtle accent red line above title */}
+            <span 
+              className="absolute -top-4 left-0 w-16 h-px block"
+              style={{
+                background: "linear-gradient(to right, rgb(var(--accent-red)), transparent)",
+                opacity: 0.5
+              }}
+            />
           </h2>
           <p className="text-foreground-muted text-lg md:text-xl max-w-2xl leading-[1.75] font-serif">
             The tools and technologies I use to bring ideas to life
