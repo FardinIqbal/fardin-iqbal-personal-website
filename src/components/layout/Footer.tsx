@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { socialLinks } from "@/data/social";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -14,24 +14,24 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-background-secondary">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          {/* Logo & Copyright */}
-          <div className="text-center md:text-left">
+    <footer className="border-t border-border bg-background">
+      <div className="max-w-content mx-auto px-8 py-16">
+        <div className="flex flex-col items-center justify-center gap-8 text-center">
+          {/* Logo & Copyright - Editorial style */}
+          <div>
             <Link
               href="/"
-              className="text-lg font-bold gradient-text hover:opacity-80 transition-opacity"
+              className="text-base font-serif font-normal text-foreground hover:opacity-80 transition-opacity tracking-tight"
             >
               Fardin Iqbal
             </Link>
-            <p className="text-sm text-foreground-muted mt-2">
-              &copy; {currentYear} Fardin Iqbal. All rights reserved.
+            <p className="text-xs font-inter text-foreground-subtle mt-3 uppercase tracking-wider">
+              &copy; {currentYear} Fardin Iqbal
             </p>
           </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-4">
+          {/* Social Links - Minimal */}
+          <div className="flex items-center gap-6">
             {socialLinks.map((link) => {
               const Icon = iconMap[link.icon];
               return (
@@ -40,21 +40,21 @@ export function Footer() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg text-foreground-muted hover:text-foreground hover:bg-white/5 transition-colors"
+                  className="text-foreground-muted hover:text-foreground transition-colors"
                   aria-label={link.name}
                 >
-                  {Icon && <Icon className="w-5 h-5" />}
+                  {Icon && <Icon className="w-4 h-4" />}
                 </Link>
               );
             })}
           </div>
-        </div>
 
-        {/* Built with */}
-        <div className="mt-8 pt-8 border-t border-border text-center">
-          <p className="text-sm text-foreground-muted flex items-center justify-center gap-1">
-            Built with <Heart className="w-4 h-4 text-primary-500" /> using Next.js & Tailwind
-          </p>
+          {/* Built with - Editorial style */}
+          <div className="pt-8 border-t border-border">
+            <p className="text-xs font-inter text-foreground-subtle uppercase tracking-wider">
+              Built with Next.js & Tailwind
+            </p>
+          </div>
         </div>
       </div>
     </footer>

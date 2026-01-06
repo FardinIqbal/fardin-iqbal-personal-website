@@ -68,18 +68,10 @@ export function Hero({ profile }: HeroProps) {
     <section
       id="hero"
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      className="editorial-hero relative overflow-hidden"
     >
       {/* Clean background */}
       <div className="absolute inset-0 bg-background" />
-
-      {/* Subtle gradient accent - Vercel style */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary-500/5 rounded-full blur-[100px]" />
-      </div>
-
-      {/* Grid pattern */}
-      <GridPattern />
 
       {/* Content */}
       <motion.div
@@ -87,23 +79,8 @@ export function Hero({ profile }: HeroProps) {
           y: springY,
           opacity,
         }}
-        className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 sm:pt-0"
+        className="relative z-10 editorial-container text-center"
       >
-        {/* Status badge - clean and minimal */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-background-tertiary border border-border mb-8"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
-          <span className="text-sm text-foreground-muted">
-            Open to opportunities
-          </span>
-        </motion.div>
 
         {/* Name - elegant serif with staggered animation */}
         <motion.h1
@@ -112,17 +89,17 @@ export function Hero({ profile }: HeroProps) {
           transition={{ duration: 0.4, delay: 0.1 }}
           className="mb-8"
         >
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="block text-foreground-muted text-lg sm:text-xl font-sans font-normal mb-4 tracking-wide"
+            className="chapter-marker mb-10"
           >
-            Hello, I&apos;m
-          </motion.span>
-          <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-semibold text-foreground tracking-tight">
+            Introduction
+          </motion.div>
+          <h1 className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-foreground tracking-tight leading-[1.1] mb-8">
             <AnimatedText text={profile.name} />
-          </span>
+          </h1>
         </motion.h1>
 
         {/* Tagline - elegant serif */}
@@ -130,7 +107,7 @@ export function Hero({ profile }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-2xl sm:text-3xl text-foreground-muted font-serif font-light mb-12 max-w-2xl mx-auto leading-relaxed"
+          className="editorial-hero-subtitle mb-12 mx-auto"
         >
           {profile.tagline}
         </motion.p>

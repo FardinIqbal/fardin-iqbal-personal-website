@@ -29,6 +29,11 @@ export function EssayPage({
     <div className="essay-wrapper min-h-screen bg-background transition-colors duration-300">
       {/* Reading progress bar */}
       <ReadingProgress />
+      
+      {/* Reading time indicator - New Yorker style */}
+      <div className="fixed top-8 left-8 z-40 font-inter text-[0.65rem] text-foreground-subtle uppercase tracking-[0.1em] opacity-60 hidden sm:block">
+        {readingTime}
+      </div>
 
       {/* Header */}
       <header className="pt-28 sm:pt-36 pb-12 sm:pb-16 px-4 sm:px-6">
@@ -162,14 +167,17 @@ function ReadingProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-0.5 bg-foreground/10 z-50"
+      className="fixed top-0 left-0 right-0 h-[2px] z-50"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 0.5 }}
     >
       <motion.div
-        className="h-full bg-foreground origin-left"
-        style={{ scaleX }}
+        className="h-full origin-left"
+        style={{ 
+          scaleX,
+          background: "linear-gradient(90deg, rgb(var(--theme-accent)), rgb(var(--theme-accent-secondary)))"
+        }}
       />
     </motion.div>
   );

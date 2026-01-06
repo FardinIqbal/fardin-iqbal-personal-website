@@ -93,30 +93,27 @@ export function Header() {
 
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
+          "fixed top-0 left-0 right-0 z-40 transition-all duration-200",
           isScrolled
-            ? "bg-background/80 backdrop-blur-md border-b border-border"
+            ? "bg-background/95 backdrop-blur-sm border-b border-border"
             : "bg-transparent"
         )}
       >
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo + Status */}
+            {/* Logo - Editorial style */}
             <div className="flex items-center gap-4">
               <Link
                 href="/"
                 onClick={handleLogoClick}
-                className="text-lg font-display font-semibold text-foreground hover:opacity-80 transition-opacity duration-300"
+                className="text-base font-serif font-normal text-foreground hover:opacity-80 transition-opacity duration-300 tracking-tight"
               >
                 Fardin Iqbal
               </Link>
-              <div className="hidden sm:block">
-                <AvailabilityStatus status="building" message="VerseCraft" />
-              </div>
             </div>
 
-            {/* Desktop Navigation - clean sans-serif */}
-            <div className="hidden md:flex items-center gap-7">
+            {/* Desktop Navigation - Inter font, editorial style */}
+            <div className="hidden md:flex items-center gap-6">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("/#", "");
                 return (
@@ -124,7 +121,7 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-sm font-sans transition-colors duration-200",
+                      "text-xs font-inter font-medium uppercase tracking-wider transition-colors duration-200",
                       isActive
                         ? "text-foreground"
                         : "text-foreground-muted hover:text-foreground"
@@ -135,23 +132,23 @@ export function Header() {
                 );
               })}
 
-              {/* Resume Button - clean */}
+              {/* Resume Button - editorial style */}
               <Link
                 href="/resume/Fardin_Iqbal_Resume.pdf"
                 target="_blank"
-                className="px-4 py-1.5 text-sm font-sans font-medium rounded-md border border-border text-foreground hover:bg-background-tertiary hover:border-foreground/10 transition-all duration-300"
+                className="px-3 py-1.5 text-xs font-inter font-medium uppercase tracking-wider border border-border text-foreground hover:bg-background-tertiary hover:border-foreground-subtle transition-all duration-300"
               >
                 Resume
               </Link>
 
-              {/* Command Palette Hint */}
+              {/* Command Palette Hint - minimal */}
               <button
                 onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true }))}
-                className="hidden lg:flex items-center gap-1.5 px-2 py-1 text-xs text-foreground-subtle border border-border/50 rounded-md hover:border-border hover:text-foreground-muted transition-colors"
+                className="hidden lg:flex items-center gap-1.5 px-2 py-1 text-xs text-foreground-subtle border border-border/50 hover:border-border hover:text-foreground-muted transition-colors"
                 title="Open command palette"
               >
                 <Command className="w-3 h-3" />
-                <span>K</span>
+                <span className="font-inter">K</span>
               </button>
 
               <ThemeToggle />
@@ -212,7 +209,7 @@ export function Header() {
                       haptic("selection");
                       setIsMobileMenuOpen(false);
                     }}
-                    className="py-3 font-sans text-foreground-muted hover:text-foreground transition-colors duration-200"
+                    className="py-3 font-inter text-xs uppercase tracking-wider text-foreground-muted hover:text-foreground transition-colors duration-200"
                   >
                     {item.label}
                   </Link>
@@ -223,7 +220,7 @@ export function Header() {
                     href="/resume/Fardin_Iqbal_Resume.pdf"
                     target="_blank"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center px-4 py-2 text-sm font-sans font-medium border border-border rounded-md hover:bg-background-tertiary transition-all duration-300"
+                    className="inline-flex items-center px-4 py-2 text-xs font-inter font-medium uppercase tracking-wider border border-border hover:bg-background-tertiary transition-all duration-300"
                   >
                     Resume
                   </Link>

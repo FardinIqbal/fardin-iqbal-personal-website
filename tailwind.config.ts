@@ -57,7 +57,7 @@ const config: Config = {
         measure: "68ch",
         "measure-narrow": "55ch",
         "measure-wide": "75ch",
-        content: "720px",
+        content: "680px", /* New Yorker content width */
         container: "1200px",
       },
       spacing: {

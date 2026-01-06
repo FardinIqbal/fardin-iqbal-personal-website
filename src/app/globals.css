@@ -63,35 +63,53 @@
    THEME COLLECTION - Warm, Sophisticated
    ============================================ */
 
-/* Dark theme - Warm black, refined */
+/* Dark theme - New Yorker deep black */
 :root,
 .dark {
-  --color-background: 18 16 14;           /* Warm black */
-  --color-background-secondary: 26 24 21;
-  --color-background-tertiary: 38 35 31;
-  --color-foreground: 245 243 238;        /* Warm white */
-  --color-foreground-muted: 185 180 172;
-  --color-foreground-subtle: 156 151 143; /* Improved contrast: was 130 125 118, now passes WCAG AA */
-  --color-border: 55 50 45;
-  --color-border-subtle: 42 38 34;
-  --color-surface: 24 22 19;
-  --color-surface-hover: 34 31 27;
-  --theme-accent: 30 58 138;
+  --color-background: 10 10 10;           /* Deep black #0a0a0a */
+  --color-background-secondary: 20 20 20;  /* #141414 */
+  --color-background-tertiary: 30 30 30;  /* #1e1e1e */
+  --color-foreground: 232 230 227;        /* Warm white #e8e6e3 */
+  --color-foreground-muted: 168 168 168;   /* #a8a8a8 */
+  --color-foreground-subtle: 106 106 106; /* #6a6a6a */
+  --color-border: 42 42 42;                /* #2a2a2a */
+  --color-border-subtle: 38 38 38;
+  --color-surface: 20 20 20;
+  --color-surface-hover: 30 30 30;
+  --theme-accent: 232 93 117;              /* #e85d75 - lighter red for dark mode */
+  --theme-accent-secondary: 96 165 250;     /* #60a5fa - lighter blue for dark mode */
 }
 
-/* Light theme - Warm cream, elegant */
+/* Light theme - New Yorker warm cream */
 .light {
-  --color-background: 253 251 247;        /* Warm cream */
-  --color-background-secondary: 248 246 240;
-  --color-background-tertiary: 240 237 230;
-  --color-foreground: 28 25 23;           /* Warm black */
-  --color-foreground-muted: 75 70 65;
-  --color-foreground-subtle: 120 115 108;
-  --color-border: 220 215 205;            /* Warm gray */
+  --color-background: 250 249 247;        /* Warm cream #faf9f7 */
+  --color-background-secondary: 245 243 240; /* #f5f3f0 */
+  --color-background-tertiary: 237 234 229;  /* #edeae5 */
+  --color-foreground: 26 26 26;           /* Dark #1a1a1a */
+  --color-foreground-muted: 74 74 74;     /* #4a4a4a */
+  --color-foreground-subtle: 138 138 138; /* #8a8a8a */
+  --color-border: 224 221 216;            /* #e0ddd8 */
   --color-border-subtle: 232 228 220;
-  --color-surface: 255 253 249;
-  --color-surface-hover: 250 248 243;
-  --theme-accent: 30 58 138;
+  --color-surface: 250 249 247;
+  --color-surface-hover: 245 243 240;
+  --theme-accent: 196 30 58;              /* New Yorker red #c41e3a */
+  --theme-accent-secondary: 37 99 235;     /* Blue #2563eb */
+}
+
+/* Sepia theme - New Yorker sepia */
+.sepia {
+  --color-background: 244 236 216;        /* Warm sepia #f4ecd8 */
+  --color-background-secondary: 235 228 208; /* #ebe4d0 */
+  --color-background-tertiary: 224 216 196;  /* #e0d8c4 */
+  --color-foreground: 61 53 41;           /* Brown #3d3529 */
+  --color-foreground-muted: 92 83 71;     /* #5c5347 */
+  --color-foreground-subtle: 138 127 110; /* #8a7f6e */
+  --color-border: 212 203 184;            /* #d4cbb8 */
+  --color-border-subtle: 220 211 192;
+  --color-surface: 244 236 216;
+  --color-surface-hover: 235 228 208;
+  --theme-accent: 139 69 19;              /* Sepia brown #8b4513 */
+  --theme-accent-secondary: 30 64 175;     /* Blue #1e40af */
 }
 
 /* Light mode specific enhancements */
@@ -125,6 +143,7 @@
   --font-display: var(--font-playfair), Georgia, serif;
   --font-serif: var(--font-source-serif), Georgia, serif;
   --font-sans: var(--font-source-sans), system-ui, sans-serif;
+  --font-inter: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), monospace;
 }
 
@@ -136,40 +155,43 @@ html {
   /* Removed scroll-behavior: smooth - Lenis handles wheel scrolling,
      arrow keys should use native instant scrolling for snappy control */
   overflow-x: hidden;
-  font-size: 16px;
+  font-size: 18px; /* New Yorker base font size */
 }
 
 body {
   background-color: rgb(var(--color-background));
   color: rgb(var(--color-foreground));
-  font-family: var(--font-serif);
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
+  font-family: var(--font-source-serif), Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.9;
   font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* Headings - elegant display serif */
+/* Headings - Source Serif 4 for New Yorker style */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
+  font-family: var(--font-source-serif), Georgia, serif;
   font-weight: 600;
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: rgb(var(--color-foreground));
 }
 
-/* Paragraphs - optimal reading */
+/* Paragraphs - New Yorker style */
 p {
-  font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
-  max-width: var(--measure-optimal);
+  font-size: 18px;
+  line-height: 1.9;
+  color: rgb(var(--color-foreground-muted));
+  margin-bottom: 1.75rem;
+  font-weight: 400;
 }
 
-/* Navigation & UI - clean sans */
+/* Navigation & UI - Inter for New Yorker style */
 nav, button, .label, .meta, .badge, .btn {
-  font-family: var(--font-sans);
+  font-family: var(--font-inter);
 }
 
 /* Clean scrollbar */
@@ -578,6 +600,140 @@ svg .animate-rotate-slow {
 }
 
 /* ============================================
+   NEW YORKER EDITORIAL STYLES
+   ============================================ */
+
+/* Content container - New Yorker width */
+.editorial-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Main content wrapper */
+main {
+  font-family: var(--font-source-serif), Georgia, 'Times New Roman', serif;
+}
+
+/* Chapter markers - small uppercase labels */
+.chapter-marker {
+  font-family: var(--font-inter);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: rgb(var(--theme-accent));
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 1rem;
+}
+
+/* Drop cap - elegant first letter */
+.drop-cap::first-letter {
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.75;
+  padding-right: 0.6rem;
+  padding-top: 0.3rem;
+  font-weight: 600;
+  font-family: var(--font-display);
+  color: rgb(var(--theme-accent));
+}
+
+/* Lead paragraph - larger opening */
+.lead {
+  font-size: 1.15rem;
+  line-height: 1.85;
+  color: rgb(var(--color-foreground));
+  margin-bottom: 2rem;
+}
+
+/* Pull quote - New Yorker style */
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 400;
+  color: rgb(var(--color-foreground));
+  text-align: center;
+  padding: 3.5rem 2rem;
+  margin: 3rem 0;
+  position: relative;
+  border-top: 1px solid rgb(var(--color-border));
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.pull-quote::before {
+  content: '"';
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  color: rgb(var(--theme-accent));
+  opacity: 0.3;
+  font-family: Georgia, serif;
+}
+
+/* Section dividers */
+.editorial-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid rgb(var(--color-border));
+  position: relative;
+}
+
+.editorial-section:last-of-type {
+  border-bottom: none;
+}
+
+/* Remove background patterns and gradients for cleaner look */
+.editorial-section::before,
+.editorial-section::after {
+  display: none;
+}
+
+/* Hero section - New Yorker style */
+.editorial-hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6rem 0;
+  position: relative;
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.editorial-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+}
+
+.editorial-hero h1 em {
+  font-style: italic;
+  font-weight: 500;
+  color: rgb(var(--theme-accent));
+}
+
+.editorial-hero-subtitle {
+  font-size: 1.2rem;
+  color: rgb(var(--color-foreground-muted));
+  line-height: 1.7;
+  max-width: 520px;
+  font-weight: 300;
+}
+
+.editorial-meta {
+  margin-top: 3rem;
+  font-family: var(--font-inter);
+  font-size: 0.7rem;
+  color: rgb(var(--color-foreground-subtle));
+  display: flex;
+  gap: 2rem;
+}
+
+/* ============================================
    BLOG ARTICLE TYPOGRAPHY
    New York Times-inspired reading experience
    ============================================ */
@@ -931,6 +1087,16 @@ svg .animate-rotate-slow {
    MOBILE RESPONSIVE - NYT mobile reading
    ---------------------------------------- */
 @media (max-width: 640px) {
+  html { font-size: 16px; }
+  
+  .editorial-container { padding: 0 1.5rem; }
+  .editorial-section { padding: 3rem 0; }
+  .editorial-hero { padding: 4rem 0; min-height: 80vh; }
+  .editorial-hero h1 { font-size: 2.4rem; }
+  .drop-cap::first-letter { font-size: 3.5rem; }
+  .lead { font-size: 1.1rem; }
+  .chapter-marker { font-size: 0.55rem; }
+  
   .prose-article {
     font-size: 18px !important;
     line-height: 1.75 !important;

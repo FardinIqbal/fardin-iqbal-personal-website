@@ -1,52 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sun, Moon } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { haptic } from "@/lib/haptics";
+import { cn } from "@/lib/utils";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const toggleTheme = () => {
-    haptic("selection");
-    setTheme(theme === "dark" ? "light" : "dark");
-  };
+  const themes: Array<{ id: "light" | "dark" | "sepia"; label: string }> = [
+    { id: "light", label: "Light" },
+    { id: "dark", label: "Dark" },
+    { id: "sepia", label: "Sepia" },
+  ];
 
   return (
-    <motion.button
-      onClick={toggleTheme}
-      className="relative p-2 rounded-lg text-foreground-muted hover:text-foreground hover:bg-foreground/5 transition-colors"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-    >
-      <div className="relative w-5 h-5">
-        <motion.div
-          initial={false}
-          animate={{
-            scale: theme === "dark" ? 1 : 0,
-            opacity: theme === "dark" ? 1 : 0,
-            rotate: theme === "dark" ? 0 : -90,
+    <div className="fixed top-8 right-8 z-50 flex items-center gap-2 opacity-40 hover:opacity-100 transition-opacity">
+      {themes.map((t) => (
+        <button
+          key={t.id}
+          onClick={() => {
+            haptic("selection");
+            setTheme(t.id);
           }}
-          transition={{ duration: 0.2 }}
-          className="absolute inset-0"
-        >
-          <Moon className="w-5 h-5" />
-        </motion.div>
-        <motion.div
-          initial={false}
-          animate={{
-            scale: theme === "light" ? 1 : 0,
-            opacity: theme === "light" ? 1 : 0,
-            rotate: theme === "light" ? 0 : 90,
-          }}
-          transition={{ duration: 0.2 }}
-          className="absolute inset-0"
-        >
-          <Sun className="w-5 h-5" />
-        </motion.div>
-      </div>
-    </motion.button>
+          className={cn(
+            "w-2 h-2 rounded-full transition-all duration-200",
+            theme === t.id
+              ? "scale-160"
+              : "scale-100 hover:scale-140",
+            t.id === "light" && "bg-[#faf9f7] border border-gray-300",
+            t.id === "dark" && "bg-[#0a0a0a]",
+            t.id === "sepia" && "bg-[#f4ecd8] border border-[#d4cbb8]"
+          )}
+          aria-label={`Switch to ${t.label} theme`}
+          title={t.label}
+        />
+      ))}
+    </div>
   );
 }

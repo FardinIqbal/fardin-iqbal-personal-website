@@ -70,7 +70,7 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
     .filter((p): p is BlogPost => p !== undefined);
 
   return (
-    <section id="essays" className="py-24 md:py-32 bg-background-secondary relative overflow-hidden">
+    <section id="essays" className="editorial-section bg-background relative overflow-hidden">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
         <svg className="w-full h-full">
@@ -83,7 +83,7 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
         </svg>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="editorial-container relative">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -92,12 +92,7 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
           transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="mb-16"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <BookOpen className="w-5 h-5 text-foreground-subtle" />
-            <span className="text-xs font-mono text-foreground-subtle uppercase tracking-widest">
-              Writing
-            </span>
-          </div>
+          <div className="chapter-marker mb-4">Writing</div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-medium text-foreground mb-4 tracking-tight">
             Essays
           </h2>

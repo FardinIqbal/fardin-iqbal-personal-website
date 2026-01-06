@@ -37,7 +37,7 @@ export function About({ profile }: AboutProps) {
   ];
 
   return (
-    <section id="about" className="py-20 md:py-32 bg-background-secondary relative overflow-hidden">
+    <section id="about" className="editorial-section bg-background relative overflow-hidden">
       {/* Subtle background accent - hidden on mobile */}
       <div className="absolute top-0 right-0 w-1/2 h-full opacity-[0.02] pointer-events-none hidden md:block">
         <svg viewBox="0 0 400 400" className="w-full h-full">
@@ -50,7 +50,7 @@ export function About({ profile }: AboutProps) {
         </svg>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="editorial-container relative">
         {/* Mobile Layout */}
         <div className="lg:hidden">
           {/* Header */}
@@ -61,9 +61,7 @@ export function About({ profile }: AboutProps) {
             transition={{ duration: 0.6 }}
             className="mb-8"
           >
-            <span className="text-xs font-mono text-foreground-subtle uppercase tracking-widest mb-3 block">
-              About
-            </span>
+            <div className="chapter-marker">About</div>
             <h2 className="text-3xl font-display font-semibold text-foreground tracking-tight leading-tight">
               Building software that matters
             </h2>
@@ -136,9 +134,7 @@ export function About({ profile }: AboutProps) {
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="sticky top-32"
             >
-              <span className="text-xs font-mono text-foreground-subtle uppercase tracking-widest mb-4 block">
-                About
-              </span>
+              <div className="chapter-marker">About</div>
 
               <h2 className="text-5xl font-display font-semibold text-foreground mb-8 tracking-tight leading-tight">
                 Building software that matters
@@ -191,7 +187,7 @@ export function About({ profile }: AboutProps) {
             >
               {/* First paragraph with drop cap */}
               {profile.bio.length > 0 && (
-                <p className="text-foreground-muted font-serif text-xl leading-relaxed first-letter:text-5xl first-letter:font-display first-letter:font-semibold first-letter:text-foreground first-letter:mr-3 first-letter:float-left first-letter:leading-none">
+                <p className="drop-cap lead text-foreground-muted font-serif">
                   {profile.bio[0]}
                 </p>
               )}

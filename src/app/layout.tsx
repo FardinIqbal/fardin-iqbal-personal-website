@@ -3,6 +3,7 @@ import {
   Playfair_Display,
   Source_Serif_4,
   Source_Sans_3,
+  Inter,
   JetBrains_Mono,
 } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -31,6 +32,13 @@ const sourceSerif = Source_Serif_4({
 const sourceSans = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-source-sans",
+  display: "swap",
+});
+
+// Inter for New Yorker-style UI elements
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -144,7 +152,11 @@ export default function RootLayout({
               (function() {
                 try {
                   var theme = localStorage.getItem('theme') || 'light';
-                  document.documentElement.classList.add(theme);
+                  if (theme === 'light' || theme === 'dark' || theme === 'sepia') {
+                    document.documentElement.classList.add(theme);
+                  } else {
+                    document.documentElement.classList.add('light');
+                  }
                 } catch (e) {
                   document.documentElement.classList.add('light');
                 }
@@ -154,7 +166,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${playfair.variable} ${sourceSerif.variable} ${sourceSans.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
+        className={`${playfair.variable} ${sourceSerif.variable} ${sourceSans.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
       >
         {/* Skip to main content link for accessibility */}
         <a
