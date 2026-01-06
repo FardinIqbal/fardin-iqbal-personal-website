@@ -10,8 +10,60 @@ import rehypeRaw from "rehype-raw";
 import rehypeStringify from "rehype-stringify";
 import rehypePrettyCode from "rehype-pretty-code";
 import type { BlogPost } from "@/types";
+import { slugify } from "./utils";
 
 const BLOG_DIR = path.join(process.cwd(), "content/blog");
+
+// Rehype plugin to generate IDs for headings
+function rehypeHeadingIds() {
+  return (tree: any) => {
+    const usedIds = new Set<string>();
+
+    const visit = (node: any) => {
+      if (
+        node.type === "element" &&
+        ["h1", "h2", "h3", "h4", "h5", "h6"].includes(node.tagName)
+      ) {
+        // Extract text content from heading
+        const getText = (n: any): string => {
+          if (n.type === "text") return n.value || "";
+          if (n.children) {
+            return n.children.map(getText).join("");
+          }
+          return "";
+        };
+
+        const text = getText(node).trim();
+        if (text) {
+          // Generate slug from text
+          let id = slugify(text);
+          
+          // Ensure uniqueness
+          let uniqueId = id;
+          let counter = 1;
+          while (usedIds.has(uniqueId)) {
+            uniqueId = `${id}-${counter}`;
+            counter++;
+          }
+          
+          usedIds.add(uniqueId);
+          
+          // Set ID if not already present
+          if (!node.properties?.id) {
+            node.properties = {
+              ...node.properties,
+              id: uniqueId,
+            };
+          }
+        }
+      }
+      if (node.children) {
+        node.children.forEach(visit);
+      }
+    };
+    visit(tree);
+  };
+}
 
 // Rehype plugin to enhance code blocks with language labels
 function rehypeCodeBlockEnhancer() {
@@ -64,6 +116,7 @@ async function compileMarkdown(content: string): Promise<string> {
       theme: "github-dark",
       keepBackground: true,
     })
+    .use(rehypeHeadingIds)
     .use(rehypeCodeBlockEnhancer)
     .use(rehypeStringify, { allowDangerousHtml: true })
     .process(content);

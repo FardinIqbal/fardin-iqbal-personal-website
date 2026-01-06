@@ -17,16 +17,20 @@ export default async function EssaysPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-32 pb-20 bg-background">
+      <main className="min-h-screen pt-24 pb-20 bg-background">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div className="mb-12">
-            <h1 className="text-3xl sm:text-4xl font-display font-semibold text-foreground tracking-tight mb-4">
+          {/* Editorial New Yorker Header */}
+          <div className="mb-16">
+            <div className="mb-6">
+              <span className="chapter-marker">Essays</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-foreground tracking-tight mb-4 leading-tight">
               Essays
             </h1>
-            <p className="text-foreground-muted font-serif text-lg">
+            <p className="text-foreground-muted font-serif text-lg leading-relaxed max-w-2xl">
               Reflections on technology, philosophy, and the craft of building software.
             </p>
+            <div className="h-px bg-border mt-8"></div>
           </div>
 
           <EssaysList posts={posts} allTags={allTags} />

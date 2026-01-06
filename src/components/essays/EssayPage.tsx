@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { formatDate } from "@/lib/utils";
 import { MusicPlayer } from "./MusicPlayer";
+import { TableOfContents } from "./TableOfContents";
 
 interface EssayPageProps {
   title: string;
@@ -87,6 +88,9 @@ export function EssayPage({
 
       {/* Music Player */}
       <MusicPlayer />
+
+      {/* Table of Contents */}
+      <TableOfContents />
     </div>
   );
 }

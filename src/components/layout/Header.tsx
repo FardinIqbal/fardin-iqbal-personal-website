@@ -18,6 +18,8 @@ const navItems = [
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const pathname = usePathname();
@@ -31,8 +33,34 @@ export function Header() {
   };
 
   useEffect(() => {
+    const isEssayPage = pathname.startsWith("/essays");
+    
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+
+      // Always show navbar at the top
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+        setIsScrolled(false);
+      } else {
+        setIsScrolled(true);
+        
+        // Only auto-hide on essay pages
+        if (isEssayPage) {
+          const scrollThreshold = 100;
+          // Hide when scrolling down, show when scrolling up
+          if (currentScrollY > lastScrollY && currentScrollY > scrollThreshold) {
+            setIsVisible(false);
+          } else if (currentScrollY < lastScrollY) {
+            setIsVisible(true);
+          }
+        } else {
+          // Always visible on non-essay pages
+          setIsVisible(true);
+        }
+      }
+
+      setLastScrollY(currentScrollY);
 
       // Detect active section
       const sections = navItems
@@ -53,7 +81,7 @@ export function Header() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY, pathname]);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -66,29 +94,45 @@ export function Header() {
     };
   }, [isMobileMenuOpen]);
 
+  // Reset visibility when navigating away from essay pages
+  useEffect(() => {
+    const isEssayPage = pathname.startsWith("/essays");
+    if (!isEssayPage) {
+      setIsVisible(true);
+    }
+  }, [pathname]);
+
   return (
     <>
-      <header
+      <motion.header
+        initial={{ y: 0 }}
+        animate={{ 
+          y: isVisible ? 0 : -100 
+        }}
+        transition={{ 
+          duration: 0.3, 
+          ease: [0.4, 0, 0.2, 1] 
+        }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
+          "fixed top-0 left-0 right-0 z-40",
           isScrolled
-            ? "bg-background/98 backdrop-blur-xl border-b border-border/40 shadow-sm"
+            ? "bg-background/95 backdrop-blur-xl border-b border-border/30"
             : "bg-transparent"
         )}
       >
-        <nav className="max-w-7xl mx-auto px-6 lg:px-8">
+        <nav className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo - Refined New Yorker style */}
+            {/* Logo - Elegant serif */}
             <Link
               href="/"
               onClick={handleLogoClick}
-              className="text-lg font-serif font-normal text-foreground hover:opacity-80 transition-opacity duration-300 tracking-tight whitespace-nowrap"
+              className="text-xl font-serif font-normal text-foreground hover:opacity-75 transition-opacity duration-300 tracking-tight whitespace-nowrap"
             >
               Fardin Iqbal
             </Link>
 
-            {/* Desktop Navigation - Clean and readable */}
-            <div className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation - Elegant and refined */}
+            <div className="hidden md:flex items-center gap-10">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("/#", "") || pathname === item.href;
                 return (
@@ -96,15 +140,22 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-sm font-inter font-medium transition-all duration-300 relative py-2 px-1",
+                      "text-sm font-inter font-normal transition-all duration-300 relative py-2.5 px-2 group",
                       isActive
                         ? "text-foreground"
                         : "text-foreground-muted hover:text-foreground"
                     )}
                   >
-                    {item.label}
+                    <span className="relative z-10">{item.label}</span>
                     {isActive && (
-                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--accent-red))] opacity-80" />
+                      <motion.span
+                        layoutId="activeIndicator"
+                        className="absolute bottom-1.5 left-2 right-2 h-px bg-[rgb(var(--accent-red))]"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    {!isActive && (
+                      <span className="absolute bottom-1.5 left-2 right-2 h-px bg-[rgb(var(--accent-red))] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                     )}
                   </Link>
                 );
@@ -118,19 +169,19 @@ export function Header() {
                   haptic("light");
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
-                className="p-2.5 text-foreground hover:text-foreground-muted transition-colors duration-300"
+                className="p-2.5 text-foreground hover:text-foreground-muted transition-colors duration-300 rounded-md hover:bg-background-tertiary/50"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 ) : (
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-5 h-5" />
                 )}
               </button>
             </div>
           </div>
         </nav>
-      </header>
+      </motion.header>
 
       {/* Mobile Menu - clean */}
       <AnimatePresence>
@@ -154,9 +205,9 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="absolute right-0 top-0 bottom-0 w-80 bg-background border-l border-border/40 p-8 pt-28 shadow-xl"
+              className="absolute right-0 top-0 bottom-0 w-72 bg-background/98 backdrop-blur-xl border-l border-border/30 p-8 pt-24 shadow-2xl"
             >
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-0.5">
                 {navItems.map((item) => {
                   const isActive = activeSection === item.href.replace("/#", "") || pathname === item.href;
                   return (
@@ -168,21 +219,24 @@ export function Header() {
                         setIsMobileMenuOpen(false);
                       }}
                       className={cn(
-                        "py-4 font-inter text-base text-foreground-muted hover:text-foreground transition-colors duration-300 border-b border-border/20 last:border-0",
-                        isActive && "text-foreground font-medium"
+                        "py-3.5 px-2 font-inter text-base text-foreground-muted hover:text-foreground transition-all duration-300 rounded-md hover:bg-background-tertiary/50 relative group",
+                        isActive && "text-foreground"
                       )}
                     >
                       {item.label}
+                      {isActive && (
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 bg-[rgb(var(--accent-red))] rounded-r" />
+                      )}
                     </Link>
                   );
                 })}
 
-                <div className="pt-8 mt-4 border-t border-border/40">
+                <div className="pt-6 mt-4 border-t border-border/30">
                   <Link
                     href="/resume/Fardin_Iqbal_Resume.pdf"
                     target="_blank"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-inter font-medium border border-border/50 hover:border-foreground-subtle hover:bg-background-tertiary transition-all duration-300 rounded-md w-full"
+                    className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-inter font-normal border border-border/40 hover:border-[rgb(var(--accent-red))]/50 hover:bg-background-tertiary/50 transition-all duration-300 rounded-md w-full"
                   >
                     Resume
                   </Link>
