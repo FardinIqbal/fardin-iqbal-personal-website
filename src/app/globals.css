@@ -2267,9 +2267,8 @@ main {
   border: 1px solid rgb(var(--color-border)/0.5);
   border-radius: 0.75rem;
   padding: 1.25rem 0.75rem;
-  box-shadow: 0 4px 24px rgb(0 0 0 / 0.08);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform, opacity;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .toc-scrollable {
@@ -2286,8 +2285,7 @@ main {
 
 .toc-container:hover {
   border-color: rgb(var(--color-border));
-  box-shadow: 0 8px 32px rgb(0 0 0 / 0.12);
-  transform: translateY(-1px);
+  transform: scale(1.05);
 }
 
 .toc-nav {
@@ -2323,7 +2321,7 @@ main {
   font-size: 0.75rem;
   line-height: 1.5;
   color: rgb(var(--color-foreground-muted));
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 0.375rem;
   position: relative;
   text-decoration: none;
@@ -2358,7 +2356,6 @@ main {
   background: rgb(var(--accent-red));
   border-radius: 0 2px 2px 0;
   opacity: 0.9;
-  box-shadow: 0 0 8px rgb(var(--accent-red)/0.4);
   z-index: 1;
 }
 

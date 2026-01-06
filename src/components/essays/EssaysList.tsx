@@ -33,7 +33,7 @@ export function EssaysList({ posts, allTags }: EssaysListProps) {
                 "px-4 py-1.5 text-xs font-sans font-medium transition-all duration-200 border rounded-sm",
                 !activeTag
                   ? "bg-accent-red text-white border-accent-red shadow-sm"
-                  : "bg-background-tertiary text-foreground-muted hover:text-foreground hover:border-accent-red/60 border-border hover:bg-background-secondary"
+                  : "bg-background-tertiary text-accent-red/80 hover:text-accent-red border-accent-red/40 hover:border-accent-red/70 hover:bg-accent-red/5"
               )}
             >
               All
@@ -46,7 +46,7 @@ export function EssaysList({ posts, allTags }: EssaysListProps) {
                   "px-4 py-1.5 text-xs font-sans font-medium transition-all duration-200 border rounded-sm",
                   activeTag === tag
                     ? "bg-accent-red text-white border-accent-red shadow-sm"
-                    : "bg-background-tertiary text-foreground-muted hover:text-foreground hover:border-accent-red/60 border-border hover:bg-background-secondary"
+                    : "bg-background-tertiary text-accent-red/80 hover:text-accent-red border-accent-red/40 hover:border-accent-red/70 hover:bg-accent-red/5"
                 )}
               >
                 {tag}
@@ -144,19 +144,19 @@ function EssayItem({ post, index }: { post: BlogPost; index: number }) {
               {post.description}
             </p>
 
-            {/* Tags - editorial style with lighter accent red */}
+            {/* Tags - editorial style with accent red */}
             {post.tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {post.tags.slice(0, 3).map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 text-xs font-sans font-medium bg-accent-red/10 text-accent-red/80 border border-accent-red/30 group-hover:border-accent-red/60 group-hover:text-accent-red group-hover:bg-accent-red/15 transition-all duration-300 rounded-sm"
+                    className="px-3 py-1 text-xs font-sans font-medium bg-accent-red/10 text-accent-red border border-accent-red/40 group-hover:border-accent-red group-hover:text-accent-red group-hover:bg-accent-red/20 transition-all duration-300 rounded-sm"
                   >
                     {tag}
                   </span>
                 ))}
                 {post.tags.length > 3 && (
-                  <span className="px-3 py-1 text-xs font-sans text-accent-red/60">
+                  <span className="px-3 py-1 text-xs font-sans text-accent-red/80">
                     +{post.tags.length - 3}
                   </span>
                 )}
