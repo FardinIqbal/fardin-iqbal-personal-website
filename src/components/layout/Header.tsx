@@ -122,14 +122,32 @@ export function Header() {
       >
         <nav className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo - Elegant serif */}
-            <Link
-              href="/"
-              onClick={handleLogoClick}
-              className="text-xl font-serif font-normal text-foreground hover:opacity-75 transition-opacity duration-300 tracking-tight whitespace-nowrap"
+            {/* Logo - Elegant serif with accent red */}
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              Fardin Iqbal
-            </Link>
+              <Link
+                href="/"
+                onClick={handleLogoClick}
+                className="text-xl font-serif font-normal tracking-tight whitespace-nowrap relative group"
+              >
+                <span className="relative inline-block">
+                  <span className="relative z-10 text-foreground group-hover:text-[rgb(var(--accent-red))] transition-colors duration-300">
+                    Fardin
+                  </span>
+                  <motion.span
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--accent-red))] origin-left"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  />
+                </span>
+                <span className="ml-1.5 text-foreground-muted group-hover:text-foreground transition-colors duration-300">
+                  Iqbal
+                </span>
+              </Link>
+            </motion.div>
 
             {/* Desktop Navigation - Elegant and refined */}
             <div className="hidden md:flex items-center gap-10">
