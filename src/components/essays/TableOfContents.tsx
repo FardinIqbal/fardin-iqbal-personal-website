@@ -33,7 +33,7 @@ export function TableOfContents() {
     const handleTouchStart = (e: TouchEvent) => {
       const touch = e.touches[0];
       const screenWidth = window.innerWidth;
-      const edgeThreshold = 50; // Detect swipe from within 50px of right edge
+      const edgeThreshold = 100; // Detect swipe from within 100px of right edge (increased from 50px)
       
       // Only detect if starting from right edge
       if (touch.clientX >= screenWidth - edgeThreshold) {
@@ -49,8 +49,9 @@ export function TableOfContents() {
       const deltaX = touchStartX - touch.clientX; // Positive = swiping left
       const deltaY = Math.abs(touch.clientY - touchStartY);
       
-      // Only trigger if horizontal swipe is dominant (more horizontal than vertical)
-      if (deltaX > 0 && deltaX > deltaY && deltaX > 100) {
+      // More lenient: trigger if horizontal swipe is at least 1.5x the vertical movement
+      // Reduced threshold from 100px to 50px for easier activation
+      if (deltaX > 0 && deltaX > deltaY * 1.5 && deltaX > 50) {
         setIsMobileMenuOpen(true);
         setTouchStartX(null);
         setTouchStartY(null);
