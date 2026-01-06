@@ -10,7 +10,8 @@ import { haptic } from "@/lib/haptics";
 
 const navItems = [
   { label: "About", href: "/#about" },
-  { label: "Work", href: "/#projects" },
+  { label: "Work", href: "/#experience" },
+  { label: "Projects", href: "/#projects" },
   { label: "Essays", href: "/essays" },
   { label: "Contact", href: "/#contact" },
 ];
@@ -71,23 +72,23 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-all duration-500",
           isScrolled
-            ? "bg-background/95 backdrop-blur-md border-b border-border/30"
+            ? "bg-background/98 backdrop-blur-xl border-b border-border/40 shadow-sm"
             : "bg-transparent"
         )}
       >
-        <nav className="editorial-container">
-          <div className="flex items-center justify-between h-16">
+        <nav className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
             {/* Logo - Refined New Yorker style */}
             <Link
               href="/"
               onClick={handleLogoClick}
-              className="text-base font-serif font-normal text-foreground hover:opacity-70 transition-opacity duration-300 tracking-tight"
+              className="text-lg font-serif font-normal text-foreground hover:opacity-80 transition-opacity duration-300 tracking-tight whitespace-nowrap"
             >
               Fardin Iqbal
             </Link>
 
-            {/* Desktop Navigation - Elegant New Yorker style */}
-            <div className="hidden md:flex items-center gap-10">
+            {/* Desktop Navigation - Clean and readable */}
+            <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => {
                 const isActive = activeSection === item.href.replace("/#", "") || pathname === item.href;
                 return (
@@ -95,15 +96,15 @@ export function Header() {
                     key={item.label}
                     href={item.href}
                     className={cn(
-                      "text-[0.7rem] font-inter font-medium uppercase tracking-[0.12em] transition-all duration-300 relative",
+                      "text-sm font-inter font-medium transition-all duration-300 relative py-2 px-1",
                       isActive
                         ? "text-foreground"
-                        : "text-foreground-subtle hover:text-foreground"
+                        : "text-foreground-muted hover:text-foreground"
                     )}
                   >
                     {item.label}
                     {isActive && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-[1px] bg-[rgb(var(--accent-red))] opacity-60" />
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--accent-red))] opacity-80" />
                     )}
                   </Link>
                 );
@@ -117,13 +118,13 @@ export function Header() {
                   haptic("light");
                   setIsMobileMenuOpen(!isMobileMenuOpen);
                 }}
-                className="p-2.5 text-foreground-subtle hover:text-foreground transition-colors duration-300"
+                className="p-2.5 text-foreground hover:text-foreground-muted transition-colors duration-300"
                 aria-label="Toggle menu"
               >
                 {isMobileMenuOpen ? (
-                  <X className="w-5 h-5" />
+                  <X className="w-6 h-6" />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-6 h-6" />
                 )}
               </button>
             </div>
@@ -143,7 +144,7 @@ export function Header() {
           >
             {/* Backdrop */}
             <div
-              className="absolute inset-0 bg-background/95 backdrop-blur-sm"
+              className="absolute inset-0 bg-background/98 backdrop-blur-md"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
@@ -153,29 +154,35 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="absolute right-0 top-0 bottom-0 w-72 bg-background border-l border-border/50 p-8 pt-24"
+              className="absolute right-0 top-0 bottom-0 w-80 bg-background border-l border-border/40 p-8 pt-28 shadow-xl"
             >
-              <div className="flex flex-col gap-2">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => {
-                      haptic("selection");
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="py-3.5 font-inter text-xs uppercase tracking-[0.12em] text-foreground-muted hover:text-foreground transition-colors duration-300 border-b border-border/30 last:border-0"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              <div className="flex flex-col gap-1">
+                {navItems.map((item) => {
+                  const isActive = activeSection === item.href.replace("/#", "") || pathname === item.href;
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      onClick={() => {
+                        haptic("selection");
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className={cn(
+                        "py-4 font-inter text-base text-foreground-muted hover:text-foreground transition-colors duration-300 border-b border-border/20 last:border-0",
+                        isActive && "text-foreground font-medium"
+                      )}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
 
-                <div className="pt-6 mt-4 border-t border-border/50">
+                <div className="pt-8 mt-4 border-t border-border/40">
                   <Link
                     href="/resume/Fardin_Iqbal_Resume.pdf"
                     target="_blank"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="inline-flex items-center px-5 py-2.5 text-xs font-inter font-medium uppercase tracking-[0.12em] border border-border/50 hover:border-foreground-subtle hover:bg-background-tertiary transition-all duration-300"
+                    className="inline-flex items-center justify-center px-6 py-3 text-sm font-inter font-medium border border-border/50 hover:border-foreground-subtle hover:bg-background-tertiary transition-all duration-300 rounded-md w-full"
                   >
                     Resume
                   </Link>

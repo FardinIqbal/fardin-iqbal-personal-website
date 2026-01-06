@@ -167,7 +167,7 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
                         href={course.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-foreground-subtle hover:text-foreground transition-colors opacity-0 group-hover:opacity-100"
+                        className="text-foreground-subtle hover:text-accent transition-colors opacity-0 group-hover:opacity-100"
                       >
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </a>
@@ -189,10 +189,10 @@ export function InterestsSection({ books, media, courses }: InterestsSectionProp
         >
           <Link
             href="/now"
-            className="inline-flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-foreground-muted hover:text-accent transition-colors text-sm"
           >
             View all
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4 text-accent" />
           </Link>
         </motion.div>
       </div>

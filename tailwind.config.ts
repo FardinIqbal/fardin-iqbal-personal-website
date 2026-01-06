@@ -41,6 +41,10 @@ const config: Config = {
           DEFAULT: "rgb(var(--color-border))",
           subtle: "rgb(var(--color-border-subtle))",
         },
+        accent: {
+          DEFAULT: "rgb(var(--accent-red))",
+          red: "rgb(var(--accent-red))",
+        },
       },
       fontFamily: {
         display: ["var(--font-playfair)", "Georgia", "serif"],
@@ -88,12 +92,12 @@ const config: Config = {
             fontSize: "1.0625rem",
             lineHeight: "1.7",
             a: {
-              color: "#1e3a8a",
+              color: "rgb(var(--accent-red))",
               textDecoration: "none",
               borderBottom: "1px solid transparent",
               transition: "border-color 0.25s ease",
               "&:hover": {
-                borderBottomColor: "#1e3a8a",
+                borderBottomColor: "rgb(var(--accent-red))",
               },
             },
             "h1, h2, h3, h4": {

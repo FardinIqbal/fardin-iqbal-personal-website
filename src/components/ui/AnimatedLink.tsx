@@ -98,7 +98,7 @@ export function AnimatedLink({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
-        "inline-block text-foreground hover:text-foreground transition-colors",
+        "inline-block text-foreground hover:text-accent transition-colors",
         className
       )}
     >

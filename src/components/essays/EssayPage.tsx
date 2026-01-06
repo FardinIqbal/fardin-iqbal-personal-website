@@ -46,7 +46,15 @@ export function EssayPage({
             {tags.length > 0 && <span>{tags[0]}</span>}
           </div>
         </div>
-        <div className="scroll-indicator">
+        <div 
+          className="scroll-indicator"
+          onClick={() => {
+            const main = document.querySelector('main');
+            if (main) {
+              main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
+        >
           <span>Begin reading</span>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M12 5v14M5 12l7 7 7-7"/>

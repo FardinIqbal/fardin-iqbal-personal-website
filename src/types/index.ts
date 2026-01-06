@@ -48,6 +48,7 @@ export interface BlogPost {
   published: boolean;
   readingTime: string;
   content: string;
+  externalUrl?: string;
 }
 
 export interface NavItem {

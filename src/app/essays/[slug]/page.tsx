@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
 import { EssayPage } from "@/components/essays/EssayPage";
 import { Header } from "@/components/layout/Header";
@@ -71,6 +71,11 @@ export default async function EssayPostPage({ params }: Props) {
 
   if (!post) {
     notFound();
+  }
+
+  // If post has externalUrl, redirect to it
+  if (post.externalUrl) {
+    redirect(post.externalUrl);
   }
 
   const jsonLd = generateArticleJsonLd({

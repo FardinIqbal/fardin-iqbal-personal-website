@@ -76,8 +76,8 @@ function FeaturedCard({
 
               {/* Right side - arrow indicator */}
               <div className="flex-shrink-0">
-                <div className="w-14 h-14 rounded-full border border-border/50 flex items-center justify-center group-hover:border-foreground/30 group-hover:bg-foreground/5 transition-all duration-500">
-                  <ArrowUpRight className="w-5 h-5 text-foreground-subtle group-hover:text-foreground transition-colors" />
+                <div className="w-14 h-14 rounded-full border border-border/50 flex items-center justify-center group-hover:border-accent/40 group-hover:bg-accent/5 transition-all duration-500">
+                  <ArrowUpRight className="w-5 h-5 text-foreground-subtle group-hover:text-accent transition-colors" />
                 </div>
               </div>
             </div>
@@ -120,10 +120,10 @@ function ArchiveCard({
             {/* Main content - clickable link */}
             <Link href={`/projects/${project.id}`} className="flex-1 min-w-0">
               <div className="flex items-center gap-2.5 mb-2">
-                <h4 className="text-foreground font-serif font-medium text-base truncate group-hover:text-foreground-muted transition-colors">
+                <h4 className="text-foreground font-serif font-medium text-base truncate group-hover:text-accent transition-colors">
                   {project.title}
                 </h4>
-                <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-foreground-subtle" />
+                <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity text-accent" />
               </div>
 
               {/* Tech stack - visible on all screens */}
@@ -143,7 +143,7 @@ function ArchiveCard({
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground-subtle hover:text-foreground transition-colors"
+              className="text-foreground-subtle hover:text-accent transition-colors"
               aria-label="View source code"
             >
               <Github className="w-4 h-4" />
@@ -154,7 +154,7 @@ function ArchiveCard({
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground-subtle hover:text-foreground transition-colors"
+              className="text-foreground-subtle hover:text-accent transition-colors"
               aria-label="View live demo"
             >
               <ExternalLink className="w-4 h-4" />
@@ -239,7 +239,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
               onClick={() => setShowAllArchive(!showAllArchive)}
-              className="mt-6 flex items-center gap-2 text-sm font-medium text-foreground-subtle hover:text-foreground transition-colors group"
+              className="mt-6 flex items-center gap-2 text-sm font-medium text-foreground-subtle hover:text-accent transition-colors group"
             >
               <span>{showAllArchive ? "Show less" : `View ${hiddenCount} more projects`}</span>
               <motion.div

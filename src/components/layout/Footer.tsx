@@ -40,7 +40,7 @@ export function Footer() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground-muted hover:text-foreground transition-colors duration-300"
+                  className="text-foreground-muted hover:text-accent transition-colors duration-300"
                   aria-label={link.name}
                 >
                   {Icon && <Icon className="w-4 h-4" />}

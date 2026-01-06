@@ -35,7 +35,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
 
       {/* Timeline dot */}
       <motion.div
-        className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-foreground-subtle"
+        className="absolute left-0 top-2 -translate-x-1/2 w-2 h-2 rounded-full bg-accent"
         initial={{ scale: 0 }}
         whileInView={{ scale: 1 }}
         viewport={{ once: true }}
@@ -50,7 +50,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
         aria-controls={`experience-details-${experience.id}`}
         onClick={handleToggle}
         onKeyDown={handleKeyDown}
-        className="cursor-pointer rounded-lg bg-background border border-border/50 p-6 transition-all duration-500 hover:border-foreground/30 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
+        className="cursor-pointer rounded-lg bg-background border border-border/50 p-6 transition-all duration-500 hover:border-accent/40 hover:shadow-sm focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background focus-visible:outline-none"
         layout
         transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
@@ -64,7 +64,7 @@ export function ExperienceCard({ experience, index = 0 }: ExperienceCardProps) {
               <motion.div
                 animate={{ rotate: isExpanded ? 90 : 0 }}
                 transition={{ duration: 0.2 }}
-                className="text-foreground-subtle"
+                className="text-accent"
               >
                 <ChevronRight className="w-4 h-4" />
               </motion.div>

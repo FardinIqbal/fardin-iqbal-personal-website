@@ -97,6 +97,7 @@ export async function getAllPosts(): Promise<BlogPost[]> {
           published: data.published !== false,
           readingTime: readingTime(content).text,
           content, // Raw content for listing pages
+          externalUrl: data.externalUrl,
         } as BlogPost;
       })
   );
@@ -128,6 +129,7 @@ export async function getPostBySlug(slug: string): Promise<(BlogPost & { compile
     readingTime: readingTime(content).text,
     content,
     compiledContent,
+    externalUrl: data.externalUrl,
   };
 }
 

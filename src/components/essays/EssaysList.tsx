@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Clock, ArrowUpRight } from "lucide-react";
+import { Clock, ArrowUpRight, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { BlogPost } from "@/types";
 
@@ -77,6 +77,16 @@ export function EssaysList({ posts, allTags }: EssaysListProps) {
 }
 
 function EssayItem({ post, index }: { post: BlogPost; index: number }) {
+  const isExternal = !!post.externalUrl;
+  const href = isExternal ? post.externalUrl! : `/essays/${post.slug}`;
+  
+  // For external URLs, use anchor tag to support target="_blank"
+  // For internal links, use Next.js Link
+  const LinkComponent = isExternal ? "a" : Link;
+  const linkProps = isExternal
+    ? { href, target: "_blank", rel: "noopener noreferrer" }
+    : { href };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 10 }}
@@ -84,7 +94,7 @@ function EssayItem({ post, index }: { post: BlogPost; index: number }) {
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className="group py-8 first:pt-0"
     >
-      <Link href={`/essays/${post.slug}`} className="block">
+      <LinkComponent {...linkProps} className="block">
         {/* Date and reading time */}
         <div className="flex items-center gap-3 mb-3 text-sm text-foreground-subtle">
           <time>
@@ -99,12 +109,25 @@ function EssayItem({ post, index }: { post: BlogPost; index: number }) {
             <Clock className="w-3.5 h-3.5" />
             {post.readingTime}
           </span>
+          {isExternal && (
+            <>
+              <span className="text-foreground-subtle/30">|</span>
+              <span className="flex items-center gap-1">
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span className="text-xs">External</span>
+              </span>
+            </>
+          )}
         </div>
 
         {/* Title */}
         <h2 className="text-xl sm:text-2xl font-display font-medium text-foreground mb-2 tracking-tight group-hover:text-foreground-muted transition-colors flex items-start gap-2">
           <span>{post.title}</span>
-          <ArrowUpRight className="w-4 h-4 flex-shrink-0 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+          {isExternal ? (
+            <ExternalLink className="w-4 h-4 flex-shrink-0 mt-1.5 opacity-60 group-hover:opacity-100 transition-opacity" />
+          ) : (
+            <ArrowUpRight className="w-4 h-4 flex-shrink-0 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity" />
+          )}
         </h2>
 
         {/* Description */}
@@ -125,7 +148,7 @@ function EssayItem({ post, index }: { post: BlogPost; index: number }) {
             ))}
           </div>
         )}
-      </Link>
+      </LinkComponent>
     </motion.article>
   );
 }

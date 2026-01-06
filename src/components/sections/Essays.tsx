@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight, Clock, BookOpen } from "lucide-react";
+import { ArrowUpRight, Clock, BookOpen, ExternalLink } from "lucide-react";
 import type { BlogPost } from "@/types";
 
 interface EssaysSectionProps {
@@ -10,6 +10,16 @@ interface EssaysSectionProps {
 }
 
 function EssayCard({ post, index }: { post: BlogPost; index: number }) {
+  const isExternal = !!post.externalUrl;
+  const href = isExternal ? post.externalUrl! : `/essays/${post.slug}`;
+  
+  // For external URLs, use anchor tag to support target="_blank"
+  // For internal links, use Next.js Link
+  const LinkComponent = isExternal ? "a" : Link;
+  const linkProps = isExternal
+    ? { href, target: "_blank", rel: "noopener noreferrer" }
+    : { href };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -18,7 +28,7 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
       className="group"
     >
-      <Link href={`/essays/${post.slug}`} className="block">
+      <LinkComponent {...linkProps} className="block">
         <div className="relative py-10 border-b border-border/30 hover:border-border/60 transition-colors duration-500">
           {/* Date and reading time */}
           <div className="flex items-center gap-4 mb-5">
@@ -34,10 +44,19 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
               <Clock className="w-3.5 h-3.5" />
               {post.readingTime}
             </span>
+            {isExternal && (
+              <>
+                <span className="text-foreground-subtle/40">·</span>
+                <span className="flex items-center gap-1.5 text-xs text-foreground-subtle font-inter">
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>External</span>
+                </span>
+              </>
+            )}
           </div>
 
           {/* Title */}
-          <h3 className="text-2xl md:text-3xl font-serif font-semibold text-foreground mb-4 tracking-tight leading-[1.2] group-hover:text-foreground-muted transition-colors pr-12">
+          <h3 className="text-2xl md:text-3xl font-serif font-semibold text-foreground mb-4 tracking-tight leading-[1.2] group-hover:text-accent transition-colors pr-12">
             {post.title}
           </h3>
 
@@ -46,12 +65,16 @@ function EssayCard({ post, index }: { post: BlogPost; index: number }) {
             {post.description}
           </p>
 
-          {/* Arrow indicator */}
+          {/* Arrow/External indicator */}
           <div className="absolute right-0 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1">
-            <ArrowUpRight className="w-5 h-5 text-foreground-subtle" />
+            {isExternal ? (
+              <ExternalLink className="w-5 h-5 text-accent" />
+            ) : (
+              <ArrowUpRight className="w-5 h-5 text-accent" />
+            )}
           </div>
         </div>
-      </Link>
+      </LinkComponent>
     </motion.article>
   );
 }
@@ -107,10 +130,10 @@ export function EssaysSection({ posts }: EssaysSectionProps) {
         >
           <Link
             href="/essays"
-            className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-foreground-muted transition-colors group"
+            className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-accent transition-colors group"
           >
             View all essays
-            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight className="w-4 h-4 text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </Link>
         </motion.div>
       </div>

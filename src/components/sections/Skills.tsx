@@ -35,7 +35,7 @@ function SkillCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
       whileHover={{ y: -2 }}
-      className="p-6 sm:p-7 rounded-lg bg-background-secondary border border-border/50 hover:border-foreground-subtle/60 transition-all duration-500 hover-lift group"
+      className="p-6 sm:p-7 rounded-lg bg-background-secondary border border-border/50 hover:border-accent/40 transition-all duration-500 hover-lift group"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4 sm:mb-5">
@@ -44,7 +44,7 @@ function SkillCard({
           whileHover={{ scale: 1.1, rotate: 5 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-foreground-muted group-hover:text-foreground transition-colors" />
+          <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-foreground-muted group-hover:text-accent transition-colors" />
         </motion.div>
         <div>
           <h3 className="text-sm sm:text-base font-semibold text-foreground">

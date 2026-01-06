@@ -100,7 +100,7 @@ export function Contact({ profile }: ContactProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle/60 transition-colors duration-300 font-serif"
+                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-accent/60 transition-colors duration-300 font-serif"
                   placeholder="Your name"
                 />
               </div>
@@ -120,7 +120,7 @@ export function Contact({ profile }: ContactProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle/60 transition-colors duration-300 font-serif"
+                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-accent/60 transition-colors duration-300 font-serif"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -140,7 +140,7 @@ export function Contact({ profile }: ContactProps) {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-foreground-subtle/60 transition-colors resize-none duration-300 font-serif"
+                  className="w-full px-5 py-4 rounded-lg bg-background border border-border/50 text-foreground placeholder:text-foreground-subtle focus:outline-none focus:border-accent/60 transition-colors resize-none duration-300 font-serif"
                   placeholder="Your message..."
                 />
               </div>
@@ -150,7 +150,7 @@ export function Contact({ profile }: ContactProps) {
                 disabled={status === "loading"}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
-                className="w-full px-6 py-4 rounded-lg bg-foreground text-background font-medium hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-inter"
+                className="w-full px-6 py-4 rounded-lg bg-accent text-white font-medium hover:bg-accent/90 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 font-inter"
               >
                 {status === "loading" ? (
                   <>
@@ -213,7 +213,7 @@ export function Contact({ profile }: ContactProps) {
                 </p>
                 <motion.a
                   href={`mailto:${profile.email}`}
-                  className="inline-flex items-center gap-2 text-foreground hover:text-primary-500 transition-colors"
+                  className="inline-flex items-center gap-2 text-foreground hover:text-accent transition-colors"
                   whileHover={{ x: 2 }}
                 >
                   <Mail className="w-4 h-4" />

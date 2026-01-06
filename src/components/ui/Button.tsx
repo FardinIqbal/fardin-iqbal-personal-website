@@ -19,11 +19,11 @@ interface ButtonProps {
 
 const variants = {
   primary:
-    "bg-primary-500 hover:bg-primary-600 text-white shadow-lg shadow-primary-500/25",
+    "bg-accent hover:bg-accent/90 text-white shadow-lg shadow-accent/25",
   secondary:
     "bg-background-tertiary hover:bg-background-secondary text-foreground border border-border",
   outline:
-    "border-2 border-primary-500 text-primary-400 hover:bg-primary-500/10",
+    "border-2 border-accent text-accent hover:bg-accent/10",
   ghost: "text-foreground-muted hover:text-foreground hover:bg-foreground/5",
 };
 
@@ -46,7 +46,7 @@ export function Button({
 }: ButtonProps) {
   const baseStyles = cn(
     "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300",
-    "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+      "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background",
     "disabled:opacity-50 disabled:cursor-not-allowed",
     variants[variant],
     sizes[size],
