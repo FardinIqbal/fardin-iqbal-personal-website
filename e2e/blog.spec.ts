@@ -40,45 +40,32 @@ test.describe("Blog Page", () => {
 
 test.describe("Blog Post Page", () => {
   test("displays post title", async ({ page }) => {
-    await page.goto("/blog");
+    // Go directly to a known blog post
+    await page.goto("/blog/building-prometheus");
 
-    // Get first internal post link
-    const firstPostLink = page.locator('article a[href^="/blog/"]').first();
-    if (await firstPostLink.isVisible()) {
-      await firstPostLink.click();
-
-      const title = page.locator("h1");
-      await expect(title).toBeVisible();
-    }
+    const title = page.locator("h1");
+    await expect(title).toBeVisible();
   });
 
   test("displays post content", async ({ page }) => {
-    await page.goto("/blog");
+    await page.goto("/blog/building-prometheus");
 
-    const firstPostLink = page.locator('article a[href^="/blog/"]').first();
-    if (await firstPostLink.isVisible()) {
-      await firstPostLink.click();
-
-      const content = page.locator("article, main");
-      await expect(content).toBeVisible();
-    }
+    const content = page.locator("main");
+    await expect(content).toBeVisible();
   });
 
   test("has proper typography for reading", async ({ page }) => {
-    await page.goto("/blog");
+    await page.goto("/blog/building-prometheus");
 
-    const firstPostLink = page.locator('article a[href^="/blog/"]').first();
-    if (await firstPostLink.isVisible()) {
-      await firstPostLink.click();
+    // Check that prose/body text exists
+    const prose = page.locator("p").first();
+    await expect(prose).toBeVisible();
 
-      // Check that prose/body text exists
-      const prose = page.locator("p").first();
-      const lineHeight = await prose.evaluate((el) =>
-        window.getComputedStyle(el).lineHeight
-      );
+    const lineHeight = await prose.evaluate((el) =>
+      window.getComputedStyle(el).lineHeight
+    );
 
-      // Should have comfortable reading line-height
-      expect(parseFloat(lineHeight)).toBeGreaterThan(1);
-    }
+    // Should have comfortable reading line-height
+    expect(parseFloat(lineHeight)).toBeGreaterThan(1);
   });
 });

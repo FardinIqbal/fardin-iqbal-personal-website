@@ -31,6 +31,7 @@ test.describe("Homepage", () => {
 
   test("work section displays featured projects", async ({ page }) => {
     const workSection = page.locator("#work");
+    await expect(workSection).toBeVisible({ timeout: 10000 });
     await workSection.scrollIntoViewIfNeeded();
 
     const projectCards = workSection.locator("article");
@@ -39,6 +40,7 @@ test.describe("Homepage", () => {
 
   test("writing section displays blog posts", async ({ page }) => {
     const writingSection = page.locator("#writing");
+    await expect(writingSection).toBeVisible({ timeout: 10000 });
     await writingSection.scrollIntoViewIfNeeded();
 
     const postCards = writingSection.locator("article");
@@ -48,12 +50,14 @@ test.describe("Homepage", () => {
 
   test("about section is present", async ({ page }) => {
     const aboutSection = page.locator("#about");
+    await expect(aboutSection).toBeVisible({ timeout: 10000 });
     await aboutSection.scrollIntoViewIfNeeded();
     await expect(aboutSection).toBeVisible();
   });
 
   test("contact section is present", async ({ page }) => {
     const contactSection = page.locator("#contact");
+    await expect(contactSection).toBeVisible({ timeout: 10000 });
     await contactSection.scrollIntoViewIfNeeded();
     await expect(contactSection).toBeVisible();
   });
@@ -64,13 +68,16 @@ test.describe("Homepage - Visual", () => {
     await page.goto("/");
 
     const h1 = page.locator("h1");
-    const fontSize = await h1.evaluate((el) =>
-      window.getComputedStyle(el).fontSize
-    );
+    await expect(h1).toBeVisible();
 
-    // Should be large on desktop
-    const fontSizeNum = parseFloat(fontSize);
-    expect(fontSizeNum).toBeGreaterThanOrEqual(48);
+    // Check computed font size (in pixels)
+    const fontSize = await h1.evaluate((el) => {
+      const computed = window.getComputedStyle(el).fontSize;
+      return parseFloat(computed);
+    });
+
+    // Should be large on desktop (at least 48px)
+    expect(fontSize).toBeGreaterThanOrEqual(48);
   });
 
   test("page has burgundy accent color", async ({ page }) => {

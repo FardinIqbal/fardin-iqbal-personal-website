@@ -110,7 +110,7 @@ test.describe("Project Detail Page", () => {
   test("has back navigation", async ({ page }) => {
     await page.goto("/projects/prometheus");
 
-    const backLink = page.getByRole("link", { name: /back|projects/i });
+    const backLink = page.getByRole("link", { name: /back|projects/i }).first();
     await expect(backLink).toBeVisible();
   });
 

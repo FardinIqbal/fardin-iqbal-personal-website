@@ -696,7 +696,7 @@ small, .text-sm {
 }
 
 .pull-quote::before {
-  content: """;
+  content: "\201C";
   position: absolute;
   left: 0;
   top: 0;
