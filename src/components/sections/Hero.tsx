@@ -11,70 +11,38 @@ export function Hero({ profile }: HeroProps) {
   return (
     <section
       id="hero"
-      className="editorial-hero relative"
-      style={{
-        borderBottom: "2px solid rgb(var(--accent-red)/0.15)",
-        background: "linear-gradient(to bottom, rgb(var(--color-background)), rgb(var(--color-background-secondary)/0.3))"
-      }}
+      className="min-h-[85vh] flex items-center justify-center px-6 lg:px-12 pt-24"
     >
-      {/* Subtle accent red gradient - like essay hero */}
-      <div 
-        className="absolute top-0 right-0 w-2/5 h-full pointer-events-none"
-        style={{
-          background: "radial-gradient(ellipse at center, rgb(var(--accent-red)/0.03) 0%, transparent 70%)"
-        }}
-      />
-
-      {/* Content */}
-      <div className="editorial-container text-center relative z-10">
-        {/* Chapter marker with accent red - like essay hero */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="mb-12"
-        >
-          <div 
-            className="chapter-marker"
-            style={{ color: "rgb(var(--accent-red))" }}
-          >
-            Introduction
-          </div>
-        </motion.div>
-
-        {/* Name - elegant serif with refined typography */}
+      <div className="max-w-4xl mx-auto text-center">
+        {/* Name */}
         <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-semibold text-foreground tracking-tight leading-[1.08] mb-10 relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-medium text-foreground tracking-tight leading-[1.05] mb-8"
         >
-          {/* Accent red line above name - matching navbar style */}
-          <span 
-            className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-px block bg-[rgb(var(--accent-red))]"
-          />
           {profile.name}
         </motion.h1>
 
-        {/* Tagline - refined editorial style */}
+        {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-xl md:text-2xl text-foreground-muted leading-[1.75] max-w-[600px] mx-auto font-serif font-light mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="font-body text-xl md:text-2xl text-foreground-secondary leading-relaxed max-w-2xl mx-auto mb-10"
         >
           {profile.tagline}
         </motion.p>
 
-        {/* Hero Meta - refined New Yorker style */}
+        {/* Meta info */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="editorial-meta justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex items-center justify-center gap-3 font-sans text-sm text-foreground-muted"
         >
           <span>Software Engineer</span>
-          <span className="text-foreground-subtle/60">·</span>
+          <span className="text-border">|</span>
           <span>Stony Brook University</span>
         </motion.div>
       </div>

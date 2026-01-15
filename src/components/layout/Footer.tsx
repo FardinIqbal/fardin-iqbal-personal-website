@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { socialLinks } from "@/data/social";
 
@@ -14,47 +15,50 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border/50 bg-background">
-      <div className="editorial-container">
-        <div className="flex flex-col items-center justify-center gap-10 text-center py-20">
-          {/* Logo & Copyright - Refined editorial style */}
-          <div>
+    <footer className="border-t border-border bg-background">
+      <div className="max-w-full mx-auto px-6 lg:px-12 py-12">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Left: Name and tagline */}
+          <div className="flex flex-col items-center md:items-start gap-1">
             <Link
               href="/"
-              className="text-lg font-serif font-normal text-foreground hover:opacity-70 transition-opacity duration-300 tracking-tight"
+              className="font-display text-lg font-medium tracking-tight text-foreground hover:text-accent transition-colors duration-200"
             >
               Fardin Iqbal
             </Link>
-            <p className="text-xs font-inter text-foreground-subtle mt-4 uppercase tracking-[0.1em]">
-              &copy; {currentYear} Fardin Iqbal
+            <p className="font-sans text-sm text-foreground-secondary">
+              Building things that matter
             </p>
           </div>
 
-          {/* Social Links - Refined minimal */}
-          <div className="flex items-center gap-6">
-            {socialLinks.map((link) => {
+          {/* Center: Social links */}
+          <div className="flex items-center gap-5">
+            {socialLinks.map((link, index) => {
               const Icon = iconMap[link.icon];
               return (
-                <Link
+                <motion.div
                   key={link.name}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-accent hover:text-accent/80 transition-colors duration-300"
-                  aria-label={link.name}
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.15 }}
                 >
-                  {Icon && <Icon className="w-4 h-4" />}
-                </Link>
+                  <Link
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground-secondary hover:text-foreground transition-colors duration-200"
+                    aria-label={link.name}
+                  >
+                    {Icon && <Icon className="w-5 h-5" />}
+                  </Link>
+                </motion.div>
               );
             })}
           </div>
 
-          {/* Built with - Refined editorial style */}
-          <div className="pt-8 border-t border-border/30">
-            <p className="text-xs font-inter text-foreground-subtle uppercase tracking-[0.1em]">
-              Built with Next.js & Tailwind
-            </p>
-          </div>
+          {/* Right: Copyright */}
+          <p className="font-sans text-sm text-foreground-muted">
+            &copy; {currentYear}
+          </p>
         </div>
       </div>
     </footer>

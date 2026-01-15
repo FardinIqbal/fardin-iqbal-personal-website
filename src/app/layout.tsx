@@ -1,51 +1,46 @@
 import type { Metadata } from "next";
 import {
-  Playfair_Display,
-  Source_Serif_4,
-  Source_Sans_3,
-  Inter,
-  JetBrains_Mono,
+  EB_Garamond,
+  Lora,
+  IBM_Plex_Sans,
+  IBM_Plex_Mono,
 } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ClerkWrapper } from "@/components/ClerkWrapper";
-import { MusicPlayer } from "@/components/MusicPlayer";
-import { PortfolioEnhancements } from "@/components/ui/PortfolioEnhancements";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
-// Elegant display serif for headings
-const playfair = Playfair_Display({
+// Display font for headlines - scholarly, timeless
+const garamond = EB_Garamond({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  weight: ["400", "500", "600"],
+  variable: "--font-display",
   display: "swap",
 });
 
-// Readable serif for body text
-const sourceSerif = Source_Serif_4({
+// Body font for reading - exceptional readability
+const lora = Lora({
   subsets: ["latin"],
-  variable: "--font-source-serif",
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-body",
   display: "swap",
 });
 
-// Clean sans for UI elements
-const sourceSans = Source_Sans_3({
+// UI font - technical credibility, professional
+const plexSans = IBM_Plex_Sans({
   subsets: ["latin"],
-  variable: "--font-source-sans",
+  weight: ["400", "500", "600"],
+  variable: "--font-sans",
   display: "swap",
 });
 
-// Inter for New Yorker-style UI elements
-const inter = Inter({
+// Monospace for code blocks
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-// Monospace for code
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
+  weight: ["400", "500"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -145,20 +140,20 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Prevent flash of wrong theme */}
+        {/* Prevent flash of wrong theme - dark is default */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
-                  var theme = localStorage.getItem('theme') || 'light';
+                  var theme = localStorage.getItem('theme') || 'dark';
                   if (theme === 'light' || theme === 'dark') {
                     document.documentElement.classList.add(theme);
                   } else {
-                    document.documentElement.classList.add('light');
+                    document.documentElement.classList.add('dark');
                   }
                 } catch (e) {
-                  document.documentElement.classList.add('light');
+                  document.documentElement.classList.add('dark');
                 }
               })();
             `,
@@ -166,7 +161,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${playfair.variable} ${sourceSerif.variable} ${sourceSans.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased bg-background text-foreground`}
+        className={`${garamond.variable} ${lora.variable} ${plexSans.variable} ${plexMono.variable} antialiased bg-background text-foreground`}
       >
         {/* Skip to main content link for accessibility */}
         <a
@@ -176,10 +171,8 @@ export default function RootLayout({
           Skip to main content
         </a>
         <ClerkWrapper>
-          <ThemeProvider defaultTheme="light">
+          <ThemeProvider defaultTheme="dark">
             {children}
-            <MusicPlayer />
-            <PortfolioEnhancements />
           </ThemeProvider>
         </ClerkWrapper>
         <Analytics />
