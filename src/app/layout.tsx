@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { ClerkWrapper } from "@/components/ClerkWrapper";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { MusicPlayer } from "@/components/MusicPlayer";
 import "./globals.css";
 
 // Display font for headlines - scholarly, timeless
@@ -173,6 +174,7 @@ export default function RootLayout({
         <ClerkWrapper>
           <ThemeProvider defaultTheme="dark">
             {children}
+            <MusicPlayer />
           </ThemeProvider>
         </ClerkWrapper>
         <Analytics />

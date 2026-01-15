@@ -1,0 +1,56 @@
+# Page snapshot
+
+```yaml
+- generic:
+  - generic [active]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - navigation [ref=e6]:
+            - button "previous" [disabled] [ref=e7]:
+              - img "previous" [ref=e8]
+            - generic [ref=e10]:
+              - generic [ref=e11]: 1/
+              - text: "1"
+            - button "next" [disabled] [ref=e12]:
+              - img "next" [ref=e13]
+          - img
+        - generic [ref=e15]:
+          - link "Next.js 16.1.1 (stale) Turbopack" [ref=e16] [cursor=pointer]:
+            - /url: https://nextjs.org/docs/messages/version-staleness
+            - img [ref=e17]
+            - generic "There is a newer version (16.1.2) available, upgrade recommended!" [ref=e19]: Next.js 16.1.1 (stale)
+            - generic [ref=e20]: Turbopack
+          - img
+      - dialog "Build Error" [ref=e22]:
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - generic [ref=e27]:
+              - generic [ref=e29]: Build Error
+              - generic [ref=e30]:
+                - button "Copy Error Info" [ref=e31] [cursor=pointer]:
+                  - img [ref=e32]
+                - button "No related documentation found" [disabled] [ref=e34]:
+                  - img [ref=e35]
+                - button "Attach Node.js inspector" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+            - generic [ref=e47]: Error evaluating Node.js code
+          - generic [ref=e49]:
+            - generic [ref=e51]:
+              - img [ref=e53]
+              - generic [ref=e55]: ./src/app/globals.css
+              - button "Open in editor" [ref=e56] [cursor=pointer]:
+                - img [ref=e58]
+            - generic [ref=e62]: "Error evaluating Node.js code CssSyntaxError: /Users/fardiniqbal/Projects/FardinIqbal.github.io/src/app/globals.css:699:14: Unclosed string [at Input.error (turbopack:///[project]/node_modules/postcss/lib/input.js:135:16)] [at unclosed (turbopack:///[project]/node_modules/postcss/lib/tokenize.js:45:17)] [at Object.nextToken (turbopack:///[project]/node_modules/postcss/lib/tokenize.js:157:15)] [at Parser.other (turbopack:///[project]/node_modules/postcss/lib/parser.js:421:30)] [at Parser.parse (turbopack:///[project]/node_modules/postcss/lib/parser.js:472:16)] [at parse (turbopack:///[project]/node_modules/postcss/lib/parse.js:11:12)] [at new LazyResult (turbopack:///[project]/node_modules/postcss/lib/lazy-result.js:165:16)] [at Processor.process (turbopack:///[project]/node_modules/postcss/lib/processor.js:53:14)] [at transform (turbopack:///[turbopack-node]/transforms/postcss.ts:70:51)] [at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:92:29)] Import trace: Client Component Browser: ./src/app/globals.css [Client Component Browser] ./src/app/layout.tsx [Server Component]"
+        - generic [ref=e63]: "1"
+        - generic [ref=e64]: "2"
+    - generic [ref=e69] [cursor=pointer]:
+      - button "Open Next.js Dev Tools" [ref=e70]:
+        - img [ref=e71]
+      - button "Open issues overlay" [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]: "0"
+          - generic [ref=e78]: "1"
+        - generic [ref=e79]: Issue
+  - alert [ref=e80]
+```

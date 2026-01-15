@@ -29,7 +29,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group cursor-pointer"
+      className="group cursor-pointer premium-card"
       onClick={handleCardClick}
     >
       <div className="py-8 border-b border-border hover:border-border-hover transition-colors duration-200">

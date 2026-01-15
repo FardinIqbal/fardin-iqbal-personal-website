@@ -54,8 +54,9 @@
   --text-secondary: 163 163 163;
   --text-muted: 82 82 82;
 
-  --accent: 59 130 246;
-  --accent-hover: 96 165 250;
+  /* Deep Burgundy - Premium, Authoritative */
+  --accent: 139 38 53;
+  --accent-hover: 163 61 76;
 
   --border: 38 38 38;
   --border-hover: 64 64 64;
@@ -69,22 +70,24 @@
    ---------------------------------------- */
 
 .light {
-  --bg-primary: 250 250 249;
-  --bg-secondary: 245 245 244;
-  --bg-elevated: 255 255 255;
-  --bg-hover: 231 229 228;
+  /* Aged Paper - Warm, Premium */
+  --bg-primary: 245 242 232;
+  --bg-secondary: 240 237 227;
+  --bg-elevated: 250 248 240;
+  --bg-hover: 235 232 222;
 
   --text-primary: 10 10 10;
-  --text-secondary: 82 82 82;
-  --text-muted: 163 163 163;
+  --text-secondary: 68 64 60;
+  --text-muted: 120 113 108;
 
-  --accent: 29 78 216;
-  --accent-hover: 30 64 175;
+  /* Deep Burgundy - Darker for light mode */
+  --accent: 120 30 45;
+  --accent-hover: 139 38 53;
 
-  --border: 229 229 229;
-  --border-hover: 212 212 212;
+  --border: 220 215 205;
+  --border-hover: 200 195 185;
 
-  --code-bg: 245 245 244;
+  --code-bg: 240 237 227;
 }
 
 /* ----------------------------------------
@@ -643,4 +646,100 @@ small, .text-sm {
   background: rgb(var(--accent));
   z-index: 100;
   transition: width 0.1s ease-out;
+}
+
+/* ----------------------------------------
+   PREMIUM TYPOGRAPHY
+   Editorial, authoritative styling
+   ---------------------------------------- */
+
+/* Drop cap - Classic print style */
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.75rem;
+  padding-top: 0.25rem;
+  color: rgb(var(--text-primary));
+  font-weight: 500;
+}
+
+/* Small caps - For labels and metadata */
+.small-caps {
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+/* Editorial section divider */
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.section-divider::before {
+  content: "•  •  •";
+  letter-spacing: 0.5em;
+  color: rgb(var(--text-muted));
+  font-size: 0.875rem;
+}
+
+/* Pull quote - Magazine style */
+.pull-quote {
+  position: relative;
+  padding: 2rem 0 2rem 3rem;
+  margin: 3rem 0;
+  border-left: none;
+}
+
+.pull-quote::before {
+  content: """;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1;
+  color: rgb(var(--accent) / 0.3);
+}
+
+.pull-quote p {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-style: italic;
+  color: rgb(var(--text-primary));
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Premium card hover effect */
+.premium-card {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s ease-out;
+}
+
+.premium-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.dark .premium-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Refined border - hairline */
+.hairline-border {
+  border-width: 0.5px;
+}
+
+/* Elegant uppercase labels */
+.label-caps {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--text-muted));
 }

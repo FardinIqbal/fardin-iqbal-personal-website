@@ -31,7 +31,7 @@ function PostCard({ post, index }: { post: BlogPost; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
-      className="group"
+      className="group premium-card"
     >
       <LinkComponent {...linkProps} className="block">
         <div className="py-8 border-b border-border hover:border-border-hover transition-colors duration-200">

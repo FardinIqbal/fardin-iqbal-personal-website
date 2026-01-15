@@ -101,7 +101,7 @@ function ProjectItem({ project, index }: { project: Project; index: number }) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.02 }}
-      className="group cursor-pointer"
+      className="group cursor-pointer premium-card"
       onClick={handleCardClick}
     >
       <div className="py-8 border-b border-border hover:border-border-hover transition-colors">
