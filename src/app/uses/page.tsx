@@ -178,12 +178,12 @@ export default function UsesPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-32 pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <main id="main" className="min-h-screen pt-24 pb-20 px-6 lg:px-12">
+        <div className="max-w-3xl mx-auto">
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-foreground-subtle hover:text-foreground transition-colors text-sm mb-16"
+            className="inline-flex items-center gap-2 font-sans text-sm text-foreground-muted hover:text-foreground transition-colors mb-12"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
@@ -191,17 +191,17 @@ export default function UsesPage() {
 
           {/* Header */}
           <header className="mb-16">
-            <h1 className="text-4xl md:text-5xl font-display font-medium text-foreground tracking-tight mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-medium text-foreground tracking-tight mb-4">
               Uses
             </h1>
-            <p className="text-foreground-muted text-lg leading-relaxed max-w-xl">
+            <p className="font-body text-lg text-foreground-secondary max-w-xl">
               The tools, software, and gear I use for development, productivity, and life.
               Inspired by{" "}
               <a
                 href="https://uses.tech"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground-muted underline underline-offset-4 hover:text-foreground transition-colors"
+                className="text-foreground-secondary underline underline-offset-4 hover:text-foreground transition-colors"
               >
                 uses.tech
               </a>
@@ -213,27 +213,27 @@ export default function UsesPage() {
           <div className="space-y-16">
             {uses.map((category) => (
               <section key={category.title}>
-                <h2 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle mb-6">
+                <h2 className="font-sans text-xs font-medium tracking-wider uppercase text-foreground-muted mb-6 pb-4 border-b border-border">
                   {category.title}
                 </h2>
                 <div className="space-y-6">
                   {category.items.map((item) => (
-                    <div key={item.name} className="group">
+                    <div key={item.name}>
                       <div className="flex items-baseline gap-2 mb-1">
                         {item.link ? (
                           <a
                             href={item.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-foreground font-medium hover:text-foreground-muted transition-colors"
+                            className="font-display text-foreground font-medium hover:text-accent transition-colors"
                           >
                             {item.name}
                           </a>
                         ) : (
-                          <span className="text-foreground font-medium">{item.name}</span>
+                          <span className="font-display text-foreground font-medium">{item.name}</span>
                         )}
                       </div>
-                      <p className="text-foreground-subtle text-sm leading-relaxed">
+                      <p className="font-body text-foreground-muted text-sm leading-relaxed">
                         {item.description}
                       </p>
                     </div>
@@ -244,8 +244,8 @@ export default function UsesPage() {
           </div>
 
           {/* Footer note */}
-          <footer className="mt-20 pt-8 border-t border-border/30">
-            <p className="text-foreground-subtle text-sm">
+          <footer className="mt-16 pt-8 border-t border-border">
+            <p className="font-sans text-sm text-foreground-muted">
               Last updated January 2026. This page is updated as my setup evolves.
             </p>
           </footer>

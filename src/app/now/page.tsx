@@ -22,34 +22,34 @@ export default function NowPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen pt-32 pb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+      <main id="main" className="min-h-screen pt-24 pb-20 px-6 lg:px-12">
+        <div className="max-w-3xl mx-auto">
           {/* Back link */}
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-foreground-subtle hover:text-foreground transition-colors text-sm mb-16"
+            className="inline-flex items-center gap-2 font-sans text-sm text-foreground-muted hover:text-foreground transition-colors mb-12"
           >
             <ArrowLeft className="w-4 h-4" />
             Back
           </Link>
 
           {/* Header */}
-          <header className="mb-20">
-            <h1 className="text-4xl md:text-5xl font-display font-medium text-foreground tracking-tight mb-6">
+          <header className="mb-16">
+            <h1 className="font-display text-4xl md:text-5xl font-medium text-foreground tracking-tight mb-4">
               Now
             </h1>
-            <p className="text-foreground-muted text-lg leading-relaxed max-w-xl">
+            <p className="font-body text-lg text-foreground-secondary max-w-xl">
               What I&apos;m reading, watching, and learning. Updated January 2026.
             </p>
           </header>
 
           {/* Reading Section */}
-          <section className="mb-20">
-            <div className="flex items-baseline justify-between mb-8">
-              <h2 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle">
+          <section className="mb-16">
+            <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-border">
+              <h2 className="font-sans text-xs font-medium tracking-wider uppercase text-foreground-muted">
                 Reading
               </h2>
-              <span className="text-sm text-foreground-subtle">
+              <span className="font-sans text-sm text-foreground-muted">
                 {completedBooks.length} books
               </span>
             </div>
@@ -57,18 +57,18 @@ export default function NowPage() {
             {/* Currently Reading */}
             {currentlyReading.length > 0 && (
               <div className="mb-10">
-                <p className="text-xs text-foreground-subtle mb-4">Currently</p>
+                <p className="font-sans text-xs text-foreground-muted mb-4">Currently</p>
                 <div className="space-y-6">
                   {currentlyReading.map((book) => (
-                    <article key={book.title} className="group">
-                      <h3 className="text-lg font-medium text-foreground mb-1">
+                    <article key={book.title}>
+                      <h3 className="font-display text-lg font-medium text-foreground mb-1">
                         {book.title}
                       </h3>
-                      <p className="text-foreground-muted text-sm mb-2">
+                      <p className="font-sans text-sm text-foreground-secondary mb-2">
                         {book.author}
                       </p>
                       {book.thoughts && (
-                        <p className="text-foreground-subtle text-sm leading-relaxed">
+                        <p className="font-body text-sm text-foreground-muted leading-relaxed">
                           {book.thoughts}
                         </p>
                       )}
@@ -80,24 +80,21 @@ export default function NowPage() {
 
             {/* Completed Books */}
             <div>
-              <p className="text-xs text-foreground-subtle mb-4">Favorites</p>
-              <div className="grid gap-px bg-border/30 rounded-lg overflow-hidden">
+              <p className="font-sans text-xs text-foreground-muted mb-4">Favorites</p>
+              <div className="divide-y divide-border">
                 {completedBooks.slice(0, 8).map((book) => (
-                  <div
-                    key={book.title}
-                    className="bg-background p-4 hover:bg-foreground/[0.02] transition-colors"
-                  >
+                  <div key={book.title} className="py-4">
                     <div className="flex items-baseline justify-between gap-4">
                       <div className="min-w-0">
-                        <h3 className="text-foreground font-medium truncate">
+                        <h3 className="font-display text-foreground font-medium">
                           {book.title}
                         </h3>
-                        <p className="text-foreground-subtle text-sm">
+                        <p className="font-sans text-sm text-foreground-muted">
                           {book.author}
                         </p>
                       </div>
                       {book.rating && (
-                        <span className="text-foreground-subtle text-sm flex-shrink-0">
+                        <span className="font-sans text-sm text-foreground-muted flex-shrink-0">
                           {book.rating}/5
                         </span>
                       )}
@@ -109,12 +106,12 @@ export default function NowPage() {
           </section>
 
           {/* Watching Section */}
-          <section className="mb-20">
-            <div className="flex items-baseline justify-between mb-8">
-              <h2 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle">
+          <section className="mb-16">
+            <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-border">
+              <h2 className="font-sans text-xs font-medium tracking-wider uppercase text-foreground-muted">
                 Watching
               </h2>
-              <span className="text-sm text-foreground-subtle">
+              <span className="font-sans text-sm text-foreground-muted">
                 {completedMedia.length} watched
               </span>
             </div>
@@ -122,20 +119,20 @@ export default function NowPage() {
             {/* Currently Watching */}
             {currentlyWatching.length > 0 && (
               <div className="mb-10">
-                <p className="text-xs text-foreground-subtle mb-4">Currently</p>
+                <p className="font-sans text-xs text-foreground-muted mb-4">Currently</p>
                 <div className="space-y-6">
                   {currentlyWatching.map((item) => (
-                    <article key={item.title} className="group">
+                    <article key={item.title}>
                       <div className="flex items-baseline gap-3 mb-1">
-                        <h3 className="text-lg font-medium text-foreground">
+                        <h3 className="font-display text-lg font-medium text-foreground">
                           {item.title}
                         </h3>
-                        <span className="text-xs text-foreground-subtle">
+                        <span className="font-sans text-xs text-foreground-muted">
                           {item.year}
                         </span>
                       </div>
                       {item.thoughts && (
-                        <p className="text-foreground-subtle text-sm leading-relaxed">
+                        <p className="font-body text-sm text-foreground-muted leading-relaxed">
                           {item.thoughts}
                         </p>
                       )}
@@ -147,23 +144,20 @@ export default function NowPage() {
 
             {/* Completed Media */}
             <div>
-              <p className="text-xs text-foreground-subtle mb-4">Favorites</p>
-              <div className="grid gap-px bg-border/30 rounded-lg overflow-hidden">
+              <p className="font-sans text-xs text-foreground-muted mb-4">Favorites</p>
+              <div className="divide-y divide-border">
                 {completedMedia.map((item) => (
-                  <div
-                    key={item.title}
-                    className="bg-background p-4 hover:bg-foreground/[0.02] transition-colors"
-                  >
+                  <div key={item.title} className="py-4">
                     <div className="flex items-baseline justify-between gap-4">
                       <div className="min-w-0 flex items-baseline gap-3">
-                        <h3 className="text-foreground font-medium">
+                        <h3 className="font-display text-foreground font-medium">
                           {item.title}
                         </h3>
-                        <span className="text-foreground-subtle text-xs">
+                        <span className="font-sans text-xs text-foreground-muted">
                           {item.type}
                         </span>
                       </div>
-                      <span className="text-foreground-subtle text-sm flex-shrink-0">
+                      <span className="font-sans text-sm text-foreground-muted flex-shrink-0">
                         {item.year}
                       </span>
                     </div>
@@ -175,11 +169,11 @@ export default function NowPage() {
 
           {/* Learning Section */}
           <section>
-            <div className="flex items-baseline justify-between mb-8">
-              <h2 className="text-sm font-medium tracking-widest uppercase text-foreground-subtle">
+            <div className="flex items-baseline justify-between mb-8 pb-4 border-b border-border">
+              <h2 className="font-sans text-xs font-medium tracking-wider uppercase text-foreground-muted">
                 Learning
               </h2>
-              <span className="text-sm text-foreground-subtle">
+              <span className="font-sans text-sm text-foreground-muted">
                 {completedCourses.length} completed
               </span>
             </div>
@@ -187,14 +181,14 @@ export default function NowPage() {
             {/* In Progress */}
             {inProgressCourses.length > 0 && (
               <div className="mb-10">
-                <p className="text-xs text-foreground-subtle mb-4">In Progress</p>
+                <p className="font-sans text-xs text-foreground-muted mb-4">In Progress</p>
                 <div className="space-y-8">
                   {inProgressCourses.map((course) => (
-                    <article key={course.title} className="group">
-                      <h3 className="text-lg font-medium text-foreground mb-1">
+                    <article key={course.title}>
+                      <h3 className="font-display text-lg font-medium text-foreground mb-1">
                         {course.title}
                       </h3>
-                      <p className="text-foreground-muted text-sm mb-3">
+                      <p className="font-sans text-sm text-foreground-secondary mb-3">
                         {course.platform}
                         {course.instructor && ` · ${course.instructor}`}
                       </p>
@@ -202,14 +196,14 @@ export default function NowPage() {
                         {course.topics.map((topic) => (
                           <span
                             key={topic}
-                            className="px-2 py-0.5 text-xs rounded-full bg-foreground/5 text-foreground-subtle"
+                            className="px-2.5 py-1 font-sans text-xs text-foreground-muted bg-background-secondary border border-border rounded-full"
                           >
                             {topic}
                           </span>
                         ))}
                       </div>
                       {course.thoughts && (
-                        <p className="text-foreground-subtle text-sm leading-relaxed">
+                        <p className="font-body text-sm text-foreground-muted leading-relaxed">
                           {course.thoughts}
                         </p>
                       )}
@@ -221,19 +215,16 @@ export default function NowPage() {
 
             {/* Completed Courses */}
             <div>
-              <p className="text-xs text-foreground-subtle mb-4">Completed</p>
-              <div className="grid gap-px bg-border/30 rounded-lg overflow-hidden">
+              <p className="font-sans text-xs text-foreground-muted mb-4">Completed</p>
+              <div className="divide-y divide-border">
                 {completedCourses.map((course) => (
-                  <div
-                    key={course.title}
-                    className="bg-background p-4 hover:bg-foreground/[0.02] transition-colors"
-                  >
+                  <div key={course.title} className="py-4">
                     <div className="flex items-center justify-between gap-4">
                       <div className="min-w-0">
-                        <h3 className="text-foreground font-medium">
+                        <h3 className="font-display text-foreground font-medium">
                           {course.title}
                         </h3>
-                        <p className="text-foreground-subtle text-sm">
+                        <p className="font-sans text-sm text-foreground-muted">
                           {course.platform}
                         </p>
                       </div>
@@ -242,7 +233,7 @@ export default function NowPage() {
                           href={course.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-foreground-subtle hover:text-foreground transition-colors flex-shrink-0"
+                          className="text-foreground-muted hover:text-foreground transition-colors flex-shrink-0"
                         >
                           <ArrowUpRight className="w-4 h-4" />
                         </a>
@@ -255,14 +246,14 @@ export default function NowPage() {
           </section>
 
           {/* Footer note */}
-          <footer className="mt-20 pt-8 border-t border-border/30">
-            <p className="text-foreground-subtle text-sm">
+          <footer className="mt-16 pt-8 border-t border-border">
+            <p className="font-sans text-sm text-foreground-muted">
               Inspired by the{" "}
               <a
                 href="https://nownownow.com/about"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-foreground-muted hover:text-foreground transition-colors"
+                className="text-foreground-secondary hover:text-foreground transition-colors underline underline-offset-4"
               >
                 /now page movement
               </a>

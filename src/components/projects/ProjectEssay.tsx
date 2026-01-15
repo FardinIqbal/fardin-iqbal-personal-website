@@ -1176,65 +1176,35 @@ export function ProjectEssay({ project }: ProjectEssayProps) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Navigation */}
-      <motion.nav
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border"
-      >
-        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
+      {/* Main Content */}
+      <main className="pt-24 pb-32 px-6 lg:px-12">
+        <div className="max-w-3xl mx-auto">
+          {/* Back link */}
           <Link
-            href="/#projects"
-            className="flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors font-sans text-sm"
+            href="/projects"
+            className="inline-flex items-center gap-2 font-sans text-sm text-foreground-muted hover:text-foreground transition-colors mb-12"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Projects
           </Link>
-          <div className="flex items-center gap-4">
-            {project.github && (
-              <Link
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground-muted hover:text-foreground transition-colors"
-              >
-                <Github className="w-5 h-5" />
-              </Link>
-            )}
-            {project.live && (
-              <Link
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground-muted hover:text-foreground transition-colors"
-              >
-                <ExternalLink className="w-5 h-5" />
-              </Link>
-            )}
-          </div>
-        </div>
-      </motion.nav>
 
-      {/* Main Content */}
-      <main className="pt-24 pb-32">
-        <div className="max-w-3xl mx-auto px-6">
           {/* Header */}
           <motion.header
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-center mb-16 pb-12 border-b border-border"
+            className="mb-16 pb-12 border-b border-border"
           >
-            <p className="font-sans text-xs font-semibold tracking-widest uppercase text-primary-500 mb-5">
+            <p className="font-sans text-xs font-medium tracking-wider uppercase text-accent mb-4">
               {essay.overline || categoryLabels[project.category]}
             </p>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6">
+            <h1 className="font-display text-4xl md:text-5xl font-medium tracking-tight mb-6 text-foreground">
               {project.title}
             </h1>
-            <p className="font-serif text-xl text-foreground-muted italic max-w-xl mx-auto">
+            <p className="font-body text-xl text-foreground-secondary leading-relaxed max-w-2xl">
               {essay.subtitle || project.narrative || project.description}
             </p>
-            <div className="flex items-center justify-center gap-6 mt-8 text-foreground-subtle font-sans text-sm">
+            <div className="flex items-center gap-6 mt-8 text-foreground-muted font-sans text-sm">
               <span className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4" />
                 {essay.readTime}
@@ -1243,6 +1213,28 @@ export function ProjectEssay({ project }: ProjectEssayProps) {
                 <Calendar className="w-4 h-4" />
                 {essay.lastUpdated}
               </span>
+              {project.github && (
+                <Link
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                >
+                  <Github className="w-4 h-4" />
+                  Source
+                </Link>
+              )}
+              {project.live && (
+                <Link
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  Live
+                </Link>
+              )}
             </div>
           </motion.header>
 
@@ -1258,47 +1250,16 @@ export function ProjectEssay({ project }: ProjectEssayProps) {
             ))}
           </motion.article>
 
-          {/* Footer Links */}
-          <motion.footer
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-20 pt-12 border-t border-border"
-          >
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
-              <Link
-                href="/#projects"
-                className="flex items-center gap-2 text-foreground-muted hover:text-foreground transition-colors font-sans"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                View all projects
-              </Link>
-              <div className="flex items-center gap-4">
-                {project.github && (
-                  <Link
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border hover:border-foreground/20 transition-colors font-sans text-sm"
-                  >
-                    <Github className="w-4 h-4" />
-                    View Source
-                  </Link>
-                )}
-                {project.live && (
-                  <Link
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2 rounded-lg bg-foreground text-background hover:opacity-90 transition-opacity font-sans text-sm"
-                  >
-                    <ExternalLink className="w-4 h-4" />
-                    Live Demo
-                  </Link>
-                )}
-              </div>
-            </div>
-          </motion.footer>
+          {/* Footer */}
+          <footer className="mt-16 pt-8 border-t border-border">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 font-sans text-sm text-foreground-muted hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Projects
+            </Link>
+          </footer>
         </div>
       </main>
     </div>
@@ -1316,7 +1277,7 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="text-xl leading-relaxed text-foreground mb-8 first-letter:text-6xl first-letter:font-display first-letter:font-semibold first-letter:float-left first-letter:mr-3 first-letter:mt-1"
+          className="font-body text-xl leading-relaxed text-foreground mb-8"
         >
           {section.content as string}
         </motion.p>
@@ -1329,7 +1290,7 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="font-display text-2xl font-semibold tracking-tight mt-16 mb-6 pt-8 border-t border-border first:border-t-0 first:pt-0 first:mt-0"
+          className="font-display text-2xl font-medium tracking-tight mt-12 mb-6 text-foreground"
         >
           {section.title}
         </motion.h2>
@@ -1342,7 +1303,7 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="font-sans text-xs font-semibold tracking-widest uppercase text-primary-500 mt-12 mb-5"
+          className="font-sans text-xs font-medium tracking-wider uppercase text-accent mt-10 mb-4"
         >
           {section.title}
         </motion.h3>
@@ -1355,7 +1316,7 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="text-foreground-muted leading-relaxed mb-6"
+          className="font-body text-foreground-secondary leading-relaxed mb-6"
         >
           {section.content as string}
         </motion.p>
@@ -1368,11 +1329,11 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="text-foreground-muted leading-relaxed mb-8 space-y-3 pl-0"
+          className="font-body text-foreground-secondary leading-relaxed mb-8 space-y-3 pl-0"
         >
           {(section.content as string[]).map((item, i) => (
             <li key={i} className="flex items-start gap-3">
-              <ChevronRight className="w-4 h-4 text-primary-500 mt-1.5 flex-shrink-0" />
+              <ChevronRight className="w-4 h-4 text-accent mt-1.5 flex-shrink-0" />
               <span>{item}</span>
             </li>
           ))}
@@ -1386,7 +1347,7 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="border-l-3 border-primary-500 pl-6 my-10 italic text-foreground-muted text-lg"
+          className="border-l-[3px] border-accent pl-6 my-10 italic text-foreground-secondary font-body text-lg"
         >
           {section.content as string}
         </motion.blockquote>
@@ -1399,9 +1360,9 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="bg-background-secondary border border-border rounded-xl p-7 my-8"
+          className="bg-background-secondary border border-border rounded-lg p-6 my-8"
         >
-          <p className="text-foreground-muted leading-relaxed m-0">
+          <p className="font-body text-foreground-secondary leading-relaxed m-0">
             {section.content as string}
           </p>
         </motion.div>
@@ -1414,9 +1375,9 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay }}
-          className="bg-primary-500/10 border-l-4 border-primary-500 pl-6 pr-6 py-5 my-8 rounded-r-xl"
+          className="bg-accent/10 border-l-4 border-accent pl-6 pr-6 py-5 my-8 rounded-r-lg"
         >
-          <p className="text-foreground leading-relaxed m-0">
+          <p className="font-body text-foreground leading-relaxed m-0">
             {section.content as string}
           </p>
         </motion.div>
@@ -1432,16 +1393,12 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
           className="flex flex-wrap gap-2 mt-8 mb-6"
         >
           {(section.content as string[]).map((tech, i) => (
-            <motion.span
+            <span
               key={tech}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: delay + i * 0.03 }}
-              className="px-3 py-1.5 text-sm font-sans rounded-lg bg-background-tertiary text-foreground-muted border border-border"
+              className="px-3 py-1.5 font-sans text-sm rounded-full bg-background-secondary text-foreground-muted border border-border"
             >
               {tech}
-            </motion.span>
+            </span>
           ))}
         </motion.div>
       );
@@ -1457,11 +1414,11 @@ function EssaySection({ section, index }: { section: typeof projectEssays["prome
         >
           {(section.content as string[]).map((step, i, arr) => (
             <span key={i} className="flex items-center gap-2">
-              <span className="px-4 py-2 rounded-lg bg-background-tertiary border border-border text-foreground">
+              <span className="px-4 py-2 rounded-lg bg-background-secondary border border-border text-foreground">
                 {step}
               </span>
               {i < arr.length - 1 && (
-                <ChevronRight className="w-4 h-4 text-foreground-subtle" />
+                <ChevronRight className="w-4 h-4 text-foreground-muted" />
               )}
             </span>
           ))}

@@ -293,7 +293,7 @@ export function MusicPlayer() {
           
           if (error instanceof DOMException) {
             errorInfo.code = error.code;
-            errorInfo.codeName = error.codeName;
+            errorInfo.domExceptionName = error.name;
           }
           
           if (audioRef.current?.error) {
@@ -368,7 +368,7 @@ export function MusicPlayer() {
         // Add DOMException-specific properties if available
         if (error instanceof DOMException) {
           errorInfo.code = error.code;
-          errorInfo.codeName = error.codeName;
+          errorInfo.domExceptionName = error.name;
         }
         
         // Check audio element error state
